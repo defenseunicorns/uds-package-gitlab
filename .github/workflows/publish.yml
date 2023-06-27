@@ -48,5 +48,5 @@ jobs:
       - name: Build gitlab package
         run: zarf package create --confirm --no-progress
 
-      - name: Publish dubbd-kind package
+      - name: Publish gitlab package
         run: zarf package publish zarf-package-gitlab-amd64-*.tar.zst oci://ghcr.io/defenseunicorns/uds-capability --no-progress
