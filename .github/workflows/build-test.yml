@@ -10,10 +10,14 @@ permissions:
 
 jobs:
   test-clean-install:
-    if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
 
     steps:
+
+      - name: Fail if Draft PR
+        if: github.event.pull_request.draft == true
+        run: exit 1
+
       - uses: actions/checkout@v3
 
       - name: Init zarf cache
