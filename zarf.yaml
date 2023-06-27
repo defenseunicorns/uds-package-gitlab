@@ -1,0 +1,34 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/defenseunicorns/zarf/main/zarf.schema.json
+kind: ZarfPackageConfig
+metadata:
+  name: gitlab
+  description: "UDS GitLab capability deployed via flux"
+  version: "0.0.1"
+  architecture: amd64
+
+components:
+  - name: gitlab
+    required: true
+    description: "Deploy gitlab"
+    import:
+      url: oci://ghcr.io/defenseunicorns/zarf-skeleton/flux-app:0.0.1-skeleton
+      name: flux-app
+    images:
+    - registry1.dso.mil/ironbank/bitnami/analytics/redis-exporter:v1.50.0
+    - registry1.dso.mil/ironbank/bitnami/redis:7.0.0-debian-10-r3
+    - registry1.dso.mil/ironbank/gitlab/gitlab/certificates:15.11.3
+    - registry1.dso.mil/ironbank/gitlab/gitlab/cfssl-self-sign:1.6.1
+    - registry1.dso.mil/ironbank/gitlab/gitlab/gitaly:15.11.3
+    - registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-container-registry:15.11.3
+    - registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-shell:15.11.3
+    - registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-sidekiq:15.11.3
+    - registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-toolbox:15.11.3
+    - registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-webservice:15.11.3
+    - registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-workhorse:15.11.3
+    - registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-pages:15.11.3
+    - registry1.dso.mil/ironbank/gitlab/gitlab/kubectl:15.11.3
+    - registry1.dso.mil/ironbank/opensource/minio/mc:RELEASE.2022-12-24T15-21-38Z
+    - registry1.dso.mil/ironbank/opensource/minio/minio:RELEASE.2022-12-12T19-27-27Z
+    - registry1.dso.mil/ironbank/opensource/postgres/postgresql12:12.15
+    - registry1.dso.mil/ironbank/redhat/ubi/ubi8:8.8
+    - registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-exporter:15.11.3
