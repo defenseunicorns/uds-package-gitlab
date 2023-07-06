@@ -1,9 +1,0 @@
-package:
-  create:
-    set:
-      repo: "https://repo1.dso.mil/big-bang/product/packages/gitlab.git"
-      tag: 6.11.3-bb.0
-      name: gitlab
-      namespace: gitlab
-      path: chart
-      package_version: 0.0.1

@@ -7,12 +7,31 @@ metadata:
   architecture: amd64
 
 components:
+  - name: gitlab-values
+    files:
+      - source: values-gitlab.yaml
+        target: values-gitlab.yaml
   - name: gitlab
     required: true
-    description: "Deploy gitlab"
-    import:
-      url: oci://ghcr.io/defenseunicorns/zarf-skeleton/flux-app:0.0.1-skeleton
-      name: flux-app
+    description: "Deploy gitlab via flux"
+    actions:
+      onDeploy:
+        before:
+          - cmd: cat values-gitlab.yaml
+            description: Read gitlab values into variable.
+            setVariables:
+            - name: GITLAB_VALUES
+              autoIndent: true
+    charts:
+      - name: flux-app
+        version: 1.0.0
+        url: https://github.com/defenseunicorns/flux-app-helm-chart.git
+        gitPath: charts
+        namespace: bigbang
+        valuesFiles:
+          - gitlab-flux-values.yaml
+    repos:
+      - https://repo1.dso.mil/big-bang/product/packages/gitlab.git
     images:
     - registry1.dso.mil/ironbank/bitnami/analytics/redis-exporter:v1.50.0
     - registry1.dso.mil/ironbank/bitnami/redis:7.0.0-debian-10-r3
