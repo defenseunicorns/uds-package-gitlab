@@ -6,6 +6,12 @@ metadata:
   version: "0.0.2"
   architecture: amd64
 
+variables:
+  - name: GITLAB_DEPENDS_ON
+    default: "[]"
+  - name: GITLAB_CREATE_NAMESPACE
+    default: "true"
+
 components:
   - name: gitlab-values
     files:
