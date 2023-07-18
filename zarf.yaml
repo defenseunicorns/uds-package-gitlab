@@ -33,7 +33,7 @@ components:
     charts:
       - name: flux-app
         version: 1.0.3
-        url: https://defenseunicorns.github.io/flux-app-helm-chart/
+        url: https://defenseunicorns.github.io/uds-support-charts/
         namespace: bigbang
         valuesFiles:
           - gitlab-flux-values.yaml
