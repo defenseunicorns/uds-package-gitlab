@@ -3,6 +3,7 @@ application:
   namespace: gitlab
   path: chart
   repository: https://repo1.dso.mil/big-bang/product/packages/gitlab.git
-  tag: 6.11.3-bb.0
+  ref:
+    tag: 6.11.3-bb.0
   values: |
     ###ZARF_VAR_GITLAB_VALUES###

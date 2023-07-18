@@ -3,7 +3,7 @@ kind: ZarfPackageConfig
 metadata:
   name: gitlab
   description: "UDS GitLab capability deployed via flux"
-  version: "0.0.1"
+  version: "0.0.2"
   architecture: amd64
 
 components:
@@ -19,14 +19,15 @@ components:
         before:
           - cmd: cat values-gitlab.yaml
             description: Read gitlab values into variable.
+            mute: true
             setVariables:
             - name: GITLAB_VALUES
               autoIndent: true
+              sensitive: true
     charts:
       - name: flux-app
-        version: 1.0.0
-        url: https://github.com/defenseunicorns/flux-app-helm-chart.git
-        gitPath: charts
+        version: 1.0.3
+        url: https://defenseunicorns.github.io/flux-app-helm-chart/
         namespace: bigbang
         valuesFiles:
           - gitlab-flux-values.yaml
