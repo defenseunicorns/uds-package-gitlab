@@ -32,20 +32,20 @@ redis:
       namespace: gitlab
   master:
     podAnnotations:
-      bigbang.dev/istioVersion: 1.17.2
+      bigbang.dev/istioVersion: 1.17.3
   slave:
     podAnnotations:
-      bigbang.dev/istioVersion: 1.17.2
+      bigbang.dev/istioVersion: 1.17.3
 postgresql:
   master:
     podAnnotations:
-      bigbang.dev/istioVersion: 1.17.2
+      bigbang.dev/istioVersion: 1.17.3
   slave:
     podAnnotations:
-      bigbang.dev/istioVersion: 1.17.2
+      bigbang.dev/istioVersion: 1.17.3
 registry:
   annotations:
-    bigbang.dev/istioVersion: 1.17.2
+    bigbang.dev/istioVersion: 1.17.3
   metrics:
     serviceMonitor:
       endpointConfig:
@@ -59,12 +59,12 @@ registry:
 gitlab:
   toolbox:
     annotations:
-      bigbang.dev/istioVersion: 1.17.2
+      bigbang.dev/istioVersion: 1.17.3
   gitlab-exporter:
     enabled: true
     metrics:
       annotations:
-        bigbang.dev/istioVersion: 1.17.2
+        bigbang.dev/istioVersion: 1.17.3
       serviceMonitor:
         endpointConfig:
           scheme: https
@@ -94,16 +94,16 @@ gitlab:
               keyFile: /etc/prom-certs/key.pem
               insecureSkipVerify: true  # Prometheus does not support Istio security naming, thus skip verifying target pod certificate
     annotations:
-      bigbang.dev/istioVersion: 1.17.2
+      bigbang.dev/istioVersion: 1.17.3
   sidekiq:
     annotations:
-      bigbang.dev/istioVersion: 1.17.2
+      bigbang.dev/istioVersion: 1.17.3
   migrations:
     annotations:
-      bigbang.dev/istioVersion: 1.17.2
+      bigbang.dev/istioVersion: 1.17.3
   gitaly:
     annotations:
-      bigbang.dev/istioVersion: 1.17.2
+      bigbang.dev/istioVersion: 1.17.3
     metrics:
       serviceMonitor:
         endpointConfig:
@@ -115,7 +115,7 @@ gitlab:
             insecureSkipVerify: true  # Prometheus does not support Istio security naming, thus skip verifying target pod certificate
   gitlab-shell:
     annotations:
-      bigbang.dev/istioVersion: 1.17.2
+      bigbang.dev/istioVersion: 1.17.3
     metrics:
       serviceMonitor:
         endpointConfig:
@@ -128,16 +128,16 @@ gitlab:
 
   praefect:
     annotations:
-      bigbang.dev/istioVersion: 1.17.2
+      bigbang.dev/istioVersion: 1.17.3
   gitlab-grafana:
     annotations:
-      bigbang.dev/istioVersion: 1.17.2
+      bigbang.dev/istioVersion: 1.17.3
 shared-secrets:
   annotations:
-    bigbang.dev/istioVersion: 1.17.2
+    bigbang.dev/istioVersion: 1.17.3
 minio:
   podAnnotations:
-    bigbang.dev/istioVersion: 1.17.2
+    bigbang.dev/istioVersion: 1.17.3
 
 global:
 
