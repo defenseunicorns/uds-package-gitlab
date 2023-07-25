@@ -3,7 +3,7 @@ kind: ZarfPackageConfig
 metadata:
   name: gitlab
   description: "UDS GitLab capability deployed via flux"
-  version: "0.0.3"
+  version: "0.0.4"
   architecture: amd64
 
 variables:
@@ -32,7 +32,7 @@ components:
               sensitive: true
     charts:
       - name: flux-app
-        version: 1.0.3
+        version: 1.0.5
         url: https://defenseunicorns.github.io/uds-support-charts/
         namespace: gitlab
         valuesFiles:
