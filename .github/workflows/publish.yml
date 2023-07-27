@@ -27,8 +27,10 @@ jobs:
       - name: Install zarf
         uses: supplypike/setup-bin@v3
         with:
+          # renovate: zarf-uri datasource=github-tags depName=defenseunicorns/zarf
           uri: 'https://github.com/defenseunicorns/zarf/releases/download/v0.28.0/zarf_v0.28.0_Linux_amd64'
           name: 'zarf'
+          # renovate: datasource=github-tags depName=defenseunicorns/zarf versioning=semver
           version: 'v0.28.0'
 
       - name: Login to GHCR
