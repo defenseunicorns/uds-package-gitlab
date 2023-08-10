@@ -1,14 +1,14 @@
 # The version of Zarf to use. To keep this repo as portable as possible the Zarf binary will be downloaded and added to
 # the build folder.
 # renovate: datasource=github-tags depName=defenseunicorns/zarf
-ZARF_VERSION := v0.28.2
+ZARF_VERSION := v0.28.4
 
 # The version of the build harness container to use
 BUILD_HARNESS_REPO := ghcr.io/defenseunicorns/build-harness/build-harness
 # renovate: datasource=docker depName=ghcr.io/defenseunicorns/build-harness/build-harness
-BUILD_HARNESS_VERSION := 1.7.1
+BUILD_HARNESS_VERSION := 1.10.2
 # renovate: datasource=docker depName=ghcr.io/defenseunicorns/packages/dubbd-k3d extractVersion=^(?<version>\d+\.\d+\.\d+)
-DUBBD_K3D_VERSION := 0.5.0
+DUBBD_K3D_VERSION := 0.6.1
 
 # Figure out which Zarf binary we should use based on the operating system we are on
 ZARF_BIN := zarf
@@ -120,6 +120,13 @@ cluster/full: cluster/destroy cluster/create build/all deploy/all ## This will d
 cluster/create: ## Create a k3d cluster with metallb installed
 	k3d cluster create k3d-test-cluster --config utils/k3d/k3d-config.yaml -v /etc/machine-id:/etc/machine-id@server:*
 	k3d kubeconfig merge k3d-test-cluster -o /home/${USER}/cluster-kubeconfig.yaml
+	echo "Installing Calico..."
+	kubectl apply --wait=true -f https://k3d.io/v5.5.2/usage/advanced/calico.yaml 2>&1 >/dev/null
+	echo "Waiting for Calico to be ready..."
+	kubectl rollout status deployment/calico-kube-controllers -n kube-system --watch --timeout=90s 2>&1 >/dev/null
+	kubectl rollout status daemonset/calico-node -n kube-system --watch --timeout=90s 2>&1 >/dev/null
+	kubectl wait --for=condition=Ready pods --all --all-namespaces 2>&1 >/dev/null
+	echo
 	utils/metallb/install.sh
 	echo "Cluster is ready!"
 

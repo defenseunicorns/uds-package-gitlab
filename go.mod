@@ -3,7 +3,7 @@ module github.com/defenseunicorns/uds-capability-gitlab
 go 1.20
 
 require (
-	github.com/gruntwork-io/terratest v0.43.7
+	github.com/gruntwork-io/terratest v0.43.11
 	github.com/stretchr/testify v1.8.4
 )
 
