@@ -3,38 +3,37 @@ kind: ZarfPackageConfig
 metadata:
   name: gitlab
   description: "UDS GitLab capability deployed via flux"
-  version: "0.0.5"
+  version: "0.0.6"
   architecture: amd64
 
 variables:
   - name: GITLAB_DEPENDS_ON
     default: "[]"
   - name: GITLAB_CREATE_NAMESPACE
-    default: "true"
+    default: "false"
+  - name: DOMAIN
+    default: "bigbang.dev"
+  - name: BUCKET_SUFFIX
+    default: ""
+  - name: ISTIO_VERSION
+    default: "unset"
 
 components:
-  - name: gitlab-values
-    files:
-      - source: values-gitlab.yaml
-        target: values-gitlab.yaml
-  - name: gitlab
+  - name: istio-version
     required: true
-    description: "Deploy gitlab via flux"
     actions:
       onDeploy:
         before:
-          - cmd: cat values-gitlab.yaml
-            description: Read gitlab values into variable.
-            mute: true
-            setVariables:
-            - name: GITLAB_VALUES
-              autoIndent: true
-              sensitive: true
+          - cmd: kubectl get deployment -n monitoring monitoring-monitoring-kube-operator -o=jsonpath='{.spec.template.metadata.annotations.bigbang\.dev/istioVersion}'
+            setVariable: ISTIO_VERSION
+  - name: gitlab
+    required: true
+    description: "Deploy gitlab via flux"
     charts:
     # renovate: datasource=helm
       - name: flux-app
         url: https://defenseunicorns.github.io/uds-support-charts/
-        version: 1.0.5
+        version: 1.0.7
         namespace: gitlab
         valuesFiles:
           - gitlab-flux-values.yaml

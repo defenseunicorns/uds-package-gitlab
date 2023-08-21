@@ -1,11 +1,24 @@
+**/*.tfstate
+**/*.tfstate.backup
+*.tar.gz
+*.tar.zst
+~/
+.DS_Store
+defense-unicorns-distro/preflight.sh
+.terraform
+tmp
+zarf-sbom
+
 .cache/
 .idea/
-.vscode/
 build/
 .DS_Store
 *.tar.zst
 test/tf/public-ec2-instance/.tool-versions
 zarf-sbom
+tmp/
+values-*.yaml
+overlay-values-*
 
 # Terraform
 test/tf/public-ec2-instance/.test-data
@@ -13,6 +26,3 @@ test/tf/public-ec2-instance/.terraform
 terraform.tfstate
 terraform.tfstate.backup
 .terraform.lock.hcl
-
-# SOPS stuff that should never be committed to the repo
-secret-sops-gpg.yaml
