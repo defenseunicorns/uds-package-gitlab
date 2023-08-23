@@ -8,7 +8,7 @@ BUILD_HARNESS_REPO := ghcr.io/defenseunicorns/build-harness/build-harness
 # renovate: datasource=docker depName=ghcr.io/defenseunicorns/build-harness/build-harness
 BUILD_HARNESS_VERSION := 1.10.2
 # renovate: datasource=docker depName=ghcr.io/defenseunicorns/packages/dubbd-k3d extractVersion=^(?<version>\d+\.\d+\.\d+)
-DUBBD_K3D_VERSION := 0.6.1
+DUBBD_K3D_VERSION := 0.6.2
 
 # Figure out which Zarf binary we should use based on the operating system we are on
 ZARF_BIN := zarf
@@ -118,10 +118,10 @@ test-ssh: ## Run this if you set SKIP_TEARDOWN=1 and want to SSH into the still-
 cluster/full: cluster/destroy cluster/create build/all deploy/all ## This will destroy any existing cluster, create a new one, then build and deploy all
 
 cluster/create: ## Create a k3d cluster with metallb installed
-	k3d cluster create k3d-test-cluster --config utils/k3d/k3d-config.yaml -v /etc/machine-id:/etc/machine-id@server:*
+	K3D_FIX_MOUNTS=1 k3d cluster create k3d-test-cluster --config utils/k3d/k3d-config.yaml
 	k3d kubeconfig merge k3d-test-cluster -o /home/${USER}/cluster-kubeconfig.yaml
 	echo "Installing Calico..."
-	kubectl apply --wait=true -f https://k3d.io/v5.5.2/usage/advanced/calico.yaml 2>&1 >/dev/null
+	kubectl apply --wait=true -f utils/calico/calico.yaml 2>&1 >/dev/null
 	echo "Waiting for Calico to be ready..."
 	kubectl rollout status deployment/calico-kube-controllers -n kube-system --watch --timeout=90s 2>&1 >/dev/null
 	kubectl rollout status daemonset/calico-node -n kube-system --watch --timeout=90s 2>&1 >/dev/null
