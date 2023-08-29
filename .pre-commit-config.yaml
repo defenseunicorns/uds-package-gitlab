@@ -40,7 +40,7 @@ repos:
         args:
           [
             "--schemafile",
-            "https://raw.githubusercontent.com/defenseunicorns/zarf/v0.28.0/zarf.schema.json",
+            "https://raw.githubusercontent.com/defenseunicorns/zarf/v0.29.1/zarf.schema.json",
             "--no-cache"
           ]
   - repo: https://github.com/golangci/golangci-lint
