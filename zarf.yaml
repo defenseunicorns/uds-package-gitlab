@@ -3,7 +3,7 @@ kind: ZarfPackageConfig
 metadata:
   name: gitlab
   description: "UDS GitLab capability deployed via flux"
-  version: "0.0.6"
+  version: "0.0.7"
   architecture: amd64
 
 variables:
@@ -58,3 +58,14 @@ components:
       - "registry1.dso.mil/ironbank/redhat/ubi/ubi8:8.8"
       - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-exporter:16.1.2"
       - "registry1.dso.mil/ironbank/gitlab/gitlab/kubectl:16.1.2"
+    actions:
+      onDeploy:
+        after:
+          - wait:
+              cluster:
+                kind: helmRelease
+                name: gitlab
+                condition: Ready
+                namespace: bigbang
+            maxRetries: 3
+            description: GitLab HelmRelease to be Ready
