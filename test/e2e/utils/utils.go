@@ -112,8 +112,8 @@ func SetupTestPlatform(t *testing.T, platform *types.TestPlatform) { //nolint:fu
 		output, err = platform.RunSSHCommandAsSudo(`cd ~/app && make build/zarf`)
 		require.NoError(t, err, output)
 
-		// Copy zarf-config.toml to the build folder
-		output, err = platform.RunSSHCommandAsSudo(`cd ~/app && cp test/e2e/zarf-config.toml build/zarf-config.toml`)
+		// Copy zarf-config.yaml to the build folder
+		output, err = platform.RunSSHCommandAsSudo(`cd ~/app && cp test/e2e/zarf-config.yaml build/zarf-config.yaml`)
 		require.NoError(t, err, output)
 
 		// Log into registry1.dso.mil
@@ -125,7 +125,7 @@ func SetupTestPlatform(t *testing.T, platform *types.TestPlatform) { //nolint:fu
 		require.NoError(t, err, output)
 
 		// Create cluster build and deploy
-		output, err = platform.RunSSHCommandAsSudo(`cd ~/app && make cluster/full`)
+		output, err = platform.RunSSHCommandAsSudo(`cd ~/app && make all`)
 		require.NoError(t, err, output)
 
 	})

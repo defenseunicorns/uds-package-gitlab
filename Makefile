@@ -8,22 +8,20 @@ BUILD_HARNESS_REPO := ghcr.io/defenseunicorns/build-harness/build-harness
 # renovate: datasource=docker depName=ghcr.io/defenseunicorns/build-harness/build-harness
 BUILD_HARNESS_VERSION := 1.10.2
 # renovate: datasource=docker depName=ghcr.io/defenseunicorns/packages/dubbd-k3d extractVersion=^(?<version>\d+\.\d+\.\d+)
-DUBBD_K3D_VERSION := 0.6.2
+DUBBD_K3D_VERSION := 0.8.1
 
 # Figure out which Zarf binary we should use based on the operating system we are on
 ZARF_BIN := zarf
 UNAME_S := $(shell uname -s)
-UNAME_P := $(shell uname -p)
-ifneq ($(UNAME_S),Linux)
-	ifeq ($(UNAME_S),Darwin)
-		ZARF_BIN := $(addsuffix -mac,$(ZARF_BIN))
-	endif
-	ifeq ($(UNAME_P),i386)
-		ZARF_BIN := $(addsuffix -intel,$(ZARF_BIN))
-	endif
-	ifeq ($(UNAME_P),arm64)
-		ZARF_BIN := $(addsuffix -apple,$(ZARF_BIN))
-	endif
+UNAME_M := $(shell uname -m)
+ifeq ($(UNAME_M),x86_64)
+    ARCH := amd64
+else ifeq ($(UNAME_M),amd64)
+    ARCH := amd64
+else ifeq ($(UNAME_M),arm64)
+    ARCH := arm64
+else
+    $(error Unsupported architecture: $(UNAME_M))
 endif
 
 # Silent mode by default. Run `make VERBOSE=1` to turn off silent mode.
@@ -115,7 +113,7 @@ test-ssh: ## Run this if you set SKIP_TEARDOWN=1 and want to SSH into the still-
 # Cluster Section
 ########################################################################
 
-cluster/full: cluster/destroy cluster/create build/all deploy/all ## This will destroy any existing cluster, create a new one, then build and deploy all
+cluster/reset: cluster/destroy cluster/create ## This will destroy any existing cluster and then create a new one
 
 cluster/create: ## Create a k3d cluster with metallb installed
 	K3D_FIX_MOUNTS=1 k3d cluster create k3d-test-cluster --config utils/k3d/k3d-config.yaml
@@ -137,7 +135,7 @@ cluster/destroy: ## Destroy the k3d cluster
 # Build Section
 ########################################################################
 
-build/all: build build/zarf build/zarf-init.sha256 build/dubbd-pull-k3d.sha256 build/test-pkg-deps build/uds-capability-gitlab ##
+build/all: build build/zarf build/zarf-init build/dubbd-k3d build/test-pkg-deps build/uds-capability-gitlab
 
 build: ## Create build directory
 	mkdir -p build
@@ -146,35 +144,32 @@ build: ## Create build directory
 clean: ## Clean up build files
 	rm -rf ./build
 
-build/zarf: | build ## Download the Linux flavor of Zarf to the build dir
-	echo "Downloading zarf"
-	curl -sL https://github.com/defenseunicorns/zarf/releases/download/$(ZARF_VERSION)/zarf_$(ZARF_VERSION)_Linux_amd64 -o build/zarf
+.PHONY: build/zarf
+build/zarf: | build ## Download the Zarf to the build dir
+	if [ -f build/zarf ] && [ "$$(build/zarf version)" = "$(ZARF_VERSION)" ] ; then exit 0; fi && \
+	echo "Downloading zarf" && \
+	curl -sL https://github.com/defenseunicorns/zarf/releases/download/$(ZARF_VERSION)/zarf_$(ZARF_VERSION)_$(UNAME_S)_$(ARCH) -o build/zarf && \
 	chmod +x build/zarf
 
-build/zarf-mac-intel: | build ## Download the Mac (Intel) flavor of Zarf to the build dir
-	echo "Downloading zarf-mac-intel"
-	curl -sL https://github.com/defenseunicorns/zarf/releases/download/$(ZARF_VERSION)/zarf_$(ZARF_VERSION)_Darwin_amd64 -o build/zarf-mac-intel
-	chmod +x build/zarf-mac-intel
-
-build/zarf-init.sha256: | build ## Download the init package
-	echo "Downloading zarf-init-amd64-$(ZARF_VERSION).tar.zst"
+.PHONY: build/zarf-init
+build/zarf-init: | build ## Download the init package
+	if [ -f build/zarf-init-amd64-$(ZARF_VERSION).tar.zst ] ; then exit 0; fi && \
+	echo "Downloading zarf-init-amd64-$(ZARF_VERSION).tar.zst" && \
 	curl -sL https://github.com/defenseunicorns/zarf/releases/download/$(ZARF_VERSION)/zarf-init-amd64-$(ZARF_VERSION).tar.zst -o build/zarf-init-amd64-$(ZARF_VERSION).tar.zst
-	echo "Creating shasum of the init package"
-	shasum -a 256 build/zarf-init-amd64-$(ZARF_VERSION).tar.zst | awk '{print $$1}' > build/zarf-init.sha256
 
-build/dubbd-pull-k3d.sha256: | build ## Download dubbd k3d oci package
-	./build/zarf package pull oci://ghcr.io/defenseunicorns/packages/dubbd-k3d:$(DUBBD_K3D_VERSION)-amd64 --oci-concurrency 9 --output-directory build
-	echo "Creating shasum of the dubbd-k3d package"
-	shasum -a 256 build/zarf-package-dubbd-k3d-amd64-$(DUBBD_K3D_VERSION).tar.zst | awk '{print $$1}' > build/dubbd-pull-k3d.sha256
+.PHONY: build/dubbd-k3d
+build/dubbd-k3d: | build/zarf ## Download dubbd k3d oci package
+	if [ -f build/zarf-package-dubbd-k3d-amd64-$(DUBBD_K3D_VERSION).tar.zst ] ; then exit 0; fi && \
+	cd build && ./zarf package pull oci://ghcr.io/defenseunicorns/packages/dubbd-k3d:$(DUBBD_K3D_VERSION)-amd64 --oci-concurrency 12
 
-build/test-pkg-deps: | build ## Build package dependencies for testing
-	build/zarf package create utils/pkg-deps/namespaces/ --skip-sbom --confirm --output-directory build
-	build/zarf package create utils/pkg-deps/gitlab/postgres/ --skip-sbom --confirm --output-directory build
-	build/zarf package create utils/pkg-deps/gitlab/redis/ --skip-sbom --confirm --output-directory build
-	build/zarf package create utils/pkg-deps/gitlab/minio/ --skip-sbom --confirm --output-directory build
+build/test-pkg-deps: | build/zarf ## Build package dependencies for testing
+	cd build && ./zarf package create ../utils/pkg-deps/namespaces/ --skip-sbom --confirm
+	cd build && ./zarf package create ../utils/pkg-deps/gitlab/postgres/ --skip-sbom --confirm
+	cd build && ./zarf package create ../utils/pkg-deps/gitlab/redis/ --skip-sbom --confirm
+	cd build && ./zarf package create ../utils/pkg-deps/gitlab/minio/ --skip-sbom --confirm
 
-build/uds-capability-gitlab: | build ## Build the gitlab capability
-	build/zarf package create . --skip-sbom --confirm --output-directory build
+build/uds-capability-gitlab: | build/zarf ## Build the gitlab capability
+	cd build && ./zarf package create ../ --skip-sbom --confirm
 
 ########################################################################
 # Deploy Section
@@ -182,17 +177,27 @@ build/uds-capability-gitlab: | build ## Build the gitlab capability
 
 deploy/all: deploy/init deploy/dubbd-k3d deploy/test-pkg-deps deploy/uds-capability-gitlab ##
 
-deploy/init: ## Deploy the zarf init package
-	./build/zarf init --confirm --components=git-server
+deploy/init: | build/zarf ## Deploy the zarf init package
+	cd build && ./zarf init --confirm --components=git-server
 
-deploy/dubbd-k3d: ## Deploy the k3d flavor of DUBBD
-	cd ./build && ./zarf package deploy zarf-package-dubbd-k3d-amd64-$(DUBBD_K3D_VERSION).tar.zst --confirm
+deploy/dubbd-k3d: | build/zarf ## Deploy the k3d flavor of DUBBD
+	cd build && ./zarf package deploy zarf-package-dubbd-k3d-amd64-$(DUBBD_K3D_VERSION).tar.zst --confirm
 
-deploy/test-pkg-deps: ## Deploy the package dependencies needed for testing the gitlab capability
-	cd ./build && ./zarf package deploy zarf-package-gitlab-namespaces-* --confirm
-	cd ./build && ./zarf package deploy zarf-package-gitlab-postgres-* --confirm
-	cd ./build && ./zarf package deploy zarf-package-gitlab-redis-* --confirm
-	cd ./build && ./zarf package deploy zarf-package-gitlab-minio-* --confirm
+deploy/test-pkg-deps: | build/zarf ## Deploy the package dependencies needed for testing the gitlab capability
+	cd build && ./zarf package deploy zarf-package-gitlab-namespaces-* --confirm
+	cd build && ./zarf package deploy zarf-package-gitlab-postgres-* --confirm
+	cd build && ./zarf package deploy zarf-package-gitlab-redis-* --confirm
+	cd build && ./zarf package deploy zarf-package-gitlab-minio-* --confirm
 
-deploy/uds-capability-gitlab: ## Deploy the gilab capability
-	cd ./build && ./zarf package deploy zarf-package-gitlab-amd*.tar.zst --confirm
+deploy/uds-capability-gitlab: | build/zarf ## Deploy the gilab capability
+	cd build && ./zarf package deploy zarf-package-gitlab-amd*.tar.zst --confirm
+
+########################################################################
+# Macro Section
+########################################################################
+
+.PHONY: all
+all: build/all cluster/reset deploy/all ## Build and deploy gitlab locally
+
+.PHONY: rebuild
+rebuild: clean build/all
