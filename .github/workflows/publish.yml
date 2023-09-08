@@ -24,6 +24,16 @@ jobs:
           path: "~/.zarf-cache"
           key: zarf-cache
 
+      - name: Free GH runner build space
+        run: |
+          df -h
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /usr/local/lib/android
+          sudo rm -rf /opt/ghc
+          sudo rm -rf /opt/hostedtoolcache/CodeQL
+          sudo docker image prune --all --force
+          df -h
+
       - name: Install zarf
         uses: supplypike/setup-bin@v3
         with:
@@ -50,32 +60,32 @@ jobs:
       ####
       # Build and publish dependency packages to use in a dev UDS Bundle
       ####
-      - name: Build dev-dependency gitlab-postgres package
-        run: cd utils/pkg-deps/gitlab/postgres && zarf package create --confirm --no-progress
+      - name: Build and publish dev-dependency gitlab-postgres package
+        run: cd utils/pkg-deps/gitlab/postgres && zarf package create --confirm --no-progress --output oci://ghcr.io/defenseunicorns/uds-capability/gitlab/dev-dependency
 
-      - name: Build dev-dependency gitlab-redis package
-        run: cd utils/pkg-deps/gitlab/redis && zarf package create --confirm --no-progress
+      - name: Build and publish dev-dependency gitlab-redis package
+        run: cd utils/pkg-deps/gitlab/redis && zarf package create --confirm --no-progress --output oci://ghcr.io/defenseunicorns/uds-capability/gitlab/dev-dependency
 
-      - name: Build dev-dependency gitlab-minio package
-        run: cd utils/pkg-deps/gitlab/minio && zarf package create --confirm --no-progress
+      - name: Build and publish dev-dependency gitlab-minio package
+        run: cd utils/pkg-deps/gitlab/minio && zarf package create --confirm --no-progress --output oci://ghcr.io/defenseunicorns/uds-capability/gitlab/dev-dependency
 
-      - name: Publish dev-dependency gitlab-postgres package
-        run: cd utils/pkg-deps/gitlab/postgres && zarf package publish zarf-package-gitlab-postgres-amd64*.tar.zst oci://ghcr.io/defenseunicorns/uds-capability/gitlab/dev-dependency --no-progress
+      # - name: Publish dev-dependency gitlab-postgres package
+      #   run: cd utils/pkg-deps/gitlab/postgres && zarf package publish zarf-package-gitlab-postgres-amd64*.tar.zst oci://ghcr.io/defenseunicorns/uds-capability/gitlab/dev-dependency --no-progress
 
-      - name: Publish dev-dependency gitlab-redis package
-        run: cd utils/pkg-deps/gitlab/redis && zarf package publish zarf-package-gitlab-redis-amd64*.tar.zst oci://ghcr.io/defenseunicorns/uds-capability/gitlab/dev-dependency --no-progress
+      # - name: Publish dev-dependency gitlab-redis package
+      #   run: cd utils/pkg-deps/gitlab/redis && zarf package publish zarf-package-gitlab-redis-amd64*.tar.zst oci://ghcr.io/defenseunicorns/uds-capability/gitlab/dev-dependency --no-progress
 
-      - name: Publish dev-dependency gitlab-minio package
-        run: cd utils/pkg-deps/gitlab/minio && zarf package publish zarf-package-gitlab-minio-amd64*.tar.zst oci://ghcr.io/defenseunicorns/uds-capability/gitlab/dev-dependency --no-progress
+      # - name: Publish dev-dependency gitlab-minio package
+      #   run: cd utils/pkg-deps/gitlab/minio && zarf package publish zarf-package-gitlab-minio-amd64*.tar.zst oci://ghcr.io/defenseunicorns/uds-capability/gitlab/dev-dependency --no-progress
 
       ####
       # Build and publish capability package and skeleton
       ####
-      - name: Build gitlab package
-        run: zarf package create --confirm --no-progress
+      - name: Build and publish gitlab package
+        run: zarf package create --confirm --no-progress --output oci://ghcr.io/defenseunicorns/uds-capability
 
-      - name: Publish gitlab package
-        run: zarf package publish zarf-package-gitlab-amd64-*.tar.zst oci://ghcr.io/defenseunicorns/uds-capability --no-progress
+      # - name: Publish gitlab package
+      #   run: zarf package publish zarf-package-gitlab-amd64-*.tar.zst oci://ghcr.io/defenseunicorns/uds-capability --no-progress
 
       - name: Publish gitlab skeleton
         run: zarf package publish . oci://ghcr.io/defenseunicorns/uds-capability --no-progress
