@@ -17,6 +17,10 @@ variables:
     default: ""
   - name: ISTIO_VERSION
     default: "unset"
+  - name: GITLAB_REDIS_ENDPOINT
+    default: "gitlab-redis" 
+  - name: GITLAB_REDIS_SCHEME
+    default: "redis"
 
 components:
   - name: istio-version

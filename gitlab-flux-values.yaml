@@ -24,7 +24,8 @@ application:
           secret: gitlab-postgres
           key: password
       redis:
-        host: gitlab-redis
+        scheme: ###ZARF_VAR_REDIS_SCHEME###
+        host: ###ZARF_VAR_GITLAB_REDIS_ENDPOINT###
         port: 6379
         auth:
           enabled: true
