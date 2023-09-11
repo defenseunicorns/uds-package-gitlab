@@ -3,7 +3,7 @@ kind: ZarfPackageConfig
 metadata:
   name: gitlab
   description: "UDS GitLab capability deployed via flux"
-  version: "0.0.7"
+  version: "0.0.8"
   architecture: amd64
 
 variables:
@@ -67,5 +67,5 @@ components:
                 name: gitlab
                 condition: Ready
                 namespace: bigbang
-            maxRetries: 3
+            maxTotalSeconds: 900
             description: GitLab HelmRelease to be Ready
