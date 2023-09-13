@@ -3,7 +3,7 @@ kind: ZarfPackageConfig
 metadata:
   name: gitlab
   description: "UDS GitLab capability deployed via flux"
-  version: "0.0.8"
+  version: "0.0.9"
   architecture: amd64
 
 variables:
@@ -21,6 +21,25 @@ variables:
     default: "gitlab-redis" 
   - name: GITLAB_REDIS_SCHEME
     default: "redis"
+  - name: IDAM_ENABLED
+    default: "false"
+  - name: IDAM_ALLOWED_SSOS
+    default: "[]"
+  - name: IDAM_BLOCK_AUTO_USERS
+    default: "false"
+  - name: IDAM_AUTO_LINK_USER
+    default: ""
+  - name: IDAM_AUTO_SIGNIN
+    default: ""
+  - name: IDAM_EXTERNAL_PROVIDERS
+    default: "[]"
+  - name: IDAM_PROVIDERS
+    default: "[]"
+    autoIndent: true
+  - name: IDAM_SYNC_ATTRIBUTES
+    default: "[]"
+  - name: IDAM_SYNC_PROVIDERS
+    default: "[]"
 
 components:
   - name: istio-version

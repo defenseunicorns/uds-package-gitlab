@@ -80,6 +80,18 @@ application:
           connection:
             secret: gitlab-object-store
             key: connection
+        omniauth:
+          enabled: ###ZARF_VAR_IDAM_ENABLED###
+          allowSingleSignOn: ###ZARF_VAR_IDAM_ALLOWED_SSOS###
+          blockAutoCreatedUsers: ###ZARF_VAR_IDAM_BLOCK_AUTO_USERS###
+          autoLinkUser: ###ZARF_VAR_IDAM_AUTO_LINK_USER###
+          autoSignInWithProvider: ###ZARF_VAR_IDAM_AUTO_SIGNIN###
+          externalProviders: ###ZARF_VAR_IDAM_EXTERNAL_PROVIDERS###
+          syncProfileAttributes: ###ZARF_VAR_IDAM_SYNC_ATTRIBUTES###
+          syncProfileFromProvider: ###ZARF_VAR_IDAM_SYNC_PROVIDERS###
+
+          providers:
+            ###ZARF_VAR_IDAM_PROVIDERS###
 
     postgresql:
       install: false
@@ -136,6 +148,10 @@ application:
                 certFile: /etc/prom-certs/cert-chain.pem
                 keyFile: /etc/prom-certs/key.pem
                 insecureSkipVerify: true  # Prometheus does not support Istio security naming, thus skip verifying target pod certificate
+        resources:
+          limits:
+            cpu: 600m
+            memory: 4G
         workhorse:
           metrics:
             serviceMonitor:
@@ -152,6 +168,13 @@ application:
       migrations:
         annotations:
           bigbang.dev/istioVersion: ###ZARF_VAR_ISTIO_VERSION###
+        resources:
+          limits:
+            cpu: 500m
+            memory: 4G
+          requests:
+            cpu: 500m
+            memory: 1G
       gitaly:
         annotations:
           bigbang.dev/istioVersion: ###ZARF_VAR_ISTIO_VERSION###
