@@ -102,3 +102,7 @@ set -o history
 ```bash
 make build/uds-capability-gitlab
 ```
+
+## Documentation
+
+[Identity and Access Management](docs/idam.md)
