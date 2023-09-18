@@ -2,7 +2,7 @@
 kind: ZarfPackageConfig
 metadata:
   name: gitlab-postgres
-  version: "0.0.1"
+  version: "0.0.2"
   architecture: amd64
 
 components:
@@ -41,10 +41,15 @@ components:
           - cmd: kubectl get secret -n gitlab-db postgresql --template={{.data.password}} | base64 -d
             mute: true
             setVariables:
-              - name: DB_PASSWORD
+              - name: POSTGRES_DB_PASSWORD
                 sensitive: true
-        after:
-          - cmd: kubectl create secret generic gitlab-postgres -n gitlab --from-literal=password=${ZARF_VAR_DB_PASSWORD}
+  - name: gitlab-postgres-password
+    required: true
+    manifests:
+      - name: gitlab-postgres
+        namespace: gitlab
+        files:
+          - secret.yaml
   - name: postgres-service
     required: true
     manifests:

@@ -2,7 +2,7 @@
 kind: ZarfPackageConfig
 metadata:
   name: gitlab-redis
-  version: "0.0.1"
+  version: "0.0.2"
   architecture: amd64
 
 components:
@@ -43,8 +43,13 @@ components:
             setVariables:
               - name: REDIS_PASSWORD
                 sensitive: true
-        after:
-          - cmd: kubectl create secret generic gitlab-redis -n gitlab --from-literal=password=${ZARF_VAR_REDIS_PASSWORD}
+  - name: gitlab-redis-password
+    required: true
+    manifests:
+      - name: gitlab-redis
+        namespace: gitlab
+        files:
+          - secret.yaml
   - name: redis-service
     required: true
     manifests:
