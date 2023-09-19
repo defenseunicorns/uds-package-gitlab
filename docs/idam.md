@@ -1,13 +1,13 @@
 # IDAM integration with uds-capability-gitlab
 
-The gitlab capability is preconfigured to work with an IDAM solution, but IDAM is disabled by default.
+This gitlab capability is preconfigured to work with an IDAM solution, but IDAM is disabled by default.
 
 ## IDAM Variables
 
 These Zarf variables are mapped to gitlab helm chart values that are documented [here.](https://docs.gitlab.com/charts/charts/globals#omniauth)
 
 | Key                     | Type            | Default | Description                                                                                              |
-|-------------------------|-----------------|---------|----------------------------------------------------------------------------------------------------------|
+|-------------------------|:---------------:|:-------:|----------------------------------------------------------------------------------------------------------|
 | IDAM_ENABLED            | bool            | `false` | Enables/disables IDAM                                                                                    |
 | IDAM_ALLOWED_SSOS       | list            | `[]`    | Enables auto creation of accounts when signing in with OmniAuth                                          |
 | IDAM_BLOCK_AUTO_USERS   | bool            | `false` | Enables/disables auto created users being blocked by default                                             |
