@@ -2,7 +2,7 @@
 kind: ZarfPackageConfig
 metadata:
   name: gitlab-minio
-  version: "0.0.1"
+  version: "0.0.2"
   architecture: amd64
 
 components:

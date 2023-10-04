@@ -1,6 +1,12 @@
 replicas: 1
 mode: standalone
 
+# Some reasonable requests instead of the bonkers defaults
+resources:
+  requests:
+    memory: 128Mi
+    cpu: 100m
+
 buckets:
   - name: uds-gitlab-artifacts
   - name: uds-gitlab-backups
