@@ -16,9 +16,8 @@ The Gitlab Capability expects the pieces listed below to exist in the cluster be
 #### Database
 
 - A Postgres database is running on port `5432` and accessible to the cluster
-- This database can be logged into via the username `gitlab`
-- This database instance has a psql database created matching what is defined in the deploy time variable `GITLAB_DB`. Default is `gitlabdb`
-- The `gitlab` user has read/write access to the above mentioned database
+- This database can be logged into via the username `gitlab`. Use the `GITLAB_DB_USERNAME` zarf variable if that username needs to be changed. default is `gitlab`
+- The `gitlab` (or configured `GITLAB_DB_USERNAME`) user has read/write access to the above mentioned database
 - Create `gitlab-postgres` service in `gitlab` namespace that points to the psql database
 - Create `gitlab-postgres` secret in `gitlab` namespace with the key `password` that contains the password to the `gitlab` user for the psql database
 

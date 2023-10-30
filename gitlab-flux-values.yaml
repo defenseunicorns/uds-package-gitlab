@@ -6,7 +6,7 @@ application:
   repository: https://repo1.dso.mil/big-bang/product/packages/gitlab.git
   ref:
     # renovate: datasource=gitlab-tags depName=big-bang/product/packages/gitlab versioning=loose registryUrl=https://repo1.dso.mil
-    tag: 7.3.1-bb.0
+    tag: 7.4.1-bb.4
   dependsOn:
     ###ZARF_VAR_GITLAB_DEPENDS_ON###
   baseValues:
@@ -18,7 +18,7 @@ application:
         host: gitlab-postgres
         port: 5432
         database: gitlabdb
-        username: gitlab
+        username: ###ZARF_VAR_DB_USERNAME###
         password:
           useSecret: true
           secret: gitlab-postgres
