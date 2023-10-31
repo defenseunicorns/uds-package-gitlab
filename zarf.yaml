@@ -40,9 +40,9 @@ variables:
     default: "[]"
   - name: GITLAB_IDAM_SYNC_PROVIDERS
     default: "[]"
-  - name: GITAB_DB_NAME
+  - name: GITLAB_DB_NAME
     default: "gitlabdb"
-  - name: GITAB_DB_USERNAME
+  - name: GITLAB_DB_USERNAME
     default: "gitlab"
 
 components:
