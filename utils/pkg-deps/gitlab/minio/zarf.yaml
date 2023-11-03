@@ -12,6 +12,12 @@ components:
       - name: kyverno-exceptions
         files:
           - policy-exceptions/registry.yaml
+  - name: minio-istio-exceptions
+    required: true
+    manifests:
+      - name: istio-exceptions
+        files:
+          - "peerauth.yaml"
   - name: minio
     required: true
     charts:

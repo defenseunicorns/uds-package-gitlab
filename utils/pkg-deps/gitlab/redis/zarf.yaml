@@ -13,6 +13,12 @@ components:
         files:
           - policy-exceptions/externalName.yaml
           - policy-exceptions/registry.yaml
+  - name: redis-istio-exceptions
+    required: true
+    manifests:
+      - name: istio-exceptions
+        files:
+          - "peerauth.yaml"
   - name: redis
     required: true
     charts:
