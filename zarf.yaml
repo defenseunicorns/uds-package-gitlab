@@ -3,7 +3,7 @@ kind: ZarfPackageConfig
 metadata:
   name: gitlab
   description: "UDS GitLab capability deployed via flux"
-  version: "0.1.3"
+  version: "0.1.4"
   architecture: amd64
 
 variables:
@@ -65,26 +65,26 @@ components:
         valuesFiles:
           - gitlab-flux-values.yaml
     repos:
-      - https://repo1.dso.mil/big-bang/product/packages/gitlab.git@7.4.1-bb.4
+      - https://repo1.dso.mil/big-bang/product/packages/gitlab.git@7.5.0-bb.0
     images:
-      - "registry1.dso.mil/ironbank/bitnami/analytics/redis-exporter:v1.54.0"
+      - "registry1.dso.mil/ironbank/bitnami/analytics/redis-exporter:v1.55.0"
       - "registry1.dso.mil/ironbank/bitnami/redis:7.0.0-debian-10-r3"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/certificates:16.4.1"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/certificates:16.5.0"
       - "registry1.dso.mil/ironbank/gitlab/gitlab/cfssl-self-sign:1.6.1"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitaly:16.4.1"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-container-registry:16.4.1"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-shell:16.4.1"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-sidekiq:16.4.1"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-toolbox:16.4.1"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-webservice:16.4.1"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-workhorse:16.4.1"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/kubectl:16.4.1"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitaly:16.5.0"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-container-registry:16.5.0"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-shell:16.5.0"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-sidekiq:16.5.0"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-toolbox:16.5.0"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-webservice:16.5.0"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-workhorse:16.5.0"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/kubectl:16.5.0"
       - "registry1.dso.mil/ironbank/opensource/minio/mc:RELEASE.2022-12-24T15-21-38Z"
       - "registry1.dso.mil/ironbank/opensource/minio/minio:RELEASE.2022-12-12T19-27-27Z"
       - "registry1.dso.mil/ironbank/opensource/postgres/postgresql:14.8"
       - "registry1.dso.mil/ironbank/redhat/ubi/ubi8:8.8"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-exporter:16.4.1"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/kubectl:16.4.1"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-exporter:16.5.0"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/kubectl:16.5.0"
     actions:
       onDeploy:
         after:
