@@ -3,7 +3,7 @@ kind: ZarfPackageConfig
 metadata:
   name: gitlab
   description: "UDS GitLab capability deployed via flux"
-  version: "0.1.4"
+  version: "0.1.5"
   architecture: amd64
 
 variables:
@@ -44,6 +44,10 @@ variables:
     default: "gitlabdb"
   - name: GITLAB_DB_USERNAME
     default: "gitlab"
+  - name: GITLAB_PAGES_ENABLED
+    default: "false"
+  - name: GITLAB_SIGNUP_ENABLED
+    default: "true"
 
 components:
   - name: istio-version
@@ -73,6 +77,7 @@ components:
       - "registry1.dso.mil/ironbank/gitlab/gitlab/cfssl-self-sign:1.6.1"
       - "registry1.dso.mil/ironbank/gitlab/gitlab/gitaly:16.5.0"
       - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-container-registry:16.5.0"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-pages:16.5.0"
       - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-shell:16.5.0"
       - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-sidekiq:16.5.0"
       - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-toolbox:16.5.0"

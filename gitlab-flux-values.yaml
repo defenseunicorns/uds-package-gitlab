@@ -41,15 +41,16 @@ application:
         injection: enabled
       hosts:
         domain: ###ZARF_VAR_DOMAIN###
-
         gitlab:
           name: gitlab.###ZARF_VAR_DOMAIN###
-
         registry:
           name: registry.###ZARF_VAR_DOMAIN###
+        pages:
+          name: pages.###ZARF_VAR_DOMAIN###
       registry:
         relativeurls: true
       pages:
+        enabled: ###ZARF_VAR_GITLAB_PAGES_ENABLED###
         objectStore:
           bucket: uds-gitlab-pages###ZARF_VAR_BUCKET_SUFFIX###
       appConfig:
@@ -92,6 +93,9 @@ application:
 
           providers:
             ###ZARF_VAR_GITLAB_IDAM_PROVIDERS###
+
+        initialDefaults:
+          signupEnabled: ###ZARF_VAR_GITLAB_SIGNUP_ENABLED###
 
     postgresql:
       install: false
@@ -211,6 +215,18 @@ application:
       registry:
         gateways:
         - istio-system/tenant
+      pages:
+        enabled: true
+        port: 8090
+        ingressLabels:
+          app: tenant-ingressgateway
+        gateways:
+        - istio-system/tenant
+        customDomains:
+          enabled: false
+        hosts:
+        - '*.pages.###ZARF_VAR_DOMAIN###'
+
 
     monitoring:
       enabled: true
