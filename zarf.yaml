@@ -2,17 +2,13 @@
 kind: ZarfPackageConfig
 metadata:
   name: gitlab
-  description: "UDS GitLab capability deployed via flux"
-  version: "0.1.5"
+  description: "UDS GitLab Package"
+  version: "0.1.0"
   architecture: amd64
 
 variables:
-  - name: GITLAB_DEPENDS_ON
-    default: "[]"
-  - name: GITLAB_CREATE_NAMESPACE
-    default: "false"
   - name: DOMAIN
-    default: "bigbang.dev"
+    default: "uds.dev"
   - name: BUCKET_SUFFIX
     default: ""
   - name: ISTIO_VERSION
@@ -50,26 +46,17 @@ variables:
     default: "true"
 
 components:
-  - name: istio-version
-    required: true
-    actions:
-      onDeploy:
-        before:
-          - cmd: kubectl get deployment -n monitoring monitoring-monitoring-kube-operator -o=jsonpath='{.spec.template.metadata.annotations.bigbang\.dev/istioVersion}'
-            setVariable: ISTIO_VERSION
   - name: gitlab
     required: true
-    description: "Deploy gitlab via flux"
+    description: "Deploy gitlab"
     charts:
-    # renovate: datasource=helm
-      - name: flux-app
-        url: https://defenseunicorns.github.io/uds-support-charts/
-        version: 1.0.7
-        namespace: gitlab
-        valuesFiles:
-          - gitlab-flux-values.yaml
-    repos:
-      - https://repo1.dso.mil/big-bang/product/packages/gitlab.git@7.5.0-bb.0
+    - name: gitlab
+      namespace: gitlab
+      url: https://repo1.dso.mil/big-bang/product/packages/gitlab
+      gitPath: chart
+      version: "7.5.0-bb.0"
+      valueFiles:
+        - values/gitlab-values.yaml
     images:
       - "registry1.dso.mil/ironbank/bitnami/analytics/redis-exporter:v1.55.0"
       - "registry1.dso.mil/ironbank/bitnami/redis:7.0.0-debian-10-r3"
@@ -90,14 +77,14 @@ components:
       - "registry1.dso.mil/ironbank/redhat/ubi/ubi8:8.8"
       - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-exporter:16.5.0"
       - "registry1.dso.mil/ironbank/gitlab/gitlab/kubectl:16.5.0"
-    actions:
-      onDeploy:
-        after:
-          - wait:
-              cluster:
-                kind: helmRelease
-                name: gitlab
-                condition: Ready
-                namespace: bigbang
-            maxTotalSeconds: 900
-            description: GitLab HelmRelease to be Ready
+    # actions:
+    #   onDeploy:
+    #     after:
+    #       - wait:
+    #           cluster:
+    #             kind: helmRelease
+    #             name: gitlab
+    #             condition: Ready
+    #             namespace: bigbang
+    #         maxTotalSeconds: 900
+    #         description: GitLab HelmRelease to be Ready
