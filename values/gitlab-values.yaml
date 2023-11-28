@@ -92,6 +92,8 @@ redis:
   install: false
 postgresql:
   install: false
+redis:
+  install: false
 registry:
   storage:
     secret: gitlab-object-store
@@ -132,7 +134,7 @@ gitlab-zoekt:
     basicAuth:
       enabled: false
 
-istio: # TODO pick up istio stuffs
+istio:
   enabled: true
   injection: enabled
   gitlab:
@@ -154,5 +156,3 @@ istio: # TODO pick up istio stuffs
     - '*.pages.###ZARF_VAR_DOMAIN###'
 
 domain: ###ZARF_VAR_DOMAIN###
-
-
