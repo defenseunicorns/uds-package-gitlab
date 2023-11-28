@@ -11,8 +11,6 @@ variables:
     default: "uds.dev"
   - name: BUCKET_SUFFIX
     default: ""
-  - name: ISTIO_VERSION
-    default: "unset"
   - name: GITLAB_REDIS_ENDPOINT
     default: "gitlab-redis"
   - name: GITLAB_REDIS_SCHEME
@@ -49,34 +47,125 @@ components:
   - name: gitlab
     required: true
     description: "Deploy gitlab"
+    only:
+      flavor: registry1
     charts:
     - name: gitlab
       namespace: gitlab
-      url: https://repo1.dso.mil/big-bang/product/packages/gitlab
+      url: https://repo1.dso.mil/big-bang/product/packages/gitlab.git
       gitPath: chart
-      version: "7.5.0-bb.0"
+      version: "7.5.1-bb.1"
       valueFiles:
         - values/gitlab-values.yaml
     images:
       - "registry1.dso.mil/ironbank/bitnami/analytics/redis-exporter:v1.55.0"
       - "registry1.dso.mil/ironbank/bitnami/redis:7.0.0-debian-10-r3"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/certificates:16.5.0"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/certificates:16.5.1"
       - "registry1.dso.mil/ironbank/gitlab/gitlab/cfssl-self-sign:1.6.1"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitaly:16.5.0"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-container-registry:16.5.0"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-pages:16.5.0"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-shell:16.5.0"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-sidekiq:16.5.0"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-toolbox:16.5.0"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-webservice:16.5.0"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-workhorse:16.5.0"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/kubectl:16.5.0"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitaly:16.5.1"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-container-registry:16.5.1"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-pages:16.5.1"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-shell:16.5.1"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-sidekiq:16.5.1"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-toolbox:16.5.1"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-webservice:16.5.1"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-workhorse:16.5.1"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/kubectl:16.5.1"
       - "registry1.dso.mil/ironbank/opensource/minio/mc:RELEASE.2022-12-24T15-21-38Z"
       - "registry1.dso.mil/ironbank/opensource/minio/minio:RELEASE.2022-12-12T19-27-27Z"
       - "registry1.dso.mil/ironbank/opensource/postgres/postgresql:14.8"
       - "registry1.dso.mil/ironbank/redhat/ubi/ubi8:8.8"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-exporter:16.5.0"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/kubectl:16.5.0"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-exporter:16.5.1"
+    # actions:
+    #   onDeploy:
+    #     after:
+    #       - wait:
+    #           cluster:
+    #             kind: helmRelease
+    #             name: gitlab
+    #             condition: Ready
+    #             namespace: bigbang
+    #         maxTotalSeconds: 900
+    #         description: GitLab HelmRelease to be Ready
+
+  - name: gitlab
+    required: true
+    description: "Deploy gitlab"
+    only:
+      flavor: upstream-ce
+    charts:
+    - name: gitlab
+      namespace: gitlab
+      url: https://repo1.dso.mil/big-bang/product/packages/gitlab.git
+      gitPath: chart
+      version: "7.5.1-bb.1"
+      valueFiles:
+        - values/gitlab-values.yaml
+        - values/ce.yaml
+    images:
+      - "docker.io/bitnami/redis-exporter:1.55.0"
+      - "docker.io/bitnami/redis:7.0.0-debian-10-r3"
+      - "registry.gitlab.com/gitlab-org/build/cng/certificates:v16.5.1"
+      - "registry.gitlab.com/gitlab-org/build/cng/cfssl-self-sign:1.6.1"
+      - "registry.gitlab.com/gitlab-org/build/cng/gitaly:v16.5.1"
+      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-container-registry:v16.5.1"
+      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-pages:v16.5.1"
+      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-shell:v16.5.1"
+      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-sidekiq-cd:v16.5.1"
+      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-toolbox:v16.5.1"
+      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-webservice-ce:v16.5.1"
+      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-workhorse-ce:v16.5.1"
+      - "registry.gitlab.com/gitlab-org/build/cng/kubectl:v16.5.1"
+      - "docker.io/minio/mc:RELEASE.2022-12-24T15-21-38Z"
+      - "docker.io/minio/minio:RELEASE.2022-12-12T19-27-27Z"
+      - "docker.io/postgres/postgresql:14.8"
+      - "docker.io/redhat/ubi/ubi8:8.8"
+      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-exporter:v16.5.1"
+    # actions:
+    #   onDeploy:
+    #     after:
+    #       - wait:
+    #           cluster:
+    #             kind: helmRelease
+    #             name: gitlab
+    #             condition: Ready
+    #             namespace: bigbang
+    #         maxTotalSeconds: 900
+    #         description: GitLab HelmRelease to be Ready
+
+  - name: gitlab
+    required: true
+    description: "Deploy gitlab"
+    only:
+      flavor: upstream-ee
+    charts:
+    - name: gitlab
+      namespace: gitlab
+      url: https://repo1.dso.mil/big-bang/product/packages/gitlab.git
+      gitPath: chart
+      version: "7.5.1-bb.1"
+      valueFiles:
+        - values/gitlab-values.yaml
+        - values/ee.yaml
+    images:
+      - "docker.io/bitnami/redis-exporter:1.55.0"
+      - "docker.io/bitnami/redis:7.0.0-debian-10-r3"
+      - "registry.gitlab.com/gitlab-org/build/cng/certificates:v16.5.1"
+      - "registry.gitlab.com/gitlab-org/build/cng/cfssl-self-sign:1.6.1"
+      - "registry.gitlab.com/gitlab-org/build/cng/gitaly:v16.5.1"
+      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-container-registry:v16.5.1"
+      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-pages:v16.5.1"
+      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-shell:v16.5.1"
+      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-sidekiq-ee:v16.5.1"
+      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-toolbox:v16.5.1"
+      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-webservice-ee:v16.5.1"
+      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-workhorse-ee:v16.5.1"
+      - "registry.gitlab.com/gitlab-org/build/cng/kubectl:v16.5.1"
+      - "docker.io/minio/mc:RELEASE.2022-12-24T15-21-38Z"
+      - "docker.io/minio/minio:RELEASE.2022-12-12T19-27-27Z"
+      - "docker.io/postgres/postgresql:14.8"
+      - "docker.io/redhat/ubi/ubi8:8.8"
+      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-exporter:v16.5.1"
     # actions:
     #   onDeploy:
     #     after:

@@ -25,7 +25,7 @@ global:
       key: password
 
   redis:
-    scheme: ###ZARF_VAR_REDIS_SCHEME###
+    scheme: ###ZARF_VAR_GITLAB_REDIS_SCHEME###
     host: ###ZARF_VAR_GITLAB_REDIS_ENDPOINT###
     port: 6379
     auth:
@@ -126,6 +126,12 @@ gitlab:
       serviceMonitor:
         enabled: true
 
+gitlab-zoekt:
+  install: false
+  gateway:
+    basicAuth:
+      enabled: false
+
 istio: # TODO pick up istio stuffs
   enabled: true
   injection: enabled
@@ -148,3 +154,5 @@ istio: # TODO pick up istio stuffs
     - '*.pages.###ZARF_VAR_DOMAIN###'
 
 domain: ###ZARF_VAR_DOMAIN###
+
+
