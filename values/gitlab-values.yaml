@@ -126,12 +126,6 @@ gitlab:
       serviceMonitor:
         enabled: true
 
-gitlab-zoekt:
-  install: false
-  gateway:
-    basicAuth:
-      enabled: false
-
 istio:
   enabled: true
   injection: enabled
