@@ -1,3 +1,4 @@
 gitlab.webservice.image.repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-webservice-ee:v16.5.0
 gitlab.webservice.workhorse.image: registry.gitlab.com/gitlab-org/build/cng/gitlab-workhorse-ee:v16.5.0
 gitlab.sidekiq.image.repository: registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-sidekiq-ee:16.5.0
+gitlab.migrations.image.repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-toolbox-ee:v16.5.1
