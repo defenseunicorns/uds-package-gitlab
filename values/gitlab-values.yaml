@@ -88,8 +88,6 @@ global:
     objectStore:
       bucket: uds-gitlab-pages###ZARF_VAR_BUCKET_SUFFIX###
 
-redis:
-  install: false
 postgresql:
   install: false
 redis:
