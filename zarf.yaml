@@ -22,7 +22,7 @@ variables:
   - name: GITLAB_IDAM_BLOCK_AUTO_USERS
     default: "false"
   - name: GITLAB_IDAM_AUTO_LINK_USER
-    default: ""
+    default: "[]"
   - name: GITLAB_IDAM_AUTO_SIGNIN
     default: ""
   - name: GITLAB_IDAM_EXTERNAL_PROVIDERS
@@ -55,7 +55,7 @@ components:
       url: https://repo1.dso.mil/big-bang/product/packages/gitlab.git
       gitPath: chart
       version: "7.5.1-bb.1"
-      valueFiles:
+      valuesFiles:
         - values/gitlab-values.yaml
     images:
       - "registry1.dso.mil/ironbank/bitnami/analytics/redis-exporter:v1.55.0"
@@ -99,7 +99,7 @@ components:
       url: https://repo1.dso.mil/big-bang/product/packages/gitlab.git
       gitPath: chart
       version: "7.5.1-bb.1"
-      valueFiles:
+      valuesFiles:
         - values/gitlab-values.yaml
         - values/ce.yaml
     images:
@@ -144,7 +144,7 @@ components:
       url: https://repo1.dso.mil/big-bang/product/packages/gitlab.git
       gitPath: chart
       version: "7.5.1-bb.1"
-      valueFiles:
+      valuesFiles:
         - values/gitlab-values.yaml
         - values/ee.yaml
     images:
