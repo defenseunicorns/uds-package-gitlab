@@ -131,10 +131,10 @@ istio:
   injection: enabled
   gitlab:
     gateways:
-    - istio-tenant-gatway/tenant-gateway
+    - istio-tenant-gateway/tenant-gateway
   registry:
     gateways:
-    - istio-tenant-gatway/tenant-gateway
+    - istio-tenant-gateway/tenant-gateway
   pages:
     enabled: true
     port: 8090
