@@ -101,6 +101,7 @@ components:
       version: "7.5.1-bb.1"
       valuesFiles:
         - values/gitlab-values.yaml
+        - values/upstream.yaml
         - values/ce.yaml
     images:
       - "docker.io/bitnami/redis-exporter:1.55.0"
@@ -146,6 +147,7 @@ components:
       version: "7.5.1-bb.1"
       valuesFiles:
         - values/gitlab-values.yaml
+        - values/upstream.yaml
         - values/ee.yaml
     images:
       - "docker.io/bitnami/redis-exporter:1.55.0"
