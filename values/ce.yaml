@@ -8,8 +8,9 @@ gitlab:
       tag: v16.5.1
   sidekiq:
     image:
-      repository: registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-sidekiq-ce
+      repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-sidekiq-ce
       tag: v16.5.1
-  migrations.image:
-    repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-toolbox-ce
-    tag: v16.5.1
+  migrations:
+    image:
+      repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-toolbox-ce
+      tag: v16.5.1
