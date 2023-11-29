@@ -6,9 +6,10 @@ gitlab:
     workhorse:
       image: registry.gitlab.com/gitlab-org/build/cng/gitlab-workhorse-ee
       tag: v16.5.1
-  sidekiq.image:
-    repository: registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-sidekiq-ee
-    tag: v16.5.1
+  sidekiq:
+    image:
+      repository: registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-sidekiq-ee
+      tag: v16.5.1
   migrations.image:
     repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-toolbox-ee
     tag: v16.5.1

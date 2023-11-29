@@ -1,28 +1,37 @@
 gitlab:
-  gitlab-exporter.image:
-    repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-exporter
-    tag: v16.5.1
-  gitlab-pages.image:
-    repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-pages
-    tag: v16.5.1
-  gitlab-shell.image:
-    repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-shell
-    tag: v16.5.1
-  toolbox.image:
-    repository: registry.gitlab.com/gitlab-org/build/cng/gitaly
-    tag: v16.5.1
+  gitlab-exporter:
+    image:
+      repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-exporter
+      tag: v16.5.1
+  gitlab-pages:
+    image:
+      repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-pages
+      tag: v16.5.1
+  gitlab-shell:
+    image:
+      repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-shell
+      tag: v16.5.1
+  toolbox:
+    image:
+      repository: registry.gitlab.com/gitlab-org/build/cng/gitaly
+      tag: v16.5.1
 
 global:
-  certificates.image:
-    repository: registry.gitlab.com/gitlab-org/build/cng/certificates
+  certificates:
+    image:
+      repository: registry.gitlab.com/gitlab-org/build/cng/certificates
+      tag: v16.5.1
+  kubectl:
+    image:
+      repository: registry.gitlab.com/gitlab-org/build/cng/kubectl
+      tag: v16.5.1
+
+registry:
+  image:
+    repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-container-registry
     tag: v16.5.1
-  kubectl.image:
-    repository: registry.gitlab.com/gitlab-org/build/cng/kubectl
-    tag: v16.5.1
 
-
-registry.image:
-  repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-container-registry
-  tag: v16.5.1
-
-shared-secrets.selfsign.image.repository: registry.gitlab.com/gitlab-org/build/cng/cfssl-self-sign
+shared-secrets:
+  selfsign:
+    image:
+      repository: registry.gitlab.com/gitlab-org/build/cng/cfssl-self-sign
