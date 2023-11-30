@@ -2,7 +2,7 @@
 kind: ZarfPackageConfig
 metadata:
   name: gitlab-postgres
-  version: "0.0.2"
+  version: "12.6.6-0"
   architecture: amd64
 
 components:

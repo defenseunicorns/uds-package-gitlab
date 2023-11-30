@@ -2,16 +2,10 @@
 kind: ZarfPackageConfig
 metadata:
   name: gitlab-minio
-  version: "0.0.2"
+  version: "5.0.13-0"
   architecture: amd64
 
 components:
-  # - name: minio-kyverno-exceptions
-  #   required: true
-  #   manifests:
-  #     - name: kyverno-exceptions
-  #       files:
-  #         - policy-exceptions/registry.yaml
   - name: minio-istio-exceptions
     required: true
     manifests:

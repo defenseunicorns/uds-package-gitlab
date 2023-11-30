@@ -1,0 +1,36 @@
+includes:
+  - cleanup: ./tasks/cleanup.yaml
+  - create: ./tasks/create.yaml
+  - deploy: ./tasks/deploy.yaml
+  - setup: ./tasks/setup.yaml
+  - test: ./tasks/test.yaml
+
+tasks:
+  - name: setup-cluster
+    actions:
+      - task: setup:k3d-test-cluster
+  
+  - name: create-package
+    actions:
+      - task: create:gitlab-package
+
+  - name: create-test-bundle
+    actions:
+      - task: create:gitlab-test-bundle
+  
+  - name: deploy-package
+    actions:
+      - task: deploy:gitlab-package
+
+  - name: deploy-test-bundle
+    actions:
+      - task: deploy:gitlab-test-bundle
+
+  - name: test-package
+    actions:
+      - task: test:health-check
+      - task: test:ingress
+
+  - name: cleanup
+    actions:
+      - task: cleanup:destroy

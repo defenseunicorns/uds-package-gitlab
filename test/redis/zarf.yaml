@@ -2,7 +2,7 @@
 kind: ZarfPackageConfig
 metadata:
   name: gitlab-redis
-  version: "0.0.2"
+  version: "17.13.2-0"
   architecture: amd64
 
 components:
