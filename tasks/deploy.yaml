@@ -7,4 +7,4 @@ tasks:
   - name: gitlab-test-bundle
     actions:
       - description: Deploy the UDS bundle with Gitlab and its dependencies
-        cmd: uds deploy bundle/uds-bundle-gitlab-test-${UDS_ARCH}-*.tar.zst --confirm #--no-progress
+        cmd: uds deploy bundle/uds-bundle-gitlab-test-${UDS_ARCH}-*.tar.zst --confirm --no-progress
