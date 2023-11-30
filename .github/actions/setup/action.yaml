@@ -2,12 +2,6 @@
 name: "Setup Environment"
 description: "UDS Environment Setup"
 
-inputs:
-  registry1_username:
-    required: true
-  registry1_password:
-    required: true
-
 runs:
   using: "composite"
   steps:
@@ -17,10 +11,6 @@ runs:
         # renovate: datasource=github-tags depName=defenseunicorns/zarf versioning=semver
         version: v0.31.1
         download-init-package: true
-    
-    - name: Iron Bank Login
-      shell: bash
-      run: zarf tools registry login -u "${{inputs.registry1_username}}" -p "${{inputs.registry1_password}}" registry1.dso.mil
 
     - name: Use Node.js latest
       uses: actions/setup-node@8f152de45cc393bb48ce5d89d36b731f54556e65 # v4.0.0
