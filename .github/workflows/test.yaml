@@ -17,7 +17,7 @@ permissions:
 
 jobs:
   test:
-    runs-on: "uds-ubuntu-big-boy-8-core"
+    runs-on: "uds-ubuntu-big-boy-16-core"
     timeout-minutes: 60
     name: Test
 
