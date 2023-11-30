@@ -25,18 +25,18 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
 
+      - name: Environment setup
+        uses: ./.github/actions/setup
+
       - name: Create test bundle
         run: uds run create-test-bundle
 
-      - name: Environment setup
-        uses: ./.github/actions/setup
-      
       - name: Setup cluster
         run: uds run setup-cluster
-      
+
       - name: Test package
         run: uds run test-package
-      
+
       - name: Cleanup
         if: always()
         run: uds run cleanup
