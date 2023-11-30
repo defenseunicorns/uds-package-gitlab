@@ -3,7 +3,7 @@ kind: ZarfPackageConfig
 metadata:
   name: gitlab
   description: "UDS GitLab Package"
-  version: "0.1.0"
+  version: "16.5.1-0"
   architecture: amd64
 
 variables:

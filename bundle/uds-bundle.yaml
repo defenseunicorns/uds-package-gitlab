@@ -1,0 +1,22 @@
+kind: UDSBundle
+metadata:
+  name: gitlab-test
+  description: A UDS bundle for deploying Gitlab and it's dependencies on a development cluster
+  version: 0.1.0
+
+zarf-packages:
+  - name: gitlab-minio
+    path: ../
+    ref: 5.0.13-0
+  
+  - name: gitlab-postgres
+    path: ../
+    ref: 12.6.6-0
+  
+  - name: gitlab-redis
+    path: ../
+    ref: 17.13.2-0
+  
+  - name: gitlab
+    path: ../
+    ref: 16.5.1-0

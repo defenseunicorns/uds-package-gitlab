@@ -1,0 +1,67 @@
+tasks:
+  - name: health-check
+    actions:
+      - description: Gitlab Exporter Health Check
+        wait:
+          cluster:
+            kind: Deployment
+            name: gitlab-gitlab-exporter
+            namespace: gitlab
+
+      - description: Gitlab Registry Health Check
+        wait:
+          cluster:
+            kind: Deployment
+            name: gitlab-registry
+            namespace: gitlab
+
+      - description: Gitlab Shell Health Check
+        wait:
+          cluster:
+            kind: Deployment
+            name: gitlab-gitlab-shell
+            namespace: gitlab
+
+      - description: Gitlab Toolbox Health Check
+        wait:
+          cluster:
+            kind: Deployment
+            name: gitlab-toolbox
+            namespace: gitlab
+
+      - description: Gitlab Sidekiq Health Check
+        wait:
+          cluster:
+            kind: Deployment
+            name: gitlab-sidekiq-all-in-1-v2
+            namespace: gitlab
+
+      - description: Gitlab Webservice Health Check
+        wait:
+          cluster:
+            kind: Deployment
+            name: gitlab-webservice-default
+            namespace: gitlab
+
+      - description: Gitlab Gitaly Health Check
+        wait:
+          cluster:
+            kind: StatefulSet
+            name: gitlab-gitaly
+            namespace: gitlab
+
+      - description: Gitlab Migrations Health Check
+        wait:
+          cluster:
+            kind: Job
+            name: gitlab-migrations-1
+            namespace: gitlab
+
+  - name: ingress
+    actions:
+      - description: Gitlab UI Health Check
+        wait:
+          network:
+            protocol: https
+            address: gitlab.uds.dev
+            code: 200
