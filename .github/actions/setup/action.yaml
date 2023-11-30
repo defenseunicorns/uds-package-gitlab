@@ -19,6 +19,7 @@ runs:
         download-init-package: true
     
     - name: Iron Bank Login
+      shell: bash
       run: zarf tools registry login -u "${{inputs.registry1_username}}" -p "${{inputs.registry1_password}}" registry1.dso.mil
 
     - name: Use Node.js latest
