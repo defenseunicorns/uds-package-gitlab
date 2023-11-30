@@ -38,7 +38,7 @@ jobs:
         run: uds run setup-cluster
       
       - name: Deploy test bundle
-        run: uds run gitlab-test-bundle
+        run: uds run deploy-test-bundle
 
       - name: Test package
         run: uds run test-package
