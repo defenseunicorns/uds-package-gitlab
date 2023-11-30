@@ -13,7 +13,7 @@ runs:
         download-init-package: true
     
     - name: Iron Bank Login
-      run: zarf tools registry login -u ${{ secrets.IRON_BANK_ROBOT_USERNAME }} -p ${{ secrets.IRON_BANK_ROBOT_PASSWORD }} registry1.dso.mil
+      run: zarf tools registry login -u "${{secrets.IRON_BANK_ROBOT_USERNAME}}" -p "${{secrets.IRON_BANK_ROBOT_PASSWORD}}" registry1.dso.mil
 
     - name: Use Node.js latest
       uses: actions/setup-node@8f152de45cc393bb48ce5d89d36b731f54556e65 # v4.0.0
