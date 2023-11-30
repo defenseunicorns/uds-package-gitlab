@@ -27,6 +27,9 @@ jobs:
 
       - name: Environment setup
         uses: ./.github/actions/setup
+        with:
+          registry1_username: ${{ secrets.IRON_BANK_ROBOT_USERNAME }}
+          registry1_password: ${{ secrets.IRON_BANK_ROBOT_PASSWORD }}
 
       - name: Create test bundle
         run: uds run create-test-bundle
