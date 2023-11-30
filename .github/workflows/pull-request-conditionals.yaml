@@ -26,5 +26,5 @@ defaults:
 jobs:
   run-test:
     name: Test
-    uses: ./.githug/workflows/test.yaml
+    uses: ./.github/workflows/test.yaml
     secrets: inherit
