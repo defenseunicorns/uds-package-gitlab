@@ -76,18 +76,8 @@ components:
       - "registry1.dso.mil/ironbank/opensource/postgres/postgresql:14.8"
       - "registry1.dso.mil/ironbank/redhat/ubi/ubi8:8.8"
       - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-exporter:16.5.1"
-    # actions:
-    #   onDeploy:
-    #     after:
-    #       - wait:
-    #           cluster:
-    #             kind: helmRelease
-    #             name: gitlab
-    #             condition: Ready
-    #             namespace: bigbang
-    #         maxTotalSeconds: 900
-    #         description: GitLab HelmRelease to be Ready
 
+  # Note: upstream-ce flavor is experimental
   - name: gitlab
     required: true
     description: "Deploy gitlab"
@@ -122,18 +112,8 @@ components:
       - "docker.io/bitnami/postgresql:14.8.0"
       - "docker.io/redhat/ubi8:8.8"
       - "registry.gitlab.com/gitlab-org/build/cng/gitlab-exporter:v16.5.1"
-    # actions:
-    #   onDeploy:
-    #     after:
-    #       - wait:
-    #           cluster:
-    #             kind: helmRelease
-    #             name: gitlab
-    #             condition: Ready
-    #             namespace: bigbang
-    #         maxTotalSeconds: 900
-    #         description: GitLab HelmRelease to be Ready
 
+  # Note: upstream-ee flavor is experimental
   - name: gitlab
     required: true
     description: "Deploy gitlab"
@@ -168,14 +148,3 @@ components:
       - "docker.io/bitnami/postgresql:14.8.0"
       - "docker.io/redhat/ubi8:8.8"
       - "registry.gitlab.com/gitlab-org/build/cng/gitlab-exporter:v16.5.1"
-    # actions:
-    #   onDeploy:
-    #     after:
-    #       - wait:
-    #           cluster:
-    #             kind: helmRelease
-    #             name: gitlab
-    #             condition: Ready
-    #             namespace: bigbang
-    #         maxTotalSeconds: 900
-    #         description: GitLab HelmRelease to be Ready
