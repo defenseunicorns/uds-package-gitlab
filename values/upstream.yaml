@@ -1,0 +1,78 @@
+gitlab:
+  gitaly:
+    image:
+      repository: registry.gitlab.com/gitlab-org/build/cng/gitaly
+      tag: v16.5.1
+  gitlab-exporter:
+    image:
+      repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-exporter
+      tag: v16.5.1
+  gitlab-pages:
+    image:
+      repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-pages
+      tag: v16.5.1
+  gitlab-shell:
+    image:
+      repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-shell
+      tag: v16.5.1
+  praefect:
+    image:
+      repository: registry.gitlab.com/gitlab-org/build/cng/gitaly
+      tag: v16.5.1
+  toolbox:
+    image:
+      repository: registry.gitlab.com/gitlab-org/build/cng/gitaly
+      tag: v16.5.1
+
+global:
+  certificates:
+    image:
+      repository: registry.gitlab.com/gitlab-org/build/cng/certificates
+      tag: v16.5.1
+  gitlabBase:
+    image:
+      repository: docker.io/redhat/ubi8
+      tag: "8.8"
+  kubectl:
+    image:
+      repository: registry.gitlab.com/gitlab-org/build/cng/kubectl
+      tag: v16.5.1
+
+minio:
+  image: docker.io/minio/minio
+  imageTag: RELEASE.2022-12-12T19-27-27Z
+  minioMc:
+    image: docker.io/minio/mc
+    tag: RELEASE.2022-12-24T15-21-38Z
+
+postgresql:
+  image:
+    registry: docker.io
+    repository: bitnami/postgresql
+    tag: "14.8.0"
+
+redis:
+  image:
+    registry: docker.io
+    repository: bitnami/redis
+    tag: 7.0.0-debian-10-r3
+  metrics:
+    image:
+      registry: docker.io
+      repository: bitnami/redis-exporter
+      tag: "1.55.0"
+
+registry:
+  image:
+    repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-container-registry
+    tag: v16.5.1
+
+shared-secrets:
+  selfsign:
+    image:
+      repository: registry.gitlab.com/gitlab-org/build/cng/cfssl-self-sign
+
+upgradeCheck:
+  image:
+    repository: docker.io/redhat/ubi8
+    tag: "8.8"

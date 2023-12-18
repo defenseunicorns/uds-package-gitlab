@@ -1,12 +1,12 @@
-# uds-capability-gitlab
+# uds-package-gitlab
 
 Bigbang [Gitlab](https://repo1.dso.mil/big-bang/product/packages/gitlab) deployed via flux by zarf
 
 ## Deployment Prerequisites
 
-### GitLab Capability
+### GitLab Package
 
-The Gitlab Capability expects the pieces listed below to exist in the cluster before being deployed.
+The Gitlab Package expects the pieces listed below to exist in the cluster before being deployed.
 
 #### General
 
@@ -104,5 +104,3 @@ make build/uds-capability-gitlab
 ```
 
 ## Documentation
-
-[Identity and Access Management](docs/idam.md)
