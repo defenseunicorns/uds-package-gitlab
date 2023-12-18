@@ -66,16 +66,7 @@ global:
       tmpBucket: uds-gitlab-tmp###ZARF_VAR_BUCKET_SUFFIX###
     ## https://docs.gitlab.com/charts/charts/globals#omniauth
     omniauth:
-      enabled: ###ZARF_VAR_GITLAB_IDAM_ENABLED###
-      autoSignInWithProvider: ###ZARF_VAR_GITLAB_IDAM_AUTO_SIGNIN###
-      syncProfileFromProvider: ###ZARF_VAR_GITLAB_IDAM_SYNC_PROVIDERS###
-      syncProfileAttributes: ###ZARF_VAR_GITLAB_IDAM_SYNC_ATTRIBUTES###
-      allowSingleSignOn: ###ZARF_VAR_GITLAB_IDAM_ALLOWED_SSOS###
-      blockAutoCreatedUsers: ###ZARF_VAR_GITLAB_IDAM_BLOCK_AUTO_USERS###
-      autoLinkUser: ###ZARF_VAR_GITLAB_IDAM_AUTO_LINK_USER###
-      externalProviders: ###ZARF_VAR_GITLAB_IDAM_EXTERNAL_PROVIDERS###
-      providers:
-        ###ZARF_VAR_GITLAB_IDAM_PROVIDERS###
+      enabled: false
     initialDefaults: 
       signupEnabled: ###ZARF_VAR_GITLAB_SIGNUP_ENABLED###
 
