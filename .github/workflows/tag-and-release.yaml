@@ -1,0 +1,48 @@
+name: Publish UDS Package Gitlab
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  tag-new-version:
+    name: Tag New Version
+    permissions: write-all
+    runs-on: ubuntu-latest
+    outputs:
+      release_created: ${{ steps.release-flag.outputs.release_created }}
+    steps:
+      - name: Create release tag
+        id: tag
+        uses: google-github-actions/release-please-action@v3
+        with:
+          command: manifest
+      - id: release-flag
+        run: echo "release_created=${{ steps.tag.outputs.release_created || false }}" >> $GITHUB_OUTPUT
+
+  publish-package:
+    needs: tag-new-version
+    if: ${{ needs.tag-new-version.outputs.release_created == 'true' }}
+    runs-on: ubuntu-latest
+    name: Publish package
+
+    permissions:
+      contents: read
+      packages: write
+    
+    steps:
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+
+      - name: Environment setup
+        uses: ./.github/actions/setup
+    
+      - name: Login to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: dummy
+          password: ${{ secrets.GITHUB_TOKEN }}
+    
+      - name: Publish Package
+        run: uds run -f tasks/publish.yaml package
