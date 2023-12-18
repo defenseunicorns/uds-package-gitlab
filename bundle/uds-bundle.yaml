@@ -19,4 +19,6 @@ zarf-packages:
   
   - name: gitlab
     path: ../
-    ref: 16.5.1-0
+    # x-release-please-start-version
+    ref: 16.5.1-1
+    # x-release-please-end
