@@ -21,6 +21,8 @@ variables:
     default: "gitlabdb"
   - name: GITLAB_DB_USERNAME
     default: "gitlab"
+  - name: GITLAB_DB_ENDPOINT
+    default: "gitlab"
   - name: GITLAB_PAGES_ENABLED
     default: "false"
   - name: GITLAB_SIGNUP_ENABLED
