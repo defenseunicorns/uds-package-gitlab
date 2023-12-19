@@ -2,7 +2,7 @@
 kind: ZarfPackageConfig
 metadata:
   name: gitlab-postgres
-  version: "13.2.24-0"
+  version: "12.6.6-0"
   architecture: amd64
 
 components:
@@ -22,7 +22,7 @@ components:
         valuesFiles:
           - "values.yaml"
     images:
-      - docker.io/bitnami/postgresql:16.1.0-debian-11-r15
+      - docker.io/bitnami/postgresql:15.3.0-debian-11-r24
     actions:
       onDeploy:
         after:
