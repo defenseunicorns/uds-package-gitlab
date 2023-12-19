@@ -16,7 +16,7 @@ components:
     required: true
     charts:
       - name: postgresql
-        version: 13.2.24
+        version: 12.6.6
         namespace: gitlab-db
         url: https://charts.bitnami.com/bitnami
         valuesFiles:
