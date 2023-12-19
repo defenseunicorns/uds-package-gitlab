@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [16.5.1-2](https://github.com/defenseunicorns/uds-package-gitlab/compare/v16.5.1-1...v16.5.1-2) (2023-12-18)
+
+
+### Bug Fixes
+
+* login to registry1 for publishing ([7f02afa](https://github.com/defenseunicorns/uds-package-gitlab/commit/7f02afa3ba9539549e925b934df4f7886b1b1475))
+
 ## [16.5.1-1](https://github.com/defenseunicorns/uds-package-gitlab/compare/v16.5.1-0...v16.5.1-1) (2023-12-18)
 
 
