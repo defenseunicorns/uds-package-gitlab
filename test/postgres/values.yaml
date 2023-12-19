@@ -1,3 +1,7 @@
 auth:
   username: gitlab
   database: gitlabdb
+
+volumePermissions:
+  containerSecurityContext:
+    runAsUser: 1001
