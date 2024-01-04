@@ -3,5 +3,5 @@ auth:
   database: gitlabdb
 
 commonLabels:
-  uds/user: "4321"
-  uds/group: "4321"
+  uds/user: "1001"
+  uds/group: "1001"
