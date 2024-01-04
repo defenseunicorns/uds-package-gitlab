@@ -2,6 +2,6 @@ auth:
   username: gitlab
   database: gitlabdb
 
-# commonLabels:
-#   uds/user: "1001"
-#   uds/group: "1001"
+commonLabels:
+  uds/user: "1001"
+  uds/group: "0"
