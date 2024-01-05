@@ -14,7 +14,7 @@ variables:
   - name: BUCKET_SUFFIX
     default: ""
   - name: GITLAB_REDIS_ENDPOINT
-    default: "gitlab-redis"
+    default: "redis-master.gitlab-redis.svc.cluster.local"
   - name: GITLAB_REDIS_SCHEME
     default: "redis"
   - name: GITLAB_DB_NAME

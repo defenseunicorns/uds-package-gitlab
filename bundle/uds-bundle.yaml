@@ -5,10 +5,14 @@ metadata:
   version: 0.1.0
 
 packages:
+  - name: gitlab-minio
+    path: ../
+    ref: 5.0.13-0
+  
   - name: gitlab-postgres
     path: ../
     ref: 12.6.6-0
-
+  
   - name: gitlab-redis
     path: ../
     ref: 17.13.2-0
