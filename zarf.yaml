@@ -14,13 +14,15 @@ variables:
   - name: BUCKET_SUFFIX
     default: ""
   - name: GITLAB_REDIS_ENDPOINT
-    default: "gitlab-redis"
+    default: "redis-master"
   - name: GITLAB_REDIS_SCHEME
     default: "redis"
   - name: GITLAB_DB_NAME
     default: "gitlabdb"
   - name: GITLAB_DB_USERNAME
     default: "gitlab"
+  - name: GITLAB_DB_ENDPOINT
+    default: "postgresql"
   - name: GITLAB_PAGES_ENABLED
     default: "false"
   - name: GITLAB_SIGNUP_ENABLED

@@ -15,7 +15,7 @@ global:
     pages:
       name: pages.###ZARF_VAR_DOMAIN###
   psql:
-    host: gitlab-postgres
+    host: ###ZARF_VAR_GITLAB_DB_ENDPOINT###
     port: 5432
     username: ###ZARF_VAR_GITLAB_DB_USERNAME###
     database: ###ZARF_VAR_GITLAB_DB_NAME###

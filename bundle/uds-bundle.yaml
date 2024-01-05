@@ -4,7 +4,7 @@ metadata:
   description: A UDS bundle for deploying Gitlab and it's dependencies on a development cluster
   version: 0.1.0
 
-zarf-packages:
+packages:
   - name: gitlab-minio
     path: ../
     ref: 5.0.13-0

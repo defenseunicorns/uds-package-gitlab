@@ -6,13 +6,6 @@ metadata:
   architecture: amd64
 
 components:
-  # - name: redis-kyverno-exceptions
-  #   required: true
-  #   manifests:
-  #     - name: kyverno-exceptions
-  #       files:
-  #         - policy-exceptions/externalName.yaml
-  #         - policy-exceptions/registry.yaml
   - name: redis-istio-exceptions
     required: true
     manifests:
@@ -56,9 +49,3 @@ components:
         namespace: gitlab
         files:
           - secret.yaml
-  - name: redis-service
-    required: true
-    manifests:
-      - name: service for gitlab
-        files:
-          - service.yaml

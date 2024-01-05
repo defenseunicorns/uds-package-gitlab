@@ -1,0 +1,4 @@
+variables:
+  gitlab:
+    gitlab_redis_endpoint: "redis-master.gitlab-redis.svc.cluster.local"
+    gitlab_db_endpoint: "postgresql.gitlab-db.svc.cluster.local"
