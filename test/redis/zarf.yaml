@@ -49,9 +49,3 @@ components:
         namespace: gitlab
         files:
           - secret.yaml
-  - name: redis-service
-    required: true
-    manifests:
-      - name: service for gitlab
-        files:
-          - service.yaml
