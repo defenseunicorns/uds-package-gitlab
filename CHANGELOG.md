@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## [16.5.1-3](https://github.com/defenseunicorns/uds-package-gitlab/compare/v16.5.1-2...v16.5.1-3) (2024-01-05)
+
+
+### Bug Fixes
+
+* uds config in task ([fe98d76](https://github.com/defenseunicorns/uds-package-gitlab/commit/fe98d76fa353680ecb91770ecf18c3a9f3540c39))
+
+
+### Miscellaneous
+
+* begin surgery ([79b8809](https://github.com/defenseunicorns/uds-package-gitlab/commit/79b8809da0df8addf9994866ae4b8d026d4bb911))
+* uds version, service cleanup ([8674532](https://github.com/defenseunicorns/uds-package-gitlab/commit/8674532f88adfac54767410de56fe1392bc6f2d0))
+
 ## [16.5.1-2](https://github.com/defenseunicorns/uds-package-gitlab/compare/v16.5.1-1...v16.5.1-2) (2023-12-18)
 
 
