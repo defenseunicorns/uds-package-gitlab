@@ -1,5 +1,20 @@
 variables:
+  dev-minio:
+    buckets: |
+      - name: uds-gitlab-artifacts
+      - name: uds-gitlab-backups
+      - name: uds-gitlab-ci-secure-files
+      - name: uds-gitlab-dependency-proxy
+      - name: uds-gitlab-lfs
+      - name: uds-gitlab-mr-diffs
+      - name: uds-gitlab-packages
+      - name: uds-gitlab-pages
+      - name: uds-gitlab-terraform-state
+      - name: uds-gitlab-uploads
+      - name: uds-gitlab-registry
+      - name: uds-gitlab-tmp
   dev-postgres:
+    username: "gitlab"
     db_name: "gitlabdb"
   gitlab:
     gitlab_redis_endpoint: "redis-master.dev-redis.svc.cluster.local"
