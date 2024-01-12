@@ -5,20 +5,24 @@ metadata:
   version: 0.1.0
 
 packages:
-  - name: gitlab-minio
-    path: ../
+  - name: dev-minio
+    repository: ghcr.io/defenseunicorns/packages/uds/dev-minio
     ref: 5.0.13-0
   
-  - name: gitlab-postgres
-    path: ../
+  - name: dev-postgres
+    repository: ghcr.io/defenseunicorns/packages/uds/dev-postgres
     ref: 12.6.6-0
   
-  - name: gitlab-redis
-    path: ../
+  - name: dev-redis
+    repository: ghcr.io/defenseunicorns/packages/uds/dev-redis
     ref: 17.13.2-0
   
-  - name: gitlab
+  - name: dev-secrets
     path: ../
-    # x-release-please-start-version
-    ref: 16.5.1-3
-    # x-release-please-end
+    ref: 0.1.0
+  
+  # - name: gitlab
+  #   path: ../
+  #   # x-release-please-start-version
+  #   ref: 16.5.1-3
+  #   # x-release-please-end
