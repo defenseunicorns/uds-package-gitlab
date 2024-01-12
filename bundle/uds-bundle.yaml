@@ -21,8 +21,8 @@ packages:
     path: ../
     ref: 0.1.0
   
-  # - name: gitlab
-  #   path: ../
-  #   # x-release-please-start-version
-  #   ref: 16.5.1-3
-  #   # x-release-please-end
+  - name: gitlab
+    path: ../
+    # x-release-please-start-version
+    ref: 16.5.1-3
+    # x-release-please-end
