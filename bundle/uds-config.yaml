@@ -14,7 +14,7 @@ variables:
       - name: uds-gitlab-registry
       - name: uds-gitlab-tmp
   dev-postgres:
-    username: "gitlab"
+    db_username: "gitlab"
     db_name: "gitlabdb"
   gitlab:
     gitlab_redis_endpoint: "redis-master.dev-redis.svc.cluster.local"
