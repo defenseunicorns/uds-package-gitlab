@@ -6,6 +6,12 @@ includes:
   - test: ./tasks/test.yaml
 
 tasks:
+  - name: default
+    actions:
+      - task: create:gitlab-package
+      - task: create-test-bundle
+      - task: setup-cluster
+      - task: deploy-test-bundle
   - name: setup-cluster
     actions:
       - task: setup:k3d-test-cluster

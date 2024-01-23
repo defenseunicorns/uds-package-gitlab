@@ -1,0 +1,89 @@
+apiVersion: uds.dev/v1alpha1
+kind: Package
+metadata:
+  name: gitlab
+  namespace: {{ .Release.Namespace }}
+spec:
+  network:
+    allow:
+      - direction: Ingress
+        remoteGenerated: IntraNamespace
+
+      - direction: Ingress
+        podSelector:
+          app: webservice
+        port: 8181
+        description: "Runner Ingress"
+
+      - direction: Ingress
+        podSelector:
+          app: webservice
+        remoteNamespace: istio-tenant-gateway
+        remotePodLabels:
+          app: tenant-ingressgateway
+          istio: tenant-ingressgateway
+        port: 8181
+        description: "Istio Tenant Ingressgateway Webservice"
+
+      - direction: Ingress
+        podSelector:
+          app: sidekiq
+        remoteNamespace: istio-tenant-gateway
+        remotePodLabels:
+          app: tenant-ingressgateway
+          istio: tenant-ingressgateway
+        port: 8080
+        description: "Istio Tenant Ingressgateway Sidekiq"
+
+      - direction: Ingress
+        podSelector:
+          app: registry
+        remoteNamespace: istio-tenant-gateway
+        remotePodLabels:
+          app: tenant-ingressgateway
+          istio: tenant-ingressgateway
+        port: 5000
+        description: "Istio Tenant Ingressgateway Registry"
+
+      - direction: Egress
+        podLabels:
+          app: webservice
+        remoteGenerated: Anywhere
+
+      - direction: Egress
+        podLabels:
+          app: registry
+        remoteGenerated: Anywhere
+        description: "egress-registry-storage"
+
+      - direction: Egress
+        podLabels:
+          app: sidekiq
+        remoteGenerated: Anywhere
+        description: "egress-sidekiq-storage"
+
+      - direction: Egress
+        podLabels:
+          app: migrations
+        remoteGenerated: Anywhere
+        description: "egress-migrations-storage"
+
+      - direction: Egress
+        remoteGenerated: IntraNamespace
+
+      - direction: Egress
+        remoteGenerated: KubeAPI
+
+      - direction: Egress
+        remoteNamespace: tempo
+        remotePodLabels:
+          app.kubernetes.io/name: tempo
+        port: 9411
+        description: "Tempo"
+
+      - direction: Egress
+        remoteNamespace: gitlab
+        remotePodLabels:
+          app: gitlab-runner
+        description: "Gitlab Runner"
+

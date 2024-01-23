@@ -2,4 +2,4 @@ tasks:
   - name: k3d-test-cluster
     actions:
       - description: Create k3d cluster with UDS Core
-        cmd: uds deploy oci://defenseunicorns/uds/bundles/k3d-core-istio:0.7.0-${UDS_ARCH} --confirm --no-progress
+        cmd: uds deploy oci://defenseunicorns/uds/bundles/k3d-core-istio:0.8.1-${UDS_ARCH} --confirm --no-progress
