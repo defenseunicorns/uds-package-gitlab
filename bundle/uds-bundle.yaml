@@ -7,17 +7,21 @@ metadata:
   # x-release-please-end
 
 packages:
-  - name: gitlab-minio
-    path: ../
+  - name: dev-minio
+    repository: ghcr.io/defenseunicorns/packages/uds/dev-minio
     ref: 5.0.13-0
   
-  - name: gitlab-postgres
-    path: ../
+  - name: dev-postgres
+    repository: ghcr.io/defenseunicorns/packages/uds/dev-postgres
     ref: 12.6.6-0
   
-  - name: gitlab-redis
-    path: ../
+  - name: dev-redis
+    repository: ghcr.io/defenseunicorns/packages/uds/dev-redis
     ref: 17.13.2-0
+  
+  - name: dev-secrets
+    path: ../
+    ref: 0.1.0
   
   - name: gitlab
     path: ../

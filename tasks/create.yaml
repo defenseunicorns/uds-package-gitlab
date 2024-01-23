@@ -14,7 +14,4 @@ tasks:
   - name: dependency-package
     description: Create the Minio, PostgreSQL, and Redis Dependency Zarf Packages
     actions:
-      - cmd: |
-          for dependency in minio postgres redis; do
-            zarf package create test/${dependency}/ --confirm --no-progress --architecture=${UDS_ARCH} --skip-sbom
-          done
+      - cmd: zarf package create src/dev-secrets/ --confirm --no-progress --architecture=${UDS_ARCH} --skip-sbom
