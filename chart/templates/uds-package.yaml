@@ -45,10 +45,23 @@ spec:
         port: 5000
         description: "Istio Tenant Ingressgateway Registry"
 
-      - direction: Egress
+      - direction: Ingress
+        remoteNamespace: monitoring
+        remotePodLabels:
+          app: prometheus
         podLabels:
-          app: webservice
-        remoteGenerated: Anywhere
+          app: gitlab-exporter
+        port: 9168
+        description: "ingress-monitoring-exporter"
+
+      - direction: Ingress
+        remoteNamespace: monitoring
+        remotePodLabels:
+          app: prometheus
+        podLabels:
+          app: runner
+        port: 9252
+        description: "ingress-monitoring-runner"
 
       - direction: Egress
         podLabels:
@@ -87,3 +100,13 @@ spec:
           app: gitlab-runner
         description: "Gitlab Runner"
 
+      - direction: Egress
+        podSelector:
+          app: webservice
+        port: 443
+        description: "egress-sso"
+
+      - direction: Egress
+        podLabels:
+          app: webservice
+        remoteGenerated: Anywhere
