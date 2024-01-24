@@ -10,6 +10,7 @@ spec:
         remoteGenerated: IntraNamespace
 
       - direction: Ingress
+        # todo: this should be scoped when we know where the runner is
         podLabels:
           app: webservice
         port: 8181
