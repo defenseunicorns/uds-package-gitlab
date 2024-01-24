@@ -10,13 +10,13 @@ spec:
         remoteGenerated: IntraNamespace
 
       - direction: Ingress
-        podSelector:
+        podLabels:
           app: webservice
         port: 8181
-        description: "Runner Ingress"
+        description: "Runner Ingress Workhorse"
 
       - direction: Ingress
-        podSelector:
+        podLabels:
           app: webservice
         remoteNamespace: istio-tenant-gateway
         remotePodLabels:
@@ -26,7 +26,7 @@ spec:
         description: "Istio Tenant Ingressgateway Webservice"
 
       - direction: Ingress
-        podSelector:
+        podLabels:
           app: sidekiq
         remoteNamespace: istio-tenant-gateway
         remotePodLabels:
@@ -36,7 +36,7 @@ spec:
         description: "Istio Tenant Ingressgateway Sidekiq"
 
       - direction: Ingress
-        podSelector:
+        podLabels:
           app: registry
         remoteNamespace: istio-tenant-gateway
         remotePodLabels:
@@ -52,34 +52,35 @@ spec:
         podLabels:
           app: gitlab-exporter
         port: 9168
-        description: "ingress-monitoring-exporter"
+        description: "Monitoring Exporter"
 
       - direction: Ingress
+        podLabels:
+          app: runner
         remoteNamespace: monitoring
         remotePodLabels:
           app: prometheus
-        podLabels:
-          app: runner
+
         port: 9252
-        description: "ingress-monitoring-runner"
+        description: "Monitoring Runner"
 
       - direction: Egress
         podLabels:
           app: registry
         remoteGenerated: Anywhere
-        description: "egress-registry-storage"
+        description: "Registry Storage"
 
       - direction: Egress
         podLabels:
           app: sidekiq
         remoteGenerated: Anywhere
-        description: "egress-sidekiq-storage"
+        description: "Sidekiq Storage"
 
       - direction: Egress
         podLabels:
           app: migrations
         remoteGenerated: Anywhere
-        description: "egress-migrations-storage"
+        description: "Migrations Storage"
 
       - direction: Egress
         remoteGenerated: IntraNamespace
@@ -95,18 +96,13 @@ spec:
         description: "Tempo"
 
       - direction: Egress
-        remoteNamespace: gitlab
-        remotePodLabels:
-          app: gitlab-runner
-        description: "Gitlab Runner"
-
-      - direction: Egress
-        podSelector:
+        podLabels:
           app: webservice
         port: 443
-        description: "egress-sso"
+        description: "SSO"
 
       - direction: Egress
         podLabels:
           app: webservice
         remoteGenerated: Anywhere
+        description: "Webservice Storage"
