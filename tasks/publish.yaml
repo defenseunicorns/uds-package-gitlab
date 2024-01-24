@@ -1,3 +1,6 @@
+includes:
+  - publish: https://raw.githubusercontent.com/defenseunicorns/uds-common-tasks/v0.1.0/tasks/publish.yaml
+
 variables:
   - name: TARGET_REPO
     default: oci://ghcr.io/defenseunicorns/packages/uds
@@ -7,6 +10,9 @@ variables:
     # x-release-please-start-version
     default: "16.5.1-3"
     # x-release-please-end
+  
+  - name: FLAVOR
+    default: "registry1"
 
 tasks:
   - name: package
@@ -17,9 +23,6 @@ tasks:
           set -e
           ZARF_ARCHITECTURE=amd64 uds run -f tasks/create.yaml gitlab-package --no-progress
           ZARF_ARCHITECTURE=arm64 uds run -f tasks/create.yaml gitlab-package --no-progress
-      
+
       - description: Publish the packages
-        cmd: |
-          set -e
-          zarf package publish zarf-package-gitlab-amd64-${VERSION}.tar.zst ${TARGET_REPO}
-          zarf package publish zarf-package-gitlab-arm64-${VERSION}.tar.zst ${TARGET_REPO}
+        task: publish:package

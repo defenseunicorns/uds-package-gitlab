@@ -1,17 +1,19 @@
 includes:
   - cleanup: ./tasks/cleanup.yaml
   - create: ./tasks/create.yaml
-  - deploy: ./tasks/deploy.yaml
-  - setup: ./tasks/setup.yaml
+  - deploy: https://raw.githubusercontent.com/defenseunicorns/uds-common-tasks/v0.1.0/tasks/deploy.yaml
+  - setup: https://raw.githubusercontent.com/defenseunicorns/uds-common-tasks/v0.1.0/tasks/setup.yaml
   - test: ./tasks/test.yaml
 
 tasks:
   - name: default
+    description: Create K3D Cluster with UDS-Core + Gitlab
     actions:
-      - task: create:gitlab-package
+      - task: create-package
       - task: create-test-bundle
       - task: setup-cluster
       - task: deploy-test-bundle
+
   - name: setup-cluster
     actions:
       - task: setup:k3d-test-cluster
@@ -19,18 +21,14 @@ tasks:
   - name: create-package
     actions:
       - task: create:gitlab-package
-
+  
   - name: create-test-bundle
     actions:
       - task: create:gitlab-test-bundle
   
-  - name: deploy-package
-    actions:
-      - task: deploy:gitlab-package
-
   - name: deploy-test-bundle
     actions:
-      - task: deploy:gitlab-test-bundle
+      - task: deploy:test-bundle
 
   - name: test-package
     actions:
