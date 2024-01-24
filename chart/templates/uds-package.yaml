@@ -86,6 +86,7 @@ spec:
         remoteGenerated: IntraNamespace
 
       - direction: Egress
+        # todo: this is over permissive, need to scope it down
         remoteGenerated: KubeAPI
 
       - direction: Egress
