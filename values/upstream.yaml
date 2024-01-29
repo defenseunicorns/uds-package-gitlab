@@ -2,33 +2,33 @@ gitlab:
   gitaly:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/gitaly
-      tag: v16.8.0
+      tag: v16.8.1
   gitlab-exporter:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-exporter
-      tag: v16.8.0
+      tag: v16.8.1
   gitlab-pages:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-pages
-      tag: v16.8.0
+      tag: v16.8.1
   gitlab-shell:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-shell
-      tag: v16.8.0
+      tag: v16.8.1
   praefect:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/gitaly
-      tag: v16.8.0
+      tag: v16.8.1
   toolbox:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/gitaly
-      tag: v16.8.0
+      tag: v16.8.1
 
 global:
   certificates:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/certificates
-      tag: v16.8.0
+      tag: v16.8.1
   gitlabBase:
     image:
       repository: docker.io/redhat/ubi8
@@ -36,7 +36,7 @@ global:
   kubectl:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/kubectl
-      tag: v16.8.0
+      tag: v16.8.1
 
 minio:
   image: docker.io/minio/minio
@@ -65,7 +65,7 @@ redis:
 registry:
   image:
     repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-container-registry
-    tag: v16.8.0
+    tag: v16.8.1
 
 shared-secrets:
   selfsign:
