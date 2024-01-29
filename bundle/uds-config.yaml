@@ -19,3 +19,4 @@ variables:
   gitlab:
     gitlab_redis_endpoint: "redis-master.dev-redis.svc.cluster.local"
     gitlab_db_endpoint: "postgresql.dev-postgres.svc.cluster.local"
+    DISABLE_REGISTRY_REDIRECT: "true"

@@ -85,6 +85,8 @@ redis:
   install: false
 registry:
   storage:
+    redirect:
+      disable: ###ZARF_VAR_DISABLE_REGISTRY_REDIRECT###
     secret: gitlab-object-store
     key: registry
   metrics:
