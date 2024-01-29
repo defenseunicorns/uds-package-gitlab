@@ -118,7 +118,7 @@ gitlab:
         enabled: true
 
 istio:
-  enabled: true
+  enabled: false
   injection: enabled
   gitlab:
     gateways:

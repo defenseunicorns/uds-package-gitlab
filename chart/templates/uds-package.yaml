@@ -5,6 +5,19 @@ metadata:
   namespace: {{ .Release.Namespace }}
 spec:
   network:
+    expose:
+      - service: gitlab-webservice-default
+        podLabels:
+          app: webservice
+        host: gitlab
+        gateway: tenant
+        port: 8181
+      - service: gitlab-registry
+        podLabels:
+          app: registry
+        host: registry
+        gateway: tenant
+        port: 5000
     allow:
       - direction: Ingress
         remoteGenerated: IntraNamespace
@@ -15,36 +28,6 @@ spec:
           app: webservice
         port: 8181
         description: "Runner Ingress Workhorse"
-
-      - direction: Ingress
-        podLabels:
-          app: webservice
-        remoteNamespace: istio-tenant-gateway
-        remotePodLabels:
-          app: tenant-ingressgateway
-          istio: tenant-ingressgateway
-        port: 8181
-        description: "Istio Tenant Ingressgateway Webservice"
-
-      - direction: Ingress
-        podLabels:
-          app: sidekiq
-        remoteNamespace: istio-tenant-gateway
-        remotePodLabels:
-          app: tenant-ingressgateway
-          istio: tenant-ingressgateway
-        port: 8080
-        description: "Istio Tenant Ingressgateway Sidekiq"
-
-      - direction: Ingress
-        podLabels:
-          app: registry
-        remoteNamespace: istio-tenant-gateway
-        remotePodLabels:
-          app: tenant-ingressgateway
-          istio: tenant-ingressgateway
-        port: 5000
-        description: "Istio Tenant Ingressgateway Registry"
 
       - direction: Ingress
         remoteNamespace: monitoring
