@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [16.8.1-uds.2](https://github.com/defenseunicorns/uds-package-gitlab/compare/v16.8.1-uds.1...v16.8.1-uds.2) (2024-01-30)
+
+
+### ci
+
+* fix ci publish ([#19](https://github.com/defenseunicorns/uds-package-gitlab/issues/19)) ([d1d08db](https://github.com/defenseunicorns/uds-package-gitlab/commit/d1d08db47236ece57d93e2f18eeb7a6dd7db420a))
+
 ## [16.8.1-uds.1](https://github.com/defenseunicorns/uds-package-gitlab/compare/v16.5.1-uds.4...v16.8.1-uds.1) (2024-01-30)
 
 
