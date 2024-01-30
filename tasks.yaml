@@ -39,7 +39,7 @@ tasks:
       - task: test:health-check
       - task: test:ingress
 
-  - name: cleanup-cluster
+  - name: cleanup
     description: Destroy k3d Cluster
     actions:
       - task: cleanup:cluster
