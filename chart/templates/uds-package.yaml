@@ -1,0 +1,93 @@
+apiVersion: uds.dev/v1alpha1
+kind: Package
+metadata:
+  name: gitlab
+  namespace: {{ .Release.Namespace }}
+spec:
+  network:
+    expose:
+      - service: gitlab-webservice-default
+        podLabels:
+          app: webservice
+        host: gitlab
+        gateway: tenant
+        port: 8181
+      - service: gitlab-registry
+        podLabels:
+          app: registry
+        host: registry
+        gateway: tenant
+        port: 5000
+    allow:
+      - direction: Ingress
+        remoteGenerated: IntraNamespace
+
+      - direction: Ingress
+        # todo: this should be scoped when we know where the runner is
+        podLabels:
+          app: webservice
+        port: 8181
+        description: "Runner Ingress Workhorse"
+
+      - direction: Ingress
+        remoteNamespace: monitoring
+        remotePodLabels:
+          app: prometheus
+        podLabels:
+          app: gitlab-exporter
+        port: 9168
+        description: "Monitoring Exporter"
+
+      - direction: Ingress
+        podLabels:
+          app: runner
+        remoteNamespace: monitoring
+        remotePodLabels:
+          app: prometheus
+
+        port: 9252
+        description: "Monitoring Runner"
+
+      - direction: Egress
+        podLabels:
+          app: registry
+        remoteGenerated: Anywhere
+        description: "Registry Storage"
+
+      - direction: Egress
+        podLabels:
+          app: sidekiq
+        remoteGenerated: Anywhere
+        description: "Sidekiq Storage"
+
+      - direction: Egress
+        podLabels:
+          app: migrations
+        remoteGenerated: Anywhere
+        description: "Migrations Storage"
+
+      - direction: Egress
+        remoteGenerated: IntraNamespace
+
+      - direction: Egress
+        # todo: this is over permissive, need to scope it down
+        remoteGenerated: KubeAPI
+
+      - direction: Egress
+        remoteNamespace: tempo
+        remotePodLabels:
+          app.kubernetes.io/name: tempo
+        port: 9411
+        description: "Tempo"
+
+      - direction: Egress
+        podLabels:
+          app: webservice
+        port: 443
+        description: "SSO"
+
+      - direction: Egress
+        podLabels:
+          app: webservice
+        remoteGenerated: Anywhere
+        description: "Webservice Storage"

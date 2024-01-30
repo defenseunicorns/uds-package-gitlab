@@ -1,3 +1,7 @@
+variables:
+  - name: FLAVOR
+    default: "registry1"
+
 tasks:
   - name: gitlab-test-bundle
     description: Create the UDS bundle with Gitlab and its dependencies
@@ -9,7 +13,7 @@ tasks:
   - name: gitlab-package
     description: Create the UDS Gitlab Zarf Package
     actions:
-      - cmd: zarf package create --confirm --no-progress --architecture=${ZARF_ARCHITECTURE} --flavor registry1
+      - cmd: zarf package create --confirm --no-progress --architecture=${ZARF_ARCHITECTURE} --flavor ${FLAVOR}
 
   - name: dependency-package
     description: Create the Minio, PostgreSQL, and Redis Dependency Zarf Packages
