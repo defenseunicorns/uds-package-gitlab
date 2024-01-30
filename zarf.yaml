@@ -61,59 +61,18 @@ components:
       - "registry1.dso.mil/ironbank/redhat/ubi/ubi9:9.3"
       - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-exporter:16.8.1"
 
-  # Note: upstream-ce flavor is experimental
+  # Note: upstream flavor is experimental
   - name: gitlab
     required: true
     description: "Deploy gitlab"
     import:
       path: common
     only:
-      flavor: upstream-ce
+      flavor: upstream
     charts:
     - name: gitlab
       valuesFiles:
         - values/upstream.yaml
-        - values/ce.yaml
-    images:
-      - "docker.io/bitnami/redis-exporter:1.56.0"
-      - "docker.io/bitnami/redis:7.0.0-debian-10-r3"
-      - "registry.gitlab.com/gitlab-org/build/cng/certificates:v16.8.1"
-      - "registry.gitlab.com/gitlab-org/build/cng/cfssl-self-sign:1.6.1"
-      - "registry.gitlab.com/gitlab-org/build/cng/gitaly:v16.8.1"
-      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-container-registry:v16.8.1"
-      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-pages:v16.8.1"
-      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-shell:v16.8.1"
-      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-sidekiq-ce:v16.8.1"
-      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-toolbox-ce:v16.8.1"
-      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-webservice-ce:v16.8.1"
-      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-workhorse-ce:v16.8.1"
-      - "registry.gitlab.com/gitlab-org/build/cng/kubectl:v16.8.1"
-      - "registry.gitlab.com/gitlab-org/build/cng/kubectl:v16.8.1"
-      - "docker.io/minio/mc:RELEASE.2022-12-24T15-21-38Z"
-      - "docker.io/minio/minio:RELEASE.2022-12-12T19-27-27Z"
-      - "docker.io/bitnami/postgresql:14.8.0"
-      - "docker.io/redhat/ubi8:8.8"
-      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-exporter:v16.8.1"
-
-  # Note: upstream-ee flavor is experimental
-  - name: gitlab
-    required: true
-    description: "Deploy gitlab"
-    only:
-      flavor: upstream-ee
-    charts:
-    - name: gitlab
-      namespace: gitlab
-      url: https://repo1.dso.mil/big-bang/product/packages/gitlab.git
-      gitPath: chart
-      version: "7.8.0-bb.0"
-      valuesFiles:
-        - values/upstream.yaml
-        - values/ee.yaml
-    - name: uds-gitlab-config
-      namespace: gitlab
-      version: 0.1.0
-      localPath: chart
     images:
       - "docker.io/bitnami/redis-exporter:1.55.0"
       - "docker.io/bitnami/redis:7.0.0-debian-10-r3"

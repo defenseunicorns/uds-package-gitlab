@@ -1,3 +1,7 @@
+variables:
+  - name: FLAVOR
+    default: "registry1"
+
 tasks:
   - name: gitlab-test-bundle
     description: Create the UDS bundle with Gitlab and its dependencies
