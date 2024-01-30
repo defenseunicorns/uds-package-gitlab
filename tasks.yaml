@@ -1,8 +1,8 @@
 includes:
   - cleanup: ./tasks/cleanup.yaml
   - create: ./tasks/create.yaml
-  - deploy: https://raw.githubusercontent.com/defenseunicorns/uds-common-tasks/v0.1.1/tasks/deploy.yaml
-  - setup: https://raw.githubusercontent.com/defenseunicorns/uds-common-tasks/v0.1.1/tasks/setup.yaml
+  - deploy: https://raw.githubusercontent.com/defenseunicorns/uds-common-tasks/v0.1.2/tasks/deploy.yaml
+  - setup: https://raw.githubusercontent.com/defenseunicorns/uds-common-tasks/v0.1.2/tasks/setup.yaml
   - test: ./tasks/test.yaml
 
 tasks:

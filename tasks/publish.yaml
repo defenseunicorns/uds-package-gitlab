@@ -1,5 +1,5 @@
 includes:
-  - publish: https://raw.githubusercontent.com/defenseunicorns/uds-common-tasks/v0.1.0/tasks/publish.yaml
+  - publish: https://raw.githubusercontent.com/defenseunicorns/uds-common-tasks/v0.1.2/tasks/publish.yaml
 
 variables:
   - name: TARGET_REPO
