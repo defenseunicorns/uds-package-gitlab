@@ -17,17 +17,17 @@ tasks:
     description: Deploy k3d cluster using uds-common-tasks
     actions:
       - task: setup:k3d-test-cluster
-  
+
   - name: create-package
     description: Create UDS Gitlab Package, No dependencies included
     actions:
       - task: create:gitlab-package
-  
+
   - name: create-test-bundle
     description: Create UDS Gitlab bundle with dependencies
     actions:
       - task: create:gitlab-test-bundle
-  
+
   - name: deploy-test-bundle
     description: Deploy UDS Gitlab bundle with dependencies using uds-common-tasks
     actions:

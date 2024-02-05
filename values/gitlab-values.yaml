@@ -67,7 +67,7 @@ global:
     ## https://docs.gitlab.com/charts/charts/globals#omniauth
     omniauth:
       enabled: false
-    initialDefaults: 
+    initialDefaults:
       signupEnabled: ###ZARF_VAR_GITLAB_SIGNUP_ENABLED###
 
   registry:

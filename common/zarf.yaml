@@ -2,7 +2,7 @@
 kind: ZarfPackageConfig
 metadata:
   name: gitlab-common
-  description: "UDS GitLab Common Package" 
+  description: "UDS GitLab Common Package"
 
 components:
   - name: gitlab

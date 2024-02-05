@@ -3,7 +3,7 @@ tasks:
     actions:
       - description: Destroy k3d cluster
         cmd: k3d cluster delete uds
-    
+
   - name: bundle
     actions:
       - description: Remove the Deployed UDS Gitlab Bundle

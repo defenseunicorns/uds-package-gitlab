@@ -22,7 +22,7 @@ repos:
       - id: check-yaml
         exclude: |
           (?x)^(
-            charts/raw/templates/resources.yaml
+            chart/templates/uds-package.yaml
           )$
         args:
           - "--allow-multiple-documents"
@@ -40,11 +40,11 @@ repos:
         args:
           [
             "--schemafile",
-            "https://raw.githubusercontent.com/defenseunicorns/zarf/v0.29.1/zarf.schema.json",
+            "https://raw.githubusercontent.com/defenseunicorns/zarf/v0.32.2/zarf.schema.json",
             "--no-cache"
           ]
   - repo: https://github.com/golangci/golangci-lint
-    rev: v1.52.3
+    rev: v1.54.1
     hooks:
       - id: golangci-lint
   - repo: https://github.com/renovatebot/pre-commit-hooks

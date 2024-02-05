@@ -10,7 +10,7 @@ variables:
     # x-release-please-start-version
     default: "16.8.1-uds.2"
     # x-release-please-end
-  
+
   - name: FLAVOR
     default: "registry1"
 
