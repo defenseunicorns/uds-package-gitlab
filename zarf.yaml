@@ -41,6 +41,7 @@ components:
       flavor: registry1
     charts:
     - name: gitlab
+      namespace: gitlab
     images:
       - "registry1.dso.mil/ironbank/bitnami/analytics/redis-exporter:v1.56.0"
       - "registry1.dso.mil/ironbank/bitnami/redis:7.0.0-debian-10-r3"
@@ -71,6 +72,7 @@ components:
       flavor: upstream
     charts:
     - name: gitlab
+      namespace: gitlab
       valuesFiles:
         - values/upstream.yaml
     images:
