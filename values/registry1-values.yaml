@@ -51,7 +51,7 @@ global:
   kubectl:
     image:
       repository: registry1.dso.mil/ironbank/gitlab/gitlab/kubectl
-      tag: v16.8.1
+      tag: 16.8.1
 
 # minio:
 #   image: registry1.dso.mil/ironbank/opensource/minio/minio
