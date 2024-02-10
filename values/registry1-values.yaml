@@ -46,7 +46,7 @@ global:
       tag: 16.8.1
   gitlabBase:
     image:
-      repository: registry1.dso.mil/redhat/ubi9
+      repository: registry1.dso.mil/ironbank/redhat/ubi9
       tag: "9.3"
   kubectl:
     image:
@@ -89,5 +89,5 @@ shared-secrets:
 
 upgradeCheck:
   image:
-    repository: registry1.dso.mil/redhat/ubi9
+    repository: registry1.dso.mil/ironbank/redhat/ubi9
     tag: "9.3"
