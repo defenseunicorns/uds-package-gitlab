@@ -3,7 +3,7 @@ kind: ZarfPackageConfig
 metadata:
   name: dev-secrets
   version: "0.1.0"
-  architecture: amd64
+
 
 components:
   - name: minio-password

@@ -53,29 +53,29 @@ global:
       repository: registry.gitlab.com/gitlab-org/build/cng/kubectl
       tag: v16.8.1
 
-minio:
-  image: docker.io/minio/minio
-  imageTag: RELEASE.2022-12-12T19-27-27Z
-  minioMc:
-    image: docker.io/minio/mc
-    tag: RELEASE.2022-12-24T15-21-38Z
+# minio:
+#   image: docker.io/minio/minio
+#   imageTag: RELEASE.2022-12-12T19-27-27Z
+#   minioMc:
+#     image: docker.io/minio/mc
+#     tag: RELEASE.2022-12-24T15-21-38Z
 
-postgresql:
-  image:
-    registry: docker.io
-    repository: bitnami/postgresql
-    tag: "14.8.0"
+# postgresql:
+#   image:
+#     registry: docker.io
+#     repository: bitnami/postgresql
+#     tag: "14.8.0"
 
-redis:
-  image:
-    registry: docker.io
-    repository: bitnami/redis
-    tag: 7.0.0-debian-10-r3
-  metrics:
-    image:
-      registry: docker.io
-      repository: bitnami/redis-exporter
-      tag: "1.55.0"
+# redis:
+#   image:
+#     registry: docker.io
+#     repository: bitnami/redis
+#     tag: 7.0.0-debian-10-r3
+#   metrics:
+#     image:
+#       registry: docker.io
+#       repository: bitnami/redis-exporter
+#       tag: "1.55.0"
 
 registry:
   image:

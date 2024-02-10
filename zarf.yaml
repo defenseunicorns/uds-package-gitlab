@@ -6,7 +6,7 @@ metadata:
   # x-release-please-start-version
   version: "16.8.1-uds.2"
   # x-release-please-end
-  architecture: amd64
+
 
 variables:
   - name: DOMAIN
@@ -34,16 +34,20 @@ variables:
 components:
   - name: gitlab
     required: true
-    description: "Deploy gitlab"
+    description: "Deploy gitlab with registry1 images"
     import:
       path: common
     only:
       flavor: registry1
+      cluster:
+        architecture: amd64
     charts:
     - name: gitlab
+      valuesFiles:
+        - values/registry1-values.yaml
     images:
-      - "registry1.dso.mil/ironbank/bitnami/analytics/redis-exporter:v1.56.0"
-      - "registry1.dso.mil/ironbank/bitnami/redis:7.0.0-debian-10-r3"
+      # - "registry1.dso.mil/ironbank/bitnami/analytics/redis-exporter:v1.56.0"
+      # - "registry1.dso.mil/ironbank/bitnami/redis:7.0.0-debian-10-r3"
       - "registry1.dso.mil/ironbank/gitlab/gitlab/certificates:16.8.1"
       - "registry1.dso.mil/ironbank/gitlab/gitlab/cfssl-self-sign:1.6.1"
       - "registry1.dso.mil/ironbank/gitlab/gitlab/gitaly:16.8.1"
@@ -55,9 +59,9 @@ components:
       - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-webservice:16.8.1"
       - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-workhorse:16.8.1"
       - "registry1.dso.mil/ironbank/gitlab/gitlab/kubectl:16.8.1"
-      - "registry1.dso.mil/ironbank/opensource/minio/mc:RELEASE.2022-12-24T15-21-38Z"
-      - "registry1.dso.mil/ironbank/opensource/minio/minio:RELEASE.2022-12-12T19-27-27Z"
-      - "registry1.dso.mil/ironbank/opensource/postgres/postgresql:14.9"
+      # - "registry1.dso.mil/ironbank/opensource/minio/mc:RELEASE.2022-12-24T15-21-38Z"
+      # - "registry1.dso.mil/ironbank/opensource/minio/minio:RELEASE.2022-12-12T19-27-27Z"
+      # - "registry1.dso.mil/ironbank/opensource/postgres/postgresql:14.9"
       - "registry1.dso.mil/ironbank/redhat/ubi/ubi9:9.3"
       - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-exporter:16.8.1"
 
@@ -72,10 +76,10 @@ components:
     charts:
     - name: gitlab
       valuesFiles:
-        - values/upstream.yaml
+        - values/upstream-values.yaml
     images:
-      - "docker.io/bitnami/redis-exporter:1.55.0"
-      - "docker.io/bitnami/redis:7.0.0-debian-10-r3"
+      # - "docker.io/bitnami/redis-exporter:1.55.0"
+      # - "docker.io/bitnami/redis:7.0.0-debian-10-r3"
       - "registry.gitlab.com/gitlab-org/build/cng/certificates:v16.8.1"
       - "registry.gitlab.com/gitlab-org/build/cng/cfssl-self-sign:1.6.1"
       - "registry.gitlab.com/gitlab-org/build/cng/gitaly:v16.8.1"
@@ -87,8 +91,8 @@ components:
       - "registry.gitlab.com/gitlab-org/build/cng/gitlab-webservice-ee:v16.8.1"
       - "registry.gitlab.com/gitlab-org/build/cng/gitlab-workhorse-ee:v16.8.1"
       - "registry.gitlab.com/gitlab-org/build/cng/kubectl:v16.8.1"
-      - "docker.io/minio/mc:RELEASE.2022-12-24T15-21-38Z"
-      - "docker.io/minio/minio:RELEASE.2022-12-12T19-27-27Z"
-      - "docker.io/bitnami/postgresql:14.8.0"
+      # - "docker.io/minio/mc:RELEASE.2022-12-24T15-21-38Z"
+      # - "docker.io/minio/minio:RELEASE.2022-12-12T19-27-27Z"
+      # - "docker.io/bitnami/postgresql:14.8.0"
       - "docker.io/redhat/ubi8:8.8"
       - "registry.gitlab.com/gitlab-org/build/cng/gitlab-exporter:v16.8.1"
