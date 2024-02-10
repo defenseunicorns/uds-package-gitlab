@@ -2,52 +2,52 @@ gitlab:
   webservice:
     image:
       repository: registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-webservice-ee
-      tag: v16.8.1
+      tag: 16.8.1
     workhorse:
       image: registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-workhorse-ee
-      tag: v16.8.1
+      tag: 16.8.1
   sidekiq:
     image:
       repository: registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-sidekiq-ee
-      tag: v16.8.1
+      tag: 16.8.1
   migrations:
     image:
       repository: registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-toolbox-ee
-      tag: v16.8.1
+      tag: 16.8.1
   gitaly:
     image:
       repository: registry1.dso.mil/ironbank/gitlab/gitlab/gitaly
-      tag: v16.8.1
+      tag: 16.8.1
   gitlab-exporter:
     image:
       repository: registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-exporter
-      tag: v16.8.1
+      tag: 16.8.1
   gitlab-pages:
     image:
       repository: registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-pages
-      tag: v16.8.1
+      tag: 16.8.1
   gitlab-shell:
     image:
       repository: registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-shell
-      tag: v16.8.1
+      tag: 16.8.1
   praefect:
     image:
       repository: registry1.dso.mil/ironbank/gitlab/gitlab/gitaly
-      tag: v16.8.1
+      tag: 16.8.1
   toolbox:
     image:
       repository: registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-toolbox-ee
-      tag: v16.8.1
+      tag: 16.8.1
 
 global:
   certificates:
     image:
       repository: registry1.dso.mil/ironbank/gitlab/gitlab/certificates
-      tag: v16.8.1
+      tag: 16.8.1
   gitlabBase:
     image:
-      repository: registry1.dso.mil/redhat/ubi8
-      tag: "8.8"
+      repository: registry1.dso.mil/redhat/ubi9
+      tag: 9.3
   kubectl:
     image:
       repository: registry1.dso.mil/ironbank/gitlab/gitlab/kubectl
@@ -80,7 +80,7 @@ global:
 registry:
   image:
     repository: registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-container-registry
-    tag: v16.8.1
+    tag: 16.8.1
 
 shared-secrets:
   selfsign:
@@ -89,5 +89,5 @@ shared-secrets:
 
 upgradeCheck:
   image:
-    repository: registry1.dso.mil/redhat/ubi8
-    tag: "8.8"
+    repository: registry1.dso.mil/redhat/ubi9
+    tag: 9.3
