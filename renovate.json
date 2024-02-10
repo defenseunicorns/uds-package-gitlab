@@ -21,8 +21,8 @@
   "rebaseWhen": "conflicted",
   "commitBodyTable": true,
   "ignorePaths": ["archive/**"],
-  "suppressNotifications": ["prIgnoreNotification"],
   "labels": ["renovate"],
+  "suppressNotifications": ["prIgnoreNotification"],
   "pre-commit": {
     "enabled": true
   },
