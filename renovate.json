@@ -22,6 +22,7 @@
   "commitBodyTable": true,
   "ignorePaths": ["archive/**"],
   "suppressNotifications": ["prIgnoreNotification"],
+  "labels": ["renovate"],
   "pre-commit": {
     "enabled": true
   },
