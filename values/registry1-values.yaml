@@ -53,30 +53,6 @@ global:
       repository: registry1.dso.mil/ironbank/gitlab/gitlab/kubectl
       tag: 16.8.1
 
-# minio:
-#   image: registry1.dso.mil/ironbank/opensource/minio/minio
-#   imageTag: RELEASE.2022-12-12T19-27-27Z
-#   minioMc:
-#     image: registry1.dso.mil/ironbank/opensource/minio/mc
-#     tag: RELEASE.2022-12-24T15-21-38Z
-
-# postgresql:
-#   image:
-#     registry: registry1.dso.mil
-#     repository: ironbank/opensource/postgres/postgresql
-#     tag: "14.8.0"
-
-# redis:
-#   image:
-#     registry: registry1.dso.mil
-#     repository: ironbank/bitnami/redis
-#     tag: 7.0.0-debian-10-r3
-#   metrics:
-#     image:
-#       registry: registry1.dso.mil
-#       repository: ironbank/bitnami/analytics/redis-exporter
-#       tag: "1.55.0"
-
 registry:
   image:
     repository: registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-container-registry
