@@ -31,11 +31,6 @@ packages:
     overrides:
       gitlab:
         gitlab:
-          # values:
-          #   - path: "gitlab.webservice.minReplicas"
-          #     value: 1
-          #   - path: "gitlab.sidekiq.minReplicas"
-          #     value: 1
           variables:
             - name: MIGRATIONS_RESOURCES
               description: "Gitlab Migrations Resources"
@@ -58,9 +53,7 @@ packages:
             - name: REGISTRY_REPLICAS
               description: "Gitlab Registry Min Replicas"
               path: "registry.hpa.minReplicas"
-              # default: 1
             - name: SHELL_REPLICAS
               description: "Gitlab Shell Min Replicas"
               path: "gitlab.gitlab-shell.minReplicas"
-              # default: 1
 
