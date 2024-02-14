@@ -13,20 +13,15 @@ To upgrade
 1) Update any base values if necessary.
 1) Update the `gitlab` component in the [zarf.yaml](../zarf.yaml) file to pull in the correct images needed for the updated version of the chart.
 
-## How to test this capability
+## How to test this package locally
 
-1) With docker running and while connected to an aws account.
-2) Set these env variables.
-```bash
-export REPO_URL=https://github.com/defenseunicorns/uds-capability-gitlab.git
-export GIT_BRANCH=<REPLACE_ME>
-export REGISTRY1_USERNAME=<REPLACE_ME>
-export REGISTRY1_PASSWORD=<REPLACE_ME>
-export GHCR_USERNAME=<REPLACE_ME>
-export GHCR_PASSWORD=<REPLACE_ME>
-export AWS_AVAILABILITY_ZONE=a
-```
+Prerequisites:
+- Docker
+- latest version of UDS CLI
+- K3d
 
- 3) At the root of this repository, you can run `make test`. This will provision an ec2 instance, build and deploy all dependencies and packages, and run an e2e test to insure the capability is deploying successfully, available and ready.
+Note: If developing on an Apple Silicon Mac, colima is an excellent option. If using colima, the following command will provision a VM that should be adequate to deploy this package:  
 
-You can also follow the bread crumbs of the Makefile to manually create the cluster as well as build and deploy all the necessary packages.
+`colima start --cpu 8 --memory 25 --disk 50 --vm-type vz  --vz-rosetta --profile uds --arch aarch64`
+
+ 1) From the root of the repository run `uds run`. To test a specific package flavor, specify that via the --set flag. For example: `uds run --set FLAVOR=upstream`
