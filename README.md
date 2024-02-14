@@ -85,12 +85,6 @@ The released packages can be found in [ghcr](https://github.com/defenseunicorns/
 | cleanup | Teardown the cluster | `uds run cleanup` |
 | cleanup-bundle | Remove the GitLab Bundle | `uds run cleanup-bundle` |
 
-## Values
-
-See: 
-1. [/values/gitlab-values.yaml](/values/gitlab-values.yaml)
-2. [/values/upstream.yaml](/values/upstream.yaml)
-
 ## Contributing
 
 Please see the [CONTRIBUTING.md](./CONTRIBUTING.md)
