@@ -2,7 +2,7 @@
 
 ## Supported Versions
 
-As UDS Software Factory has not yet reached v1.0.0, only the current latest minor release is supported.
+As [UDS Software Factory](https://github.com/defenseunicorns/uds-software-factory) has not yet reached v1.0.0, only the current latest minor release is supported.
 
 ## Reporting a Vulnerability
 
