@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 ### Bug Fixes
 
 * standardize repo to template and update README.md ([#24](https://github.com/defenseunicorns/uds-package-gitlab/issues/24)) ([9815bb5](https://github.com/defenseunicorns/uds-package-gitlab/commit/9815bb583140ad2b828e84d8766c9d483b5a24e6))
+* remove hardcoded architecture in zarf packages ([#29](https://github.com/defenseunicorns/uds-package-gitlab/issues/29)) ([2c4e869](https://github.com/defenseunicorns/uds-package-gitlab/commit/2c4e869cccffe63001621d7c77199035e6082032))
 
 ## [16.8.1-uds.2](https://github.com/defenseunicorns/uds-package-gitlab/compare/v16.8.1-uds.1...v16.8.1-uds.2) (2024-01-30)
 
