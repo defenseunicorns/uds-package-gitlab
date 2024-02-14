@@ -2,6 +2,8 @@
 
 ## How to upgrade this capability
 
+<!-- TODO: (@WSTARR) Update these instructions -->
+
 This package is pulling in the [bigbang gitlab chart](https://repo1.dso.mil/big-bang/product/packages/gitlab)
 
 The [gitlab-flux-values.yaml](../gitlab-flux-values.yaml) file contains values used when creating the flux resources for this capability. This includes the version of the chart and the base values used for this capability.
