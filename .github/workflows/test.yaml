@@ -43,10 +43,6 @@ jobs:
       - name: Test package
         run: uds run test-package
 
-      - name: Cleanup
-        if: always()
-        run: uds run cleanup
-
       - name: Save logs
         if: always()
         uses: ./.github/actions/save-logs
