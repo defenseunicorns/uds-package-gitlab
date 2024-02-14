@@ -84,12 +84,11 @@
       "extractVersionTemplate": "{{#if extractVersion}}{{{extractVersion}}}{{else}}^(?<version>.*)${{/if}}"
     },
     {
-      "fileMatch": ["^Makefile$"],
+      "fileMatch": ["^\\.github/workflows/commitlint\\.yaml$"],
       "matchStrings": [
-        "renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?( extractVersion=(?<extractVersion>.*?))?( registryUrl=(?<registryUrl>.*?))?\\s.*?=\\s*['\"]?(?<currentValue>.*?)['\"]?\\s"
+        "npm install --save-dev (?<depName>@?.*?)@(?<currentValue>.+)"
       ],
-      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver-coerced{{/if}}",
-      "extractVersionTemplate": "{{#if extractVersion}}{{{extractVersion}}}{{else}}^(?<version>.*)${{/if}}"
+      "datasourceTemplate": "npm"
     }
   ],
   "packageRules": [
