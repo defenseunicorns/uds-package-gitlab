@@ -3,7 +3,7 @@ metadata:
   name: gitlab-test
   description: A UDS bundle for deploying Gitlab and it's dependencies on a development cluster
   # x-release-please-start-version
-  version: 16.8.1-uds.2
+  version: 16.8.1-uds.4
   # x-release-please-end
 
 packages:
@@ -26,5 +26,34 @@ packages:
   - name: gitlab
     path: ../
     # x-release-please-start-version
-    ref: 16.8.1-uds.2
+    ref: 16.8.1-uds.4
     # x-release-please-end
+    overrides:
+      gitlab:
+        gitlab:
+          variables:
+            - name: MIGRATIONS_RESOURCES
+              description: "Gitlab Migrations Resources"
+              path: "gitlab.migrations.resources"
+            - name: WEBSERVICE_REPLICAS
+              description: "Gitlab Webservice Min Replicas"
+              path: "gitlab.webservice.minReplicas"
+            - name: WEBSERVICE_RESOURCES
+              description: "Gitlab Webservice Resources"
+              path: "gitlab.webservice.resources"
+            - name: WORKHORSE_RESOURCES
+              description: "Gitlab Workhorse Resources"
+              path: "gitlab.workhorse.resources"
+            - name: SIDEKIQ_REPLICAS
+              description: "Gitlab Sidekiq Min Replicas"
+              path: "gitlab.sidekiq.minReplicas"
+            - name: SIDEKIQ_RESOURCES
+              description: "Gitlab Sidekiq Resources"
+              path: "gitlab.sidekiq.resources"
+            - name: REGISTRY_REPLICAS
+              description: "Gitlab Registry Min Replicas"
+              path: "registry.hpa.minReplicas"
+            - name: SHELL_REPLICAS
+              description: "Gitlab Shell Min Replicas"
+              path: "gitlab.gitlab-shell.minReplicas"
+

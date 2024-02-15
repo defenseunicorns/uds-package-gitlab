@@ -3,40 +3,13 @@
   "forkProcessing": "enabled",
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    ":dependencyDashboard",
+    "github>defenseunicorns/uds-common//config/renovate.json5",
     ":semanticPrefixFixDepsChoreOthers",
     "config:base",
     "group:all",
     "replacements:all",
     "workarounds:all"
   ],
-  "timezone": "America/New_York",
-  "rebaseStalePrs": true,
-  "schedule": ["after 7am and before 9am every weekday"],
-  "dependencyDashboard": true,
-  "platform": "github",
-  "onboarding": false,
-  "requireConfig": false,
-  "dependencyDashboardTitle": "Renovate Dashboard 🤖",
-  "rebaseWhen": "conflicted",
-  "commitBodyTable": true,
-  "ignorePaths": ["archive/**"],
-  "suppressNotifications": ["prIgnoreNotification"],
-  "labels": ["renovate"],
-  "pre-commit": {
-    "enabled": true
-  },
-  "helm-values": {
-    "fileMatch": ["./.+\\.yaml$"]
-  },
-  "kubernetes": {
-    "fileMatch": ["\\.yaml$"],
-    "ignorePaths": [
-      "ansible",
-      "scripts",
-      ".github"
-    ]
-  },
   "hostRules": [
     {
       "matchHost": "registry1.dso.mil",
@@ -84,12 +57,11 @@
       "extractVersionTemplate": "{{#if extractVersion}}{{{extractVersion}}}{{else}}^(?<version>.*)${{/if}}"
     },
     {
-      "fileMatch": ["^Makefile$"],
+      "fileMatch": ["^\\.github/workflows/commitlint\\.yaml$"],
       "matchStrings": [
-        "renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?( extractVersion=(?<extractVersion>.*?))?( registryUrl=(?<registryUrl>.*?))?\\s.*?=\\s*['\"]?(?<currentValue>.*?)['\"]?\\s"
+        "npm install --save-dev (?<depName>@?.*?)@(?<currentValue>.+)"
       ],
-      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver-coerced{{/if}}",
-      "extractVersionTemplate": "{{#if extractVersion}}{{{extractVersion}}}{{else}}^(?<version>.*)${{/if}}"
+      "datasourceTemplate": "npm"
     }
   ],
   "packageRules": [
