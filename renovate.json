@@ -1,11 +1,8 @@
 {
-  "enabled": true,
-  "forkProcessing": "enabled",
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "github>defenseunicorns/uds-common//config/renovate.json5",
+    ":semanticCommits",
     ":semanticPrefixFixDepsChoreOthers",
-    "config:base",
     "group:all",
     "replacements:all",
     "workarounds:all"
@@ -21,60 +18,25 @@
       }
     }
   ],
-  "regexManagers": [
-    {
-      "fileMatch": [".*\\.ya?ml$"],
-      "matchStrings": [
-        "# renovate: datasource=helm\n .*- name: (?<depName>.*?)\n *url: (?<registryUrl>.*?)\n *version: (?<currentValue>.*)\n"
-      ],
-      "datasourceTemplate": "helm",
-      "extractVersionTemplate": "{{#if extractVersion}}{{{extractVersion}}}{{else}}^(?<version>.*)${{/if}}"
-    },
-    {
-      "fileMatch": [".*\\.ya?ml$"],
-      "matchStrings": [
-        "# renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?( extractVersion=(?<extractVersion>.*?))?( registryUrl=(?<registryUrl>.*?))?\\s.*?:\\s*['\"]?(?<currentValue>.*?)['\"]?\\s"
-      ],
-      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver-coerced{{/if}}",
-      "extractVersionTemplate": "{{#if extractVersion}}{{{extractVersion}}}{{else}}^(?<version>.*)${{/if}}"
-    },
-    {
-      "fileMatch": [".*\\.ya?ml$"],
-      "matchStrings": [
-        "# renovate: zarf-uri datasource=github-tags depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s.*?uri: ['\"]https:\\/\\/github.com\\/defenseunicorns\\/zarf\\/releases\\/download\\/(?<currentValue>.*)\\/zarf_.*_Linux_amd64['\"]",
-        "# renovate: zarf-uri datasource=github-tags depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s.*?uri: ['\"]https:\\/\\/github.com\\/defenseunicorns\\/zarf\\/releases\\/download\\/.*\\/zarf_(?<currentValue>.*)_Linux_amd64['\"]"
-      ],
-      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver-coerced{{/if}}",
-      "datasourceTemplate": "github-tags"
-    },
-    {
-      "fileMatch": [".*\/?zarf\\.ya?ml$"],
-      "matchStrings": [
-        "-\\s+['\"](?<depName>[^:]+):(?<currentValue>.*)['\"]"
-      ],
-      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver-coerced{{/if}}",
-      "datasourceTemplate": "docker",
-      "extractVersionTemplate": "{{#if extractVersion}}{{{extractVersion}}}{{else}}^(?<version>.*)${{/if}}"
-    },
-    {
-      "fileMatch": ["^\\.github/workflows/commitlint\\.yaml$"],
-      "matchStrings": [
-        "npm install --save-dev (?<depName>@?.*?)@(?<currentValue>.+)"
-      ],
-      "datasourceTemplate": "npm"
-    }
-  ],
   "packageRules": [
     {
-      "matchManagers": ["terraform"],
-      "matchDepTypes": ["module"],
-      "matchDatasources": ["github-tags", "git-tags"],
-      "versioning": "loose"
+      "groupName": "Gitlab Support Dependencies",
+      "labels": ["support-deps"],
+      "commitMessageTopic": "support-deps",
+      "packagePatterns": ["*"]
     },
     {
-      "matchPackagePatterns": ["big-bang/.*"],
-      "matchDatasources": ["gitlab-tags"],
-      "allowedVersions": "!/^v.*$/"
+      "groupName": "Gitlab Package Dependencies",
+      "labels": ["package-deps"],
+      "commitMessageTopic": "package-deps",
+      "registryUrls": ["https://registry1.dso.mil"],
+      "matchDatasources": ["docker"]
+    },
+    {
+      "groupName": "Gitlab Package Dependencies",
+      "labels": ["package-deps"],
+      "commitMessageTopic": "package-deps",
+      "matchDatasources": ["helm"]
     }
   ]
 }
