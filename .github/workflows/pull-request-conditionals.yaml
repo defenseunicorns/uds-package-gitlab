@@ -48,25 +48,6 @@ jobs:
       - name: Run Formatting Checks
         run: uds run lint-check
 
-  # This job checks if there are changes in specific paths source packages.
-  check-paths:
-    needs: lint-check
-    runs-on: ubuntu-latest
-    name: Select Jobs
-    outputs:
-      packages: ${{ steps.path-filter.outputs.changes }}
-
-    steps:
-      - name: Checkout the code
-        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
-
-      # Uses a custom action to filter paths for source packages.
-      - name: Check src paths
-        id: path-filter
-        uses: dorny/paths-filter@ebc4d7e9ebcb0b1eb21480bb8f43113e996ac77a # v3
-        with:
-          filters: .github/filters.yaml
-
   run-test:
     name: Test
     uses: ./.github/workflows/test.yaml

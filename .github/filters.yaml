@@ -1,7 +1,0 @@
-all:
-  - "**"
-
-dev-secrets:
-  - "src/dev-secrets/**"
-flavors:
-  - "values/**"
