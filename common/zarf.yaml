@@ -2,20 +2,20 @@
 kind: ZarfPackageConfig
 metadata:
   name: gitlab-common
-  description: "UDS GitLab Common Package" 
+  description: "UDS GitLab Common Package"
 
 components:
   - name: gitlab
     required: true
     charts:
-    - name: uds-gitlab-config
-      namespace: gitlab
-      version: 0.1.0
-      localPath: ../chart
-    - name: gitlab
-      namespace: gitlab
-      url: https://repo1.dso.mil/big-bang/product/packages/gitlab.git
-      gitPath: chart
-      version: "7.8.1-bb.0"
-      valuesFiles:
-        - ../values/common-values.yaml
+      - name: uds-gitlab-config
+        namespace: gitlab
+        version: 0.1.0
+        localPath: ../chart
+      - name: gitlab
+        namespace: gitlab
+        url: https://repo1.dso.mil/big-bang/product/packages/gitlab.git
+        gitPath: chart
+        version: "7.8.1-bb.0"
+        valuesFiles:
+          - ../values/common-values.yaml
