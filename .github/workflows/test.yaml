@@ -36,7 +36,7 @@ jobs:
 
       - name: Setup cluster
         run: uds run setup-cluster
-      
+
       - name: Deploy test bundle
         run: uds run deploy-test-bundle
 
