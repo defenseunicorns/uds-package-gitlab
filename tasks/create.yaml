@@ -13,9 +13,9 @@ tasks:
   - name: gitlab-package
     description: Create the UDS Gitlab Zarf Package
     actions:
-      - cmd: zarf package create --confirm --no-progress --architecture=${ZARF_ARCHITECTURE} --flavor ${FLAVOR}
+      - cmd: uds zarf package create --confirm --no-progress --architecture=${ZARF_ARCHITECTURE} --flavor ${FLAVOR}
 
   - name: dependency-package
     description: Create the Minio, PostgreSQL, and Redis Dependency Zarf Packages
     actions:
-      - cmd: zarf package create src/dev-secrets/ --confirm --no-progress --architecture=${UDS_ARCH} --skip-sbom
+      - cmd: uds zarf package create src/dev-secrets/ --confirm --no-progress --architecture=${UDS_ARCH} --skip-sbom
