@@ -3,7 +3,7 @@ name: Metadata
 on:
   pull_request:
     branches: [main]
-    types: [opened, edited, synchronize]
+    types: [milestoned, opened, edited, synchronize]
 
 jobs:
   validate:
