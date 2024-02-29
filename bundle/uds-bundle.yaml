@@ -10,19 +10,19 @@ packages:
   - name: dev-minio
     repository: ghcr.io/defenseunicorns/packages/uds/dev-minio
     ref: 0.0.1
-  
+
   - name: dev-postgres
     repository: ghcr.io/defenseunicorns/packages/uds/dev-postgres
     ref: 0.0.1
-  
+
   - name: dev-redis
     repository: ghcr.io/defenseunicorns/packages/uds/dev-redis
     ref: 0.0.1
-  
+
   - name: dev-secrets
     path: ../
     ref: 0.1.0
-  
+
   - name: gitlab
     path: ../
     # x-release-please-start-version
@@ -56,4 +56,3 @@ packages:
             - name: SHELL_REPLICAS
               description: "Gitlab Shell Min Replicas"
               path: "gitlab.gitlab-shell.minReplicas"
-
