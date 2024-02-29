@@ -13,7 +13,7 @@ on:
       - "zarf.yaml"
     # milestoned is added here as a workaround for release-please not triggering PR workflows (PRs should be added to a milestone to trigger the workflow).
     types: [milestoned, opened, reopened, synchronize]
-    
+
 # Permissions for the GITHUB_TOKEN used by the workflow.
 permissions:
   id-token: write # Needed for OIDC-related operations.
