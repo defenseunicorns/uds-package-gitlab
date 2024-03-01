@@ -7,10 +7,11 @@ metadata:
   version: "16.8.1-uds.4"
   # x-release-please-end
 
-
 variables:
   - name: DOMAIN
     default: "uds.dev"
+  - name: BUCKET_PREFIX
+    default: "uds-"
   - name: BUCKET_SUFFIX
     default: ""
   - name: GITLAB_REDIS_ENDPOINT
@@ -42,9 +43,9 @@ components:
       cluster:
         architecture: amd64
     charts:
-    - name: gitlab
-      valuesFiles:
-        - values/registry1-values.yaml
+      - name: gitlab
+        valuesFiles:
+          - values/registry1-values.yaml
     images:
       - "registry1.dso.mil/ironbank/gitlab/gitlab/certificates:16.8.1"
       - "registry1.dso.mil/ironbank/gitlab/gitlab/cfssl-self-sign:1.6.1"
@@ -69,9 +70,9 @@ components:
     only:
       flavor: upstream
     charts:
-    - name: gitlab
-      valuesFiles:
-        - values/upstream-values.yaml
+      - name: gitlab
+        valuesFiles:
+          - values/upstream-values.yaml
     images:
       - "registry.gitlab.com/gitlab-org/build/cng/certificates:v16.8.1"
       - "registry.gitlab.com/gitlab-org/build/cng/cfssl-self-sign:1.6.1"

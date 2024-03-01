@@ -35,7 +35,8 @@ global:
 
   minio:
     enabled: false
-    credentials: {}
+    credentials:
+      {}
       # secret:
 
   appConfig:
@@ -46,38 +47,38 @@ global:
         secret: gitlab-object-store
         key: connection
     lfs:
-      bucket: uds-gitlab-lfs###ZARF_VAR_BUCKET_SUFFIX###
+      bucket: ###ZARF_VAR_BUCKET_PREFIX###gitlab-lfs###ZARF_VAR_BUCKET_SUFFIX###
     artifacts:
-      bucket: uds-gitlab-artifacts###ZARF_VAR_BUCKET_SUFFIX###
+      bucket: ###ZARF_VAR_BUCKET_PREFIX###gitlab-artifacts###ZARF_VAR_BUCKET_SUFFIX###
     uploads:
-      bucket: uds-gitlab-uploads###ZARF_VAR_BUCKET_SUFFIX###
+      bucket: ###ZARF_VAR_BUCKET_PREFIX###gitlab-uploads###ZARF_VAR_BUCKET_SUFFIX###
     packages:
-      bucket: uds-gitlab-packages###ZARF_VAR_BUCKET_SUFFIX###
+      bucket: ###ZARF_VAR_BUCKET_PREFIX###gitlab-packages###ZARF_VAR_BUCKET_SUFFIX###
     externalDiffs:
-      bucket: uds-gitlab-mr-diffs###ZARF_VAR_BUCKET_SUFFIX###
+      bucket: ###ZARF_VAR_BUCKET_PREFIX###gitlab-mr-diffs###ZARF_VAR_BUCKET_SUFFIX###
     terraformState:
-      bucket: uds-gitlab-terraform-state###ZARF_VAR_BUCKET_SUFFIX###
+      bucket: ###ZARF_VAR_BUCKET_PREFIX###gitlab-terraform-state###ZARF_VAR_BUCKET_SUFFIX###
     ciSecureFiles:
-      bucket: uds-gitlab-ci-secure-files###ZARF_VAR_BUCKET_SUFFIX###
+      bucket: ###ZARF_VAR_BUCKET_PREFIX###gitlab-ci-secure-files###ZARF_VAR_BUCKET_SUFFIX###
     dependencyProxy:
-      bucket: uds-gitlab-dependency-proxy###ZARF_VAR_BUCKET_SUFFIX###
+      bucket: ###ZARF_VAR_BUCKET_PREFIX###gitlab-dependency-proxy###ZARF_VAR_BUCKET_SUFFIX###
     backups:
-      bucket: uds-gitlab-backups###ZARF_VAR_BUCKET_SUFFIX###
-      tmpBucket: uds-gitlab-tmp###ZARF_VAR_BUCKET_SUFFIX###
+      bucket: ###ZARF_VAR_BUCKET_PREFIX###gitlab-backups###ZARF_VAR_BUCKET_SUFFIX###
+      tmpBucket: ###ZARF_VAR_BUCKET_PREFIX###gitlab-tmp###ZARF_VAR_BUCKET_SUFFIX###
     ## https://docs.gitlab.com/charts/charts/globals#omniauth
     omniauth:
       enabled: false
-    initialDefaults: 
+    initialDefaults:
       signupEnabled: ###ZARF_VAR_GITLAB_SIGNUP_ENABLED###
 
   registry:
-    bucket: uds-gitlab-registry###ZARF_VAR_BUCKET_SUFFIX###
+    bucket: ###ZARF_VAR_BUCKET_PREFIX###gitlab-registry###ZARF_VAR_BUCKET_SUFFIX###
     relativeurls: true
 
   pages:
     enabled: ###ZARF_VAR_GITLAB_PAGES_ENABLED###
     objectStore:
-      bucket: uds-gitlab-pages###ZARF_VAR_BUCKET_SUFFIX###
+      bucket: ###ZARF_VAR_BUCKET_PREFIX###gitlab-pages###ZARF_VAR_BUCKET_SUFFIX###
 
 postgresql:
   install: false
@@ -112,7 +113,7 @@ gitlab:
 
   webservice:
     ingress:
-      enabled: false  # Local setting in subchart must be overridden
+      enabled: false # Local setting in subchart must be overridden
     metrics: # TODO add Prometheus
       enabled: true
       port: 8083
@@ -124,20 +125,20 @@ istio:
   injection: enabled
   gitlab:
     gateways:
-    - istio-tenant-gateway/tenant-gateway
+      - istio-tenant-gateway/tenant-gateway
   registry:
     gateways:
-    - istio-tenant-gateway/tenant-gateway
+      - istio-tenant-gateway/tenant-gateway
   pages:
     enabled: true
     port: 8090
     ingressLabels:
       app: tenant-ingressgateway
     gateways:
-    - istio-tenant-gatway/tenant-gateway
+      - istio-tenant-gatway/tenant-gateway
     customDomains:
       enabled: false
     hosts:
-    - '*.pages.###ZARF_VAR_DOMAIN###'
+      - "*.pages.###ZARF_VAR_DOMAIN###"
 
 domain: ###ZARF_VAR_DOMAIN###
