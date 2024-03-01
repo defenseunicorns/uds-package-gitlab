@@ -7,10 +7,11 @@ metadata:
   version: "16.8.1-uds.4"
   # x-release-please-end
 
-
 variables:
   - name: DOMAIN
     default: "uds.dev"
+  - name: BUCKET_PREFIX
+    default: "uds-"
   - name: BUCKET_SUFFIX
     default: ""
   - name: GITLAB_REDIS_ENDPOINT
