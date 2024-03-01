@@ -9,15 +9,15 @@ metadata:
 packages:
   - name: dev-minio
     repository: ghcr.io/defenseunicorns/packages/uds/dev-minio
-    ref: 0.0.1
+    ref: 0.0.2
   
   - name: dev-postgres
     repository: ghcr.io/defenseunicorns/packages/uds/dev-postgres
-    ref: 0.0.1
+    ref: 0.0.2
   
   - name: dev-redis
     repository: ghcr.io/defenseunicorns/packages/uds/dev-redis
-    ref: 0.0.1
+    ref: 0.0.2
   
   - name: dev-secrets
     path: ../

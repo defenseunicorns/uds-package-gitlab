@@ -26,7 +26,7 @@ jobs:
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
 
       - name: Environment setup
-        uses: defenseunicorns/uds-common/.github/actions/setup@417b9c2bc088f664c616c9929a2b3ce448d251f7
+        uses: defenseunicorns/uds-common/.github/actions/setup@42550995edd718244ac990c8da8e92f4ab358bee
       
       - name: Iron Bank Login
         run: uds zarf tools registry login -u "${{secrets.IRON_BANK_ROBOT_USERNAME}}" -p "${{secrets.IRON_BANK_ROBOT_PASSWORD}}" registry1.dso.mil
@@ -45,6 +45,6 @@ jobs:
 
       - name: Save logs
         if: always()
-        uses: defenseunicorns/uds-common/.github/actions/save-logs@417b9c2bc088f664c616c9929a2b3ce448d251f7
+        uses: defenseunicorns/uds-common/.github/actions/save-logs@42550995edd718244ac990c8da8e92f4ab358bee
         with:
           suffix: '${{ matrix.flavor }}-${{ github.run_id }}-${{ github.run_attempt }}'
