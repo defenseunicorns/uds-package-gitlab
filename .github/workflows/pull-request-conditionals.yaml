@@ -13,7 +13,7 @@ on:
       - "zarf.yaml"
     # milestoned is added here as a workaround for release-please not triggering PR workflows (PRs should be added to a milestone to trigger the workflow).
     types: [milestoned, opened, reopened, synchronize]
-    
+
 # Permissions for the GITHUB_TOKEN used by the workflow.
 permissions:
   id-token: write # Needed for OIDC-related operations.
@@ -25,7 +25,29 @@ defaults:
   run:
     shell: bash -e -o pipefail {0} # Ensures that scripts fail on error and pipefail is set.
 
+# Abort prior jobs in the same workflow / PR
+concurrency:
+  group: test-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
+  lint-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
+      - name: Use Node.js latest
+        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
+        with:
+          node-version: 20
+      - name: Set up Homebrew
+        uses: Homebrew/actions/setup-homebrew@master
+      - name: Install UDS CLI
+        shell: bash
+        # renovate: datasource=github-tags depName=defenseunicorns/uds-cli versioning=semver
+        run: brew install defenseunicorns/tap/uds@0.9.0
+      - name: Run Formatting Checks
+        run: uds run lint-check
+
   run-test:
     name: Test
     uses: ./.github/workflows/test.yaml
