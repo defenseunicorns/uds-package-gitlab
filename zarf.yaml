@@ -4,7 +4,7 @@ metadata:
   name: gitlab
   description: "UDS GitLab Package"
   # x-release-please-start-version
-  version: "16.8.1-uds.4"
+  version: "16.9.1-uds.0"
   # x-release-please-end
 
 variables:
@@ -47,19 +47,19 @@ components:
         valuesFiles:
           - values/registry1-values.yaml
     images:
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/certificates:16.8.1"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/certificates:16.9.1"
       - "registry1.dso.mil/ironbank/gitlab/gitlab/cfssl-self-sign:1.6.1"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitaly:16.8.1"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-container-registry:16.8.1"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-pages:16.8.1"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-shell:16.8.1"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-sidekiq:16.8.1"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-toolbox:16.8.1"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-webservice:16.8.1"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-workhorse:16.8.1"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/kubectl:16.8.1"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitaly:16.9.1"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-container-registry:16.9.1"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-pages:16.9.1"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-shell:16.9.1"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-sidekiq:16.9.1"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-toolbox:16.9.1"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-webservice:16.9.1"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-workhorse:16.9.1"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/kubectl:16.9.1"
       - "registry1.dso.mil/ironbank/redhat/ubi/ubi9:9.3"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-exporter:16.8.1"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-exporter:16.9.1"
 
   # Note: upstream flavor is experimental
   - name: gitlab

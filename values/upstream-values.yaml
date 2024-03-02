@@ -5,7 +5,7 @@ gitlab:
       tag: v16.9.1
     workhorse:
       image: registry.gitlab.com/gitlab-org/build/cng/gitlab-workhorse-ee
-      tag: v16.8.1
+      tag: v16.9.1
   sidekiq:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-sidekiq-ee
@@ -62,6 +62,7 @@ shared-secrets:
   selfsign:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/cfssl-self-sign
+      tag: v16.9.1
 
 upgradeCheck:
   image:
