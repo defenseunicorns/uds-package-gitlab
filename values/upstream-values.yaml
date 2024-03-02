@@ -2,61 +2,61 @@ gitlab:
   webservice:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-webservice-ee
-      tag: v16.8.1
+      tag: v16.9.1
     workhorse:
       image: registry.gitlab.com/gitlab-org/build/cng/gitlab-workhorse-ee
       tag: v16.8.1
   sidekiq:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-sidekiq-ee
-      tag: v16.8.1
+      tag: v16.9.1
   migrations:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-toolbox-ee
-      tag: v16.8.1
+      tag: v16.9.1
   gitaly:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/gitaly
-      tag: v16.8.1
+      tag: v16.9.1
   gitlab-exporter:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-exporter
-      tag: v16.8.1
+      tag: v16.9.1
   gitlab-pages:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-pages
-      tag: v16.8.1
+      tag: v16.9.1
   gitlab-shell:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-shell
-      tag: v16.8.1
+      tag: v16.9.1
   praefect:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/gitaly
-      tag: v16.8.1
+      tag: v16.9.1
   toolbox:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-toolbox-ee
-      tag: v16.8.1
+      tag: v16.9.1
 
 global:
   certificates:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/certificates
-      tag: v16.8.1
+      tag: v16.9.1
   gitlabBase:
     image:
       repository: docker.io/redhat/ubi8
-      tag: "8.8"
+      tag: "8.9"
   kubectl:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/kubectl
-      tag: v16.8.1
+      tag: v16.9.1
 
 registry:
   image:
     repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-container-registry
-    tag: v16.8.1
+    tag: v16.9.1
 
 shared-secrets:
   selfsign:
@@ -66,4 +66,4 @@ shared-secrets:
 upgradeCheck:
   image:
     repository: docker.io/redhat/ubi8
-    tag: "8.8"
+    tag: "8.9"
