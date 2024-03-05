@@ -39,7 +39,7 @@ jobs:
         uses: defenseunicorns/uds-common/.github/actions/setup@42550995edd718244ac990c8da8e92f4ab358bee
 
       - name: Iron Bank Login
-        run: zarf tools registry login -u "${{secrets.IRON_BANK_ROBOT_USERNAME}}" -p "${{secrets.IRON_BANK_ROBOT_PASSWORD}}" registry1.dso.mil
+        run: uds zarf tools registry login -u "${{secrets.IRON_BANK_ROBOT_USERNAME}}" -p "${{secrets.IRON_BANK_ROBOT_PASSWORD}}" registry1.dso.mil
 
       - name: Login to GHCR
         uses: docker/login-action@v3
