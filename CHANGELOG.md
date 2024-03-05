@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [16.9.1-uds.1](https://github.com/defenseunicorns/uds-package-gitlab/compare/v16.9.1-uds.0...v16.9.1-uds.1) (2024-03-05)
+
+
+### ci
+
+* use uds vendored zarf on publish ([#55](https://github.com/defenseunicorns/uds-package-gitlab/issues/55)) ([4e46674](https://github.com/defenseunicorns/uds-package-gitlab/commit/4e46674abc55062075fdfdf4ef1645f243bed5cd))
+
 ## [16.9.1-uds.0](https://github.com/defenseunicorns/uds-package-gitlab/compare/v16.8.1-uds.4...v16.9.1-uds.0) (2024-03-04)
 
 
