@@ -2,7 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
-## [16.9.0-uds.4](https://github.com/defenseunicorns/uds-package-gitlab/compare/v16.8.1-uds.4...v16.9.0-uds.4) (2024-03-04)
+## [16.9.1-uds.0](https://github.com/defenseunicorns/uds-package-gitlab/compare/v16.8.1-uds.4...v16.9.1-uds.0) (2024-03-04)
+
+
+### ci
+
+* fix ci publish ([#19](https://github.com/defenseunicorns/uds-package-gitlab/issues/19)) ([d1d08db](https://github.com/defenseunicorns/uds-package-gitlab/commit/d1d08db47236ece57d93e2f18eeb7a6dd7db420a))
 
 
 ### Features
@@ -20,6 +25,7 @@ All notable changes to this project will be documented in this file.
 * **deps:** update gitlab package dependencies ([#46](https://github.com/defenseunicorns/uds-package-gitlab/issues/46)) ([cf2ffcc](https://github.com/defenseunicorns/uds-package-gitlab/commit/cf2ffcc9eb7b04bf5788c1829e869dfe9148c53a))
 * **deps:** update gitlab support dependencies ([#47](https://github.com/defenseunicorns/uds-package-gitlab/issues/47)) ([c2f1e78](https://github.com/defenseunicorns/uds-package-gitlab/commit/c2f1e7842583e6d826f14e04bfa32e9f864f9b5e))
 * migrate to uds-common shared actions and workflows ([#41](https://github.com/defenseunicorns/uds-package-gitlab/issues/41)) ([42e1f96](https://github.com/defenseunicorns/uds-package-gitlab/commit/42e1f96de45381d514ff475715a3f7d301c24c37))
+
 
 ## [16.8.1-uds.4](https://github.com/defenseunicorns/uds-package-gitlab/compare/v16.8.1-uds.3...v16.8.1-uds.4) (2024-02-14)
 
