@@ -17,34 +17,8 @@ permissions:
 
 jobs:
   test:
-    runs-on: "uds-ubuntu-big-boy-8-core"
-    timeout-minutes: 20
-    name: Test
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
-
-      - name: Environment setup
-        uses: defenseunicorns/uds-common/.github/actions/setup@42550995edd718244ac990c8da8e92f4ab358bee
-
-      - name: Iron Bank Login
-        run: uds zarf tools registry login -u "${{secrets.IRON_BANK_ROBOT_USERNAME}}" -p "${{secrets.IRON_BANK_ROBOT_PASSWORD}}" registry1.dso.mil
-
-      - name: Create test bundle
-        run: uds run create-test-bundle
-
-      - name: Setup cluster
-        run: uds run setup-cluster
-
-      - name: Deploy test bundle
-        run: uds run deploy-test-bundle
-
-      - name: Test package
-        run: uds run test-package
-
-      - name: Save logs
-        if: always()
-        uses: defenseunicorns/uds-common/.github/actions/save-logs@42550995edd718244ac990c8da8e92f4ab358bee
-        with:
-          suffix: '${{ matrix.flavor }}-${{ github.run_id }}-${{ github.run_attempt }}'
+    uses: defenseunicorns/uds-common/.github/workflows/shared-test-deploy.yaml@17-ewyles-workflow-consolidation
+    with:
+      flavors: '"upstream", "registry1"'
+      runson: '"uds-ubuntu-big-boy-8-core"'
+    secrets: inherit
