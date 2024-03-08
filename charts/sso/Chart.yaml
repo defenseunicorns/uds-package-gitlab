@@ -1,6 +1,6 @@
 apiVersion: v2
-name: chart
-description: uds-gitlab-config
+name: uds-gitlab-sso
+description: uds-gitlab-sso
 
 # A chart can be either an 'application' or a 'library' chart.
 #
