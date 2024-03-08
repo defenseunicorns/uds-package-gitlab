@@ -42,6 +42,9 @@ packages:
               path: "sso"
         gitlab:
           variables:
+            - name: GITLAB_SSO_ENABLED
+              description: "Boolean to enable or disable sso things"
+              path: "global.appConfig.omniauth.enabled"
             - name: MIGRATIONS_RESOURCES
               description: "Gitlab Migrations Resources"
               path: "gitlab.migrations.resources"
