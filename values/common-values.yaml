@@ -67,7 +67,17 @@ global:
       tmpBucket: ###ZARF_VAR_BUCKET_PREFIX###gitlab-tmp###ZARF_VAR_BUCKET_SUFFIX###
     ## https://docs.gitlab.com/charts/charts/globals#omniauth
     omniauth:
-      enabled: false
+      enabled: ###ZARF_VAR_GITLAB_SSO_ENABLED###
+      allowSingleSignOn: ###ZARF_VAR_GITLAB_SSO_ALLOWED_SSOS###
+      blockAutoCreatedUsers: ###ZARF_VAR_GITLAB_SSO_BLOCK_AUTO_USERS###
+      autoLinkUser: ###ZARF_VAR_GITLAB_SSO_AUTO_LINK_USER###
+      autoSignInWithProvider: ###ZARF_VAR_GITLAB_SSO_AUTO_SIGNIN###
+      externalProviders: ###ZARF_VAR_GITLAB_SSO_EXTERNAL_PROVIDERS###
+      syncProfileAttributes: ###ZARF_VAR_GITLAB_SSO_SYNC_ATTRIBUTES###
+      syncProfileFromProvider: ###ZARF_VAR_GITLAB_SSO_SYNC_PROVIDERS###
+      providers:
+        - secret: gitlab-sso-provider-json
+          key: providers
     initialDefaults:
       signupEnabled: ###ZARF_VAR_GITLAB_SIGNUP_ENABLED###
 

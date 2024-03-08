@@ -4,6 +4,13 @@ metadata:
   name: gitlab
   namespace: {{ .Release.Namespace }}
 spec:
+  {{- if .Values.sso }}
+  sso:
+    - name: Gitlab SSO
+      clientId: uds-core-gitlab
+      redirectUris:
+        - "https://gitlab.{{ .Values.domain }}/users/auth/openid_connect/callback"
+  {{- end }}
   network:
     expose:
       - service: gitlab-webservice-default

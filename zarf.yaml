@@ -31,6 +31,22 @@ variables:
   - name: DISABLE_REGISTRY_REDIRECT
     default: "false"
     description: "If your storage endpoint is not publicly accessible set this to true"
+  - name: GITLAB_SSO_ENABLED
+    default: "false"
+  - name: GITLAB_SSO_ALLOWED_SSOS
+    default: "['openid_connect']"
+  - name: GITLAB_SSO_BLOCK_AUTO_USERS
+    default: "false"
+  - name: GITLAB_SSO_AUTO_LINK_USER
+    default: "true"
+  - name: GITLAB_SSO_AUTO_SIGNIN
+    default: "openid_connect"
+  - name: GITLAB_SSO_EXTERNAL_PROVIDERS
+    default: "[]"
+  - name: GITLAB_SSO_SYNC_ATTRIBUTES
+    default: "['email']"
+  - name: GITLAB_SSO_SYNC_PROVIDERS
+    default: "[]"
 
 components:
   - name: gitlab
