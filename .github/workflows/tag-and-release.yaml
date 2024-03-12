@@ -20,13 +20,13 @@ jobs:
         run: echo "release_created=${{ steps.tag.outputs.release_created || false }}" >> $GITHUB_OUTPUT
 
   publish-package:
-    strategy:
-      matrix:
-        flavor: [upstream, registry1]
     needs: tag-new-version
     if: ${{ needs.tag-new-version.outputs.release_created == 'true' }}
     runs-on: ubuntu-latest
-    name: Publish package
+    name: Publish ${{ matrix.flavor }}
+    strategy:
+      matrix:
+        flavor: [upstream, registry1]
 
     permissions:
       contents: read
