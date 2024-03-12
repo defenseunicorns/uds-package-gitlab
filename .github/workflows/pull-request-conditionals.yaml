@@ -2,17 +2,19 @@ name: Conditionals
 
 # This workflow is triggered on pull requests to the main branch.
 on:
-  pull_request:
-    paths:
-      - ".github/**"
-      - "bundle/**"
-      - "values/**"
-      - "tasks/**"
-      - "tests/**"
-      - "tasks.yaml"
-      - "zarf.yaml"
-    # milestoned is added here as a workaround for release-please not triggering PR workflows (PRs should be added to a milestone to trigger the workflow).
-    types: [milestoned, opened, reopened, synchronize]
+  workflow_call: 
+
+  # pull_request:
+  #   paths:
+  #     - ".github/**"
+  #     - "bundle/**"
+  #     - "values/**"
+  #     - "tasks/**"
+  #     - "tests/**"
+  #     - "tasks.yaml"
+  #     - "zarf.yaml"
+  #   # milestoned is added here as a workaround for release-please not triggering PR workflows (PRs should be added to a milestone to trigger the workflow).
+  #   types: [milestoned, opened, reopened, synchronize]
 
 # Permissions for the GITHUB_TOKEN used by the workflow.
 permissions:

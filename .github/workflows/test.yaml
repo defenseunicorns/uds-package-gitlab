@@ -1,24 +1,53 @@
 name: Test package
 
+# This workflow is triggered on pull requests to the main branch.
 on:
-  # Manual trigger
-  workflow_dispatch:
-
-  # Triggered by pull-request-conditionals.yaml
-  workflow_call:
+  pull_request:
+    paths:
+      - ".github/**"
+      - "bundle/**"
+      - "values/**"
+      - "tasks/**"
+      - "tests/**"
+      - "tasks.yaml"
+      - "zarf.yaml"
+    # milestoned is added here as a workaround for release-please not triggering PR workflows (PRs should be added to a milestone to trigger the workflow).
+    types: [milestoned, opened, reopened, synchronize]      
 
 # Abort prior jobs in the same workflow / PR
 concurrency:
-  group: test-${{ github.ref }}-${{ inputs.package }}
+  group: test-${{ github.ref }}
   cancel-in-progress: true
 
 permissions:
   contents: read
 
 jobs:
-  test:
-    uses: defenseunicorns/uds-common/.github/workflows/shared-test-deploy.yaml@17-ewyles-workflow-consolidation
-    with:
-      flavors: '"upstream", "registry1"'
-      runson: '"uds-ubuntu-big-boy-8-core"'
-    secrets: inherit
+  run-test:
+    name: Create and Deploy Flavor ${{ matrix.flavor }}
+    runs-on: uds-ubuntu-big-boy-8-core
+    timeout-minutes: 20
+    strategy:
+      matrix:
+        flavor: [upstream, registry1]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+
+      - name: Environment setup
+        uses: defenseunicorns/uds-common/.github/actions/setup@442bae718050ea9a47254851a45632aabeb13b17
+        with:
+          username: ${{secrets.IRON_BANK_ROBOT_USERNAME}}
+          password: ${{secrets.IRON_BANK_ROBOT_PASSWORD}}
+
+      - name: Test
+        uses: defenseunicorns/uds-common/.github/actions/test@442bae718050ea9a47254851a45632aabeb13b17
+        with:
+          flavor: ${{ matrix.flavor }}
+
+      - name: Save logs
+        if: always()
+        uses: defenseunicorns/uds-common/.github/actions/save-logs@442bae718050ea9a47254851a45632aabeb13b17
+        with:
+          suffix: ${{ matrix.flavor }}-${{ github.run_id }}-${{ github.run_attempt }}
