@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [16.9.1-uds.2](https://github.com/defenseunicorns/uds-package-gitlab/compare/v16.9.1-uds.1...v16.9.1-uds.2) (2024-03-08)
+
+
+### Features
+
+* implement oidc sso for gitlab ([#61](https://github.com/defenseunicorns/uds-package-gitlab/issues/61)) ([0ddedcf](https://github.com/defenseunicorns/uds-package-gitlab/commit/0ddedcf4ec3fc7a7bb16680f95da18381ecf4c31))
+
 ## [16.9.1-uds.1](https://github.com/defenseunicorns/uds-package-gitlab/compare/v16.9.1-uds.0...v16.9.1-uds.1) (2024-03-05)
 
 
