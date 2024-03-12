@@ -2,23 +2,7 @@ name: Test package
 
 on:
   pull_request:
-    paths-ignore:
-      - "**.md"
-      - "**.jpg"
-      - "**.png"
-      - "**.gif"
-      - "**.svg"
-      - "adr/**"
-      - "docs/**"
-      - ".gitignore"
-      - "renovate.json"
-      - ".release-please-config.json"
-      - "release-please-config.json"
-      - "oscal-component.yaml"
-      - "CODEOWNERS"
-      - "LICENSE"
-      - "CONTRIBUTING.md"
-      - "SECURITY.md"
+    
   # Manual trigger
   workflow_dispatch:
 
