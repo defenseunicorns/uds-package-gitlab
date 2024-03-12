@@ -19,7 +19,11 @@ jobs:
   test:
     runs-on: "uds-ubuntu-big-boy-8-core"
     timeout-minutes: 20
-    name: Test
+    name: Test ${{ matrix.flavor }}
+
+    strategy:
+      matrix:
+        flavor: [registry1, upstream]
 
     steps:
       - name: Checkout repository
@@ -32,7 +36,7 @@ jobs:
         run: uds zarf tools registry login -u "${{secrets.IRON_BANK_ROBOT_USERNAME}}" -p "${{secrets.IRON_BANK_ROBOT_PASSWORD}}" registry1.dso.mil
 
       - name: Create test bundle
-        run: uds run create-test-bundle
+        run: uds run create-test-bundle --set FLAVOR=${{ matrix.flavor }}
 
       - name: Setup cluster
         run: uds run setup-cluster
