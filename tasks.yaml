@@ -14,31 +14,10 @@ tasks:
       - task: setup-cluster
       - task: deploy-test-bundle
 
-  - name: setup-cluster
-    description: Deploy k3d cluster using uds-common-tasks
-    actions:
-      - task: setup:k3d-test-cluster
-
   - name: create-package
     description: Create UDS Gitlab Package, No dependencies included
     actions:
       - task: create:gitlab-package
-
-  - name: create-test-bundle
-    description: Create UDS Gitlab bundle with dependencies
-    actions:
-      - task: create:gitlab-test-bundle
-
-  - name: deploy-test-bundle
-    description: Deploy UDS Gitlab bundle with dependencies using uds-common-tasks
-    actions:
-      - task: deploy:test-bundle
-
-  - name: test-package
-    description: Run health checks and ingress tests
-    actions:
-      - task: test:health-check
-      - task: test:ingress
 
   - name: cleanup
     description: Destroy k3d Cluster
@@ -59,3 +38,26 @@ tasks:
     description: "Fix linting issues"
     actions:
       - task: lint:fix
+
+# CI will execute the following (via uds-common/.github/actions/test) so they need to be here with these names
+
+  - name: create-test-bundle
+    description: Create UDS Gitlab bundle with dependencies
+    actions:
+      - task: create:gitlab-test-bundle
+
+  - name: setup-cluster
+    description: Deploy k3d cluster using uds-common-tasks
+    actions:
+      - task: setup:k3d-test-cluster
+
+  - name: deploy-test-bundle
+    description: Deploy UDS Gitlab bundle with dependencies using uds-common-tasks
+    actions:
+      - task: deploy:test-bundle
+
+  - name: test-package
+    description: Run health checks and ingress tests
+    actions:
+      - task: test:health-check
+      - task: test:ingress

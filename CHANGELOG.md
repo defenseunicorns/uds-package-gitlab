@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [16.9.1-uds.3](https://github.com/defenseunicorns/uds-package-gitlab/compare/v16.9.1-uds.2...v16.9.1-uds.3) (2024-03-12)
+
+
+### Miscellaneous
+
+* change to use uds-common pr workflow ([#63](https://github.com/defenseunicorns/uds-package-gitlab/issues/63)) ([1c86b8b](https://github.com/defenseunicorns/uds-package-gitlab/commit/1c86b8bfdbb00573f150d20ea586f455fcb8f379))
+* included ci shim ([#64](https://github.com/defenseunicorns/uds-package-gitlab/issues/64)) ([728081f](https://github.com/defenseunicorns/uds-package-gitlab/commit/728081f7dedd6cb014b6855961077ef6b6d15684))
+
 ## [16.9.1-uds.2](https://github.com/defenseunicorns/uds-package-gitlab/compare/v16.9.1-uds.1...v16.9.1-uds.2) (2024-03-08)
 
 
