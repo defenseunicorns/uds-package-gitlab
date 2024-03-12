@@ -1,12 +1,9 @@
 name: Test package
 
 on:
-  # Manual trigger
   workflow_dispatch:
-
   # Triggered by pull-request-conditionals.yaml
   workflow_call:
-
 # Abort prior jobs in the same workflow / PR
 concurrency:
   group: test-${{ github.ref }}-${{ inputs.package }}
