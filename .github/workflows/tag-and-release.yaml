@@ -15,7 +15,7 @@ jobs:
     steps:
       - name: Create release tag
         id: tag
-        uses: google-github-actions/release-please-action@v4.0.2
+        uses: google-github-actions/release-please-action@v4.1.0
       - id: release-flag
         run: echo "release_created=${{ steps.tag.outputs.release_created || false }}" >> $GITHUB_OUTPUT
 
@@ -42,7 +42,7 @@ jobs:
           password: ${{secrets.IRON_BANK_ROBOT_PASSWORD}}
 
       - name: Login to GHCR
-        uses: docker/login-action@343f7c4344506bcbf9b4de18042ae17996df046d # v3
+        uses: docker/login-action@e92390c5fb421da1463c202d546fed0ec5c39f20 # v3
         with:
           registry: ghcr.io
           username: dummy
