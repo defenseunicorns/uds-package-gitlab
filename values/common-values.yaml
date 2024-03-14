@@ -166,4 +166,7 @@ gitlab-runner:
 prometheus:
   install: false
 
+nginx-ingress: &nginx-ingress
+  enabled: false
+
 domain: ###ZARF_VAR_DOMAIN###

@@ -62,6 +62,7 @@ shared-secrets:
   selfsign:
     image:
       repository: registry1.dso.mil/ironbank/gitlab/gitlab/cfssl-self-sign
+      tag: 1.6.1
 
 upgradeCheck:
   image:
