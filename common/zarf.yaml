@@ -16,10 +16,17 @@ components:
         namespace: gitlab
         version: 0.1.0
         localPath: ../charts/sso
+      # - name: gitlab
+      #   namespace: gitlab
+      #   url: https://repo1.dso.mil/big-bang/product/packages/gitlab.git
+      #   gitPath: chart
+      #   version: "7.9.1-bb.0"
+      #   valuesFiles:
+      #     - ../values/common-values.yaml
       - name: gitlab
         namespace: gitlab
-        url: https://repo1.dso.mil/big-bang/product/packages/gitlab.git
+        url: https://charts.gitlab.io/
         gitPath: chart
-        version: "7.9.1-bb.0"
+        version: "7.9.2"
         valuesFiles:
           - ../values/common-values.yaml

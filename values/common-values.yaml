@@ -6,6 +6,12 @@ global:
   image:
     pullPolicy: IfNotPresent
 
+  ingress:
+    configureCertmanager: false
+
+  kas:
+    enabled: false
+
   hosts:
     domain: ###ZARF_VAR_DOMAIN###
     gitlab:
@@ -151,5 +157,13 @@ istio:
     hosts:
       - "*.pages.###ZARF_VAR_DOMAIN###"
 
+certmanager:
+  install: false
+
+gitlab-runner:
+  install: false
+
+prometheus:
+  install: false
 
 domain: ###ZARF_VAR_DOMAIN###
