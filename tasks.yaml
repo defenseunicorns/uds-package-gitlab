@@ -1,7 +1,10 @@
 includes:
   - cleanup: ./tasks/cleanup.yaml
-  - create: ./tasks/create.yaml
-  - lint: ./tasks/lint.yaml
+  - dependencies: ./tasks/dependencies.yaml
+  - create: https://raw.githubusercontent.com/defenseunicorns/uds-common-tasks/v0.2.2/tasks/create.yaml
+  - lint: https://raw.githubusercontent.com/defenseunicorns/uds-common-tasks/v0.2.2/tasks/lint.yaml
+  # TODO (@WSTARR): temporary until https://github.com/defenseunicorns/uds-common/pull/70 is merged
+  - pull: https://raw.githubusercontent.com/defenseunicorns/uds-common-tasks/51e356f41e1843e9b779c32ca1a82ec5e0102846/tasks/pull.yaml
   - deploy: https://raw.githubusercontent.com/defenseunicorns/uds-common-tasks/v0.2.2/tasks/deploy.yaml
   - setup: https://raw.githubusercontent.com/defenseunicorns/uds-common-tasks/v0.2.2/tasks/setup.yaml
   - test: ./tasks/test.yaml
@@ -17,7 +20,9 @@ tasks:
   - name: create-package
     description: Create UDS Gitlab Package, No dependencies included
     actions:
-      - task: create:gitlab-package
+      - task: create:package
+        with:
+          options: "--skip-sbom"
 
   - name: cleanup
     description: Destroy k3d Cluster
@@ -32,19 +37,30 @@ tasks:
   - name: lint-check
     description: "Run linting checks"
     actions:
-      - task: lint:check
-
-  - name: lint-fix
-    description: "Fix linting issues"
-    actions:
-      - task: lint:fix
+      - task: lint:yaml
 
 # CI will execute the following (via uds-common/.github/actions/test) so they need to be here with these names
 
   - name: create-test-bundle
-    description: Create UDS Gitlab bundle with dependencies
+    description: Create a local UDS Gitlab bundle with dependencies
     actions:
-      - task: create:gitlab-test-bundle
+      - task: create-package
+      - task: dependencies:create
+      - task: create:test-bundle
+
+  - name: create-latest-release-bundle
+    description: Create UDS Gitlab bundle with dependencies based on the latest release
+    actions:
+      - task: pull:latest-package-release
+      # TODO (@WSTARR): This is currently needed to get around the chicken+egg condition when release please updates the version in GH
+      - description: Get the current Zarf package name
+        cmd: cat zarf.yaml | yq .metadata.version
+        setVariables:
+          - name: CURRENT_VERSION
+      - description: Move the latest to the current (needed to make this work on release-please PRs)
+        cmd: test -f zarf-package-gitlab-${UDS_ARCH}-${CURRENT_VERSION}.tar.zst || mv zarf-package-gitlab-${UDS_ARCH}-*.tar.zst zarf-package-gitlab-${UDS_ARCH}-${CURRENT_VERSION}.tar.zst
+      - task: dependencies:create
+      - task: create:test-bundle
 
   - name: setup-cluster
     description: Deploy k3d cluster using uds-common-tasks
@@ -61,3 +77,13 @@ tasks:
     actions:
       - task: test:health-check
       - task: test:ingress
+
+  - name: test-upgrade
+    description: Test an upgrade from the latest released package to the current branch
+    actions:
+      - task: create-latest-release-bundle
+      - task: setup:k3d-test-cluster
+      - task: deploy-test-bundle
+      - task: create-test-bundle
+      - task: deploy-test-bundle
+      - task: test-package

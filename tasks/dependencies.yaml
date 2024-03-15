@@ -1,0 +1,5 @@
+tasks:
+  - name: create
+    description: Create the Dev-Secrets Dependency Zarf Package
+    actions:
+      - cmd: uds zarf package create src/dev-secrets/ --confirm --no-progress --architecture=${UDS_ARCH} --skip-sbom
