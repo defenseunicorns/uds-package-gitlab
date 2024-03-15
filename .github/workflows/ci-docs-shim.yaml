@@ -22,13 +22,14 @@ on:
 
 jobs:
   run-test:
-    name: Create and Deploy Flavor ${{ matrix.flavor }}
+    name: ${{ matrix.type }} ${{ matrix.flavor }}
     runs-on: "ubuntu-latest"
     timeout-minutes: 20
     strategy:
       matrix:
         flavor: [upstream, registry1]
+        type: [install, upgrade]
     steps:
-      - name: Shim for Deploy ${{ matrix.flavor }}
+      - name: Shim for ${{ matrix.type }} ${{ matrix.flavor }}
         run: |
-          echo "Documentation-only change detected; marking Deploy ${{ matrix.flavor }} as successful."
+          echo "Documentation-only change detected; marking ${{ matrix.type }} ${{ matrix.flavor }} as successful."

@@ -1,54 +1,37 @@
 includes:
   - cleanup: ./tasks/cleanup.yaml
   - dependencies: ./tasks/dependencies.yaml
+  - test: ./tasks/test.yaml
   - create: https://raw.githubusercontent.com/defenseunicorns/uds-common-tasks/v0.2.2/tasks/create.yaml
   - lint: https://raw.githubusercontent.com/defenseunicorns/uds-common-tasks/v0.2.2/tasks/lint.yaml
   # TODO (@WSTARR): temporary until https://github.com/defenseunicorns/uds-common/pull/70 is merged
   - pull: https://raw.githubusercontent.com/defenseunicorns/uds-common-tasks/51e356f41e1843e9b779c32ca1a82ec5e0102846/tasks/pull.yaml
   - deploy: https://raw.githubusercontent.com/defenseunicorns/uds-common-tasks/v0.2.2/tasks/deploy.yaml
   - setup: https://raw.githubusercontent.com/defenseunicorns/uds-common-tasks/v0.2.2/tasks/setup.yaml
-  - test: ./tasks/test.yaml
 
 tasks:
   - name: default
     description: Create K3D Cluster with UDS-Core + Gitlab
     actions:
-      - task: create-test-bundle
-      - task: setup-cluster
-      - task: deploy-test-bundle
+      - task: create-gl-test-bundle
+      - task: setup:k3d-test-cluster
+      - task: deploy:test-bundle
 
-  - name: create-package
+  - name: create-gl-package
     description: Create UDS Gitlab Package, No dependencies included
     actions:
       - task: create:package
         with:
           options: "--skip-sbom"
 
-  - name: cleanup
-    description: Destroy k3d Cluster
-    actions:
-      - task: cleanup:cluster
-
-  - name: cleanup-bundle
-    description: Remove the Deployed UDS Gitlab Bundle
-    actions:
-      - task: cleanup:bundle
-
-  - name: lint-check
-    description: "Run linting checks"
-    actions:
-      - task: lint:yaml
-
-# CI will execute the following (via uds-common/.github/actions/test) so they need to be here with these names
-
-  - name: create-test-bundle
+  - name: create-gl-test-bundle
     description: Create a local UDS Gitlab bundle with dependencies
     actions:
       - task: create-package
       - task: dependencies:create
       - task: create:test-bundle
 
-  - name: create-latest-release-bundle
+  - name: create-gl-latest-release-bundle
     description: Create UDS Gitlab bundle with dependencies based on the latest release
     actions:
       - task: pull:latest-package-release
@@ -62,28 +45,24 @@ tasks:
       - task: dependencies:create
       - task: create:test-bundle
 
-  - name: setup-cluster
-    description: Deploy k3d cluster using uds-common-tasks
-    actions:
-      - task: setup:k3d-test-cluster
-
-  - name: deploy-test-bundle
-    description: Deploy UDS Gitlab bundle with dependencies using uds-common-tasks
-    actions:
-      - task: deploy:test-bundle
+# CI will execute the following (via uds-common/.github/actions/test) so they need to be here with these names
 
   - name: test-package
-    description: Run health checks and ingress tests
+    description: Test the GitLab package from the current branch
     actions:
+      - task: create-gl-test-bundle
+      - task: setup:k3d-test-cluster
+      - task: deploy:test-bundle
       - task: test:health-check
       - task: test:ingress
 
   - name: test-upgrade
     description: Test an upgrade from the latest released package to the current branch
     actions:
-      - task: create-latest-release-bundle
+      - task: create-gl-latest-release-bundle
       - task: setup:k3d-test-cluster
-      - task: deploy-test-bundle
-      - task: create-test-bundle
-      - task: deploy-test-bundle
-      - task: test-package
+      - task: deploy:test-bundle
+      - task: create-gl-test-bundle
+      - task: deploy:test-bundle
+      - task: test:health-check
+      - task: test:ingress

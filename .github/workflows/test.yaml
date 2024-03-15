@@ -4,7 +4,7 @@ name: Test
 on:
   pull_request:
     branches: [main]
-    types: [milestoned, opened, edited, synchronize]  
+    types: [milestoned, opened, edited, synchronize]
     paths-ignore:
       - "**.md"
       - "**.jpg"
@@ -21,7 +21,7 @@ on:
       - "CODEOWNERS"
       - "LICENSE"
       - "CONTRIBUTING.md"
-      - "SECURITY.md"  
+      - "SECURITY.md"
 
 # Abort prior jobs in the same workflow / PR
 concurrency:
@@ -33,12 +33,13 @@ permissions:
 
 jobs:
   run-test:
-    name: Create and Deploy Flavor ${{ matrix.flavor }}
+    name: ${{ matrix.type }} ${{ matrix.flavor }}
     runs-on: uds-ubuntu-big-boy-8-core
     timeout-minutes: 35
     strategy:
       matrix:
         flavor: [upstream, registry1]
+        type: [install, upgrade]
 
     steps:
       - name: Checkout repository
@@ -51,10 +52,10 @@ jobs:
           password: ${{secrets.IRON_BANK_ROBOT_PASSWORD}}
 
       - name: Test
-        uses: defenseunicorns/uds-common/.github/actions/test@1e3dd4119acf36aae8d675389cde128ba93d26c4
+        uses: defenseunicorns/uds-common/.github/actions/test@c78f3036b682968bb32feb6b585199b38d87b101
         with:
           flavor: ${{ matrix.flavor }}
-          upgrade: "true"
+          type: ${{ matrix.type }}
 
       - name: Save logs
         if: always()
