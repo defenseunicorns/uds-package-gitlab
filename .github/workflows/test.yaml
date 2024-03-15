@@ -51,9 +51,10 @@ jobs:
           password: ${{secrets.IRON_BANK_ROBOT_PASSWORD}}
 
       - name: Test
-        uses: defenseunicorns/uds-common/.github/actions/test@442bae718050ea9a47254851a45632aabeb13b17
+        uses: defenseunicorns/uds-common/.github/actions/test@1e3dd4119acf36aae8d675389cde128ba93d26c4
         with:
           flavor: ${{ matrix.flavor }}
+          upgrade: "true"
 
       - name: Save logs
         if: always()
