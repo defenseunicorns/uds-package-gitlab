@@ -21,7 +21,7 @@ jobs:
           fetch-depth: 0
 
       - name: Environment setup
-        uses: ./.github/actions/setup
+        uses: defenseunicorns/uds-common/.github/actions/setup@442bae718050ea9a47254851a45632aabeb13b17
         with:
           username: ${{ secrets.IRON_BANK_ROBOT_USERNAME }}
           password: ${{ secrets.IRON_BANK_ROBOT_PASSWORD }}
