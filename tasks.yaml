@@ -2,12 +2,11 @@ includes:
   - cleanup: ./tasks/cleanup.yaml
   - dependencies: ./tasks/dependencies.yaml
   - test: ./tasks/test.yaml
-  - create: https://raw.githubusercontent.com/defenseunicorns/uds-common-tasks/v0.2.2/tasks/create.yaml
-  - lint: https://raw.githubusercontent.com/defenseunicorns/uds-common-tasks/v0.2.2/tasks/lint.yaml
-  # TODO (@WSTARR): temporary until https://github.com/defenseunicorns/uds-common/pull/70 is merged
-  - pull: https://raw.githubusercontent.com/defenseunicorns/uds-common-tasks/c78f3036b682968bb32feb6b585199b38d87b101/tasks/pull.yaml
-  - deploy: https://raw.githubusercontent.com/defenseunicorns/uds-common-tasks/v0.2.2/tasks/deploy.yaml
-  - setup: https://raw.githubusercontent.com/defenseunicorns/uds-common-tasks/v0.2.2/tasks/setup.yaml
+  - create: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.1/tasks/create.yaml
+  - lint: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.1/tasks/lint.yaml
+  - pull: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.1/tasks/pull.yaml
+  - deploy: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.1/tasks/deploy.yaml
+  - setup: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.1/tasks/setup.yaml
 
 tasks:
   - name: default
