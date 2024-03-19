@@ -18,14 +18,11 @@
       "groupName": "Gitlab Package Dependencies",
       "labels": ["package-deps"],
       "commitMessageTopic": "package-deps",
-      "registryUrls": ["https://registry1.dso.mil"],
-      "matchDatasources": ["docker"]
+      "matchDatasources": ["docker", "helm", "git-tags"]
     },
     {
-      "groupName": "Gitlab Package Dependencies",
-      "labels": ["package-deps"],
-      "commitMessageTopic": "package-deps",
-      "matchDatasources": ["helm"]
+      "matchPackageNames": ["https://repo1.dso.mil/big-bang/product/packages/gitlab.git"],
+      "allowedVersions": "/.+-bb.+/"
     }
   ]
 }
