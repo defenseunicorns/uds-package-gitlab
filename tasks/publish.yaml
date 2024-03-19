@@ -1,19 +1,7 @@
 includes:
-  - create: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.1/tasks/create.yaml
-  - publish: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.1/tasks/publish.yaml
-
-variables:
-  - name: TARGET_REPO
-    default: oci://ghcr.io/defenseunicorns/packages/uds
-
-  - name: VERSION
-    description: The version of the package to build
-    # x-release-please-start-version
-    default: "16.9.2-uds.0"
-    # x-release-please-end
-
-  - name: FLAVOR
-    default: "registry1"
+  - dependencies: ./dependencies.yaml
+  - create: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.2/tasks/create.yaml
+  - publish: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.2/tasks/publish.yaml
 
 tasks:
   - name: package
@@ -31,3 +19,37 @@ tasks:
 
       - description: Publish the packages
         task: publish:package
+        with:
+          # x-release-please-start-version
+          version: "16.9.2-uds.0"
+          # x-release-please-end
+
+  - name: test-bundle
+    description: Build and publish the test-bundle
+    actions:
+      - description: Create the ARM64 deps package
+        task: dependencies:create
+        with:
+          options: -a amd64
+
+      - description: Create the ARM64 deps package
+        task: dependencies:create
+        with:
+          options: -a arm64
+
+      - description: Create the AMD64 test bundle
+        task: create:test-bundle
+        with:
+          options: -a amd64
+
+      - description: Create the ARM64 test bundle
+        task: create:test-bundle
+        with:
+          options: -a arm64
+
+      - description: Publish the bundle
+        task: publish:test-bundle
+        with:
+          # x-release-please-start-version
+          version: "16.9.2-uds.0"
+          # x-release-please-end

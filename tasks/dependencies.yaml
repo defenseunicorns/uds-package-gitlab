@@ -1,5 +1,8 @@
 tasks:
   - name: create
     description: Create the Dev-Secrets Dependency Zarf Package
+    inputs:
+      options:
+        description: For setting create time variables and flags
     actions:
-      - cmd: uds zarf package create src/dev-secrets/ --confirm --no-progress --architecture=${UDS_ARCH} --skip-sbom
+      - cmd: uds zarf package create src/dev-secrets/ --confirm --no-progress --architecture=${UDS_ARCH} --skip-sbom ${{ .inputs.options }}
