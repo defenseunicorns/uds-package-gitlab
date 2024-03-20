@@ -1,7 +1,7 @@
 includes:
   - dependencies: ./dependencies.yaml
-  - create: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.2/tasks/create.yaml
-  - publish: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.2/tasks/publish.yaml
+  - create: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.3/tasks/create.yaml
+  - publish: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.3/tasks/publish.yaml
 
 tasks:
   - name: package
@@ -10,12 +10,12 @@ tasks:
       - description: Create the AMD64 package
         task: create:package
         with:
-          options: -a amd64
+          architecture: amd64
 
       - description: Create the ARM64 package
         task: create:package
         with:
-          options: -a arm64
+          architecture: arm64
 
       - description: Publish the packages
         task: publish:package
@@ -30,21 +30,22 @@ tasks:
       - description: Create the ARM64 deps package
         task: dependencies:create
         with:
-          options: -a amd64
+          architecture: amd64
 
       - description: Create the ARM64 deps package
         task: dependencies:create
         with:
-          options: -a arm64
+          architecture: arm64
 
-      - description: Create the test bundles
-        cmd: |
-          set -e
-          UDS_CONFIG=bundle/uds-config.yaml uds create bundle --confirm --no-progress --architecture=amd64
-          if [ ${FLAVOR} != "registry1" ]; then
-            UDS_CONFIG=bundle/uds-config.yaml uds create bundle --confirm --no-progress --architecture=arm64
-          fi
-          set +e
+      - description: Create the AMD64 bundle
+        task: create:test-bundle
+        with:
+          architecture: amd64
+
+      - description: Create the ARM64 bundle
+        task: create:test-bundle
+        with:
+          architecture: arm64
 
       - description: Publish the bundles
         task: publish:test-bundle
