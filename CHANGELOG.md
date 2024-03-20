@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [16.9.2-uds.4](https://github.com/defenseunicorns/uds-package-gitlab/compare/v16.9.2-uds.3...v16.9.2-uds.4) (2024-03-20)
+
+
+### Miscellaneous
+
+* fix quotes on release workflow ([#86](https://github.com/defenseunicorns/uds-package-gitlab/issues/86)) ([227d997](https://github.com/defenseunicorns/uds-package-gitlab/commit/227d9979007b13d52e5b358c3e68c483563816e0))
+* update to newer architecture building ([#85](https://github.com/defenseunicorns/uds-package-gitlab/issues/85)) ([e991f75](https://github.com/defenseunicorns/uds-package-gitlab/commit/e991f757d7608ea9d95112b87cb86c37b9ff1bf9))
+
 ## [16.9.2-uds.3](https://github.com/defenseunicorns/uds-package-gitlab/compare/v16.9.2-uds.2...v16.9.2-uds.3) (2024-03-20)
 
 
