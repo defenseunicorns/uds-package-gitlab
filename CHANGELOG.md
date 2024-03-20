@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file.
 
+## [16.9.2-uds.1](https://github.com/defenseunicorns/uds-package-gitlab/compare/v16.9.2-uds.0...v16.9.2-uds.1) (2024-03-20)
+
+
+### Bug Fixes
+
+* enable toolbox egress for rake tasks and other debugging ([#77](https://github.com/defenseunicorns/uds-package-gitlab/issues/77)) ([340f3f2](https://github.com/defenseunicorns/uds-package-gitlab/commit/340f3f2619d0e3b137a662cf18f23365a5e79096))
+
+
+### Miscellaneous
+
+* add upgrade testing and task cleanups ([#73](https://github.com/defenseunicorns/uds-package-gitlab/issues/73)) ([2af9663](https://github.com/defenseunicorns/uds-package-gitlab/commit/2af966305b47105fd2dbc3e9cf387a275b79d70b))
+* **deps:** update gitlab support dependencies ([#71](https://github.com/defenseunicorns/uds-package-gitlab/issues/71)) ([3c46902](https://github.com/defenseunicorns/uds-package-gitlab/commit/3c469028708ef1e53866c08d1b2cd30463714bfb))
+* hotfix workflow run rules ([#79](https://github.com/defenseunicorns/uds-package-gitlab/issues/79)) ([81b5501](https://github.com/defenseunicorns/uds-package-gitlab/commit/81b5501f72dcd3a9854fb8f6f3423ac28bd0e047))
+* remove renovate encrypted creds now pulled from common ([#69](https://github.com/defenseunicorns/uds-package-gitlab/issues/69)) ([06d44d8](https://github.com/defenseunicorns/uds-package-gitlab/commit/06d44d8b2add8ec3a481129b9948f4fe2fff8818))
+* update CODEOWNERS to new style/group ([#74](https://github.com/defenseunicorns/uds-package-gitlab/issues/74)) ([bdd3167](https://github.com/defenseunicorns/uds-package-gitlab/commit/bdd3167d330767b560ed285def15d0bc45ba8825))
+* update to the new bundle publish flow ([#76](https://github.com/defenseunicorns/uds-package-gitlab/issues/76)) ([6e0f62d](https://github.com/defenseunicorns/uds-package-gitlab/commit/6e0f62dd9d14f5d8cc8630092df233d7ada48902))
+
 ## [16.9.2-uds.0](https://github.com/defenseunicorns/uds-package-gitlab/compare/v16.9.1-uds.3...v16.9.2-uds.0) (2024-03-13)
 
 
