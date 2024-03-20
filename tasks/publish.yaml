@@ -25,7 +25,7 @@ tasks:
           # x-release-please-end
 
   - name: test-bundle
-    description: Build and publish the test-bundle
+    description: Build and publish the test bundles
     actions:
       - description: Create the ARM64 deps package
         task: dependencies:create
@@ -37,17 +37,16 @@ tasks:
         with:
           options: -a arm64
 
-      - description: Create the AMD64 test bundle
-        task: create:test-bundle
-        with:
-          options: -a amd64
+      - description: Create the test bundles
+        cmd: |
+          set -e
+          UDS_CONFIG=bundle/uds-config.yaml uds create bundle --confirm --no-progress --architecture=amd64
+          if [ ${FLAVOR} != "registry1" ]; then
+            UDS_CONFIG=bundle/uds-config.yaml uds create bundle --confirm --no-progress --architecture=arm64
+          fi
+          set +e
 
-      - description: Create the ARM64 test bundle
-        task: create:test-bundle
-        with:
-          options: -a arm64
-
-      - description: Publish the bundle
+      - description: Publish the bundles
         task: publish:test-bundle
         with:
           # x-release-please-start-version
