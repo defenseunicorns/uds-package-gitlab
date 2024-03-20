@@ -3,6 +3,8 @@ name: Scan
 on:
   # This workflow is triggered on pull requests to the main branch.
   pull_request:
+    branches: [main]
+    types: [milestoned, opened, edited, synchronize]
 
   # This allows other repositories to call this workflow in a reusable way
   workflow_call:
