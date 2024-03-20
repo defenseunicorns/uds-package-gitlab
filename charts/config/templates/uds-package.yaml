@@ -72,6 +72,12 @@ spec:
           app: migrations
         remoteGenerated: Anywhere
         description: "Migrations Storage"
+      
+      - direction: Egress
+        podLabels:
+          app: toolbox
+        remoteGenerated: Anywhere
+        description: "Toolbox egress to database, redis and storage"
 
       - direction: Egress
         remoteGenerated: IntraNamespace
