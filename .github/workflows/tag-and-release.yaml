@@ -52,7 +52,7 @@ jobs:
         run: uds run -f tasks/publish.yaml package --set FLAVOR=${{ matrix.flavor }}
 
       - name: Publish Bundle
-        if: ${{ matrix.flavor == "upstream" }}
+        if: ${{ matrix.flavor == 'upstream' }}
         run: uds run -f tasks/publish.yaml test-bundle --set FLAVOR=${{ matrix.flavor }}
 
       - name: Save logs
