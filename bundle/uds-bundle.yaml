@@ -3,7 +3,7 @@ metadata:
   name: gitlab-test
   description: A UDS bundle for deploying Gitlab and it's dependencies on a development cluster
   # x-release-please-start-version
-  version: 16.9.2-uds.2
+  version: 16.9.2-uds.3
   # x-release-please-end
 
 packages:
@@ -26,7 +26,7 @@ packages:
   - name: gitlab
     path: ../
     # x-release-please-start-version
-    ref: 16.9.2-uds.2
+    ref: 16.9.2-uds.3
     # x-release-please-end
     overrides:
       gitlab:

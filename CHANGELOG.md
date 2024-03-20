@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [16.9.2-uds.3](https://github.com/defenseunicorns/uds-package-gitlab/compare/v16.9.2-uds.2...v16.9.2-uds.3) (2024-03-20)
+
+
+### Miscellaneous
+
+* **deps:** update gitlab support dependencies ([#83](https://github.com/defenseunicorns/uds-package-gitlab/issues/83)) ([09919ae](https://github.com/defenseunicorns/uds-package-gitlab/commit/09919ae9530306b3ac6d525518195ff90a86d16d))
+
 ## [16.9.2-uds.2](https://github.com/defenseunicorns/uds-package-gitlab/compare/v16.9.2-uds.1...v16.9.2-uds.2) (2024-03-20)
 
 
