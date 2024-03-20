@@ -2,6 +2,9 @@ yaml-files:
   - '**/*.y*ml'
   - '.yamllint'
 
+ignore:
+  - '**/charts/**/templates**'
+
 rules:
   anchors: enable
   braces: enable
