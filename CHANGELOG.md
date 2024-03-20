@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [16.9.2-uds.2](https://github.com/defenseunicorns/uds-package-gitlab/compare/v16.9.2-uds.1...v16.9.2-uds.2) (2024-03-20)
+
+
+### Miscellaneous
+
+* fix the bundle creation for registry1 ([#80](https://github.com/defenseunicorns/uds-package-gitlab/issues/80)) ([f67f1d5](https://github.com/defenseunicorns/uds-package-gitlab/commit/f67f1d514e4eae876e0835ddba15a59a0ce28be7))
+
 ## [16.9.2-uds.1](https://github.com/defenseunicorns/uds-package-gitlab/compare/v16.9.2-uds.0...v16.9.2-uds.1) (2024-03-20)
 
 
