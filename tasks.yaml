@@ -1,63 +1,67 @@
 includes:
   - cleanup: ./tasks/cleanup.yaml
-  - create: ./tasks/create.yaml
-  - lint: ./tasks/lint.yaml
-  - deploy: https://raw.githubusercontent.com/defenseunicorns/uds-common-tasks/v0.2.2/tasks/deploy.yaml
-  - setup: https://raw.githubusercontent.com/defenseunicorns/uds-common-tasks/v0.2.2/tasks/setup.yaml
+  - dependencies: ./tasks/dependencies.yaml
   - test: ./tasks/test.yaml
+  - create: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.3/tasks/create.yaml
+  - lint: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.3/tasks/lint.yaml
+  - pull: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.3/tasks/pull.yaml
+  - deploy: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.3/tasks/deploy.yaml
+  - setup: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.3/tasks/setup.yaml
 
 tasks:
   - name: default
     description: Create K3D Cluster with UDS-Core + Gitlab
     actions:
-      - task: create-test-bundle
-      - task: setup-cluster
-      - task: deploy-test-bundle
+      - task: create-gl-test-bundle
+      - task: setup:k3d-test-cluster
+      - task: deploy:test-bundle
 
-  - name: create-package
+  - name: create-gl-package
     description: Create UDS Gitlab Package, No dependencies included
     actions:
-      - task: create:gitlab-package
+      - task: create:package
+        with:
+          options: "--skip-sbom"
 
-  - name: cleanup
-    description: Destroy k3d Cluster
+  - name: create-gl-test-bundle
+    description: Create a local UDS Gitlab bundle with dependencies
     actions:
-      - task: cleanup:cluster
+      - task: create-gl-package
+      - task: dependencies:create
+      - task: create:test-bundle
 
-  - name: cleanup-bundle
-    description: Remove the Deployed UDS Gitlab Bundle
+  - name: create-gl-latest-release-bundle
+    description: Create UDS Gitlab bundle with dependencies based on the latest release
     actions:
-      - task: cleanup:bundle
-
-  - name: lint-check
-    description: "Run linting checks"
-    actions:
-      - task: lint:check
-
-  - name: lint-fix
-    description: "Fix linting issues"
-    actions:
-      - task: lint:fix
+      - task: pull:latest-package-release
+      # TODO (@WSTARR): This is currently needed to get around the chicken+egg condition when release please updates the version in GH
+      - description: Get the current Zarf package name
+        cmd: cat zarf.yaml | yq .metadata.version
+        setVariables:
+          - name: CURRENT_VERSION
+      - description: Move the latest to the current (needed to make this work on release-please PRs)
+        cmd: test -f zarf-package-gitlab-${UDS_ARCH}-${CURRENT_VERSION}.tar.zst || mv zarf-package-gitlab-${UDS_ARCH}-*.tar.zst zarf-package-gitlab-${UDS_ARCH}-${CURRENT_VERSION}.tar.zst
+      - task: dependencies:create
+      - task: create:test-bundle
 
 # CI will execute the following (via uds-common/.github/actions/test) so they need to be here with these names
 
-  - name: create-test-bundle
-    description: Create UDS Gitlab bundle with dependencies
-    actions:
-      - task: create:gitlab-test-bundle
-
-  - name: setup-cluster
-    description: Deploy k3d cluster using uds-common-tasks
-    actions:
-      - task: setup:k3d-test-cluster
-
-  - name: deploy-test-bundle
-    description: Deploy UDS Gitlab bundle with dependencies using uds-common-tasks
-    actions:
-      - task: deploy:test-bundle
-
   - name: test-package
-    description: Run health checks and ingress tests
+    description: Test the GitLab package from the current branch
     actions:
+      - task: create-gl-test-bundle
+      - task: setup:k3d-test-cluster
+      - task: deploy:test-bundle
+      - task: test:health-check
+      - task: test:ingress
+
+  - name: test-upgrade
+    description: Test an upgrade from the latest released package to the current branch
+    actions:
+      - task: create-gl-latest-release-bundle
+      - task: setup:k3d-test-cluster
+      - task: deploy:test-bundle
+      - task: create-gl-test-bundle
+      - task: deploy:test-bundle
       - task: test:health-check
       - task: test:ingress

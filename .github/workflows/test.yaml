@@ -4,7 +4,7 @@ name: Test
 on:
   pull_request:
     branches: [main]
-    types: [milestoned, opened, edited, synchronize]  
+    types: [milestoned, opened, synchronize]
     paths-ignore:
       - "**.md"
       - "**.jpg"
@@ -21,7 +21,7 @@ on:
       - "CODEOWNERS"
       - "LICENSE"
       - "CONTRIBUTING.md"
-      - "SECURITY.md"  
+      - "SECURITY.md"
 
 # Abort prior jobs in the same workflow / PR
 concurrency:
@@ -33,30 +33,32 @@ permissions:
 
 jobs:
   run-test:
-    name: Create and Deploy Flavor ${{ matrix.flavor }}
+    name: ${{ matrix.type }} ${{ matrix.flavor }}
     runs-on: uds-ubuntu-big-boy-8-core
-    timeout-minutes: 20
+    timeout-minutes: 25
     strategy:
       matrix:
         flavor: [upstream, registry1]
+        type: [install, upgrade]
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
 
       - name: Environment setup
-        uses: defenseunicorns/uds-common/.github/actions/setup@442bae718050ea9a47254851a45632aabeb13b17
+        uses: defenseunicorns/uds-common/.github/actions/setup@e2ad99f7caba1b0d08856918db9385a431cfdbca # v0.3.3
         with:
           username: ${{secrets.IRON_BANK_ROBOT_USERNAME}}
           password: ${{secrets.IRON_BANK_ROBOT_PASSWORD}}
 
       - name: Test
-        uses: defenseunicorns/uds-common/.github/actions/test@442bae718050ea9a47254851a45632aabeb13b17
+        uses: defenseunicorns/uds-common/.github/actions/test@e2ad99f7caba1b0d08856918db9385a431cfdbca # v0.3.3
         with:
           flavor: ${{ matrix.flavor }}
+          type: ${{ matrix.type }}
 
       - name: Save logs
         if: always()
-        uses: defenseunicorns/uds-common/.github/actions/save-logs@442bae718050ea9a47254851a45632aabeb13b17
+        uses: defenseunicorns/uds-common/.github/actions/save-logs@e2ad99f7caba1b0d08856918db9385a431cfdbca # v0.3.3
         with:
-          suffix: ${{ matrix.flavor }}-${{ github.run_id }}-${{ github.run_attempt }}
+          suffix: ${{ matrix.type }}-${{ matrix.flavor }}-${{ github.run_id }}-${{ github.run_attempt }}

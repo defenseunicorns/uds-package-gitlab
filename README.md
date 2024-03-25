@@ -75,15 +75,7 @@ The released packages can be found in [ghcr](https://github.com/defenseunicorns/
 
 *For local dev, this requires you install [uds-cli](https://github.com/defenseunicorns/uds-cli?tab=readme-ov-file#install)
 
-| Task | Description | Example |
-| ---- | ----------- | ------- |
-| setup-cluster | Uses the `k3d-core-istio` bundle to create a cluster for testing against | `uds run setup-cluster` |
-| create-package | Creates just the GitLab package | `uds run create-package --set FLAVOR=<flavor>` |
-| create-test-bundle | Creates GitLab and GitLab dependency packages and then bundles them | `uds run create-test-bundle` |
-| deploy-test-bundle | Deploy GitLab and GitLab dependency bundle | `uds run deploy-test-bundle` |
-| test-package | Run checks against a deployed package | `uds run test-package` |
-| cleanup | Teardown the cluster | `uds run cleanup` |
-| cleanup-bundle | Remove the GitLab Bundle | `uds run cleanup-bundle` |
+> :white_check_mark: **Tip:** To get a list of tasks to run you can use `uds run --list`!
 
 ## Contributing
 

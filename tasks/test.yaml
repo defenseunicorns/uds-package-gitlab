@@ -7,6 +7,7 @@ tasks:
             kind: Deployment
             name: gitlab-gitlab-exporter
             namespace: gitlab
+            condition: Available
 
       - description: Gitlab Registry Health Check
         wait:
@@ -14,6 +15,7 @@ tasks:
             kind: Deployment
             name: gitlab-registry
             namespace: gitlab
+            condition: Available
 
       - description: Gitlab Shell Health Check
         wait:
@@ -21,6 +23,7 @@ tasks:
             kind: Deployment
             name: gitlab-gitlab-shell
             namespace: gitlab
+            condition: Available
 
       - description: Gitlab Toolbox Health Check
         wait:
@@ -28,6 +31,7 @@ tasks:
             kind: Deployment
             name: gitlab-toolbox
             namespace: gitlab
+            condition: Available
 
       - description: Gitlab Sidekiq Health Check
         wait:
@@ -35,6 +39,7 @@ tasks:
             kind: Deployment
             name: gitlab-sidekiq-all-in-1-v2
             namespace: gitlab
+            condition: Available
 
       - description: Gitlab Webservice Health Check
         wait:
@@ -42,20 +47,24 @@ tasks:
             kind: Deployment
             name: gitlab-webservice-default
             namespace: gitlab
+            condition: Available
 
+      # StatefulSets don't show conditions themselves so we look for an underlying Pod
       - description: Gitlab Gitaly Health Check
         wait:
           cluster:
-            kind: StatefulSet
-            name: gitlab-gitaly
+            kind: Pod
+            name: app=gitaly
             namespace: gitlab
+            condition: Ready
 
       - description: Gitlab Migrations Health Check
         wait:
           cluster:
             kind: Job
-            name: gitlab-migrations-1
+            name: app=migrations
             namespace: gitlab
+            condition: Complete
 
   - name: ingress
     actions:

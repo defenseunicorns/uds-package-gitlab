@@ -1,28 +1,55 @@
 includes:
-  - publish: https://raw.githubusercontent.com/defenseunicorns/uds-common-tasks/v0.2.2/tasks/publish.yaml
-
-variables:
-  - name: TARGET_REPO
-    default: oci://ghcr.io/defenseunicorns/packages/uds
-
-  - name: VERSION
-    description: The version of the package to build
-    # x-release-please-start-version
-    default: "16.9.2-uds.0"
-    # x-release-please-end
-
-  - name: FLAVOR
-    default: "registry1"
+  - dependencies: ./dependencies.yaml
+  - create: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.3/tasks/create.yaml
+  - publish: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.3/tasks/publish.yaml
 
 tasks:
   - name: package
     description: Build and publish the packages
     actions:
-      - description: Create the packages
-        cmd: |
-          set -e
-          ZARF_ARCHITECTURE=amd64 uds run -f tasks/create.yaml gitlab-package --set FLAVOR=${FLAVOR}
-          ZARF_ARCHITECTURE=arm64 uds run -f tasks/create.yaml gitlab-package --set FLAVOR=${FLAVOR}
+      - description: Create the AMD64 package
+        task: create:package
+        with:
+          architecture: amd64
+
+      - description: Create the ARM64 package
+        task: create:package
+        with:
+          architecture: arm64
 
       - description: Publish the packages
         task: publish:package
+        with:
+          # x-release-please-start-version
+          version: "16.9.2-uds.4"
+          # x-release-please-end
+
+  - name: test-bundle
+    description: Build and publish the test bundles
+    actions:
+      - description: Create the ARM64 deps package
+        task: dependencies:create
+        with:
+          architecture: amd64
+
+      - description: Create the ARM64 deps package
+        task: dependencies:create
+        with:
+          architecture: arm64
+
+      - description: Create the AMD64 bundle
+        task: create:test-bundle
+        with:
+          architecture: amd64
+
+      - description: Create the ARM64 bundle
+        task: create:test-bundle
+        with:
+          architecture: arm64
+
+      - description: Publish the bundles
+        task: publish:test-bundle
+        with:
+          # x-release-please-start-version
+          version: "16.9.2-uds.4"
+          # x-release-please-end

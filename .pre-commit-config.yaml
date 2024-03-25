@@ -44,10 +44,10 @@ repos:
             "--no-cache"
           ]
   - repo: https://github.com/golangci/golangci-lint
-    rev: v1.56.2
+    rev: v1.57.1
     hooks:
       - id: golangci-lint
   - repo: https://github.com/renovatebot/pre-commit-hooks
-    rev: 37.241.0
+    rev: 37.262.0
     hooks:
       - id: renovate-config-validator
