@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [16.9.2-uds.5](https://github.com/defenseunicorns/uds-package-gitlab/compare/v16.9.2-uds.4...v16.9.2-uds.5) (2024-03-26)
+
+
+### Miscellaneous
+
+* add a renovate schedule to reduce paid runner churn ([#91](https://github.com/defenseunicorns/uds-package-gitlab/issues/91)) ([42c2a0c](https://github.com/defenseunicorns/uds-package-gitlab/commit/42c2a0c2178816a6d908147126fb712d8136d978))
+
 ## [16.9.2-uds.4](https://github.com/defenseunicorns/uds-package-gitlab/compare/v16.9.2-uds.3...v16.9.2-uds.4) (2024-03-20)
 
 
