@@ -8,4 +8,4 @@ tasks:
         description: The architecture of the package to create
         default: ${UDS_ARCH}
     actions:
-      - cmd: uds zarf package create src/dev-secrets/ --confirm --no-progress --architecture=${{ .inputs.architecture }} --skip-sbom ${{ .inputs.options }}
+      - cmd: ./uds zarf package create src/dev-secrets/ --confirm --no-progress --architecture=${{ .inputs.architecture }} --skip-sbom ${{ .inputs.options }}
