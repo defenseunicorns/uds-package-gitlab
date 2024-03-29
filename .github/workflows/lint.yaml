@@ -20,10 +20,11 @@ jobs:
           fetch-depth: 0
 
       - name: Environment setup
-        uses: defenseunicorns/uds-common/.github/actions/setup@e2ad99f7caba1b0d08856918db9385a431cfdbca # v0.3.3
+        uses: defenseunicorns/uds-common/.github/actions/setup@264ec430c4079129870820e70c4439f3f3d57cbc # v0.3.9
         with:
-          username: ${{ secrets.IRON_BANK_ROBOT_USERNAME }}
-          password: ${{ secrets.IRON_BANK_ROBOT_PASSWORD }}
+          registry1Username: ${{ secrets.IRON_BANK_ROBOT_USERNAME }}
+          registry1Password: ${{ secrets.IRON_BANK_ROBOT_PASSWORD }}
+          ghToken: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install lint deps
         run: |
