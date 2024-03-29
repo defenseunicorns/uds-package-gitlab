@@ -77,8 +77,9 @@ Users need to be deprovisioned (GitLab user account disabled or deleted) promptl
 
 Note: it is possible to authenticate to GitLab with Personal Access Tokens (PATs) and SSH keys, these bypass SSO because the user does not login with a browser. It is critical to promptly deactivate or delete users from GitLab to terminate access.
 
-Note: deleted and deactivated users do not consume a license. GitLab bills per user active in the past `x` days(?). To minimize cost, users should be deactivated promptly. The `x` days TBD.
+In GitLab, deleted and deactivated users do not count towards the license usage. However, GitLab's billing model is based on the maximum number of users active at any point during the subscription period, not just the number of active users over the past 30 days. To manage licensing costs effectively, it is recommended to proactively deactivate users as soon as they no longer require access. This can help control the peak user count and avoid unexpected costs due to temporary increases in user numbers.
 
+ [GitLab Licensing and Subscription FAQ](https://about.gitlab.com/pricing/licensing-faq/)
 #### Automated Deprovisioning via SCIM
 
 **Pros:**
