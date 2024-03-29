@@ -15,7 +15,7 @@ jobs:
     steps:
       - name: Create release tag
         id: tag
-        uses: google-github-actions/release-please-action@v4.1.0
+        uses: google-github-actions/release-please-action@a37ac6e4f6449ce8b3f7607e4d97d0146028dc0b # v4.1.0
       - id: release-flag
         run: echo "release_created=${{ steps.tag.outputs.release_created || false }}" >> $GITHUB_OUTPUT
 
@@ -36,7 +36,7 @@ jobs:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
 
       - name: Environment setup
-        uses: defenseunicorns/uds-common/.github/actions/setup@e2ad99f7caba1b0d08856918db9385a431cfdbca # v0.3.3
+        uses: defenseunicorns/uds-common/.github/actions/setup@264ec430c4079129870820e70c4439f3f3d57cbc # v0.3.9
         with:
           username: ${{secrets.IRON_BANK_ROBOT_USERNAME}}
           password: ${{secrets.IRON_BANK_ROBOT_PASSWORD}}
@@ -57,6 +57,6 @@ jobs:
 
       - name: Save logs
         if: always()
-        uses: defenseunicorns/uds-common/.github/actions/save-logs@e2ad99f7caba1b0d08856918db9385a431cfdbca # v0.3.3
+        uses: defenseunicorns/uds-common/.github/actions/save-logs@264ec430c4079129870820e70c4439f3f3d57cbc # v0.3.9
         with:
           suffix: '${{ matrix.flavor }}-${{ github.run_id }}-${{ github.run_attempt }}'
