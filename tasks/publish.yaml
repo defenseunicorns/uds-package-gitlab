@@ -21,7 +21,7 @@ tasks:
         task: publish:package
         with:
           # x-release-please-start-version
-          version: "16.9.2-uds.4"
+          version: "16.10.1-uds.0"
           # x-release-please-end
 
   - name: test-bundle
@@ -51,5 +51,5 @@ tasks:
         task: publish:test-bundle
         with:
           # x-release-please-start-version
-          version: "16.9.2-uds.4"
+          version: "16.10.1-uds.0"
           # x-release-please-end
