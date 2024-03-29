@@ -5,7 +5,7 @@ gitlab:
       tag: 16.10.1
     workhorse:
       image: registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-workhorse
-      tag: 16.9.2
+      tag: 16.10.1
   sidekiq:
     image:
       repository: registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-sidekiq
