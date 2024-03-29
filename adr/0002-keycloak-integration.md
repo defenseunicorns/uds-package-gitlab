@@ -2,7 +2,7 @@
 
 **Date:** 2024-03-05
 
-**Status:** Proposed
+**Status:** Accepted
 
 ## Context
 The initiative to integrate Keycloak with GitLab aims to streamline authentication mechanisms, bolster security measures, and enhance the user experience. This integration is focused on refining the login process, enhancing security protocols, and ensuring compliance with Information Assurance (IA) standards. By leveraging Keycloak as the primary Identity and Access Management (IAM) solution in conjunction with GitLab and adopting SAML for authentication, this approach centralizes user management and authentication, simplifies the management of credentials, and strengthens the overall security framework.
