@@ -2,11 +2,11 @@ includes:
   - cleanup: ./tasks/cleanup.yaml
   - dependencies: ./tasks/dependencies.yaml
   - test: ./tasks/test.yaml
-  - create: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.3/tasks/create.yaml
-  - lint: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.3/tasks/lint.yaml
-  - pull: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.3/tasks/pull.yaml
-  - deploy: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.3/tasks/deploy.yaml
-  - setup: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.3/tasks/setup.yaml
+  - create: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.9/tasks/create.yaml
+  - lint: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.9/tasks/lint.yaml
+  - pull: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.9/tasks/pull.yaml
+  - deploy: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.9/tasks/deploy.yaml
+  - setup: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.9/tasks/setup.yaml
 
 tasks:
   - name: default
@@ -34,13 +34,8 @@ tasks:
     description: Create UDS Gitlab bundle with dependencies based on the latest release
     actions:
       - task: pull:latest-package-release
-      # TODO (@WSTARR): This is currently needed to get around the chicken+egg condition when release please updates the version in GH
-      - description: Get the current Zarf package name
-        cmd: cat zarf.yaml | yq .metadata.version
-        setVariables:
-          - name: CURRENT_VERSION
-      - description: Move the latest to the current (needed to make this work on release-please PRs)
-        cmd: test -f zarf-package-gitlab-${UDS_ARCH}-${CURRENT_VERSION}.tar.zst || mv zarf-package-gitlab-${UDS_ARCH}-*.tar.zst zarf-package-gitlab-${UDS_ARCH}-${CURRENT_VERSION}.tar.zst
+        with:
+          spoof_release: "true"
       - task: dependencies:create
       - task: create:test-bundle
 
