@@ -4,7 +4,7 @@ on:
   pull_request:
     branches: [main]
     types: [milestoned, opened, synchronize]
-    
+
 jobs:
   run-test:
     name: ${{ matrix.type }} ${{ matrix.flavor }}
