@@ -7,6 +7,7 @@ includes:
   - pull: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.9/tasks/pull.yaml
   - deploy: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.9/tasks/deploy.yaml
   - setup: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.9/tasks/setup.yaml
+  - vuln-check: ./tasks/scanvulnerability.yaml
 
 tasks:
   - name: default
@@ -39,8 +40,8 @@ tasks:
       - task: dependencies:create
       - task: create:test-bundle
 
-# CI will execute the following (via uds-common/.github/actions/test) so they need to be here with these names
-
+# CI will execute the following (via uds-common/.github/actions/test) so they need to be here with
+# these names
   - name: test-package
     description: Test the GitLab package from the current branch
     actions:
@@ -60,3 +61,8 @@ tasks:
       - task: deploy:test-bundle
       - task: test:health-check
       - task: test:ingress
+
+  - name: vuln-scan-package
+    description: Scan the GitLab package for vulnerabilities
+    actions:
+      - task: vuln-check:grype-scan-sbom
