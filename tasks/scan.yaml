@@ -13,11 +13,11 @@ tasks:
               uds zarf package inspect "$file" --sbom-out "$output_dir" --no-progress
             done
           done
+          sarif_output_dir="./sarif"
+          mkdir -p "$sarif_output_dir"
           for flavor in "${flavors[@]}"; do
-            sarif_output_dir="./sarif/$flavor"
-            mkdir -p "$sarif_output_dir"
             find "sbom/$flavor" -type f -name "*.json" | while read -r json_file; do
-              sarif_file_name="$(basename "${json_file}").sarif"
+              sarif_file_name="${flavor}_$(basename "${json_file}").sarif"
               echo "Processing $json_file"
               echo "Outputting to $sarif_output_dir/$sarif_file_name"
               grype sbom:"$json_file" --fail-on high -o sarif --file "$sarif_output_dir/$sarif_file_name" || true

@@ -33,13 +33,7 @@ jobs:
           uds run grype:install
           uds run scan:vulns
 
-      # Hard coded steps to upload SARIF files for specific repositories
-      - name: Upload SARIF files for upstream
+      - name: Upload SARIF files 
         uses: github/codeql-action/upload-sarif@1b1aada464948af03b950897e5eb522f92603cc2
         with:
-          sarif_file: sarif/upstream/*.sarif
-
-      - name: Upload SARIF files for repo1
-        uses: github/codeql-action/upload-sarif@1b1aada464948af03b950897e5eb522f92603cc2
-        with:
-          sarif_file: sarif/repo1/*.sarif
+          sarif_file: ./sarif
