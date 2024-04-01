@@ -33,17 +33,13 @@ jobs:
           uds run grype:install
           uds run scan:vulns
 
-  upload-sarif:
-    needs: scan
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        repo: ['upstream', 'repo1']
-    steps:
-      - name: Checkout
-        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
-
-      - name: Upload SARIF files
+      # Hard coded steps to upload SARIF files for specific repositories
+      - name: Upload SARIF files for upstream
         uses: github/codeql-action/upload-sarif@1b1aada464948af03b950897e5eb522f92603cc2
         with:
-          sarif_file: sarif/${{ matrix.repo }}/*.sarif
+          sarif_file: sarif/upstream/*.sarif
+
+      - name: Upload SARIF files for repo1
+        uses: github/codeql-action/upload-sarif@1b1aada464948af03b950897e5eb522f92603cc2
+        with:
+          sarif_file: sarif/repo1/*.sarif
