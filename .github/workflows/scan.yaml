@@ -9,11 +9,11 @@ on:
   workflow_dispatch: {}
 
 jobs:
-  validate:
+  scan:
     runs-on: ubuntu-latest
     name: Scan for vulnerabilities
     permissions:
-      contents: read 
+      contents: read
       pull-requests: read
 
     steps:
@@ -22,7 +22,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Environment setup # this is required for scanning ironbank images
+      - name: Environment setup
         uses: defenseunicorns/uds-common/.github/actions/setup@e2ad99f7caba1b0d08856918db9385a431cfdbca # v0.3.3
         with:
           username: ${{ secrets.IRON_BANK_ROBOT_USERNAME }}
@@ -30,9 +30,20 @@ jobs:
 
       - name: Scan the repository for vulnerabilities
         run: |
-          uds run vuln-check:grype-scan-sbom
+          uds run grype:install
+          uds run scan:vulns
+
+  upload-sarif:
+    needs: scan
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        repo: ['upstream', 'repo1']
+    steps:
+      - name: Checkout
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
 
       - name: Upload SARIF files
-        uses: github/codeql-action/upload-sarif@1b1aada464948af03b950897e5eb522f92603cc2 # v3.0.0
+        uses: github/codeql-action/upload-sarif@1b1aada464948af03b950897e5eb522f92603cc2
         with:
-          sarif_file: 'sarif/'
+          sarif_file: sarif/${{ matrix.repo }}/*.sarif

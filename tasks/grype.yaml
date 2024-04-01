@@ -1,0 +1,12 @@
+---
+tasks:
+  - name: install
+    description: Check if Grype is installed, if not install it
+    actions:
+      - cmd: |
+          if ! command -v grype &> /dev/null; then
+            echo "Grype could not be found, installing..."
+            curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b /usr/local/bin
+          else
+            echo "Grype is already installed."
+          fi

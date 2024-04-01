@@ -1,0 +1,26 @@
+---
+tasks:
+  - name: vulns
+    description: Create a UDS package with configurable flavor and extract the SBOM from all created packages and analyze for vulnerabilities
+    actions:
+      - cmd: |
+          bash -c 'flavors=("upstream" "registry1")
+          for flavor in "${flavors[@]}"; do
+            output_dir="sbom/$flavor"
+            mkdir -p "$output_dir"
+            uds zarf package create . --flavor="$flavor" --confirm --no-progress -o "$output_dir"
+            for file in "$output_dir"/*.zst; do
+              uds zarf package inspect "$file" --sbom-out "$output_dir" --no-progress
+            done
+          done
+          for flavor in "${flavors[@]}"; do
+            sarif_output_dir="./sarif/$flavor"
+            mkdir -p "$sarif_output_dir"
+            find "sbom/$flavor" -type f -name "*.json" | while read -r json_file; do
+              sarif_file_name="$(basename "${json_file}").sarif"
+              echo "Processing $json_file"
+              echo "Outputting to $sarif_output_dir/$sarif_file_name"
+              grype sbom:"$json_file" --fail-on high -o sarif --file "$sarif_output_dir/$sarif_file_name" || true
+              echo "Grype analysis for $json_file exported to $sarif_output_dir/$sarif_file_name (errors ignored)"
+            done
+          done'
