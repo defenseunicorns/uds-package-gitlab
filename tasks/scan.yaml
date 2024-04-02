@@ -1,26 +1,47 @@
 ---
 tasks:
-  - name: vulns
-    description: Create a UDS package with configurable flavor and extract the SBOM from all created packages and analyze for vulnerabilities
+  - name: upstream
+    description: Create a UDS package with upstream flavor, extract the SBOM, and analyze for vulnerabilities
     actions:
       - cmd: |
-          bash -c 'flavors=("upstream" "registry1")
-          for flavor in "${flavors[@]}"; do
+          bash -c '
+            flavor="upstream"
             output_dir="sbom/$flavor"
             mkdir -p "$output_dir"
             uds zarf package create . --flavor="$flavor" --confirm --no-progress -o "$output_dir"
             for file in "$output_dir"/*.zst; do
               uds zarf package inspect "$file" --sbom-out "$output_dir" --no-progress
             done
-          done
-          sarif_output_dir="./sarif"
-          mkdir -p "$sarif_output_dir"
-          for flavor in "${flavors[@]}"; do
+            sarif_output_dir="./sarif"
+            mkdir -p "$sarif_output_dir"
             find "sbom/$flavor" -type f -name "*.json" | while read -r json_file; do
               sarif_file_name="${flavor}_$(basename "${json_file}").sarif"
               echo "Processing $json_file"
               echo "Outputting to $sarif_output_dir/$sarif_file_name"
-              grype sbom:"$json_file" --fail-on high -o sarif --file "$sarif_output_dir/$sarif_file_name" || true
+              grype sbom:"$json_file" -o sarif --file "$sarif_output_dir/$sarif_file_name"
               echo "Grype analysis for $json_file exported to $sarif_output_dir/$sarif_file_name (errors ignored)"
             done
-          done'
+          '
+
+  - name: registry1
+    description: Create a UDS package with registry1 flavor, extract the SBOM, and analyze for vulnerabilities
+    actions:
+      - cmd: |
+          bash -c '
+            flavor="registry1"
+            output_dir="sbom/$flavor"
+            mkdir -p "$output_dir"
+            uds zarf package create . --flavor="$flavor" --confirm --no-progress -o "$output_dir"
+            for file in "$output_dir"/*.zst; do
+              uds zarf package inspect "$file" --sbom-out "$output_dir" --no-progress
+            done
+            sarif_output_dir="./sarif"
+            mkdir -p "$sarif_output_dir"
+            find "sbom/$flavor" -type f -name "*.json" | while read -r json_file; do
+              sarif_file_name="${flavor}_$(basename "${json_file}").sarif"
+              echo "Processing $json_file"
+              echo "Outputting to $sarif_output_dir/$sarif_file_name"
+              grype sbom:"$json_file" -o sarif --file "$sarif_output_dir/$sarif_file_name"
+              echo "Grype analysis for $json_file exported to $sarif_output_dir/$sarif_file_name (errors ignored)"
+            done
+          '
