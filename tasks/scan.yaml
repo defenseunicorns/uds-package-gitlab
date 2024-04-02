@@ -20,6 +20,11 @@ tasks:
               echo "Outputting to $sarif_output_dir/$sarif_file_name"
               grype sbom:"$json_file" -o sarif --file "$sarif_output_dir/$sarif_file_name"
               echo "Grype analysis for $json_file exported to $sarif_output_dir/$sarif_file_name (errors ignored)"
+              # Extract the base name of the SBOM file without the .json extension
+              sbom_base_name=$(basename "$json_file" .json)
+              # Use yq to replace the path with the SBOM file name without the .json extension
+              yq eval "(.runs[].results[].locations[].physicalLocation.artifactLocation.uri) = \"$sbom_base_name\"" "$sarif_output_dir/$sarif_file_name" -i
+              echo "Updated SARIF file path to $sbom_base_name using yq for $sarif_file_name"
             done
           '
 

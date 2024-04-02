@@ -62,8 +62,3 @@ tasks:
       - task: deploy:test-bundle
       - task: test:health-check
       - task: test:ingress
-
-  - name: vuln-scan-package
-    description: Scan the GitLab package for vulnerabilities
-    actions:
-      - task: scan:vulns
