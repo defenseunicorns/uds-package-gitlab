@@ -59,6 +59,13 @@ jobs:
           username: ${{ secrets.IRON_BANK_ROBOT_USERNAME }}
           password: ${{ secrets.IRON_BANK_ROBOT_PASSWORD }}
 
+      - name: Iron Bank Login
+        env:
+          REGISTRY_USERNAME: ${{ secrets.IRON_BANK_ROBOT_USERNAME }}
+          REGISTRY_PASSWORD: ${{ secrets.IRON_BANK_ROBOT_PASSWORD }}
+        run: echo "${{ env.REGISTRY_PASSWORD }}" | uds zarf tools registry login -u "${{ env.REGISTRY_USERNAME }}" --password-stdin registry1.dso.mil
+        shell: bash
+
       - name: Scan the repository for vulnerabilities - Registry1
         run: |
           uds run grype:install
