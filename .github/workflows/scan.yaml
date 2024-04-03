@@ -75,17 +75,8 @@ jobs:
           GRYPE_USERNAME: ${{ secrets.IRON_BANK_ROBOT_USERNAME }}
           GRYPE_PASSWORD: ${{ secrets.IRON_BANK_ROBOT_PASSWORD }}
 
-      - name: Check for SARIF files - Registry1
-        id: check_sarif
-        run: |
-          if compgen -G "./sarif/*.sarif" > /dev/null; then
-            echo "::set-output name=exists::true"
-          else
-            echo "::set-output name=exists::false"
-          fi
-
       - name: Upload SARIF files - Registry1
         if: steps.check_sarif.outputs.exists == 'true'
         uses: github/codeql-action/upload-sarif@1b1aada464948af03b950897e5eb522f92603cc2
         with:
-          sarif_file: ./sarif/*.sarif
+          sarif_file: ./sarif
