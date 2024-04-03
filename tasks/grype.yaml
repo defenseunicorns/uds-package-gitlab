@@ -10,3 +10,27 @@ tasks:
           else
             echo "Grype is already installed."
           fi
+
+  - name: create-grype-config
+    description: Generate a .grype.yaml configuration file with registry credentials
+    actions:
+      - cmd: |
+          bash -c '
+            # Ensure the environment variables are set
+            if [[ -z "$GRYPE_USERNAME" || -z "$GRYPE_PASSWORD" ]]; then
+              echo "GRYPE_USERNAME and GRYPE_PASSWORD environment variables must be set."
+              exit 1
+            fi
+
+            # Create or overwrite the .grype.yaml file
+            cat > .grype.yaml << EOF
+            # Grype Configuration File
+            registry:
+              auth:
+                - authority: "registry1.dso.mil"
+                  username: "$GRYPE_USERNAME"
+                  password: "$GRYPE_PASSWORD"
+            EOF
+
+            echo ".grype.yaml configuration file created with registry credentials."
+          '
