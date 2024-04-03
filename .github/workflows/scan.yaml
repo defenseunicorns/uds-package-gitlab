@@ -62,7 +62,11 @@ jobs:
       - name: Scan the repository for vulnerabilities - Registry1
         run: |
           uds run grype:install
+          uds run create-grype-config
           uds run scan:registry1
+        env:
+          GRYPE_USERNAME: ${{ secrets.IRON_BANK_ROBOT_USERNAME }}
+          GRYPE_PASSWORD: ${{ secrets.IRON_BANK_ROBOT_PASSWORD }}
 
       - name: Check for SARIF files - Registry1
         id: check_sarif
