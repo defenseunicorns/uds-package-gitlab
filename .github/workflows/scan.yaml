@@ -71,7 +71,7 @@ jobs:
       - name: Scan the repository for vulnerabilities - Registry1
         run: |
           uds run grype:install
-          uds run scan:registry1
+          uds run scan:scan
         env:
           GRYPE_USERNAME: ${{ secrets.IRON_BANK_ROBOT_USERNAME }}
           GRYPE_PASSWORD: ${{ secrets.IRON_BANK_ROBOT_PASSWORD }}
