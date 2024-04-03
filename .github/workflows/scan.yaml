@@ -31,9 +31,11 @@ jobs:
 
 
       - name: Scan the repository for vulnerabilities - Upstream
+        env:
+          FLAVOR: upstream
         run: |
           uds run grype:install
-          uds run scan:upstream
+          uds run scan:scan
 
       - name: Upload SARIF files - Upstream
         uses: github/codeql-action/upload-sarif@1b1aada464948af03b950897e5eb522f92603cc2
@@ -73,6 +75,7 @@ jobs:
         env:
           GRYPE_USERNAME: ${{ secrets.IRON_BANK_ROBOT_USERNAME }}
           GRYPE_PASSWORD: ${{ secrets.IRON_BANK_ROBOT_PASSWORD }}
+          FLAVOR: registry1
 
       - name: Upload SARIF files - Registry1
         uses: github/codeql-action/upload-sarif@1b1aada464948af03b950897e5eb522f92603cc2

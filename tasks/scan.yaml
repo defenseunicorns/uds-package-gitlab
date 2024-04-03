@@ -1,11 +1,11 @@
 ---
 tasks:
-  - name: upstream
-    description: Create a UDS package with upstream flavor, extract the SBOM, and analyze for vulnerabilities
+  - name: scan
+    description: Create a UDS package with specified flavor, extract the SBOM, and analyze for vulnerabilities
     actions:
       - cmd: |
           bash -c '
-            flavor="upstream"
+            flavor="${FLAVOR}"
             output_dir="sbom/$flavor"
             mkdir -p "$output_dir"
             uds zarf package create . --flavor="$flavor" --confirm --no-progress -o "$output_dir"
@@ -25,28 +25,5 @@ tasks:
               # Use yq to replace the path with the SBOM file name without the .json extension
               yq eval "(.runs[].results[].locations[].physicalLocation.artifactLocation.uri) = \"$sbom_base_name\"" "$sarif_output_dir/$sarif_file_name" -i
               echo "Updated SARIF file path to $sbom_base_name using yq for $sarif_file_name"
-            done
-          '
-
-  - name: registry1
-    description: Create a UDS package with registry1 flavor, extract the SBOM, and analyze for vulnerabilities
-    actions:
-      - cmd: |
-          bash -c '
-            flavor="registry1"
-            output_dir="sbom/$flavor"
-            mkdir -p "$output_dir"
-            uds zarf package create . --flavor="$flavor" --confirm --no-progress -o "$output_dir"
-            for file in "$output_dir"/*.zst; do
-              uds zarf package inspect "$file" --sbom-out "$output_dir" --no-progress
-            done
-            sarif_output_dir="./sarif"
-            mkdir -p "$sarif_output_dir"
-            find "sbom/$flavor" -type f -name "*.json" | while read -r json_file; do
-              sarif_file_name="${flavor}_$(basename "${json_file}").sarif"
-              echo "Processing $json_file"
-              echo "Outputting to $sarif_output_dir/$sarif_file_name"
-              grype sbom:"$json_file" -o sarif --file "$sarif_output_dir/$sarif_file_name"
-              echo "Grype analysis for $json_file exported to $sarif_output_dir/$sarif_file_name (errors ignored)"
             done
           '
