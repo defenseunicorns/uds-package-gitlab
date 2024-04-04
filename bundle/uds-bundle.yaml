@@ -11,9 +11,9 @@ packages:
     repository: ghcr.io/defenseunicorns/packages/uds/dev-minio
     ref: 0.0.2
 
-  - name: dev-postgres
-    repository: ghcr.io/defenseunicorns/packages/uds/dev-postgres
-    ref: 0.0.2
+  - name: postgres-operator
+    repository: ghcr.io/defenseunicorns/packages/uds/postgres-operator
+    ref: 1.10.1-uds.4-upstream
 
   - name: dev-redis
     repository: ghcr.io/defenseunicorns/packages/uds/dev-redis
