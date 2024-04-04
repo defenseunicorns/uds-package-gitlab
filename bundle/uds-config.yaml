@@ -13,12 +13,27 @@ variables:
       - name: uds-gitlab-uploads
       - name: uds-gitlab-registry
       - name: uds-gitlab-tmp
-  dev-postgres:
-    db_username: "gitlab"
-    db_name: "gitlabdb"
+  postgres-operator:
+    postgresql:
+      enabled: true  # Set to false to not create the PostgreSQL resource
+      teamId: "uds"
+      volume:
+        size: "10Gi"
+      numberOfInstances: 2
+      users:
+        gitlab.gitlab: []  # database owner
+        sonarqube.sonarqube: []  # database owner
+        mattermost.mattermost: []  # database owner
+      databases:
+        gitlabdb: gitlab.gitlab
+        mattermost: mattermost.mattermost
+        sonarqubedb: sonarqube.sonarqube
+      version: "13"
+      ingress:
+        remoteGenerated: Anywhere
   gitlab:
     gitlab_redis_endpoint: "redis-master.dev-redis.svc.cluster.local"
-    gitlab_db_endpoint: "postgresql.dev-postgres.svc.cluster.local"
+    gitlab_db_endpoint: "pg-cluster.postgres.svc.cluster.local"
     DISABLE_REGISTRY_REDIRECT: "true"
     GITLAB_SSO_ENABLED: false
     # # Overrides for scaled down cluster for local dev and CI
