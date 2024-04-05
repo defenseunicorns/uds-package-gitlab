@@ -22,18 +22,14 @@ variables:
       numberOfInstances: 2
       users:
         gitlab.gitlab: []  # database owner
-        sonarqube.sonarqube: []  # database owner
-        mattermost.mattermost: []  # database owner
       databases:
         gitlabdb: gitlab.gitlab
-        mattermost: mattermost.mattermost
-        sonarqubedb: sonarqube.sonarqube
       version: "13"
       ingress:
         remoteGenerated: Anywhere
   gitlab:
     gitlab_redis_endpoint: "redis-master.dev-redis.svc.cluster.local"
-    gitlab_db_endpoint: "postgres-operator.postgres-operator.svc.cluster.local"
+    gitlab_db_endpoint: "pg-cluster.postgres.svc.cluster.local"
     DISABLE_REGISTRY_REDIRECT: "true"
     GITLAB_SSO_ENABLED: false
     # # Overrides for scaled down cluster for local dev and CI
