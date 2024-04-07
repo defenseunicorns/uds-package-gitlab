@@ -112,14 +112,14 @@ spec:
         remoteGenerated: Anywhere
         description: "Webservice Storage"
 
-    # - description: stuff and things? (not sure I need this - can check in a sec)
-    #   direction: Ingress
-    #   podLabels:
-    #     app: gitlab-pages
-    #   port: 8090
+      # - description: stuff and things? (not sure I need this - can check in a sec)
+      #   direction: Ingress
+      #   podLabels:
+      #     app: gitlab-pages
+      #   port: 8090
 
-    - direction: Egress
-      podLabels:
-        app: gitlab-pages
-      remoteGenerated: Anywhere
-      description: "GitLab Pages Storage"
+      - direction: Egress
+        podLabels:
+          app: gitlab-pages
+        remoteGenerated: Anywhere
+        description: "GitLab Pages Storage"
