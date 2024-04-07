@@ -74,3 +74,8 @@ tasks:
             protocol: https
             address: gitlab.uds.dev
             code: 200
+
+  - name: root-password
+    actions:
+      - description: Get the root password for GitLab (useful for local dev)
+        cmd: ./uds zarf tools kubectl get secret -n gitlab gitlab-gitlab-initial-root-password -o jsonpath={.data.password} | base64 -d

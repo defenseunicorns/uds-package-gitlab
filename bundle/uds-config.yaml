@@ -21,6 +21,7 @@ variables:
     gitlab_db_endpoint: "postgresql.dev-postgres.svc.cluster.local"
     DISABLE_REGISTRY_REDIRECT: "true"
     GITLAB_SSO_ENABLED: false
+    GITLAB_PAGES_ENABLED: true
     # # Overrides for scaled down cluster for local dev and CI
     webservice_replicas: 1
     webservice_resources:

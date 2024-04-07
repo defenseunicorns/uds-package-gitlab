@@ -12,6 +12,7 @@ spec:
         - "https://gitlab.{{ .Values.domain }}/users/auth/openid_connect/callback"
   {{- end }}
   network:
+    # retainEncodedSlashes: true
     expose:
       - service: gitlab-webservice-default
         podLabels:
@@ -19,6 +20,12 @@ spec:
         host: gitlab
         gateway: tenant
         port: 8181
+      - service: gitlab-gitlab-pages
+        podLabels:
+          app: gitlab-pages
+        host: "*.pages"
+        gateway: tenant
+        port: 8090
       - service: gitlab-registry
         podLabels:
           app: registry
@@ -104,3 +111,15 @@ spec:
           app: webservice
         remoteGenerated: Anywhere
         description: "Webservice Storage"
+
+    # - description: stuff and things? (not sure I need this - can check in a sec)
+    #   direction: Ingress
+    #   podLabels:
+    #     app: gitlab-pages
+    #   port: 8090
+
+    - direction: Egress
+      podLabels:
+        app: gitlab-pages
+      remoteGenerated: Anywhere
+      description: "GitLab Pages Storage"
