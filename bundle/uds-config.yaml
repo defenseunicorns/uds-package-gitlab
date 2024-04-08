@@ -31,8 +31,8 @@ variables:
     gitlab_redis_endpoint: "redis-master.dev-redis.svc.cluster.local"
     gitlab_db_endpoint: "pg-cluster.postgres.svc.cluster.local"
     DISABLE_REGISTRY_REDIRECT: "true"
-    GITLAB_SSO_ENABLED: false
     GITLAB_PAGES_ENABLED: true
+    GITLAB_SSO_ENABLED: false
     # # Overrides for scaled down cluster for local dev and CI
     webservice_replicas: 1
     webservice_resources:
@@ -53,6 +53,12 @@ variables:
         memory: 10M
     sidekiq_replicas: 1
     sidekiq_resources:
+      limits:
+        memory: 1.5G
+      requests:
+        cpu: 50m
+        memory: 625M
+    pages_resources:
       limits:
         memory: 1.5G
       requests:
