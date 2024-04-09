@@ -14,13 +14,13 @@ spec:
   network:
     expose:
       - service: gitlab-webservice-default
-        podLabels:
+        selector:
           app: webservice
         host: gitlab
         gateway: tenant
         port: 8181
       - service: gitlab-registry
-        podLabels:
+        selector:
           app: registry
         host: registry
         gateway: tenant
@@ -31,50 +31,50 @@ spec:
 
       - direction: Ingress
         # todo: this should be scoped when we know where the runner is
-        podLabels:
+        selector:
           app: webservice
         port: 8181
         description: "Runner Ingress Workhorse"
 
       - direction: Ingress
         remoteNamespace: monitoring
-        remotePodLabels:
+        remoteSelector:
           app: prometheus
-        podLabels:
+        selector:
           app: gitlab-exporter
         port: 9168
         description: "Monitoring Exporter"
 
       - direction: Ingress
-        podLabels:
+        selector:
           app: runner
         remoteNamespace: monitoring
-        remotePodLabels:
+        remoteSelector:
           app: prometheus
 
         port: 9252
         description: "Monitoring Runner"
 
       - direction: Egress
-        podLabels:
+        selector:
           app: registry
         remoteGenerated: Anywhere
         description: "Registry Storage"
 
       - direction: Egress
-        podLabels:
+        selector:
           app: sidekiq
         remoteGenerated: Anywhere
         description: "Sidekiq Storage"
 
       - direction: Egress
-        podLabels:
+        selector:
           app: migrations
         remoteGenerated: Anywhere
         description: "Migrations Storage"
       
       - direction: Egress
-        podLabels:
+        selector:
           app: toolbox
         remoteGenerated: Anywhere
         description: "Toolbox egress to database, redis and storage"
@@ -88,19 +88,19 @@ spec:
 
       - direction: Egress
         remoteNamespace: tempo
-        remotePodLabels:
+        remoteSelector:
           app.kubernetes.io/name: tempo
         port: 9411
         description: "Tempo"
 
       - direction: Egress
-        podLabels:
+        selector:
           app: webservice
         port: 443
         description: "SSO"
 
       - direction: Egress
-        podLabels:
+        selector:
           app: webservice
         remoteGenerated: Anywhere
         description: "Webservice Storage"
