@@ -3,7 +3,7 @@ metadata:
   name: gitlab-test
   description: A UDS bundle for deploying Gitlab and it's dependencies on a development cluster
   # x-release-please-start-version
-  version: 16.9.2-uds.4
+  version: 16.10.1-uds.1
   # x-release-please-end
 
 packages:
@@ -11,9 +11,20 @@ packages:
     repository: ghcr.io/defenseunicorns/packages/uds/dev-minio
     ref: 0.0.2
 
-  - name: dev-postgres
-    repository: ghcr.io/defenseunicorns/packages/uds/dev-postgres
-    ref: 0.0.2
+  - name: dev-namespace
+    path: ../
+    ref: 0.1.0
+
+  - name: postgres-operator
+    repository: ghcr.io/defenseunicorns/packages/uds/postgres-operator
+    ref: 1.10.1-uds.4-upstream
+    overrides:
+      postgres-operator:
+        uds-postgres-config:
+          variables:
+            - name: POSTGRESQL
+              description: "Configure postgres using CRs via the uds-postgres-config chart"
+              path: postgresql
 
   - name: dev-redis
     repository: ghcr.io/defenseunicorns/packages/uds/dev-redis
@@ -26,7 +37,7 @@ packages:
   - name: gitlab
     path: ../
     # x-release-please-start-version
-    ref: 16.9.2-uds.4
+    ref: 16.10.1-uds.1
     # x-release-please-end
     overrides:
       gitlab:
@@ -69,3 +80,11 @@ packages:
             - name: SHELL_REPLICAS
               description: "Gitlab Shell Min Replicas"
               path: "gitlab.gitlab-shell.minReplicas"
+            - name: POSTGRES_USERNAME
+              description: "Gitlab Postgres Username"
+              path: "global.psql.username"
+              default: "gitlab.gitlab"
+            - name: POSTGRES_SECRET_REF
+              description: "Gitlab Postgres Password Secret Ref"
+              path: "global.psql.password.secret"
+              default: "gitlab.gitlab.pg-cluster.credentials.postgresql.acid.zalan.do"

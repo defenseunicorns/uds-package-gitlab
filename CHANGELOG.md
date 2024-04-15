@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file.
 
+## [16.10.1-uds.1](https://github.com/defenseunicorns/uds-package-gitlab/compare/v16.10.1-uds.0...v16.10.1-uds.1) (2024-04-01)
+
+
+### Miscellaneous
+
+* **deps:** update package-deps to v7.10.1-bb.0 ([#100](https://github.com/defenseunicorns/uds-package-gitlab/issues/100)) ([625fde5](https://github.com/defenseunicorns/uds-package-gitlab/commit/625fde509d048fe0ea22939f0b2151caf385cd94))
+
+## [16.10.1-uds.0](https://github.com/defenseunicorns/uds-package-gitlab/compare/v16.9.2-uds.4...v16.10.1-uds.0) (2024-03-29)
+
+
+### Miscellaneous
+
+* add a renovate schedule to reduce paid runner churn ([#91](https://github.com/defenseunicorns/uds-package-gitlab/issues/91)) ([42c2a0c](https://github.com/defenseunicorns/uds-package-gitlab/commit/42c2a0c2178816a6d908147126fb712d8136d978))
+* **deps:** update gitlab package dependencies to v16.10.1 ([#89](https://github.com/defenseunicorns/uds-package-gitlab/issues/89)) ([ff385b9](https://github.com/defenseunicorns/uds-package-gitlab/commit/ff385b94641db0767a27d94cc9d025f7edef301a))
+* **deps:** update gitlab support dependencies ([#88](https://github.com/defenseunicorns/uds-package-gitlab/issues/88)) ([08047bb](https://github.com/defenseunicorns/uds-package-gitlab/commit/08047bb494f68fa890c709db45b02f317013db44))
+* release v16.10.1-uds.0 ([#95](https://github.com/defenseunicorns/uds-package-gitlab/issues/95)) ([390000b](https://github.com/defenseunicorns/uds-package-gitlab/commit/390000bc5a8ae8361d627255bdc5b46598fe0baa))
+
 ## [16.9.2-uds.4](https://github.com/defenseunicorns/uds-package-gitlab/compare/v16.9.2-uds.3...v16.9.2-uds.4) (2024-03-20)
 
 
