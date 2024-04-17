@@ -49,6 +49,14 @@ tasks:
             namespace: gitlab
             condition: Available
 
+      - description: Gitlab Pages Health Check
+        wait:
+          cluster:
+            kind: Deployment
+            name: gitlab-gitlab-pages
+            namespace: gitlab
+            condition: Available
+
       # StatefulSets don't show conditions themselves so we look for an underlying Pod
       - description: Gitlab Gitaly Health Check
         wait:
