@@ -41,6 +41,7 @@ Object Storage works a bit differently as there are many kinds of file stores Gi
   - `backups`
     - This key refers to the configuration for the gitlab-toolbox backup tool. It relies on a program called `s3cmd`. The documentation for what goes in this key is located [here](https://s3tools.org/kb/item14.htm)
 - Below are the list of buckets that need to be created before starting GitLab:
+
 ```yaml
   - uds-gitlab-pages
   - uds-gitlab-registry
@@ -55,6 +56,7 @@ Object Storage works a bit differently as there are many kinds of file stores Gi
   - uds-gitlab-backups
   - uds-gitlab-tmp
 ```
+
 - These buckets can have a suffix applied via the `BUCKET_SUFFIX` Zarf variable (e.g. `-some-deployment-name` plus `uds-gitlab-backups` would be `uds-gitlab-backups-some-deployment-name`)
 
 ## Flavors
