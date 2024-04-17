@@ -2,9 +2,9 @@ domain: "###ZARF_VAR_DOMAIN###"
 sso: true
 # storage:
 #   internal: false
-# redis: 
+# redis:
 #   internal: false
-# postgres: 
+# postgres:
 #   internal: false
 storage:
   internal: true
@@ -12,15 +12,15 @@ storage:
     app: minio
   namespace: dev-minio
   port: 9000
-redis: 
+redis:
   internal: true
   selector:
     app.kubernetes.io/name: redis
   namespace: dev-redis
   port: 6379
-postgres: 
+postgres:
   internal: true
   selector:
-    cluster-name: pg-cluster 
+    cluster-name: pg-cluster
   namespace: postgres
   port: 5432
