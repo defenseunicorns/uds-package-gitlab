@@ -74,6 +74,9 @@ packages:
             - name: SIDEKIQ_RESOURCES
               description: "Gitlab Sidekiq Resources"
               path: "gitlab.sidekiq.resources"
+            - name: PAGES_RESOURCES
+              description: "GitLab Pages Resources"
+              path: "gitlab.gitlab-pages.resources"
             - name: REGISTRY_REPLICAS
               description: "Gitlab Registry Min Replicas"
               path: "registry.hpa.minReplicas"
