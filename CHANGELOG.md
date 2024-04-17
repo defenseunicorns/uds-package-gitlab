@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [16.10.2-uds.0](https://github.com/defenseunicorns/uds-package-gitlab/compare/v16.10.1-uds.1...v16.10.2-uds.0) (2024-04-15)
+
+
+### Features
+
+* move to postgres operator chart ([#103](https://github.com/defenseunicorns/uds-package-gitlab/issues/103)) ([afbbc10](https://github.com/defenseunicorns/uds-package-gitlab/commit/afbbc1020cbb06fb41b72289acdbc4b597e7c31d))
+
+
+### Miscellaneous
+
+* **deps:** update gitlab package dependencies ([#107](https://github.com/defenseunicorns/uds-package-gitlab/issues/107)) ([15cdf38](https://github.com/defenseunicorns/uds-package-gitlab/commit/15cdf387f818e47ef44a751708a7fbffd20ec4e7))
+
 ## [16.10.1-uds.1](https://github.com/defenseunicorns/uds-package-gitlab/compare/v16.10.1-uds.0...v16.10.1-uds.1) (2024-04-01)
 
 

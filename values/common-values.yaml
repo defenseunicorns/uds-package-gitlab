@@ -1,8 +1,4 @@
 global:
-  istio:
-    enabled: true
-    injection: enabled
-
   image:
     pullPolicy: IfNotPresent
 
@@ -129,27 +125,5 @@ gitlab:
       port: 8083
       serviceMonitor:
         enabled: true
-
-istio:
-  enabled: false
-  injection: enabled
-  gitlab:
-    gateways:
-      - istio-tenant-gateway/tenant-gateway
-  registry:
-    gateways:
-      - istio-tenant-gateway/tenant-gateway
-  pages:
-    enabled: true
-    port: 8090
-    ingressLabels:
-      app: tenant-ingressgateway
-    gateways:
-      - istio-tenant-gatway/tenant-gateway
-    customDomains:
-      enabled: false
-    hosts:
-      - "*.pages.###ZARF_VAR_DOMAIN###"
-
 
 domain: ###ZARF_VAR_DOMAIN###

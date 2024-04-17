@@ -19,6 +19,12 @@ spec:
         host: gitlab
         gateway: tenant
         port: 8181
+      - service: gitlab-gitlab-pages
+        podLabels:
+          app: gitlab-pages
+        host: "*.pages"
+        gateway: tenant
+        port: 8090
       - service: gitlab-registry
         selector:
           app: registry
@@ -104,3 +110,15 @@ spec:
           app: webservice
         remoteGenerated: Anywhere
         description: "Webservice Storage"
+
+      - direction: Ingress
+        podLabels:
+          app: gitlab-pages
+        port: 8090
+        description: GitLab Pages Ingress
+
+      - direction: Egress
+        podLabels:
+          app: gitlab-pages
+        remoteGenerated: Anywhere
+        description: "GitLab Pages Storage"
