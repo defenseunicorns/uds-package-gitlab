@@ -11,11 +11,7 @@ components:
       - name: uds-gitlab-config
         namespace: gitlab
         version: 0.1.0
-        localPath: ../charts/config
-      - name: uds-gitlab-sso
-        namespace: gitlab
-        version: 0.1.0
-        localPath: ../charts/sso
+        localPath: ../chart
       - name: gitlab
         namespace: gitlab
         url: https://repo1.dso.mil/big-bang/product/packages/gitlab.git
