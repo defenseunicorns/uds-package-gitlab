@@ -13,6 +13,7 @@ spec:
       secretName: gitlab-sso-provider-json
       secretTemplate:
         # GitLab expects a providers JSON file that is documented more here: https://gitlab-org.gitlab.io/technical-writing-group/gitlab-docs-hugo/administration/auth/oidc/
+        # Note: the `authorization_endpoint`, `issuer`, and `userinfo_endpoint` must be the external URL
         providers: |
           {
             "name": "openid_connect",
@@ -33,9 +34,9 @@ spec:
                 "secret": "clientField(secret)",
                 "redirect_uri": "clientField(redirectUris)[0]",
                 "end_session_endpoint": "http://keycloak-http.keycloak.svc.cluster.local:8080/realms/uds/protocol/openid-connect/logout",
-                "authorization_endpoint": "http://keycloak-http.keycloak.svc.cluster.local:8080/realms/uds/protocol/openid-connect/auth",
+                "authorization_endpoint": "https://sso.{{ .Values.domain }}/realms/uds/protocol/openid-connect/auth",
                 "token_endpoint": "http://keycloak-http.keycloak.svc.cluster.local:8080/realms/uds/protocol/openid-connect/token",
-                "userinfo_endpoint": "http://keycloak-http.keycloak.svc.cluster.local:8080/realms/uds/protocol/openid-connect/userinfo",
+                "userinfo_endpoint": "https://sso.{{ .Values.domain }}/realms/uds/protocol/openid-connect/userinfo",
                 "jwks_uri": "http://keycloak-http.keycloak.svc.cluster.local:8080/realms/uds/protocol/openid-connect/certs"
               }
             }
