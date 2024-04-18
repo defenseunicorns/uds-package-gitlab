@@ -7,35 +7,7 @@ global:
     pullPolicy: IfNotPresent
 
   ingress:
-    apiVersion: ""
     configureCertmanager: false
-    useNewIngressForCerts: false
-    provider: nginx
-    # class:
-    annotations: {}
-    enabled: false
-    tls: {}
-    #   enabled: true
-    #   secretName:
-    path: /
-    pathType: Prefix
-
-  # Override the API version to use for HorizontalPodAutoscaler
-  hpa:
-    apiVersion: "autoscaling/v2"
-
-  # Enable KEDA globally (https://keda.sh/)
-  keda:
-    enabled: false
-
-  # Override the API version to use for PodDisruptionBudget
-  pdb:
-    apiVersion: "policy/v1"
-
-  # Override the API version to use for CronJob
-  batch:
-    cronJob:
-      apiVersion: "batch/v1"
 
   kas:
     enabled: false
