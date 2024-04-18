@@ -43,8 +43,8 @@ global:
       runAsUser: 1001
       runAsNonRoot: true
       capabilities:
-          drop:
-          - ALL      
+        drop:
+        - ALL
 
   minio:
     enabled: false
