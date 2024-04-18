@@ -34,17 +34,6 @@ global:
       enabled: true
       secret: gitlab-redis
       key: password
-    securityContext:
-      runAsUser: 1001
-      fsGroup: 1001
-      runAsNonRoot: true
-    containerSecurityContext:
-      enabled: true
-      runAsUser: 1001
-      runAsNonRoot: true
-      capabilities:
-        drop:
-        - ALL
 
   minio:
     enabled: false
@@ -103,13 +92,13 @@ global:
     objectStore:
       bucket: ###ZARF_VAR_BUCKET_PREFIX###gitlab-pages###ZARF_VAR_BUCKET_SUFFIX###
 
-# Needed for upgradeCheck containerSecurityContext values
-containerSecurityContext:
-  runAsUser: 65534
-  runAsGroup: 65534
-  capabilities:
-    drop:
-      - ALL
+  ## https://docs.gitlab.com/charts/charts/globals#service-accounts
+  serviceAccount:
+    enabled: true
+    create: true
+    annotations: {}
+    ## Name to be used for serviceAccount, otherwise defaults to chart fullname
+    # name:
 
 postgresql:
   install: false
