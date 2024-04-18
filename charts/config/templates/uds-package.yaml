@@ -252,3 +252,19 @@ spec:
         remoteGenerated: Anywhere
         {{- end }}
         description: "Gitlab Pages Storage"
+
+      # Custom rules for unanticipated scenarios
+      {{- range .Values.custom }}
+      - direction: {{ .direction }}
+        selector:
+          app: {{ .selector.app }}
+        {{- if not .remoteGenerated }}
+        remoteNamespace: {{ .remoteNamespace }}
+        remoteSelector:
+          app: {{ .remoteSelector.app }}
+        port: {{ .port }}
+        {{- else }}
+        remoteGenerated: {{ .remoteGenerated }}
+        {{- end }}
+        description: {{ .description }}
+      {{- end }}
