@@ -10,7 +10,8 @@ This package is designed for use as part of a [UDS Software Factory](https://git
 
 The GitLab Package expects to be deployed on top of [UDS Core](https://github.com/defenseunicorns/uds-core) with the dependencies listed below being configured prior to deployment.
 
-> :warning: **NOTE**: Some GitLab features (such as GitLab pages) will also require a [GitLab runner](https://github.com/defenseunicorns/uds-package-gitlab-runner) along with additional configuration such as an additional certificate SAN for `*.pages.<your-domain>`.
+> [!IMPORTANT]
+> **NOTE**: Some GitLab features (such as GitLab pages) will also require a [GitLab runner](https://github.com/defenseunicorns/uds-package-gitlab-runner) along with additional configuration such as an additional certificate SAN for `*.pages.<your-domain>`.
 
 #### Database
 
@@ -61,7 +62,10 @@ Object Storage works a bit differently as there are many kinds of file stores Gi
 
 ### Networking
 
-Gitlab is configured by default to assume the internal dependencies that are used for testing (see minio, redis and postgres in the [bundle](bundle/uds-bundle.yaml)). Intentionally, permissive network policies are not created as a default. For example, there is not a default setup of egress anywhere for pods that may need to connect to external storage. If you are using different internal services, cloud services or a mix you will have to configure values in the config chart accordingly via bundle overrides. A couple of example are provided below:
+Gitlab is configured by default to assume the internal dependencies that are used for testing (see minio, redis and postgres in the [bundle](bundle/uds-bundle.yaml)). Intentionally, permissive network policies are not created as a default. For example, there is not a default setup of egress anywhere for pods that may need to connect to external storage. 
+
+> [!IMPORTANT]
+> If you are using different internal services, cloud services or a mix you will have to configure values in the config chart accordingly via bundle overrides. A couple of example are provided below:
 
 Configure gitlab for all external services:
 
@@ -107,7 +111,8 @@ redis:
   namespace: my-other-gitlab-runner
 ```
 
-Additionally, there may be a need to integrate with other in-cluster services that are not a part of the standard connectivity needed by gitlab (for example a Jira integration). As such, there is the ability to add custom rules to allow additional internal network connectivity.
+> [!TIP] 
+> There may be a need to integrate with other in-cluster services that are not a part of the standard connectivity needed by gitlab (for example a Jira integration). As such, there is the ability to add custom rules to allow additional internal network connectivity.
 
 Add custom rule:
 
@@ -131,7 +136,8 @@ custom:
     description: "Egress from Webservice"
 ```
 
-The above is just an example of what can be done with the custom key and not representative what any specific integration would need to look like.
+> [!NOTE]
+> The above is just an example of what can be done with the custom key and not representative what any specific integration would need to look like.
 
 ## Flavors
 
