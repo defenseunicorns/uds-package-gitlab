@@ -146,7 +146,8 @@ custom:
 | upstream | Uses upstream images within the package. | `zarf package create . -f upstream` |
 | registry1 | Uses images from registry1.dso.mil within the package. | `zarf package create . -f registry1` |
 
-> :warning: **Note:** To create the registry1 flavor you will need to be logged into Iron Bank - you can find instructions on how to do this in the [Big Bang Zarf Tutorial](https://docs.zarf.dev/docs/zarf-tutorials/big-bang#setup).
+> [!IMPORTANT]
+> **Note:** To create the registry1 flavor you will need to be logged into Iron Bank - you can find instructions on how to do this in the [Big Bang Zarf Tutorial](https://docs.zarf.dev/docs/zarf-tutorials/big-bang#setup).
 
 ## Releases
 
@@ -156,7 +157,8 @@ The released packages can be found in [ghcr](https://github.com/defenseunicorns/
 
 *For local dev, this requires you install [uds-cli](https://github.com/defenseunicorns/uds-cli?tab=readme-ov-file#install)
 
-> :white_check_mark: **Tip:** To get a list of tasks to run you can use `uds run --list`!
+> [!TIP]
+> To get a list of tasks to run you can use `uds run --list`!
 
 ## Contributing
 
