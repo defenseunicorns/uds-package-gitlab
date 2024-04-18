@@ -20,7 +20,7 @@ spec:
         gateway: tenant
         port: 8181
       - service: gitlab-gitlab-pages
-        podLabels:
+        selector:
           app: gitlab-pages
         host: "*.pages"
         gateway: tenant
@@ -35,12 +35,17 @@ spec:
       - direction: Ingress
         remoteGenerated: IntraNamespace
 
+    # ingress from runner only if runner lives in cluster. Otherwise, it goes through the gateway
+    {{- if .Values.runner.internal }}
       - direction: Ingress
-        # todo: this should be scoped when we know where the runner is
         selector:
           app: webservice
+        remoteNamespace: {{ .Values.runner.namespace | quote }}
+        remoteSelector:
+          {{ .Values.runner.selector | toYaml | nindent 10 }}
         port: 8181
         description: "Runner Ingress Workhorse"
+    {{- end }}
 
       - direction: Ingress
         remoteNamespace: monitoring
@@ -50,16 +55,6 @@ spec:
           app: gitlab-exporter
         port: 9168
         description: "Monitoring Exporter"
-
-      - direction: Ingress
-        selector:
-          app: runner
-        remoteNamespace: monitoring
-        remoteSelector:
-          app: prometheus
-
-        port: 9252
-        description: "Monitoring Runner"
 
       - direction: Egress
         selector:
@@ -115,19 +110,6 @@ spec:
         description: "Sidekiq Postgres"
 
       # Migrations Netpols
-      - direction: Egress
-        selector:
-          app: migrations
-        {{- if .Values.storage.internal }}
-        remoteNamespace: {{ .Values.storage.namespace | quote }}
-        remoteSelector:
-          {{ .Values.storage.selector | toYaml | nindent 10 }}
-        port: {{ .Values.storage.port }}
-        {{- else }}
-        remoteGenerated: Anywhere
-        {{- end }}
-        description: "Migrations Storage"
-
       - direction: Egress
         selector:
           app: migrations
@@ -203,13 +185,6 @@ spec:
         # todo: this is over permissive, need to scope it down
         remoteGenerated: KubeAPI
 
-      - direction: Egress
-        remoteNamespace: tempo
-        remoteSelector:
-          app.kubernetes.io/name: tempo
-        port: 9411
-        description: "Tempo"
-
       # Webservice Netpols
       - direction: Egress
         selector:
@@ -259,7 +234,7 @@ spec:
 
       # Gitlab Pages
       - direction: Ingress
-        podLabels:
+        selector:
           app: gitlab-pages
         port: 8090
         description: GitLab Pages Ingress

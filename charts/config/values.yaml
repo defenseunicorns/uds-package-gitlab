@@ -24,3 +24,8 @@ postgres:
     cluster-name: pg-cluster
   namespace: postgres
   port: 5432
+runner:
+  internal: true
+  selector:
+    app: gitlab-runner
+  namespace: gitlab-runner
