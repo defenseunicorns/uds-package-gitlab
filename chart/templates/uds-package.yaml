@@ -26,7 +26,7 @@ spec:
               "response_type": "code",
               "issuer": "https://sso.{{ .Values.domain }}/realms/uds",
               "client_auth_method": "query",
-              "discovery": true,
+              "discovery": false,
               "uid_field": "preferred_username",
               "client_options": {
                 "identifier": "clientField(clientId)",
