@@ -23,6 +23,12 @@ tasks:
         with:
           options: "--skip-sbom"
 
+  - name: debug-existing-gitlab-dev
+    description: Create a local UDS Gitlab bundle and redeploy just gitlab on existing uds dev cluster
+    actions:
+      - task: create-gl-test-bundle
+      - cmd: UDS_CONFIG=bundle/uds-config.yaml uds deploy bundle/uds-bundle-gitlab-test-arm64-16.10.2-uds.0.tar.zst --confirm --no-tea --packages="gitlab"
+
   - name: create-gl-test-bundle
     description: Create a local UDS Gitlab bundle with dependencies
     actions:

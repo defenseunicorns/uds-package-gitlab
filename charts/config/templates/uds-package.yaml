@@ -176,14 +176,15 @@ spec:
         {{- end }}
         description: "Toolbox Redis"
 
-
-
+      # Gitlab Netpols
       - direction: Egress
         remoteGenerated: IntraNamespace
 
       - direction: Egress
-        # todo: this is over permissive, need to scope it down
+        selector:
+          app: gitlab
         remoteGenerated: KubeAPI
+
 
       # Webservice Netpols
       - direction: Egress
