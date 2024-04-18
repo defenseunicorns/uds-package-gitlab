@@ -1,8 +1,4 @@
 global:
-  istio:
-    enabled: true
-    injection: enabled
-
   image:
     pullPolicy: IfNotPresent
 
