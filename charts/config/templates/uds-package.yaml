@@ -14,19 +14,19 @@ spec:
   network:
     expose:
       - service: gitlab-webservice-default
-        podLabels:
+        selector:
           app: webservice
         host: gitlab
         gateway: tenant
         port: 8181
       - service: gitlab-gitlab-pages
-        podLabels:
+        selector:
           app: gitlab-pages
         host: "*.pages"
         gateway: tenant
         port: 8090
       - service: gitlab-registry
-        podLabels:
+        selector:
           app: registry
         host: registry
         gateway: tenant
@@ -35,90 +35,236 @@ spec:
       - direction: Ingress
         remoteGenerated: IntraNamespace
 
+    # ingress from runner only if runner lives in cluster. Otherwise, it goes through the gateway
+    {{- if .Values.runner.internal }}
       - direction: Ingress
-        # todo: this should be scoped when we know where the runner is
-        podLabels:
+        selector:
           app: webservice
+        remoteNamespace: {{ .Values.runner.namespace | quote }}
+        remoteSelector:
+          {{ .Values.runner.selector | toYaml | nindent 10 }}
         port: 8181
         description: "Runner Ingress Workhorse"
+    {{- end }}
 
       - direction: Ingress
         remoteNamespace: monitoring
-        remotePodLabels:
+        remoteSelector:
           app: prometheus
-        podLabels:
+        selector:
           app: gitlab-exporter
         port: 9168
         description: "Monitoring Exporter"
 
-      - direction: Ingress
-        podLabels:
-          app: runner
-        remoteNamespace: monitoring
-        remotePodLabels:
-          app: prometheus
-
-        port: 9252
-        description: "Monitoring Runner"
-
       - direction: Egress
-        podLabels:
+        selector:
           app: registry
+        {{- if .Values.storage.internal }}
+        remoteNamespace: {{ .Values.storage.namespace | quote }}
+        remoteSelector:
+          {{ .Values.storage.selector | toYaml | nindent 10 }}
+        port: {{ .Values.storage.port }}
+        {{- else }}
         remoteGenerated: Anywhere
+        {{- end }}
         description: "Registry Storage"
 
+      # Sidekiq Netpols 
       - direction: Egress
-        podLabels:
+        selector:
           app: sidekiq
+        {{- if .Values.storage.internal }}
+        remoteNamespace: {{ .Values.storage.namespace | quote }}
+        remoteSelector:
+          {{ .Values.storage.selector | toYaml | nindent 10 }}
+        port: {{ .Values.storage.port }}
+        {{- else }}
         remoteGenerated: Anywhere
+        {{- end }}
         description: "Sidekiq Storage"
 
       - direction: Egress
-        podLabels:
-          app: migrations
+        selector:
+          app: sidekiq
+        {{- if .Values.redis.internal }}
+        remoteNamespace: {{ .Values.redis.namespace | quote }}
+        remoteSelector:
+          {{ .Values.redis.selector | toYaml | nindent 10 }}
+        port: {{ .Values.redis.port }}
+        {{- else }}
         remoteGenerated: Anywhere
-        description: "Migrations Storage"
-      
-      - direction: Egress
-        podLabels:
-          app: toolbox
-        remoteGenerated: Anywhere
-        description: "Toolbox egress to database, redis and storage"
+        {{- end }}
+        description: "Sidekiq Redis"
 
+      - direction: Egress
+        selector:
+          app: sidekiq
+        {{- if .Values.postgres.internal }}
+        remoteNamespace: {{ .Values.postgres.namespace | quote }}
+        remoteSelector:
+          {{ .Values.postgres.selector | toYaml | nindent 10 }}
+        port: {{ .Values.postgres.port }}
+        {{- else }}
+        remoteGenerated: Anywhere
+        {{- end }}
+        description: "Sidekiq Postgres"
+
+      # Migrations Netpols
+      - direction: Egress
+        selector:
+          app: migrations
+        {{- if .Values.postgres.internal }}
+        remoteNamespace: {{ .Values.postgres.namespace | quote }}
+        remoteSelector:
+          {{ .Values.postgres.selector | toYaml | nindent 10 }}
+        port: {{ .Values.postgres.port }}
+        {{- else }}
+        remoteGenerated: Anywhere
+        {{- end }}
+        description: "Migrations Postgres"
+
+      - direction: Egress
+        selector:
+          app: migrations
+        {{- if .Values.redis.internal }}
+        remoteNamespace: {{ .Values.redis.namespace | quote }}
+        remoteSelector:
+          {{ .Values.redis.selector | toYaml | nindent 10 }}
+        port: {{ .Values.redis.port }}
+        {{- else }}
+        remoteGenerated: Anywhere
+        {{- end }}
+        description: "Migrations Redis"
+
+      # Toolbox Netpols
+      - direction: Egress
+        selector:
+          app: toolbox
+        {{- if .Values.storage.internal }}
+        remoteNamespace: {{ .Values.storage.namespace | quote }}
+        remoteSelector:
+          {{ .Values.storage.selector | toYaml | nindent 10 }}
+        port: {{ .Values.storage.port }}
+        {{- else }}
+        remoteGenerated: Anywhere
+        {{- end }}
+        description: "Toolbox Storage"
+
+      - direction: Egress
+        selector:
+          app: toolbox
+        {{- if .Values.postgres.internal }}
+        remoteNamespace: {{ .Values.postgres.namespace | quote }}
+        remoteSelector:
+          {{ .Values.postgres.selector | toYaml | nindent 10 }}
+        port: {{ .Values.postgres.port }}
+        {{- else }}
+        remoteGenerated: Anywhere
+        {{- end }}
+        description: "Toolbox Postgres"
+
+      - direction: Egress
+        selector:
+          app: toolbox
+        {{- if .Values.redis.internal }}
+        remoteNamespace: {{ .Values.redis.namespace | quote }}
+        remoteSelector:
+          {{ .Values.redis.selector | toYaml | nindent 10 }}
+        port: {{ .Values.redis.port }}
+        {{- else }}
+        remoteGenerated: Anywhere
+        {{- end }}
+        description: "Toolbox Redis"
+
+      # Gitlab Netpols
       - direction: Egress
         remoteGenerated: IntraNamespace
 
       - direction: Egress
-        # todo: this is over permissive, need to scope it down
+        selector:
+          app: gitlab
         remoteGenerated: KubeAPI
 
-      - direction: Egress
-        remoteNamespace: tempo
-        remotePodLabels:
-          app.kubernetes.io/name: tempo
-        port: 9411
-        description: "Tempo"
 
+      # Webservice Netpols
       - direction: Egress
-        podLabels:
+        selector:
           app: webservice
         port: 443
         description: "SSO"
 
       - direction: Egress
-        podLabels:
+        selector:
           app: webservice
+        {{- if .Values.storage.internal }}
+        remoteNamespace: {{ .Values.storage.namespace | quote }}
+        remoteSelector:
+          {{ .Values.storage.selector | toYaml | nindent 10 }}
+        port: {{ .Values.storage.port }}
+        {{- else }}
         remoteGenerated: Anywhere
+        {{- end }}
         description: "Webservice Storage"
 
+      - direction: Egress
+        selector:
+          app: webservice
+        {{- if .Values.redis.internal }}
+        remoteNamespace: {{ .Values.redis.namespace | quote }}
+        remoteSelector:
+          {{ .Values.redis.selector | toYaml | nindent 10 }}
+        port: {{ .Values.redis.port }}
+        {{- else }}
+        remoteGenerated: Anywhere
+        {{- end }}
+        description: "Webservice Redis"
+
+      - direction: Egress
+        selector:
+          app: webservice
+        {{- if .Values.postgres.internal }}
+        remoteNamespace: {{ .Values.postgres.namespace | quote }}
+        remoteSelector:
+          {{ .Values.postgres.selector | toYaml | nindent 10 }}
+        port: {{ .Values.postgres.port }}
+        {{- else }}
+        remoteGenerated: Anywhere
+        {{- end }}
+        description: "Webservice Postgres"
+
+
+      # Gitlab Pages
       - direction: Ingress
-        podLabels:
+        selector:
           app: gitlab-pages
         port: 8090
         description: GitLab Pages Ingress
 
       - direction: Egress
-        podLabels:
+        selector:
           app: gitlab-pages
+        {{- if .Values.storage.internal }}
+        remoteNamespace: {{ .Values.storage.namespace | quote }}
+        remoteSelector:
+          {{ .Values.storage.selector | toYaml | nindent 10 }}
+        port: {{ .Values.storage.port }}
+        {{- else }}
         remoteGenerated: Anywhere
-        description: "GitLab Pages Storage"
+        {{- end }}
+        description: "Gitlab Pages Storage"
+
+      # Custom rules for unanticipated scenarios
+      {{- range .Values.custom }}
+      - direction: {{ .direction }}
+        selector:
+          {{ .selector | toYaml | nindent 10 }}
+        {{- if not .remoteGenerated }}
+        remoteNamespace: {{ .remoteNamespace }}
+        remoteSelector:
+          {{ .remoteSelector | toYaml | nindent 10 }}
+        port: {{ .port }}
+        {{- else }}
+        remoteGenerated: {{ .remoteGenerated }}
+        {{- end }}
+        description: {{ .description }}
+      {{- end }}

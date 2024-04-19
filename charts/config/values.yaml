@@ -1,2 +1,44 @@
 domain: "###ZARF_VAR_DOMAIN###"
 sso: true
+storage:
+  # Set to false to use external storage
+  internal: true
+  selector:
+    app: minio
+  namespace: dev-minio
+  port: 9000
+redis:
+  # Set to false to use external redis
+  internal: true
+  selector:
+    app.kubernetes.io/name: redis
+  namespace: dev-redis
+  port: 6379
+postgres:
+  # Set to false to use external postgres
+  internal: true
+  selector:
+    cluster-name: pg-cluster
+  namespace: postgres
+  port: 5432
+runner:
+  internal: true
+  selector:
+    app: gitlab-runner
+  namespace: gitlab-runner
+# custom:
+#    # Notice no `remoteGenerated` field here on custom internal rule
+#   - direction: Ingress
+#     selector:
+#       app: jenkins
+#     remoteNamespace: jenkins
+#     remoteSelector:
+#       app: jenkins
+#     port: 8180
+#     description: "Ingress to Jenkins"
+#   # No `remoteNamespace`, `remoteSelector`, or `port` fields on rule to `remoteGenerated`
+#   - direction: Egress
+#     selector:
+#       app: webservice
+#     remoteGenerated: Anywhere
+#     description: "Egress from Webservice"
