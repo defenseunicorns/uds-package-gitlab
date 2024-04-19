@@ -111,10 +111,9 @@ registry:
     secret: gitlab-object-store
     key: registry
   metrics:
+    enabled: true
     serviceMonitor: # TODO configure for Prometheus
       enabled: true
-  metrics:
-    enabled: true
 
 gitlab:
   toolbox:
@@ -143,7 +142,7 @@ gitlab:
         enabled: true
     workhorse:
       metrics:
-        enabled: true        
+        enabled: true
 
 certmanager:
   install: false
