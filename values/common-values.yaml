@@ -150,27 +150,6 @@ registry:
   metrics:
     enabled: true
 
-istio:
-  enabled: false
-  injection: enabled
-  gitlab:
-    gateways:
-      - istio-tenant-gateway/tenant-gateway
-  registry:
-    gateways:
-      - istio-tenant-gateway/tenant-gateway
-  pages:
-    enabled: true
-    port: 8090
-    ingressLabels:
-      app: tenant-ingressgateway
-    gateways:
-      - istio-tenant-gatway/tenant-gateway
-    customDomains:
-      enabled: false
-    hosts:
-      - "*.pages.###ZARF_VAR_DOMAIN###"
-
 certmanager:
   install: false
 
