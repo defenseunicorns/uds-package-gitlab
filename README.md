@@ -10,7 +10,13 @@ This package is designed for use as part of a [UDS Software Factory](https://git
 
 The GitLab Package expects to be deployed on top of [UDS Core](https://github.com/defenseunicorns/uds-core) with the dependencies listed below being configured prior to deployment.
 
-> :warning: **NOTE**: Some GitLab features (such as GitLab pages) will also require a [GitLab runner](https://github.com/defenseunicorns/uds-package-gitlab-runner) along with additional configuration such as an additional certificate SAN for `*.pages.<your-domain>`.
+> [!IMPORTANT]
+> **NOTE**: Some GitLab features (such as GitLab pages) will also require a [GitLab runner](https://github.com/defenseunicorns/uds-package-gitlab-runner) along with additional configuration such as an additional certificate SAN for `*.pages.<your-domain>`.
+
+GitLab is configured by default to assume the internal dependencies that are used for testing (see minio, redis and postgres in the [bundle](bundle/uds-bundle.yaml)).
+
+> [!IMPORTANT]
+> If you are using different internal services, cloud services or a mix you will have to configure values in the config chart accordingly via bundle overrides. See the networking [docs](docs/networking.md) for details
 
 #### Database
 
@@ -41,6 +47,7 @@ Object Storage works a bit differently as there are many kinds of file stores Gi
   - `backups`
     - This key refers to the configuration for the gitlab-toolbox backup tool. It relies on a program called `s3cmd`. The documentation for what goes in this key is located [here](https://s3tools.org/kb/item14.htm)
 - Below are the list of buckets that need to be created before starting GitLab:
+
 ```yaml
   - uds-gitlab-pages
   - uds-gitlab-registry
@@ -55,7 +62,10 @@ Object Storage works a bit differently as there are many kinds of file stores Gi
   - uds-gitlab-backups
   - uds-gitlab-tmp
 ```
+
 - These buckets can have a suffix applied via the `BUCKET_SUFFIX` Zarf variable (e.g. `-some-deployment-name` plus `uds-gitlab-backups` would be `uds-gitlab-backups-some-deployment-name`)
+
+
 
 ## Flavors
 
@@ -64,7 +74,8 @@ Object Storage works a bit differently as there are many kinds of file stores Gi
 | upstream | Uses upstream images within the package. | `zarf package create . -f upstream` |
 | registry1 | Uses images from registry1.dso.mil within the package. | `zarf package create . -f registry1` |
 
-> :warning: **Note:** To create the registry1 flavor you will need to be logged into Iron Bank - you can find instructions on how to do this in the [Big Bang Zarf Tutorial](https://docs.zarf.dev/docs/zarf-tutorials/big-bang#setup).
+> [!IMPORTANT]
+> **NOTE:** To create the registry1 flavor you will need to be logged into Iron Bank - you can find instructions on how to do this in the [Big Bang Zarf Tutorial](https://docs.zarf.dev/tutorials/6-big-bang/#setup).
 
 ## Releases
 
@@ -74,7 +85,8 @@ The released packages can be found in [ghcr](https://github.com/defenseunicorns/
 
 *For local dev, this requires you install [uds-cli](https://github.com/defenseunicorns/uds-cli?tab=readme-ov-file#install)
 
-> :white_check_mark: **Tip:** To get a list of tasks to run you can use `uds run --list`!
+> [!TIP]
+> To get a list of tasks to run you can use `uds run --list`!
 
 ## Contributing
 

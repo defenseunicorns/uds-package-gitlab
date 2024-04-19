@@ -10,7 +10,7 @@ components:
     charts:
       - name: uds-gitlab-config
         namespace: gitlab
-        version: 0.1.0
+        version: 0.2.0
         localPath: ../chart
       - name: gitlab
         namespace: gitlab
