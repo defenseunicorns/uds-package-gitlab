@@ -140,6 +140,16 @@ gitlab:
       serviceMonitor:
         enabled: true
 
+gitlab:
+  webservice:
+    workhorse:
+      metrics:
+        enabled: true
+
+registry:
+  metrics:
+    enabled: true
+
 istio:
   enabled: false
   injection: enabled
