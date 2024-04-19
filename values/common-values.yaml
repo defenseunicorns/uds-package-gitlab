@@ -113,6 +113,8 @@ registry:
   metrics:
     serviceMonitor: # TODO configure for Prometheus
       enabled: true
+  metrics:
+    enabled: true
 
 gitlab:
   toolbox:
@@ -139,16 +141,9 @@ gitlab:
       port: 8083
       serviceMonitor:
         enabled: true
-
-gitlab:
-  webservice:
     workhorse:
       metrics:
-        enabled: true
-
-registry:
-  metrics:
-    enabled: true
+        enabled: true        
 
 certmanager:
   install: false
