@@ -39,6 +39,6 @@ runner:
 #   # No `remoteNamespace`, `remoteSelector`, or `port` fields on rule to `remoteGenerated`
 #   - direction: Egress
 #     selector:
-#       app: another-app
+#       app: webservice
 #     remoteGenerated: Anywhere
 #     description: "Egress from Webservice"

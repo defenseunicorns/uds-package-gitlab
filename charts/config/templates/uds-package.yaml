@@ -257,11 +257,11 @@ spec:
       {{- range .Values.custom }}
       - direction: {{ .direction }}
         selector:
-          app: {{ .selector.app }}
+          {{ .selector | toYaml | nindent 10 }}
         {{- if not .remoteGenerated }}
         remoteNamespace: {{ .remoteNamespace }}
         remoteSelector:
-          app: {{ .remoteSelector.app }}
+          {{ .remoteSelector | toYaml | nindent 10 }}
         port: {{ .port }}
         {{- else }}
         remoteGenerated: {{ .remoteGenerated }}

@@ -1,11 +1,11 @@
 # Networking
 
-Gitlab is configured by default to assume the internal dependencies that are used for testing (see minio, redis and postgres in the [bundle](bundle/uds-bundle.yaml)). Intentionally, permissive network policies are not created as a default. For example, there is not a default setup of egress anywhere for pods that may need to connect to external storage. 
+GitLab is configured by default to assume the internal dependencies that are used for testing (see minio, redis and postgres in the [bundle](bundle/uds-bundle.yaml)). Intentionally, permissive network policies are not created as a default. For example, there is not a default setup of egress anywhere for pods that may need to connect to external storage.
 
 > [!IMPORTANT]
 > If you are using different internal services, cloud services or a mix you will have to configure values in the config chart accordingly via bundle overrides. A couple of example are provided below:
 
-Configure gitlab for all external services:
+Configure GitLab for all external services:
 
 ```yaml
 # charts/config/values.yaml
@@ -17,7 +17,7 @@ postgres:
   internal: false
 ```
 
-Configure gitlab for External postgres and s3, but in-cluster redis that is not the dev-redis currently used for testing:
+Configure GitLab for external postgres and s3, but in-cluster redis that is not the dev-redis currently used for testing:
 
 ```yaml
 # charts/config/values.yaml
@@ -33,7 +33,7 @@ redis:
   port: 6379
 ```
 
-Configure gitlab all external services and a non-default gitlab runner:
+Configure GitLab for all external services and a non-default GitLab runner:
 
 ```yaml
 # charts/config/values.yaml
@@ -49,7 +49,7 @@ redis:
   namespace: my-other-gitlab-runner
 ```
 
-> [!TIP] 
+> [!TIP]
 > There may be a need to integrate with other in-cluster services that are not a part of the standard connectivity needed by gitlab (for example a Jira integration). As such, there is the ability to add custom rules to allow additional internal network connectivity.
 
 Add custom rule:

@@ -75,7 +75,7 @@ Object Storage works a bit differently as there are many kinds of file stores Gi
 | registry1 | Uses images from registry1.dso.mil within the package. | `zarf package create . -f registry1` |
 
 > [!IMPORTANT]
-> **Note:** To create the registry1 flavor you will need to be logged into Iron Bank - you can find instructions on how to do this in the [Big Bang Zarf Tutorial](https://docs.zarf.dev/docs/zarf-tutorials/big-bang#setup).
+> **NOTE:** To create the registry1 flavor you will need to be logged into Iron Bank - you can find instructions on how to do this in the [Big Bang Zarf Tutorial](https://docs.zarf.dev/tutorials/6-big-bang/#setup).
 
 ## Releases
 
