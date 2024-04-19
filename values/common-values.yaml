@@ -2,6 +2,12 @@ global:
   image:
     pullPolicy: IfNotPresent
 
+  ingress:
+    configureCertmanager: false
+
+  kas:
+    enabled: false
+
   hosts:
     domain: ###ZARF_VAR_DOMAIN###
     gitlab:
@@ -86,6 +92,14 @@ global:
     objectStore:
       bucket: ###ZARF_VAR_BUCKET_PREFIX###gitlab-pages###ZARF_VAR_BUCKET_SUFFIX###
 
+  ## https://docs.gitlab.com/charts/charts/globals#service-accounts
+  serviceAccount:
+    enabled: true
+    create: true
+    annotations: {}
+    ## Name to be used for serviceAccount, otherwise defaults to chart fullname
+    # name:
+
 postgresql:
   install: false
 redis:
@@ -97,6 +111,7 @@ registry:
     secret: gitlab-object-store
     key: registry
   metrics:
+    enabled: true
     serviceMonitor: # TODO configure for Prometheus
       enabled: true
 
@@ -125,5 +140,20 @@ gitlab:
       port: 8083
       serviceMonitor:
         enabled: true
+    workhorse:
+      metrics:
+        enabled: true
+
+certmanager:
+  install: false
+
+gitlab-runner:
+  install: false
+
+prometheus:
+  install: false
+
+nginx-ingress: &nginx-ingress
+  enabled: false
 
 domain: ###ZARF_VAR_DOMAIN###
