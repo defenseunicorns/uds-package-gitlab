@@ -13,7 +13,7 @@ The GitLab Package expects to be deployed on top of [UDS Core](https://github.co
 > [!IMPORTANT]
 > **NOTE**: Some GitLab features (such as GitLab pages) will also require a [GitLab runner](https://github.com/defenseunicorns/uds-package-gitlab-runner) along with additional configuration such as an additional certificate SAN for `*.pages.<your-domain>`.
 
-Gitlab is configured by default to assume the internal dependencies that are used for testing (see minio, redis and postgres in the [bundle](bundle/uds-bundle.yaml)).
+GitLab is configured by default to assume the internal dependencies that are used for testing (see minio, redis and postgres in the [bundle](bundle/uds-bundle.yaml)).
 
 > [!IMPORTANT]
 > If you are using different internal services, cloud services or a mix you will have to configure values in the config chart accordingly via bundle overrides. See the networking [docs](docs/networking.md) for details
