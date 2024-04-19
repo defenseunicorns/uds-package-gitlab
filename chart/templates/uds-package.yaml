@@ -29,6 +29,7 @@ spec:
               "client_auth_method": "query",
               "discovery": false,
               "uid_field": "preferred_username",
+              "pkce": "true",
               "client_options": {
                 "identifier": "clientField(clientId)",
                 "secret": "clientField(secret)",
@@ -225,7 +226,14 @@ spec:
         selector:
           app: webservice
         port: 8080
-        description: "SSO"
+        description: "SSO Internal"
+
+      - direction: Egress
+        remoteGenerated: Anywhere
+        selector:
+          app: webservice
+        port: 443
+        description: "SSO External"
 
       - direction: Egress
         selector:
