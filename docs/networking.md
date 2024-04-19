@@ -50,7 +50,7 @@ redis:
 ```
 
 > [!TIP]
-> There may be a need to integrate with other in-cluster services that are not a part of the standard connectivity needed by gitlab (for example a Jira integration). As such, there is the ability to add custom rules to allow additional internal network connectivity.
+> There may be a need to integrate with other in-cluster services that are not a part of the standard connectivity needed by GitLab (for example a Jira integration). As such, there is the ability to add custom rules to allow additional internal network connectivity.
 
 Add custom rule:
 
