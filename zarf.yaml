@@ -49,17 +49,17 @@ components:
     images:
       - "registry1.dso.mil/ironbank/gitlab/gitlab/certificates:16.11.1"
       - "registry1.dso.mil/ironbank/gitlab/gitlab/cfssl-self-sign:1.6.1"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitaly:16.11.0"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitaly:16.11.1"
       - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-container-registry:16.11.1"
       - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-pages:16.11.1"
       - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-shell:16.11.1"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-sidekiq:16.11.0"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-toolbox:16.11.0"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-webservice:16.11.0"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-sidekiq:16.11.1"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-toolbox:16.11.1"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-webservice:16.11.1"
       - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-workhorse:16.11.1"
       - "registry1.dso.mil/ironbank/gitlab/gitlab/kubectl:16.11.1"
       - "registry1.dso.mil/ironbank/redhat/ubi/ubi9:9.3"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-exporter:16.11.0"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-exporter:16.11.1"
 
   # Note: upstream flavor is experimental
   - name: gitlab
