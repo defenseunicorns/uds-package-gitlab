@@ -78,7 +78,7 @@ global:
       syncProfileAttributes: ['email']
       syncProfileFromProvider: []
       providers:
-        - secret: ###ZARF_CONST_GITLAB_SSO_SECRET_NAME###
+        - secret: gitlab-sso
           key: providers
     initialDefaults:
       signupEnabled: ###ZARF_VAR_GITLAB_SIGNUP_ENABLED###

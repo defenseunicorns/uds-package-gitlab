@@ -1,7 +1,7 @@
 domain: "###ZARF_VAR_DOMAIN###"
 sso:
   enabled: true
-  secretName: "###ZARF_CONST_GITLAB_SSO_SECRET_NAME###"
+  secretName: gitlab-sso
 storage:
   # Set to false to use external storage
   internal: true
