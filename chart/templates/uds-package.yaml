@@ -4,13 +4,13 @@ metadata:
   name: gitlab
   namespace: {{ .Release.Namespace }}
 spec:
-  {{- if .Values.sso }}
+  {{- if .Values.sso.enabled }}
   sso:
     - name: Gitlab SSO
       clientId: uds-core-gitlab
       redirectUris:
         - "https://gitlab.{{ .Values.domain }}/users/auth/openid_connect/callback"
-      secretName: gitlab-sso-provider-json
+      secretName: {{ .Values.sso.secretName }}
       secretTemplate:
         # GitLab expects a providers JSON file that is documented more here: https://gitlab-org.gitlab.io/technical-writing-group/gitlab-docs-hugo/administration/auth/oidc/
         # Note: the `authorization_endpoint`, `issuer`, and `userinfo_endpoint` must be the external URL

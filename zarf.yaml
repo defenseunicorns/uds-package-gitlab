@@ -7,6 +7,10 @@ metadata:
   version: "16.10.2-uds.0"
   # x-release-please-end
 
+constants:
+  - name: GITLAB_SSO_SECRET_NAME
+    value: gitlab-sso
+
 variables:
   - name: DOMAIN
     default: "uds.dev"
