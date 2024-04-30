@@ -7,7 +7,7 @@ spec:
   {{- if .Values.sso.enabled }}
   sso:
     - name: Gitlab SSO
-      clientId: uds-core-gitlab
+      clientId: uds-swf-gitlab
       redirectUris:
         - "https://gitlab.{{ .Values.domain }}/users/auth/openid_connect/callback"
       secretName: {{ .Values.sso.secretName }}
