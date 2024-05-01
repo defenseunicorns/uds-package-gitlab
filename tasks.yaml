@@ -39,6 +39,12 @@ tasks:
       - task: dependencies:create
       - task: create:test-bundle
 
+  - name: dev
+    description: deploy against running cluster
+    actions:
+      - task: create-gl-test-bundle
+      - task: deploy:test-bundle
+
 # CI will execute the following (via uds-common/.github/actions/test) so they need to be here with these names
 
   - name: test-package

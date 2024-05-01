@@ -12,6 +12,8 @@ spec:
         - "https://gitlab.{{ .Values.domain }}/users/auth/saml/callback"
 
       protocol: saml
+      defaultClientScopes:
+        - "mapper-saml-email-email"
 
       attributes:
         saml.client.signature: "false"
@@ -20,6 +22,8 @@ spec:
       secretTemplate:
         # GitLab expects a providers JSON file that is documented more here: https://docs.gitlab.com/ee/integration/saml.html
         # Note: the `authorization_endpoint`, `issuer`, and `userinfo_endpoint` must be the external URL
+
+#                "attribute_statements": "{ \"username\": ['username'] }"
         providers: |
           {
             "name":"saml",
@@ -28,9 +32,9 @@ spec:
                 "assertion_consumer_service_url": "https://gitlab.{{ .Values.domain }}/users/auth/saml/callback",
                 "idp_cert": "clientField(samlIdpCertificate)",
                 "idp_sso_target_url": "https://sso.{{ .Values.domain }}/realms/uds/protocol/saml",
-                "issuer": "https://gitlab.{{ .Values.domain }}",
+                "issuer": "clientField(clientId)",
                 "name_identifier_format": "urn:oasis:names:tc:SAML:2.0:nameid-format:persistent",
-                "attribute_statements": "{ \"username\": ['username'] }"
+
             }
           }
   {{- end }}
