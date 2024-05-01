@@ -70,10 +70,10 @@ global:
     ## https://docs.gitlab.com/charts/charts/globals#omniauth
     omniauth:
       enabled: true
-      allowSingleSignOn: ['openid_connect']
+      allowSingleSignOn: ['saml']
       blockAutoCreatedUsers: false
       autoLinkUser: true
-      autoSignInWithProvider: openid_connect
+      autoSignInWithProvider: saml
       externalProviders: []
       syncProfileAttributes: ['email']
       syncProfileFromProvider: []

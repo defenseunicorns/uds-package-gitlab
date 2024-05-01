@@ -6,40 +6,31 @@ metadata:
 spec:
   {{- if .Values.sso.enabled }}
   sso:
-    - name: Gitlab SSO
+    - name: GitLab Login
       clientId: uds-swf-gitlab
       redirectUris:
-        - "https://gitlab.{{ .Values.domain }}/users/auth/openid_connect/callback"
+        - "https://gitlab.{{ .Values.domain }}/users/auth/saml/callback"
+
+      protocol: saml
+
+      attributes:
+        saml.client.signature: "false"
+
       secretName: {{ .Values.sso.secretName }}
       secretTemplate:
-        # GitLab expects a providers JSON file that is documented more here: https://gitlab-org.gitlab.io/technical-writing-group/gitlab-docs-hugo/administration/auth/oidc/
+        # GitLab expects a providers JSON file that is documented more here: https://docs.gitlab.com/ee/integration/saml.html
         # Note: the `authorization_endpoint`, `issuer`, and `userinfo_endpoint` must be the external URL
         providers: |
           {
-            "name": "openid_connect",
-            "label": "SSO",
-            "args": {
-              "name": "openid_connect",
-              "scope": [
-                "openid",
-                "profile"
-              ],
-              "response_type": "code",
-              "issuer": "https://sso.{{ .Values.domain }}/realms/uds",
-              "client_auth_method": "query",
-              "discovery": false,
-              "uid_field": "preferred_username",
-              "pkce": "true",
-              "client_options": {
-                "identifier": "clientField(clientId)",
-                "secret": "clientField(secret)",
-                "redirect_uri": "clientField(redirectUris)[0]",
-                "end_session_endpoint": "http://keycloak-http.keycloak.svc.cluster.local:8080/realms/uds/protocol/openid-connect/logout",
-                "authorization_endpoint": "https://sso.{{ .Values.domain }}/realms/uds/protocol/openid-connect/auth",
-                "token_endpoint": "http://keycloak-http.keycloak.svc.cluster.local:8080/realms/uds/protocol/openid-connect/token",
-                "userinfo_endpoint": "https://sso.{{ .Values.domain }}/realms/uds/protocol/openid-connect/userinfo",
-                "jwks_uri": "http://keycloak-http.keycloak.svc.cluster.local:8080/realms/uds/protocol/openid-connect/certs"
-              }
+            "name":"saml",
+            "label":"SAML",
+            "args":{
+                "assertion_consumer_service_url": "https://gitlab.{{ .Values.domain }}/users/auth/saml/callback",
+                "idp_cert": "clientField(samlIdpCertificate)",
+                "idp_sso_target_url": "https://sso.{{ .Values.domain }}/realms/uds/protocol/saml",
+                "issuer": "https://gitlab.{{ .Values.domain }}",
+                "name_identifier_format": "urn:oasis:names:tc:SAML:2.0:nameid-format:persistent",
+                "attribute_statements": "{ \"username\": ['username'] }"
             }
           }
   {{- end }}
