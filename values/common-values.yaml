@@ -159,7 +159,7 @@ gitlab:
       serviceMonitor:
         enabled: true
 
-  # override to enable ssh      
+  # override to enable ssh
   gitlab-shell:
     enabled: false
     sshDaemon: gitlab-sshd
