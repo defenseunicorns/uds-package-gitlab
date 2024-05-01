@@ -1,3 +1,17 @@
+tasks:
+  - name: create-k3d-cluster
+    actions:
+      - description: "Create the K3d cluster"
+        # renovate: datasource=github-tags depName=defenseunicorns/uds-k3d versioning=semver
+        cmd: "uds zarf package deploy oci://defenseunicorns/uds-k3d:0.5.0 --set=K3D_IMAGE=${K3D_IMAGE} --confirm --no-progress"
+
+  - name: k3d-test-cluster
+    actions:
+      - task: create-k3d-cluster
+
+      - description: "Initialize the cluster with Zarf"
+        # renovate: datasource=github-tags depName=defenseunicorns/zarf versioning=semver
+        cmd: "uds zarf package deploy oci://defenseunicorns/init:v0.32.3 --confirm --no-progress"
 global:
   image:
     pullPolicy: IfNotPresent
@@ -39,7 +53,7 @@ global:
     enabled: false
     credentials:
       {}
-      # secret:
+
 
   appConfig:
     object_store:
@@ -97,8 +111,6 @@ global:
     enabled: true
     create: true
     annotations: {}
-    ## Name to be used for serviceAccount, otherwise defaults to chart fullname
-    # name:
 
 postgresql:
   install: false
@@ -112,7 +124,7 @@ registry:
     key: registry
   metrics:
     enabled: true
-    serviceMonitor: # TODO configure for Prometheus
+    serviceMonitor:
       enabled: true
 
 gitlab:
@@ -124,7 +136,10 @@ gitlab:
 
   gitlab-exporter:
     enabled: true
-    metrics: # TODO add Prometheus
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
 
   migrations:
     resources:
@@ -132,16 +147,39 @@ gitlab:
         cpu: 500m
         memory: 4G
 
+  sidekiq:
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+
   webservice:
     ingress:
-      enabled: false # Local setting in subchart must be overridden
-    metrics: # TODO add Prometheus
+      enabled: false
+    metrics:
       enabled: true
       port: 8083
       serviceMonitor:
         enabled: true
     workhorse:
       metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true
+
+  gitaly:
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+
+  # override to enable ssh      
+  gitlab-shell:
+    enabled: false
+    sshDaemon: gitlab-sshd
+    metrics:
+      enabled: true
+      serviceMonitor:
         enabled: true
 
 certmanager:
