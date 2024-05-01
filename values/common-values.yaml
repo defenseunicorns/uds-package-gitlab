@@ -153,6 +153,12 @@ gitlab:
         serviceMonitor:
           enabled: true
 
+  gitlab-pages:
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+
   gitaly:
     metrics:
       enabled: true
