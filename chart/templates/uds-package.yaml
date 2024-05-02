@@ -102,6 +102,15 @@ spec:
         remoteSelector:
           app: prometheus
         selector:
+          app: gitlab-shell
+        port: 9122
+        description: "Gitlab Shell Service Monitor"
+
+      - direction: Ingress
+        remoteNamespace: monitoring
+        remoteSelector:
+          app: prometheus
+        selector:
           app: registry
         port: 5001
         description: "Registry Service Monitor"

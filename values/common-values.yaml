@@ -167,7 +167,7 @@ gitlab:
 
   # override to enable ssh
   gitlab-shell:
-    enabled: false
+    enabled: true
     sshDaemon: gitlab-sshd
     metrics:
       enabled: true
