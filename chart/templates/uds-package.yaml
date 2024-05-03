@@ -4,7 +4,46 @@ metadata:
   name: gitlab
   namespace: {{ .Release.Namespace }}
 spec:
-  {{- if .Values.sso.enabled }}
+  {{- if and (.Values.sso.enabled) (eq .Values.sso.protocol "openid_connect") }}
+  sso:
+    - name: GitLab Login
+      clientId: uds-swf-gitlab
+      redirectUris:
+        - "https://gitlab.{{ .Values.domain }}/users/auth/openid_connect/callback"
+
+      secretName: {{ .Values.sso.secretName }}
+      secretTemplate:
+        # GitLab expects a providers JSON file that is documented more here: https://gitlab-org.gitlab.io/technical-writing-group/gitlab-docs-hugo/administration/auth/oidc/
+        # Note: the `authorization_endpoint`, `issuer`, and `userinfo_endpoint` must be the external URL
+        providers: |
+          {
+            "name": "openid_connect",
+            "label": "SSO",
+            "args": {
+              "name": "openid_connect",
+              "scope": [
+                "openid",
+                "profile"
+              ],
+              "response_type": "code",
+              "issuer": "https://sso.{{ .Values.domain }}/realms/uds",
+              "client_auth_method": "query",
+              "discovery": false,
+              "uid_field": "preferred_username",
+              "pkce": "true",
+              "client_options": {
+                "identifier": "clientField(clientId)",
+                "secret": "clientField(secret)",
+                "redirect_uri": "clientField(redirectUris)[0]",
+                "end_session_endpoint": "http://keycloak-http.keycloak.svc.cluster.local:8080/realms/uds/protocol/openid-connect/logout",
+                "authorization_endpoint": "https://sso.{{ .Values.domain }}/realms/uds/protocol/openid-connect/auth",
+                "token_endpoint": "http://keycloak-http.keycloak.svc.cluster.local:8080/realms/uds/protocol/openid-connect/token",
+                "userinfo_endpoint": "https://sso.{{ .Values.domain }}/realms/uds/protocol/openid-connect/userinfo",
+                "jwks_uri": "http://keycloak-http.keycloak.svc.cluster.local:8080/realms/uds/protocol/openid-connect/certs"
+              }
+            }
+          }
+  {{- else if and (.Values.sso.enabled) (eq .Values.sso.protocol "saml") }}
   sso:
     - name: GitLab Login
       clientId: uds-swf-gitlab
@@ -14,6 +53,7 @@ spec:
       protocol: saml
       defaultClientScopes:
         - "mapper-saml-email-email"
+        - "mapper-saml-username-name"
 
       attributes:
         saml.client.signature: "false"
@@ -21,20 +61,16 @@ spec:
       secretName: {{ .Values.sso.secretName }}
       secretTemplate:
         # GitLab expects a providers JSON file that is documented more here: https://docs.gitlab.com/ee/integration/saml.html
-        # Note: the `authorization_endpoint`, `issuer`, and `userinfo_endpoint` must be the external URL
-
-#                "attribute_statements": "{ \"username\": ['username'] }"
         providers: |
           {
             "name":"saml",
-            "label":"SAML",
+            "label":"SSO",
             "args":{
                 "assertion_consumer_service_url": "https://gitlab.{{ .Values.domain }}/users/auth/saml/callback",
                 "idp_cert": "clientField(samlIdpCertificate)",
                 "idp_sso_target_url": "https://sso.{{ .Values.domain }}/realms/uds/protocol/saml",
                 "issuer": "clientField(clientId)",
                 "name_identifier_format": "urn:oasis:names:tc:SAML:2.0:nameid-format:persistent",
-
             }
           }
   {{- end }}

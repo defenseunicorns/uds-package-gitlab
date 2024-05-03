@@ -70,7 +70,7 @@ global:
     ## https://docs.gitlab.com/charts/charts/globals#omniauth
     omniauth:
       enabled: true
-      allowSingleSignOn: ['saml']
+      allowSingleSignOn: true
       blockAutoCreatedUsers: false
       autoLinkUser: true
       autoSignInWithProvider: saml
