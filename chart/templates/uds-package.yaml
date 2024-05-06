@@ -53,7 +53,9 @@ spec:
       protocol: saml
       defaultClientScopes:
         - "mapper-saml-email-email"
-        - "mapper-saml-username-name"
+        - "mapper-saml-firstname-first_name"
+        - "mapper-saml-lastname-last_name"
+        - "mapper-saml-grouplist-groups"
 
       attributes:
         saml.client.signature: "false"
@@ -65,6 +67,8 @@ spec:
           {
             "name":"saml",
             "label":"SSO",
+            "groups_attribute": "Groups",
+            "admin_groups": ["/Gitlab Admins"],
             "args":{
                 "assertion_consumer_service_url": "https://gitlab.{{ .Values.domain }}/users/auth/saml/callback",
                 "idp_cert": "clientField(samlIdpCertificate)",
