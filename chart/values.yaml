@@ -28,6 +28,7 @@ runner:
   selector:
     app: gitlab-runner
   namespace: gitlab-runner
+  sandboxNamespace: gitlab-runner-sandbox
 # custom:
 #    # Notice no `remoteGenerated` field here on custom internal rule
 #   - direction: Ingress

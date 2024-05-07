@@ -79,6 +79,15 @@ spec:
         description: "Runner Ingress Workhorse"
     {{- end }}
 
+    {{- if .Values.runner.internal }}
+      - direction: Ingress
+        selector:
+          app: webservice
+        remoteNamespace: {{ .Values.runner.sandboxNamespace | quote }}
+        port: 8181
+        description: "Runner Sandbox Ingress Workhorse"
+    {{- end }}
+
       - direction: Ingress
         remoteNamespace: monitoring
         remoteSelector:
@@ -101,7 +110,7 @@ spec:
         {{- end }}
         description: "Registry Storage"
 
-      # Sidekiq Netpols 
+      # Sidekiq Netpols
       - direction: Egress
         selector:
           app: sidekiq
