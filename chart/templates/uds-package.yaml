@@ -79,7 +79,7 @@ spec:
         description: "Runner Ingress Workhorse"
     {{- end }}
 
-    {{- if .Values.runner.internal }}
+    {{- if and .Values.runner.internal (hasKey .Values.runner "sandboxNamespace") (ne .Values.runner.sandboxNamespace "") }}
       - direction: Ingress
         selector:
           app: webservice
