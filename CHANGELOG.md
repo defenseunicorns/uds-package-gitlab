@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## [16.11.1-uds.1](https://github.com/defenseunicorns/uds-package-gitlab/compare/v16.11.1-uds.0...v16.11.1-uds.1) (2024-05-07)
+
+
+### Features
+
+* configure monitoring ([#117](https://github.com/defenseunicorns/uds-package-gitlab/issues/117)) ([423687d](https://github.com/defenseunicorns/uds-package-gitlab/commit/423687db1247969d1f7a3a4fca93fe9d8ae08195))
+
+
+### Miscellaneous
+
+* add netpol template for runner sandbox ([#125](https://github.com/defenseunicorns/uds-package-gitlab/issues/125)) ([c5ad463](https://github.com/defenseunicorns/uds-package-gitlab/commit/c5ad46310602bce3a09c897923dee8b36f065241))
+* **deps:** update gitlab support dependencies ([#114](https://github.com/defenseunicorns/uds-package-gitlab/issues/114)) ([3a3a56b](https://github.com/defenseunicorns/uds-package-gitlab/commit/3a3a56bd79d284e30538f804543e486be7f85c81))
+
 ## [16.11.1-uds.0](https://github.com/defenseunicorns/uds-package-gitlab/compare/v16.10.2-uds.0...v16.11.1-uds.0) (2024-05-02)
 
 
