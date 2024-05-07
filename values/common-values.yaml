@@ -39,7 +39,7 @@ global:
     enabled: false
     credentials:
       {}
-      # secret:
+
 
   appConfig:
     object_store:
@@ -97,8 +97,6 @@ global:
     enabled: true
     create: true
     annotations: {}
-    ## Name to be used for serviceAccount, otherwise defaults to chart fullname
-    # name:
 
 postgresql:
   install: false
@@ -112,7 +110,7 @@ registry:
     key: registry
   metrics:
     enabled: true
-    serviceMonitor: # TODO configure for Prometheus
+    serviceMonitor:
       enabled: true
 
 gitlab:
@@ -124,7 +122,10 @@ gitlab:
 
   gitlab-exporter:
     enabled: true
-    metrics: # TODO add Prometheus
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
 
   migrations:
     resources:
@@ -132,16 +133,45 @@ gitlab:
         cpu: 500m
         memory: 4G
 
+  sidekiq:
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+
   webservice:
     ingress:
-      enabled: false # Local setting in subchart must be overridden
-    metrics: # TODO add Prometheus
+      enabled: false
+    metrics:
       enabled: true
       port: 8083
       serviceMonitor:
         enabled: true
     workhorse:
       metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true
+
+  gitlab-pages:
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+
+  gitaly:
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+
+  # override to enable ssh
+  gitlab-shell:
+    enabled: true
+    sshDaemon: gitlab-sshd
+    metrics:
+      enabled: true
+      serviceMonitor:
         enabled: true
 
 certmanager:
