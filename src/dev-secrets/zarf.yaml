@@ -27,23 +27,6 @@ components:
       - name: gitlab-minio
         files:
           - "minio-secret.yaml"
-  - name: postgres-password
-    required: true
-    actions:
-      onDeploy:
-        before:
-          - cmd: kubectl get secret -n dev-postgres postgresql --template={{.data.password}} | base64 -d
-            mute: true
-            setVariables:
-              - name: POSTGRES_DB_PASSWORD
-                sensitive: true
-  - name: gitlab-postgres
-    required: true
-    manifests:
-      - name: gitlab-postgres
-        namespace: gitlab
-        files:
-          - postgres-secret.yaml
   - name: redis-password
     required: true
     actions:
