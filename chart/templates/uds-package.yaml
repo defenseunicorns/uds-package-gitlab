@@ -68,7 +68,7 @@ spec:
             "name":"saml",
             "label":"SSO",
             "groups_attribute": "Groups",
-            "admin_groups": ["/Gitlab Admins"],
+            "admin_groups": {{ .Values.sso.adminGroups | toJson }},
             "args":{
                 "assertion_consumer_service_url": "https://gitlab.{{ .Values.domain }}/users/auth/saml/callback",
                 "idp_cert": "clientField(samlIdpCertificate)",

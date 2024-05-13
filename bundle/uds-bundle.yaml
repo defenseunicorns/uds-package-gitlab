@@ -49,6 +49,9 @@ packages:
             - name: GITLAB_SSO_PROTOCOL
               description: "Protocol to use. Valid values are 'openid_connect' and 'saml'. Default value is 'saml'"
               path: "sso.protocol"
+            - name: GITLAB_ADMIN_GROUPS
+              description: "Array of group names that grant admin role gitlab."
+              path: "sso.adminGroups"
         gitlab:
           variables:
             - name: GITLAB_SSO_ENABLED
