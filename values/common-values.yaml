@@ -73,6 +73,7 @@ global:
       allowSingleSignOn: true
       blockAutoCreatedUsers: false
       autoLinkUser: true
+      autoLinkSamlUser: true
       autoSignInWithProvider: saml
       externalProviders: []
       syncProfileAttributes: ['email']
