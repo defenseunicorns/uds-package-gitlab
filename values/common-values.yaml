@@ -4,7 +4,6 @@ global:
 
   ingress:
     enabled: false
-    configureCertmanager: false
 
   kas:
     enabled: false
