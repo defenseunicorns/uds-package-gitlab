@@ -3,6 +3,7 @@ global:
     pullPolicy: IfNotPresent
 
   ingress:
+    enabled: false
     configureCertmanager: false
 
   kas:
