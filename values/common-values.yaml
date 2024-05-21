@@ -40,7 +40,6 @@ global:
     credentials:
       {}
 
-
   appConfig:
     object_store:
       enabled: true
@@ -100,9 +99,13 @@ global:
 
 postgresql:
   install: false
+
 redis:
   install: false
+
 registry:
+  ingress:
+    enabled: false
   storage:
     redirect:
       disable: ###ZARF_VAR_DISABLE_REGISTRY_REDIRECT###
