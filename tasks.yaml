@@ -47,6 +47,7 @@ tasks:
       - task: create-gl-test-bundle
       - task: setup:k3d-test-cluster
       - task: deploy:test-bundle
+      - task: setup:create-doug-user
       - task: test:health-check
       - task: test:ingress
 
@@ -58,5 +59,6 @@ tasks:
       - task: deploy:test-bundle
       - task: create-gl-test-bundle
       - task: deploy:test-bundle
+      - task: setup:create-doug-user
       - task: test:health-check
       - task: test:ingress
