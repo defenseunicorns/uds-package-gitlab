@@ -50,6 +50,7 @@ tasks:
       - task: setup:create-doug-user
       - task: test:health-check
       - task: test:ingress
+      - task: test:ui
 
   - name: test-upgrade
     description: Test an upgrade from the latest released package to the current branch
@@ -62,3 +63,4 @@ tasks:
       - task: setup:create-doug-user
       - task: test:health-check
       - task: test:ingress
+      - task: test:ui

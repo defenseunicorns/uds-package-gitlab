@@ -1,7 +1,7 @@
 tasks:
   - name: health-check
     actions:
-      - description: Gitlab Exporter Health Check
+      - description: GitLab Exporter Health Check
         wait:
           cluster:
             kind: Deployment
@@ -9,7 +9,7 @@ tasks:
             namespace: gitlab
             condition: Available
 
-      - description: Gitlab Registry Health Check
+      - description: GitLab Registry Health Check
         wait:
           cluster:
             kind: Deployment
@@ -17,7 +17,7 @@ tasks:
             namespace: gitlab
             condition: Available
 
-      - description: Gitlab Shell Health Check
+      - description: GitLab Shell Health Check
         wait:
           cluster:
             kind: Deployment
@@ -25,7 +25,7 @@ tasks:
             namespace: gitlab
             condition: Available
 
-      - description: Gitlab Toolbox Health Check
+      - description: GitLab Toolbox Health Check
         wait:
           cluster:
             kind: Deployment
@@ -33,7 +33,7 @@ tasks:
             namespace: gitlab
             condition: Available
 
-      - description: Gitlab Sidekiq Health Check
+      - description: GitLab Sidekiq Health Check
         wait:
           cluster:
             kind: Deployment
@@ -41,7 +41,7 @@ tasks:
             namespace: gitlab
             condition: Available
 
-      - description: Gitlab Webservice Health Check
+      - description: GitLab Webservice Health Check
         wait:
           cluster:
             kind: Deployment
@@ -49,7 +49,7 @@ tasks:
             namespace: gitlab
             condition: Available
 
-      - description: Gitlab Pages Health Check
+      - description: GitLab Pages Health Check
         wait:
           cluster:
             kind: Deployment
@@ -58,7 +58,7 @@ tasks:
             condition: Available
 
       # StatefulSets don't show conditions themselves so we look for an underlying Pod
-      - description: Gitlab Gitaly Health Check
+      - description: GitLab Gitaly Health Check
         wait:
           cluster:
             kind: Pod
@@ -66,7 +66,7 @@ tasks:
             namespace: gitlab
             condition: Ready
 
-      - description: Gitlab Migrations Health Check
+      - description: GitLab Migrations Health Check
         wait:
           cluster:
             kind: Job
@@ -76,12 +76,22 @@ tasks:
 
   - name: ingress
     actions:
-      - description: Gitlab UI Health Check
+      - description: GitLab UI Health Check
         wait:
           network:
             protocol: https
             address: gitlab.uds.dev
             code: 200
+
+  - name: ui
+    description: GitLab UI Checks
+    actions:
+      - cmd: npm ci
+        dir: tests
+      - cmd: npx playwright install --with-deps
+        dir: tests
+      - cmd: npx playwright test
+        dir: tests
 
   - name: root-password
     actions:
