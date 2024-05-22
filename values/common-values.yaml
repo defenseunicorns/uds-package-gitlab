@@ -3,6 +3,7 @@ global:
     pullPolicy: IfNotPresent
 
   ingress:
+    enabled: false
     configureCertmanager: false
 
   kas:
@@ -39,7 +40,6 @@ global:
     enabled: false
     credentials:
       {}
-
 
   appConfig:
     object_store:
@@ -100,9 +100,13 @@ global:
 
 postgresql:
   install: false
+
 redis:
   install: false
+
 registry:
+  ingress:
+    enabled: false
   storage:
     redirect:
       disable: ###ZARF_VAR_DISABLE_REGISTRY_REDIRECT###
@@ -183,7 +187,7 @@ gitlab-runner:
 prometheus:
   install: false
 
-nginx-ingress: &nginx-ingress
+nginx-ingress:
   enabled: false
 
 domain: ###ZARF_VAR_DOMAIN###
