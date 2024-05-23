@@ -33,7 +33,7 @@ variables:
     DISABLE_REGISTRY_REDIRECT: "true"
     GITLAB_PAGES_ENABLED: true
     #GITLAB_ADMIN_GROUPS: ["/Group Override", "/Another Group Override"]
-    #GITLAB_SSO_PROTOCOL: saml
+    GITLAB_SSO_PROTOCOL: saml
     # # Overrides for scaled down cluster for local dev and CI
     webservice_replicas: 1
     webservice_resources:
