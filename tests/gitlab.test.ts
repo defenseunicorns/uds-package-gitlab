@@ -1,8 +1,8 @@
 import { test, expect } from "@playwright/test";
 import path from "path";
 
-function randomProjectName() {
-  return `uds-package-gitlab-${Math.floor((Math.random() * 1000))}`;
+function randomProjectName(prefix: string = 'uds-package-test') {
+  return [ prefix, Math.floor((Math.random() * 10_000)) ].join('-');
 }
 
 test('setup a project', async ({ page }) => {
@@ -51,4 +51,69 @@ test('setup a project', async ({ page }) => {
     await expect(page.getByRole('img', { name: 'unicorns' }))
       .toHaveAttribute('src', /uploads\/[a-z0-9]+\/unicorns\.jpeg/);
   });
+
+  // regression test for Istio path decoding: https://github.com/defenseunicorns/uds-core/issues/288
+  await test.step('fetch via API', async () => {
+    const projectPath = encodeURIComponent(`doug/${projectName}`);
+
+    const res = await page.request.get(`/api/v4/projects/${projectPath}`);
+
+    expect(res.url()).toContain('%2F');
+    await expect(res).toBeOK();
+
+    const project = await res.json();
+
+    expect(project.path).toBe(projectName);
+    expect(project.namespace.path).toBe('doug');
+  });
+});
+
+// does not work locally, unsure why
+test.skip('import a project', async ({ page }) => {
+  await page.goto('/');
+
+  const token = await page.locator('meta[name=csrf-token]').getAttribute('content');
+  expect(token).toBeDefined();
+
+  const headers = {
+    'X-CSRF-Token': token || '',
+  };
+
+  await test.step('enable repository imports', async () => {
+    const res = await page.request.put('/api/v4/application/settings', {
+      headers,
+      data: {
+        import_sources: [ 'git' ],
+      }
+    });
+
+    await expect(res).toBeOK();
+  });
+
+  await test.step('import repository', async () => {
+    const projectName = randomProjectName('uds-core-import');
+    const res = await page.request.post('/api/v4/projects', {
+      headers,
+      data: {
+        name: projectName,
+        import_url: 'https://github.com/defenseunicorns/uds-core.git',
+      }
+    });
+
+    await expect(res).toBeOK();
+
+    const project = await res.json();
+
+    expect(project.path).toBe(projectName);
+    expect(project.namespace.path).toBe('doug');
+
+    await expect(async () => {
+      const status = await page.request.get(`/api/v4/projects/${project.id}/import`)
+        .then(res => res.json());
+
+      expect(status.import_type).toBe('git');
+      expect(status.import_status).toBe('finished');
+    }, 'import is finished')
+    .toPass({ timeout: 120_000 });
+  })
 });

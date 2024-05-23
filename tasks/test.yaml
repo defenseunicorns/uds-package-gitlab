@@ -93,6 +93,18 @@ tasks:
       - cmd: npx playwright test
         dir: tests
 
+  - name: create-doug-admin
+    description: Promote Doug to admin (requires running setup:create-doug-user and logging into gitlab ui first)
+    actions:
+      - cmd: |
+          ./uds zarf tools kubectl exec -n gitlab deployment/gitlab-toolbox -- gitlab-rails runner -e production '\
+          user = User.new(username: "doug", name: "Doug Unicorn", email: "doug@uds.dev", password: "0123456789!", password_confirmation: "0123456789!"); \
+          user.assign_personal_namespace(Organizations::Organization.default_organization); \
+          user.skip_confirmation!; \
+          user.admin = true; \
+          user.save!; \
+          puts user.username; puts user.id'
+
   - name: root-password
     actions:
       - description: Get the root password for GitLab (useful for local dev)
