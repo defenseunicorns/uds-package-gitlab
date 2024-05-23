@@ -2,6 +2,47 @@
 
 All notable changes to this project will be documented in this file.
 
+## [16.11.1-uds.1](https://github.com/defenseunicorns/uds-package-gitlab/compare/v16.11.1-uds.0...v16.11.1-uds.1) (2024-05-07)
+
+
+### Features
+
+* configure monitoring ([#117](https://github.com/defenseunicorns/uds-package-gitlab/issues/117)) ([423687d](https://github.com/defenseunicorns/uds-package-gitlab/commit/423687db1247969d1f7a3a4fca93fe9d8ae08195))
+
+
+### Miscellaneous
+
+* add netpol template for runner sandbox ([#125](https://github.com/defenseunicorns/uds-package-gitlab/issues/125)) ([c5ad463](https://github.com/defenseunicorns/uds-package-gitlab/commit/c5ad46310602bce3a09c897923dee8b36f065241))
+* **deps:** update gitlab support dependencies ([#114](https://github.com/defenseunicorns/uds-package-gitlab/issues/114)) ([3a3a56b](https://github.com/defenseunicorns/uds-package-gitlab/commit/3a3a56bd79d284e30538f804543e486be7f85c81))
+
+## [16.11.1-uds.0](https://github.com/defenseunicorns/uds-package-gitlab/compare/v16.10.2-uds.0...v16.11.1-uds.0) (2024-05-02)
+
+
+### ⚠ BREAKING CHANGES
+
+* sso failing deployment when it is disabled ([#115](https://github.com/defenseunicorns/uds-package-gitlab/issues/115))
+* allow [templating of network policies](./docs/networking.md) in the UDS Package ([#110](https://github.com/defenseunicorns/uds-package-gitlab/issues/110))
+
+### Features
+
+* allow [templating of network policies](./docs/networking.md) in the UDS Package ([#110](https://github.com/defenseunicorns/uds-package-gitlab/issues/110)) ([5af09cb](https://github.com/defenseunicorns/uds-package-gitlab/commit/5af09cb47b30a258633bdb4c4d2268df3c9e456d))
+
+
+### Bug Fixes
+
+* sso failing deployment when it is disabled ([#115](https://github.com/defenseunicorns/uds-package-gitlab/issues/115)) ([8cfdb58](https://github.com/defenseunicorns/uds-package-gitlab/commit/8cfdb58a05f9fe4d652b1ca2060d339660d809e4))
+
+
+### Miscellaneous
+
+* allow GL pages through istio ([#106](https://github.com/defenseunicorns/uds-package-gitlab/issues/106)) ([9613f76](https://github.com/defenseunicorns/uds-package-gitlab/commit/9613f765ee346a370f1baaa10e0d35779532ca77))
+* **deps:** update gitlab package dependencies ([#112](https://github.com/defenseunicorns/uds-package-gitlab/issues/112)) ([a0e2c48](https://github.com/defenseunicorns/uds-package-gitlab/commit/a0e2c48f2f974683e055d1641fb510aa218c8c8e))
+* **deps:** update gitlab support dependencies ([#113](https://github.com/defenseunicorns/uds-package-gitlab/issues/113)) ([cde79b3](https://github.com/defenseunicorns/uds-package-gitlab/commit/cde79b313a83c1c24036d6456771eafb60f97ecb))
+* **deps:** update gitlab support dependencies ([#99](https://github.com/defenseunicorns/uds-package-gitlab/issues/99)) ([275ccd6](https://github.com/defenseunicorns/uds-package-gitlab/commit/275ccd6e86c3f1ea2d5b8d4f2780e497cedb375e))
+* migrate to upstream chart ([#72](https://github.com/defenseunicorns/uds-package-gitlab/issues/72)) ([b0e151e](https://github.com/defenseunicorns/uds-package-gitlab/commit/b0e151e76104cd3130e41cd185d433fd628dcfa0))
+* release v16.11.1-uds.0 ([#120](https://github.com/defenseunicorns/uds-package-gitlab/issues/120)) ([5c13d62](https://github.com/defenseunicorns/uds-package-gitlab/commit/5c13d6209aeb9fc8f7ce1da0d3c4ac4f22ae274e))
+* switch to new SSO secret template ([#111](https://github.com/defenseunicorns/uds-package-gitlab/issues/111)) ([acf28bc](https://github.com/defenseunicorns/uds-package-gitlab/commit/acf28bc7eccf2cf547a0191fc61d37105486608d))
+
 ## [16.10.2-uds.0](https://github.com/defenseunicorns/uds-package-gitlab/compare/v16.10.1-uds.1...v16.10.2-uds.0) (2024-04-15)
 
 

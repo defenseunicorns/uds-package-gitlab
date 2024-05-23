@@ -114,6 +114,15 @@ spec:
         description: "Runner Ingress Workhorse"
     {{- end }}
 
+    {{- if and .Values.runner.internal (hasKey .Values.runner "sandboxNamespace") (ne .Values.runner.sandboxNamespace "") }}
+      - direction: Ingress
+        selector:
+          app: webservice
+        remoteNamespace: {{ .Values.runner.sandboxNamespace | quote }}
+        port: 8181
+        description: "Runner Sandbox Ingress Workhorse"
+    {{- end }}
+
       - direction: Ingress
         remoteNamespace: monitoring
         remoteSelector:
@@ -122,6 +131,60 @@ spec:
           app: gitlab-exporter
         port: 9168
         description: "Monitoring Exporter"
+
+      - direction: Ingress
+        remoteNamespace: monitoring
+        remoteSelector:
+          app: prometheus
+        selector:
+          app: gitaly
+        port: 9236
+        description: "Gitaly Service Monitor"
+
+      - direction: Ingress
+        remoteNamespace: monitoring
+        remoteSelector:
+          app: prometheus
+        selector:
+          app: gitlab-shell
+        port: 9122
+        description: "Gitlab Shell Service Monitor"
+
+      - direction: Ingress
+        remoteNamespace: monitoring
+        remoteSelector:
+          app: prometheus
+        selector:
+          app: registry
+        port: 5001
+        description: "Registry Service Monitor"
+
+      - direction: Ingress
+        remoteNamespace: monitoring
+        remoteSelector:
+          app: prometheus
+        selector:
+          app: webservice
+        port: 8083
+        description: "Webservice Service Monitor"
+
+      - direction: Ingress
+        remoteNamespace: monitoring
+        remoteSelector:
+          app: prometheus
+        selector:
+          app: webservice
+        port: 9229
+        description: "Workhorse Service Monitor"
+
+      - direction: Ingress
+        remoteNamespace: monitoring
+        remoteSelector:
+          app: prometheus
+        selector:
+          app: gitlab-pages
+        port: 9235
+        description: "Pages Service Monitor"
 
       - direction: Egress
         selector:
@@ -136,7 +199,7 @@ spec:
         {{- end }}
         description: "Registry Storage"
 
-      # Sidekiq Netpols 
+      # Sidekiq Netpols
       - direction: Egress
         selector:
           app: sidekiq
