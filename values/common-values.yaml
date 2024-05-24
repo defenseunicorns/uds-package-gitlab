@@ -120,9 +120,10 @@ registry:
 gitlab:
   toolbox:
     backups:
-      config:
-        secret: gitlab-object-store
-        key: backups
+      objectStorage:
+        config:
+          secret: gitlab-object-store
+          key: backups
 
   gitlab-exporter:
     enabled: true

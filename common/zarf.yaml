@@ -16,6 +16,6 @@ components:
         namespace: gitlab
         url: https://charts.gitlab.io/
         gitPath: chart
-        version: "7.11.1"
+        version: "8.0.1"
         valuesFiles:
           - ../values/common-values.yaml
