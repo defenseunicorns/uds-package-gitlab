@@ -1,7 +1,11 @@
+variables:
+  - name: GITLAB_TOKEN
+    default: glpat-NO_DEFAULT_VALUE
+
 tasks:
   - name: health-check
     actions:
-      - description: Gitlab Exporter Health Check
+      - description: GitLab Exporter Health Check
         wait:
           cluster:
             kind: Deployment
@@ -9,7 +13,7 @@ tasks:
             namespace: gitlab
             condition: Available
 
-      - description: Gitlab Registry Health Check
+      - description: GitLab Registry Health Check
         wait:
           cluster:
             kind: Deployment
@@ -17,7 +21,7 @@ tasks:
             namespace: gitlab
             condition: Available
 
-      - description: Gitlab Shell Health Check
+      - description: GitLab Shell Health Check
         wait:
           cluster:
             kind: Deployment
@@ -25,7 +29,7 @@ tasks:
             namespace: gitlab
             condition: Available
 
-      - description: Gitlab Toolbox Health Check
+      - description: GitLab Toolbox Health Check
         wait:
           cluster:
             kind: Deployment
@@ -33,7 +37,7 @@ tasks:
             namespace: gitlab
             condition: Available
 
-      - description: Gitlab Sidekiq Health Check
+      - description: GitLab Sidekiq Health Check
         wait:
           cluster:
             kind: Deployment
@@ -41,7 +45,7 @@ tasks:
             namespace: gitlab
             condition: Available
 
-      - description: Gitlab Webservice Health Check
+      - description: GitLab Webservice Health Check
         wait:
           cluster:
             kind: Deployment
@@ -49,7 +53,7 @@ tasks:
             namespace: gitlab
             condition: Available
 
-      - description: Gitlab Pages Health Check
+      - description: GitLab Pages Health Check
         wait:
           cluster:
             kind: Deployment
@@ -58,7 +62,7 @@ tasks:
             condition: Available
 
       # StatefulSets don't show conditions themselves so we look for an underlying Pod
-      - description: Gitlab Gitaly Health Check
+      - description: GitLab Gitaly Health Check
         wait:
           cluster:
             kind: Pod
@@ -66,7 +70,7 @@ tasks:
             namespace: gitlab
             condition: Ready
 
-      - description: Gitlab Migrations Health Check
+      - description: GitLab Migrations Health Check
         wait:
           cluster:
             kind: Job
@@ -76,12 +80,70 @@ tasks:
 
   - name: ingress
     actions:
-      - description: Gitlab UI Health Check
-        wait:
-          network:
-            protocol: https
-            address: gitlab.uds.dev
-            code: 200
+      # `/-/readiness` endpoint returns 503 if any checks fail.
+      # When `?all=1` is specified, dependent services are also checked.
+      # https://docs.gitlab.com/ee/administration/monitoring/health_check.html#readiness
+      - description: GitLab Readiness Check
+        maxRetries: 30
+        cmd: |
+          STATUS=$(curl -s -o /dev/null --write-out '%{http_code}' 'https://gitlab.uds.dev/-/readiness?all=1')
+          echo "GitLab readiness status: ${STATUS}"
+          if [ $STATUS != "200" ]; then
+            sleep 10
+            exit 1
+          fi
+
+  - name: git
+    description: GitLab Repository Mirror Checks
+    actions:
+      - cmd: |
+          ./uds zarf package create --confirm
+        dir: tests/data
+      - task: create-doug-pat
+      - cmd: |
+          ./uds zarf package mirror-resources \
+            zarf-package-gitlab-git-tests-${UDS_ARCH}-0.0.1.tar.zst \
+            --git-url "https://gitlab.uds.dev" \
+            --git-push-username "doug" \
+            --git-push-password "${GITLAB_TOKEN}" \
+            --confirm
+        dir: tests/data
+
+  - name: ui
+    description: GitLab UI Checks
+    actions:
+      - cmd: npm ci
+        dir: tests
+      - cmd: npx playwright install --with-deps
+        dir: tests
+      - cmd: npx playwright test
+        dir: tests
+
+  - name: create-doug-admin
+    description: Create "doug" account as admin (must be run *before* first login)
+    actions:
+      - cmd: |
+          ./uds zarf tools kubectl exec -n gitlab deployment/gitlab-toolbox -- gitlab-rails runner -e production '\
+          user = User.new(username: "doug", name: "Doug Unicorn", email: "doug@uds.dev", password: "0123456789!", password_confirmation: "0123456789!"); \
+          user.assign_personal_namespace!; \
+          user.skip_confirmation!; \
+          user.admin = true; \
+          user.save!; \
+          puts user.username; puts user.id; \
+          '
+
+  - name: create-doug-pat
+    description: Create personal access token (PAT) for "doug" account
+    actions:
+      - cmd: |
+          ./uds zarf tools kubectl exec -n gitlab deployment/gitlab-toolbox -- gitlab-rails runner -e production '\
+          user = User.find_by_username("doug"); \
+          token = user.personal_access_tokens.create(scopes: ["api"], name: "doug", expires_at: 365.days.from_now); \
+          token.save!; \
+          puts token.token; \
+          '
+        setVariables:
+          - name: GITLAB_TOKEN
 
   - name: root-password
     actions:
