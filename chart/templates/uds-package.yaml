@@ -7,7 +7,7 @@ spec:
   {{- if and (.Values.sso.enabled) (eq .Values.sso.protocol "openid_connect") }}
   sso:
     - name: GitLab Login
-      clientId: uds-swf-gitlab-saml
+      clientId: uds-swf-gitlab
       redirectUris:
         - "https://gitlab.{{ .Values.domain }}/users/auth/openid_connect/callback"
 
@@ -46,7 +46,7 @@ spec:
   {{- else if and (.Values.sso.enabled) (eq .Values.sso.protocol "saml") }}
   sso:
     - name: GitLab Login
-      clientId: uds-swf-gitlab
+      clientId: uds-swf-gitlab-saml
       redirectUris:
         - "https://gitlab.{{ .Values.domain }}/users/auth/saml/callback"
 
