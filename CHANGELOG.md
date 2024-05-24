@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [17.0.1-uds.1](https://github.com/defenseunicorns/uds-package-gitlab/compare/v17.0.1-uds.0...v17.0.1-uds.1) (2024-05-24)
+
+
+### Features
+
+* add saml sso support as the default ([#118](https://github.com/defenseunicorns/uds-package-gitlab/issues/118)) ([d1bc561](https://github.com/defenseunicorns/uds-package-gitlab/commit/d1bc561baa43165a8267f4fe219f4aa4c96548ca))
+
+
+### Miscellaneous
+
+* **deps:** update support-deps to v37.377.2 ([#134](https://github.com/defenseunicorns/uds-package-gitlab/issues/134)) ([028c3b8](https://github.com/defenseunicorns/uds-package-gitlab/commit/028c3b8c53c073e14db8f2028fceba987b95d66d))
+
 ## [17.0.1-uds.0](https://github.com/defenseunicorns/uds-package-gitlab/compare/v16.11.1-uds.1...v17.0.1-uds.0) (2024-05-24)
 
 
