@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file.
 
+## [17.0.1-uds.0](https://github.com/defenseunicorns/uds-package-gitlab/compare/v16.11.1-uds.1...v17.0.1-uds.0) (2024-05-24)
+
+
+### Bug Fixes
+
+* correct `objectStorage` secret Helm value key for toolbox backups ([366c703](https://github.com/defenseunicorns/uds-package-gitlab/commit/366c703a44681a4b4b77f611b77a840c0e3768b5))
+
+
+### Miscellaneous
+
+* add basic smoke tests with sso, git commit, and file uploads ([#132](https://github.com/defenseunicorns/uds-package-gitlab/issues/132)) ([2c34cf9](https://github.com/defenseunicorns/uds-package-gitlab/commit/2c34cf96803e6bc921574f7024f361dc4b3a3690)), closes [#130](https://github.com/defenseunicorns/uds-package-gitlab/issues/130)
+* address prod issues with gitlab ([#131](https://github.com/defenseunicorns/uds-package-gitlab/issues/131)) ([ddea7ff](https://github.com/defenseunicorns/uds-package-gitlab/commit/ddea7ffa0133fd2c44bd358bad31207d123fa6f4))
+* cleanup dev secrets to remove postgres refs ([#126](https://github.com/defenseunicorns/uds-package-gitlab/issues/126)) ([430ebba](https://github.com/defenseunicorns/uds-package-gitlab/commit/430ebbae9a7be246f0ade6c8894a32e169a173b6))
+* **deps:** update gitlab package dependencies ([#121](https://github.com/defenseunicorns/uds-package-gitlab/issues/121)) ([366c703](https://github.com/defenseunicorns/uds-package-gitlab/commit/366c703a44681a4b4b77f611b77a840c0e3768b5))
+* **deps:** update gitlab support dependencies ([#123](https://github.com/defenseunicorns/uds-package-gitlab/issues/123)) ([8ecd5b4](https://github.com/defenseunicorns/uds-package-gitlab/commit/8ecd5b44420d89611f123bd060df4687c90743b1))
+* update dev-secrets to use vendored kubectl command ([#129](https://github.com/defenseunicorns/uds-package-gitlab/issues/129)) ([eb7f356](https://github.com/defenseunicorns/uds-package-gitlab/commit/eb7f3569ce79edec1794daf4e2139fea4f07e58f))
+
 ## [16.11.1-uds.1](https://github.com/defenseunicorns/uds-package-gitlab/compare/v16.11.1-uds.0...v16.11.1-uds.1) (2024-05-07)
 
 
