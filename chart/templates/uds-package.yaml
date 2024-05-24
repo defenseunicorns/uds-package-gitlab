@@ -4,12 +4,13 @@ metadata:
   name: gitlab
   namespace: {{ .Release.Namespace }}
 spec:
-  {{- if .Values.sso.enabled }}
+  {{- if and (.Values.sso.enabled) (eq .Values.sso.protocol "openid_connect") }}
   sso:
-    - name: Gitlab SSO
+    - name: GitLab Login
       clientId: uds-swf-gitlab
       redirectUris:
         - "https://gitlab.{{ .Values.domain }}/users/auth/openid_connect/callback"
+
       secretName: {{ .Values.sso.secretName }}
       secretTemplate:
         # GitLab expects a providers JSON file that is documented more here: https://gitlab-org.gitlab.io/technical-writing-group/gitlab-docs-hugo/administration/auth/oidc/
@@ -40,6 +41,40 @@ spec:
                 "userinfo_endpoint": "https://sso.{{ .Values.domain }}/realms/uds/protocol/openid-connect/userinfo",
                 "jwks_uri": "http://keycloak-http.keycloak.svc.cluster.local:8080/realms/uds/protocol/openid-connect/certs"
               }
+            }
+          }
+  {{- else if and (.Values.sso.enabled) (eq .Values.sso.protocol "saml") }}
+  sso:
+    - name: GitLab Login
+      clientId: uds-swf-gitlab-saml
+      redirectUris:
+        - "https://gitlab.{{ .Values.domain }}/users/auth/saml/callback"
+
+      protocol: saml
+      defaultClientScopes:
+        - "mapper-saml-email-email"
+        - "mapper-saml-firstname-first_name"
+        - "mapper-saml-lastname-last_name"
+        - "mapper-saml-grouplist-groups"
+
+      attributes:
+        saml.client.signature: "false"
+
+      secretName: {{ .Values.sso.secretName }}
+      secretTemplate:
+        # GitLab expects a providers JSON file that is documented more here: https://docs.gitlab.com/ee/integration/saml.html
+        providers: |
+          {
+            "name":"saml",
+            "label":"SSO",
+            "groups_attribute": "Groups",
+            "admin_groups": {{ .Values.sso.adminGroups | toJson }},
+            "args":{
+                "assertion_consumer_service_url": "https://gitlab.{{ .Values.domain }}/users/auth/saml/callback",
+                "idp_cert": "clientField(samlIdpCertificate)",
+                "idp_sso_target_url": "https://sso.{{ .Values.domain }}/realms/uds/protocol/saml",
+                "issuer": "clientField(clientId)",
+                "name_identifier_format": "urn:oasis:names:tc:SAML:2.0:nameid-format:persistent",
             }
           }
   {{- end }}
