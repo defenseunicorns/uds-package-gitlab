@@ -3,7 +3,7 @@ sso:
   enabled: true
   protocol: saml
   secretName: gitlab-sso
-  adminGroups: ["/GitLab Admins"]
+  adminGroups: ["/GitLab Admin", "/UDS Core/Admin"]
 storage:
   # Set to false to use external storage
   internal: true
