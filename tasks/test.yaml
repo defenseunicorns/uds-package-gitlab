@@ -83,6 +83,24 @@ tasks:
             address: gitlab.uds.dev
             code: 200
 
+  - name: git
+    description: GitLab Repository Mirror Checks
+    actions:
+      - cmd: |
+          ./uds zarf package create --confirm
+        dir: tests/data
+      - task: create-doug-pat
+        setVariables:
+          - name: GITLAB_TOKEN
+      - cmd: |
+          ./uds zarf package mirror-resources \
+            zarf-package-gitlab-git-tests-${UDS_ARCH}-0.0.1.tar.zst \
+            --git-url "https://gitlab.uds.dev" \
+            --git-push-username "doug" \
+            --git-push-password "$GITLAB_TOKEN" \
+            --confirm
+        dir: tests/data
+
   - name: ui
     description: GitLab UI Checks
     actions:
@@ -94,16 +112,28 @@ tasks:
         dir: tests
 
   - name: create-doug-admin
-    description: Promote Doug to admin (requires running setup:create-doug-user and logging into gitlab ui first)
+    description: Create "doug" account as admin (must be run *before* first login)
     actions:
       - cmd: |
           ./uds zarf tools kubectl exec -n gitlab deployment/gitlab-toolbox -- gitlab-rails runner -e production '\
           user = User.new(username: "doug", name: "Doug Unicorn", email: "doug@uds.dev", password: "0123456789!", password_confirmation: "0123456789!"); \
-          user.assign_personal_namespace(Organizations::Organization.default_organization); \
+          user.assign_personal_namespace!; \
           user.skip_confirmation!; \
           user.admin = true; \
           user.save!; \
-          puts user.username; puts user.id'
+          puts user.username; puts user.id; \
+          '
+
+  - name: create-doug-pat
+    description: Create personal access token (PAT) for "doug" account
+    actions:
+      - cmd: |
+          ./uds zarf tools kubectl exec -n gitlab deployment/gitlab-toolbox -- gitlab-rails runner -e production '\
+          user = User.find_by_username("doug"); \
+          token = user.personal_access_tokens.create(scopes: ["api"], name: "doug", expires_at: 365.days.from_now); \
+          token.save!; \
+          puts token.token; \
+          '
 
   - name: root-password
     actions:

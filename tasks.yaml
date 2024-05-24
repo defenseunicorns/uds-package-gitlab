@@ -51,6 +51,7 @@ tasks:
       - task: test:health-check
       - task: test:ingress
       - task: test:ui
+      - task: test:git
 
   - name: test-upgrade
     description: Test an upgrade from the latest released package to the current branch
@@ -64,3 +65,4 @@ tasks:
       - task: test:health-check
       - task: test:ingress
       - task: test:ui
+      - task: test:git

@@ -9,8 +9,9 @@ test('setup a project', async ({ page }) => {
   const projectName = randomProjectName();
 
   await page.goto('/projects/new#blank_project');
-
   await page.getByLabel('Project name').fill(projectName);
+  await page.getByRole('button', { name: 'Pick a group or namespace' }).click();
+  await page.getByRole('option').filter({ hasText: 'doug' }).click();
   await page.getByLabel('Initialize repository with a README').setChecked(true);
   await page.getByRole('button', { name: 'Create project' }).click();
 
@@ -66,54 +67,4 @@ test('setup a project', async ({ page }) => {
     expect(project.path).toBe(projectName);
     expect(project.namespace.path).toBe('doug');
   });
-});
-
-// does not work locally, unsure why
-test.skip('import a project', async ({ page }) => {
-  await page.goto('/');
-
-  const token = await page.locator('meta[name=csrf-token]').getAttribute('content');
-  expect(token).toBeDefined();
-
-  const headers = {
-    'X-CSRF-Token': token || '',
-  };
-
-  await test.step('enable repository imports', async () => {
-    const res = await page.request.put('/api/v4/application/settings', {
-      headers,
-      data: {
-        import_sources: [ 'git' ],
-      }
-    });
-
-    await expect(res).toBeOK();
-  });
-
-  await test.step('import repository', async () => {
-    const projectName = randomProjectName('uds-core-import');
-    const res = await page.request.post('/api/v4/projects', {
-      headers,
-      data: {
-        name: projectName,
-        import_url: 'https://github.com/defenseunicorns/uds-core.git',
-      }
-    });
-
-    await expect(res).toBeOK();
-
-    const project = await res.json();
-
-    expect(project.path).toBe(projectName);
-    expect(project.namespace.path).toBe('doug');
-
-    await expect(async () => {
-      const status = await page.request.get(`/api/v4/projects/${project.id}/import`)
-        .then(res => res.json());
-
-      expect(status.import_type).toBe('git');
-      expect(status.import_status).toBe('finished');
-    }, 'import is finished')
-    .toPass({ timeout: 120_000 });
-  })
 });
