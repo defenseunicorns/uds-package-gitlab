@@ -1,3 +1,7 @@
+variables:
+  - name: GITLAB_TOKEN
+    default: glpat-NO_DEFAULT_VALUE
+
 tasks:
   - name: health-check
     actions:
@@ -96,14 +100,12 @@ tasks:
           ./uds zarf package create --confirm
         dir: tests/data
       - task: create-doug-pat
-        setVariables:
-          - name: GITLAB_TOKEN
       - cmd: |
           ./uds zarf package mirror-resources \
             zarf-package-gitlab-git-tests-${UDS_ARCH}-0.0.1.tar.zst \
             --git-url "https://gitlab.uds.dev" \
             --git-push-username "doug" \
-            --git-push-password "$GITLAB_TOKEN" \
+            --git-push-password "${GITLAB_TOKEN}" \
             --confirm
         dir: tests/data
 
@@ -140,6 +142,8 @@ tasks:
           token.save!; \
           puts token.token; \
           '
+        setVariables:
+          - name: GITLAB_TOKEN
 
   - name: root-password
     actions:
