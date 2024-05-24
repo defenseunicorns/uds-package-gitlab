@@ -85,5 +85,5 @@ components:
       - "registry.gitlab.com/gitlab-org/build/cng/gitlab-webservice-ee:v17.0.1"
       - "registry.gitlab.com/gitlab-org/build/cng/gitlab-workhorse-ee:v17.0.1"
       - "registry.gitlab.com/gitlab-org/build/cng/kubectl:v17.0.1"
-      - "docker.io/redhat/ubi8:8.10"
+      - "docker.io/redhat/ubi9:9.4"
       - "registry.gitlab.com/gitlab-org/build/cng/gitlab-exporter:v17.0.1"
