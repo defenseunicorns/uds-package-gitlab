@@ -10,8 +10,6 @@ test('setup a project', async ({ page }) => {
 
   await page.goto('/projects/new#blank_project');
   await page.getByLabel('Project name').fill(projectName);
-  await page.getByRole('button', { name: 'Pick a group or namespace' }).click();
-  await page.getByRole('option').filter({ hasText: 'doug' }).click();
   await page.getByLabel('Initialize repository with a README').setChecked(true);
   await page.getByRole('button', { name: 'Create project' }).click();
 
