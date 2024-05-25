@@ -5,10 +5,11 @@ All notable changes to this project will be documented in this file.
 ## [17.0.1-uds.1](https://github.com/defenseunicorns/uds-package-gitlab/compare/v17.0.1-uds.0...v17.0.1-uds.1) (2024-05-24)
 
 
-### Features
+### ⚠ BREAKING CHANGES
 
 * add saml sso support as the default ([#118](https://github.com/defenseunicorns/uds-package-gitlab/issues/118)) ([d1bc561](https://github.com/defenseunicorns/uds-package-gitlab/commit/d1bc561baa43165a8267f4fe219f4aa4c96548ca))
 
+> **NOTE:** The above change should convert existing instances from OIDC to SAML seamlessly, but will _require_ UDS Core v0.22.0 or higher.
 
 ### Miscellaneous
 
