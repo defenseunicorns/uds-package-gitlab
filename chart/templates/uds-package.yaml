@@ -239,6 +239,32 @@ spec:
         {{- end }}
         description: "Sidekiq Postgres"
 
+      - direction: Egress
+        selector:
+          app: gitlab-exporter
+        {{- if .Values.redis.internal }}
+        remoteNamespace: {{ .Values.redis.namespace | quote }}
+        remoteSelector:
+          {{ .Values.redis.selector | toYaml | nindent 10 }}
+        port: {{ .Values.redis.port }}
+        {{- else }}
+        remoteGenerated: Anywhere
+        {{- end }}
+        description: "Exporter Redis"
+
+      - direction: Egress
+        selector:
+          app: gitlab-exporter
+        {{- if .Values.postgres.internal }}
+        remoteNamespace: {{ .Values.postgres.namespace | quote }}
+        remoteSelector:
+          {{ .Values.postgres.selector | toYaml | nindent 10 }}
+        port: {{ .Values.postgres.port }}
+        {{- else }}
+        remoteGenerated: Anywhere
+        {{- end }}
+        description: "Exporter Postgres"
+
       # Migrations Netpols
       - direction: Egress
         selector:
