@@ -11,7 +11,7 @@ jobs:
     strategy:
       matrix:
         flavor: [upstream, registry1]
-        architecture: [amd64, arm64]
+        architecture: [arm64]
         exclude:
           - flavor: registry1
             architecture: arm64
