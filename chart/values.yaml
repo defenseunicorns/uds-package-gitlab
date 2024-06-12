@@ -19,6 +19,8 @@ redis:
   namespace: dev-redis
   port: 6379
 postgres:
+  password: ""
+
   # Set to false to use external postgres
   internal: true
   selector:
