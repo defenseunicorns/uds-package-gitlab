@@ -43,3 +43,6 @@ In order to provide a connection to a database via IRSA you must enable IRSA in 
 - `gitlab.toolbox.serviceAccount.annotations.irsa/role-arn` - sets the ARN of the role for the `toolbox` service
 - `gitlab.migrations.serviceAccount.annotations.irsa/role-arn` - sets the ARN of the role for the `migrations` service
 - `gitlab.gitlab-exporter.serviceAccount.annotations.irsa/role-arn` - sets the ARN of the role for the `gitlab-exporter` service
+
+> [!TIP]
+> For more information on how GitLab interacts with databases through its Helm chart see the [GitLab documentation on connecting to external databases](https://gitlab.com/gitlab-org/charts/gitlab/-/tree/master/doc/advanced/external-db).
