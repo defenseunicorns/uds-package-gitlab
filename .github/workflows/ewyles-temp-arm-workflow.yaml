@@ -1,32 +1,21 @@
-name: Publish UDS Package Gitlab
+name: Test Build and Test on ARM64
 
 on:
   push:
     branches:
-      - main
+      - ewyles/pre-release-testing
 
 jobs:
-  tag-new-version:
-    name: Tag New Version
-    permissions: write-all
-    runs-on: ubuntu-latest
-    outputs:
-      release_created: ${{ steps.release-flag.outputs.release_created }}
-    steps:
-      - name: Create release tag
-        id: tag
-        uses: google-github-actions/release-please-action@e4dc86ba9405554aeba3c6bb2d169500e7d3b4ee # v4.1.1
-      - id: release-flag
-        run: echo "release_created=${{ steps.tag.outputs.release_created || false }}" >> $GITHUB_OUTPUT
-
   publish-package:
-    needs: tag-new-version
-    if: ${{ needs.tag-new-version.outputs.release_created == 'true' }}
-    runs-on: ubuntu-latest
-    name: Publish ${{ matrix.flavor }}
+    runs-on: ${{ matrix.architecture == 'arm64' && 'uds-ubuntu-arm64-4-core' || 'ubuntu-latest' }}
     strategy:
       matrix:
         flavor: [upstream, registry1]
+        architecture: [amd64, arm64]
+        exclude:
+          - flavor: registry1
+            architecture: arm64
+    name: Publish ${{ matrix.flavor }} ${{ matrix.architecture }}
 
     permissions:
       contents: read
@@ -43,11 +32,7 @@ jobs:
           ghToken: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish Package
-        run: uds run -f tasks/publish.yaml package --set FLAVOR=${{ matrix.flavor }}
-
-      - name: Publish Bundle
-        if: ${{ matrix.flavor == 'upstream' }}
-        run: uds run -f tasks/publish.yaml test-bundle --set FLAVOR=${{ matrix.flavor }}
+        run: UDS_ARCHITECTURE=${{ matrix.architecture }} uds run -f tasks/ewyles-temp.yaml package --set FLAVOR=${{ matrix.flavor }}
 
       - name: Debug Output
         if: ${{ always() }}

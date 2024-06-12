@@ -1,0 +1,22 @@
+includes:
+  - dependencies: ./dependencies.yaml
+  - test: ./test.yaml
+  - create: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.5.0/tasks/create.yaml
+  - deploy: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.5.0/tasks/deploy.yaml
+  - setup: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.5.0/tasks/setup.yaml
+  - publish: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.5.0/tasks/publish.yaml
+
+
+tasks:
+  - name: package
+    description: Build and publish the packages
+    actions:
+      - task: create:package
+      - task: dependencies:create
+      - task: create:test-bundle      
+      - task: setup:k3d-test-cluster
+      - task: deploy:test-bundle
+      - task: setup:create-doug-user
+      - task: test:all
+
+

@@ -1,7 +1,7 @@
 includes:
   - dependencies: ./dependencies.yaml
-  - create: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.4.5/tasks/create.yaml
-  - publish: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.4.5/tasks/publish.yaml
+  - create: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.5.0/tasks/create.yaml
+  - publish: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.5.0/tasks/publish.yaml
 
 tasks:
   - name: package
