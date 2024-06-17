@@ -7,7 +7,7 @@ on:
 
 jobs:
   publish-package:
-    runs-on: ${{ matrix.architecture == 'arm64' && 'uds-ubuntu-arm64-8-core' || 'uds-ubuntu-big-boy-8-core' }}
+    runs-on: ${{ matrix.architecture == 'arm64' && 'uds-ubuntu-arm64-16-core' || 'uds-ubuntu-big-boy-8-core' }}
     strategy:
       matrix:
         flavor: [upstream]
