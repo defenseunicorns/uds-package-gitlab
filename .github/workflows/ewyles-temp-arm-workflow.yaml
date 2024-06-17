@@ -7,11 +7,11 @@ on:
 
 jobs:
   publish-package:
-    runs-on: ${{ matrix.architecture == 'arm64' && 'uds-ubuntu-arm64-4-core' || 'uds-ubuntu-big-boy-8-core' }}
+    runs-on: ${{ matrix.architecture == 'arm64' && 'uds-ubuntu-arm64-8-core' || 'uds-ubuntu-big-boy-8-core' }}
     strategy:
       matrix:
-        flavor: [upstream, registry1]
-        architecture: [amd64]
+        flavor: [upstream]
+        architecture: [amd64, arm64]
         exclude:
           - flavor: registry1
             architecture: arm64
