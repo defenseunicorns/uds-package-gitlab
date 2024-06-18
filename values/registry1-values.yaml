@@ -5,7 +5,8 @@ gitlab:
       tag: 17.0.2
     workhorse:
       image: registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-workhorse
-      tag: 17.0.1
+      # renovate: datasource=docker depName=registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-workhorse versioning=semver
+      tag: 17.0.2
   sidekiq:
     image:
       repository: registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-sidekiq
