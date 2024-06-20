@@ -1,4 +1,4 @@
-name: Publish UDS Package Gitlab
+name: Publish UDS Package GitLab
 
 on:
   push:
@@ -22,11 +22,15 @@ jobs:
   publish-package:
     needs: tag-new-version
     if: ${{ needs.tag-new-version.outputs.release_created == 'true' }}
-    runs-on: ubuntu-latest
-    name: Publish ${{ matrix.flavor }}
+    runs-on: ${{ matrix.architecture == 'arm64' && 'uds-ubuntu-arm64-8-core' || 'uds-ubuntu-big-boy-8-core' }}
+    name: Publish ${{ matrix.flavor }} ${{ matrix.architecture }}
     strategy:
       matrix:
         flavor: [upstream, registry1]
+        architecture: [amd64, arm64]
+        exclude:
+          - flavor: registry1
+            architecture: arm64
 
     permissions:
       contents: read
@@ -36,21 +40,35 @@ jobs:
       - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
 
       - name: Environment setup
-        uses: defenseunicorns/uds-common/.github/actions/setup@11e591f2ec7d158923d973c85097ce28a5f55db4 # v0.4.5
+        uses: defenseunicorns/uds-common/.github/actions/setup@0901c37366f37fea586768c79708e14e964e714e # v0.6.1
         with:
           registry1Username: ${{ secrets.IRON_BANK_ROBOT_USERNAME }}
           registry1Password: ${{ secrets.IRON_BANK_ROBOT_PASSWORD }}
           ghToken: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Playwright setup
+        uses: defenseunicorns/uds-common/.github/actions/playwright@0901c37366f37fea586768c79708e14e964e714e # v0.6.1
+
+      - name: Build Package
+        run: uds run -f tasks/publish.yaml build-package --set FLAVOR=${{ matrix.flavor }}
+
+      - name: Test Package
+        if: ${{ runner.arch != 'ARM64' }}
+        run: uds run -f tasks/publish.yaml test-package --set FLAVOR=${{ matrix.flavor }}
+
       - name: Publish Package
-        run: uds run -f tasks/publish.yaml package --set FLAVOR=${{ matrix.flavor }}
+        run: uds run -f tasks/publish.yaml publish-package --set FLAVOR=${{ matrix.flavor }}
 
       - name: Publish Bundle
         if: ${{ matrix.flavor == 'upstream' }}
-        run: uds run -f tasks/publish.yaml test-bundle --set FLAVOR=${{ matrix.flavor }}
+        run: uds run -f tasks/publish.yaml publish-test-bundle --set FLAVOR=${{ matrix.flavor }}
+
+      - name: Debug Output
+        if: ${{ always() }}
+        uses: defenseunicorns/uds-common/.github/actions/debug-output@0901c37366f37fea586768c79708e14e964e714e # v0.6.1
 
       - name: Save logs
         if: always()
-        uses: defenseunicorns/uds-common/.github/actions/save-logs@11e591f2ec7d158923d973c85097ce28a5f55db4 # v0.4.5
+        uses: defenseunicorns/uds-common/.github/actions/save-logs@0901c37366f37fea586768c79708e14e964e714e # v0.6.1
         with:
-          suffix: '${{ matrix.flavor }}-${{ github.run_id }}-${{ github.run_attempt }}'
+          suffix: '${{ matrix.flavor }}-${{ matrix.architecture }}-${{ github.run_id }}-${{ github.run_attempt }}'

@@ -1,22 +1,30 @@
 includes:
   - dependencies: ./dependencies.yaml
-  - create: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.4.5/tasks/create.yaml
-  - publish: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.4.5/tasks/publish.yaml
+  - test: ./test.yaml
+  - create: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.6.1/tasks/create.yaml
+  - deploy: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.6.1/tasks/deploy.yaml
+  - publish: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.6.1/tasks/publish.yaml
+  - setup: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.6.1/tasks/setup.yaml
 
 tasks:
-  - name: package
+  - name: build-package
+    description: Build package
+    actions:
+      - task: create:package
+
+  - name: test-package
+    description: Test the package
+    actions:
+      - task: dependencies:create
+      - task: create:test-bundle
+      - task: setup:k3d-test-cluster
+      - task: deploy:test-bundle
+      - task: setup:create-doug-user
+      - task: test:all
+
+  - name: publish-package
     description: Build and publish the packages
     actions:
-      - description: Create the AMD64 package
-        task: create:package
-        with:
-          architecture: amd64
-
-      - description: Create the ARM64 package
-        task: create:package
-        with:
-          architecture: arm64
-
       - description: Publish the packages
         task: publish:package
         with:
@@ -24,29 +32,9 @@ tasks:
           version: "17.0.1-uds.1"
           # x-release-please-end
 
-  - name: test-bundle
+  - name: publish-test-bundle
     description: Build and publish the test bundles
     actions:
-      - description: Create the ARM64 deps package
-        task: dependencies:create
-        with:
-          architecture: amd64
-
-      - description: Create the ARM64 deps package
-        task: dependencies:create
-        with:
-          architecture: arm64
-
-      - description: Create the AMD64 bundle
-        task: create:test-bundle
-        with:
-          architecture: amd64
-
-      - description: Create the ARM64 bundle
-        task: create:test-bundle
-        with:
-          architecture: arm64
-
       - description: Publish the bundles
         task: publish:test-bundle
         with:
