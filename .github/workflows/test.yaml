@@ -52,25 +52,8 @@ jobs:
           registry1Password: ${{ secrets.IRON_BANK_ROBOT_PASSWORD }}
           ghToken: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Get installed Playwright version
-        id: playwright-version
-        run: echo "PLAYWRIGHT_VERSION=$(node -e "console.log(require('./package-lock.json').dependencies['@playwright/test'].version)")" >> $GITHUB_ENV
-        working-directory: ./tests
-      - name: Cache playwright binaries
-        uses: actions/cache@v3
-        id: playwright-cache
-        with:
-          path: |
-            ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-${{ env.PLAYWRIGHT_VERSION }}
-      - run: npm ci
-        working-directory: ./tests
-      - run: npx playwright install --with-deps
-        if: steps.playwright-cache.outputs.cache-hit != 'true'
-        working-directory: ./tests
-      - run: npx playwright install-deps
-        if: steps.playwright-cache.outputs.cache-hit != 'true'
-        working-directory: ./tests
+      - name: Playwright setup
+        uses: defenseunicorns/uds-common/.github/actions/playwright@e1fe52ccf33f447a544f136524e8456e0bf4aade
 
       - name: Test
         uses: defenseunicorns/uds-common/.github/actions/test@11e591f2ec7d158923d973c85097ce28a5f55db4 # v0.4.5
