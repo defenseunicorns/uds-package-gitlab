@@ -52,7 +52,7 @@ jobs:
 
       - name: Build Package
         run: uds run -f tasks/publish.yaml build-package --set FLAVOR=${{ matrix.flavor }}
-      
+
       - name: Build Bundle
         run: uds run -f tasks/publish.yaml build-test-bundle --set FLAVOR=${{ matrix.flavor }}
 
