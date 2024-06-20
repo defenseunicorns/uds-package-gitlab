@@ -53,7 +53,7 @@ jobs:
           ghToken: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Playwright setup
-        uses: defenseunicorns/uds-common/.github/actions/playwright@e1fe52ccf33f447a544f136524e8456e0bf4aade
+        uses: defenseunicorns/uds-common/.github/actions/playwright@4b297a08ef111e7a15cde5298466972334820372
 
       - name: Test
         uses: defenseunicorns/uds-common/.github/actions/test@11e591f2ec7d158923d973c85097ce28a5f55db4 # v0.4.5
