@@ -12,11 +12,15 @@ tasks:
     actions:
       - task: create:package
 
-  - name: test-package
-    description: Test the package
+  - name: build-test-bundle
+    description: Build the test bundle
     actions:
       - task: dependencies:create
       - task: create:test-bundle
+
+  - name: test-package
+    description: Test the package
+    actions:
       - task: setup:k3d-test-cluster
       - task: deploy:test-bundle
       - task: setup:create-doug-user

@@ -22,7 +22,8 @@ jobs:
   publish-package:
     needs: tag-new-version
     if: ${{ needs.tag-new-version.outputs.release_created == 'true' }}
-    runs-on: ${{ matrix.architecture == 'arm64' && 'uds-ubuntu-arm64-8-core' || 'uds-ubuntu-big-boy-8-core' }}
+    # TODO: (@WSTARR) since we don't run the tests on arm currently we don't need to use the 8 core
+    runs-on: ${{ matrix.architecture == 'arm64' && 'uds-ubuntu-arm64-4-core' || 'uds-ubuntu-big-boy-8-core' }}
     name: Publish ${{ matrix.flavor }} ${{ matrix.architecture }}
     strategy:
       matrix:
@@ -51,6 +52,9 @@ jobs:
 
       - name: Build Package
         run: uds run -f tasks/publish.yaml build-package --set FLAVOR=${{ matrix.flavor }}
+      
+      - name: Build Bundle
+        run: uds run -f tasks/publish.yaml build-test-bundle --set FLAVOR=${{ matrix.flavor }}
 
       - name: Test Package
         if: ${{ runner.arch != 'ARM64' }}
