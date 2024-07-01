@@ -2,13 +2,13 @@ import { test as setup, expect } from '@playwright/test';
 import { authFile } from './playwright.config';
 
 setup('authenticate', async ({ page, context }) => {
-  await page.goto('/');
+  await page.goto('/dashboard/projects');
 
   await page.getByLabel('Username or email').fill('doug');
   await page.getByLabel('Password').fill('unicorn123!@#');
   await page.getByRole('button', { name: "Log In" }).click();
 
-  await page.waitForURL('/');  // successful redirect
+  await page.waitForURL('/dashboard/projects');  // successful redirect
 
   // ensure auth cookies were set
   const cookies = await context.cookies();
@@ -22,5 +22,5 @@ setup('authenticate', async ({ page, context }) => {
 
   await page.context().storageState({ path: authFile });
 
-  await expect(page).toHaveURL('/');
+  await expect(page).toHaveURL('/dashboard/projects');
 })

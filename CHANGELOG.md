@@ -2,6 +2,35 @@
 
 All notable changes to this project will be documented in this file.
 
+## [17.1.1-uds.0](https://github.com/defenseunicorns/uds-package-gitlab/compare/v17.0.2-uds.0...v17.1.1-uds.0) (2024-06-27)
+
+
+### Miscellaneous
+
+* **deps:** update gitlab package dependencies ([#156](https://github.com/defenseunicorns/uds-package-gitlab/issues/156)) ([539df77](https://github.com/defenseunicorns/uds-package-gitlab/commit/539df77deb6dcfd98896ccee2bb0d88b2a2d5aa9))
+* **deps:** update gitlab support dependencies ([#143](https://github.com/defenseunicorns/uds-package-gitlab/issues/143)) ([1d78bf6](https://github.com/defenseunicorns/uds-package-gitlab/commit/1d78bf6beefa749306a26dbae0a3e1405c560ae8))
+
+## [17.0.2-uds.0](https://github.com/defenseunicorns/uds-package-gitlab/compare/v17.0.1-uds.1...v17.0.2-uds.0) (2024-06-20)
+
+
+### Features
+
+* add wait for GL package CR readiness ([#144](https://github.com/defenseunicorns/uds-package-gitlab/issues/144)) ([eaa59dd](https://github.com/defenseunicorns/uds-package-gitlab/commit/eaa59ddbe0ebdc6935732b104479f667be588dad))
+* allow for Postgres password secret generation ([#147](https://github.com/defenseunicorns/uds-package-gitlab/issues/147)) ([5d48380](https://github.com/defenseunicorns/uds-package-gitlab/commit/5d48380e57b40a66aa8000059f5f5caa1c6e7558))
+
+
+### Bug Fixes
+
+* add missing exporter netpols ([#142](https://github.com/defenseunicorns/uds-package-gitlab/issues/142)) ([9b5a258](https://github.com/defenseunicorns/uds-package-gitlab/commit/9b5a25876c8ee4432095ea9b94da9072b547f225))
+
+
+### Miscellaneous
+
+* cache playwright and add tests to amd64 release ([#155](https://github.com/defenseunicorns/uds-package-gitlab/issues/155)) ([4af9d3a](https://github.com/defenseunicorns/uds-package-gitlab/commit/4af9d3a210f4776909db5f3d611840c57a0f44e6))
+* **deps:** update gitlab package dependencies ([#154](https://github.com/defenseunicorns/uds-package-gitlab/issues/154)) ([e5a8f66](https://github.com/defenseunicorns/uds-package-gitlab/commit/e5a8f66a66ac635665e298c1ad7c7e9d1bf10223))
+* **deps:** update gitlab support dependencies ([#137](https://github.com/defenseunicorns/uds-package-gitlab/issues/137)) ([66bb3ba](https://github.com/defenseunicorns/uds-package-gitlab/commit/66bb3ba7947eb28f8d7764b80495c62b6c6a5937))
+* document how to use the database ([#149](https://github.com/defenseunicorns/uds-package-gitlab/issues/149)) ([3ec9044](https://github.com/defenseunicorns/uds-package-gitlab/commit/3ec90445035d1c18f4f06a891861c2a95c6a0af8))
+
 ## [17.0.1-uds.1](https://github.com/defenseunicorns/uds-package-gitlab/compare/v17.0.1-uds.0...v17.0.1-uds.1) (2024-05-24)
 
 

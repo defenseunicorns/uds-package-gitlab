@@ -2,11 +2,11 @@ includes:
   - cleanup: ./tasks/cleanup.yaml
   - dependencies: ./tasks/dependencies.yaml
   - test: ./tasks/test.yaml
-  - create: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.4.5/tasks/create.yaml
-  - lint: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.4.5/tasks/lint.yaml
-  - pull: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.4.5/tasks/pull.yaml
-  - deploy: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.4.5/tasks/deploy.yaml
-  - setup: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.4.5/tasks/setup.yaml
+  - create: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.6.1/tasks/create.yaml
+  - lint: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.6.1/tasks/lint.yaml
+  - pull: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.6.1/tasks/pull.yaml
+  - deploy: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.6.1/tasks/deploy.yaml
+  - setup: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.6.1/tasks/setup.yaml
 
 tasks:
   - name: default
@@ -54,10 +54,7 @@ tasks:
       - task: setup:k3d-test-cluster
       - task: deploy:test-bundle
       - task: setup:create-doug-user
-      - task: test:health-check
-      - task: test:ingress
-      - task: test:ui
-      - task: test:git
+      - task: test:all
 
   - name: test-upgrade
     description: Test an upgrade from the latest released package to the current branch
@@ -68,7 +65,4 @@ tasks:
       - task: create-gl-test-bundle
       - task: deploy:test-bundle
       - task: setup:create-doug-user
-      - task: test:health-check
-      - task: test:ingress
-      - task: test:ui
-      - task: test:git
+      - task: test:all

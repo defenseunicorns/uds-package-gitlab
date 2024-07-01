@@ -3,6 +3,13 @@ variables:
     default: glpat-NO_DEFAULT_VALUE
 
 tasks:
+  - name: all
+    actions:
+      - task: test:health-check
+      - task: test:ingress
+      - task: test:ui
+      - task: test:git
+
   - name: health-check
     actions:
       - description: GitLab Exporter Health Check
@@ -112,10 +119,6 @@ tasks:
   - name: ui
     description: GitLab UI Checks
     actions:
-      - cmd: npm ci
-        dir: tests
-      - cmd: npx playwright install --with-deps
-        dir: tests
       - cmd: npx playwright test
         dir: tests
 
@@ -149,3 +152,10 @@ tasks:
     actions:
       - description: Get the root password for GitLab (useful for local dev)
         cmd: ./uds zarf tools kubectl get secret -n gitlab gitlab-gitlab-initial-root-password -o jsonpath={.data.password} | base64 -d
+
+  - name: install-playwright-deps
+    actions:
+      - cmd: npm ci
+        dir: tests
+      - cmd: npx playwright install --with-deps
+        dir: tests
