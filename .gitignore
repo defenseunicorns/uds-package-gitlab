@@ -8,7 +8,7 @@ defense-unicorns-distro/preflight.sh
 .terraform
 tmp
 zarf-sbom
-
+.vscode/
 .cache/
 .idea/
 build/
