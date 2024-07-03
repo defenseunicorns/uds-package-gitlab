@@ -12,6 +12,8 @@ storage:
   namespace: dev-minio
   port: 9000
 redis:
+  password: ""
+
   # Set to false to use external redis
   internal: true
   selector:

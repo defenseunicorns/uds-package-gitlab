@@ -26,9 +26,27 @@ packages:
               description: "Configure postgres using CRs via the uds-postgres-config chart"
               path: postgresql
 
-  - name: dev-redis
-    repository: ghcr.io/defenseunicorns/packages/uds/dev-redis
-    ref: 0.0.2
+  - name: valkey
+    repository: ghcr.io/defenseunicorns/packages/uds/valkey
+    ref: 7.2.5-uds.1
+    overrides:
+      valkey:
+        uds-valkey-config:
+          values:
+            - path: custom
+              value:
+                - direction: Ingress
+                  selector:
+                    app.kubernetes.io/name: valkey
+                  remoteNamespace: gitlab
+                  port: 6379
+                  description: "Ingress from GitLab"
+            - path: copyPassword
+              value:
+                enabled: true
+                namespace: gitlab
+                secretName: gitlab-redis
+                secretKey: password
 
   - name: dev-secrets
     path: ../

@@ -52,21 +52,21 @@ jobs:
         uses: defenseunicorns/uds-common/.github/actions/playwright@0901c37366f37fea586768c79708e14e964e714e # v0.6.1
 
       - name: Build Package
-        run: uds run -f tasks/publish.yaml build-package --set FLAVOR=${{ matrix.flavor }}
+        run: uds run -f tasks/publish.yaml build-package --set FLAVOR=${{ matrix.flavor }} --no-progress
 
       - name: Build Bundle
-        run: uds run -f tasks/publish.yaml build-test-bundle --set FLAVOR=${{ matrix.flavor }}
+        run: uds run -f tasks/publish.yaml build-test-bundle --set FLAVOR=${{ matrix.flavor }} --no-progress
 
       - name: Test Package
         if: ${{ runner.arch != 'ARM64' }}
-        run: uds run -f tasks/publish.yaml test-package --set FLAVOR=${{ matrix.flavor }}
+        run: uds run -f tasks/publish.yaml test-package --set FLAVOR=${{ matrix.flavor }} --no-progress
 
       - name: Publish Package
-        run: uds run -f tasks/publish.yaml publish-package --set FLAVOR=${{ matrix.flavor }}
+        run: uds run -f tasks/publish.yaml publish-package --set FLAVOR=${{ matrix.flavor }} --no-progress
 
       - name: Publish Bundle
         if: ${{ matrix.flavor == 'upstream' }}
-        run: uds run -f tasks/publish.yaml publish-test-bundle --set FLAVOR=${{ matrix.flavor }}
+        run: uds run -f tasks/publish.yaml publish-test-bundle --set FLAVOR=${{ matrix.flavor }} --no-progress
 
       - name: Debug Output
         if: ${{ always() }}
