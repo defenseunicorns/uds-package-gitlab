@@ -33,7 +33,7 @@ packages:
                   gitlab.gitlab: []  # database owner
                 databases:
                   gitlabdb: gitlab.gitlab
-                version: "13"
+                version: "14"
                 ingress:
                   remoteGenerated: Anywhere
 
