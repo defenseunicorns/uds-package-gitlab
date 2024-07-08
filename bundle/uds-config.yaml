@@ -13,23 +13,7 @@ variables:
       - name: uds-gitlab-uploads
       - name: uds-gitlab-registry
       - name: uds-gitlab-tmp
-  postgres-operator:
-    postgresql:
-      enabled: true  # Set to false to not create the PostgreSQL resource
-      teamId: "uds"
-      volume:
-        size: "10Gi"
-      numberOfInstances: 2
-      users:
-        gitlab.gitlab: []  # database owner
-      databases:
-        gitlabdb: gitlab.gitlab
-      version: "13"
-      ingress:
-        remoteGenerated: Anywhere
   gitlab:
-    gitlab_redis_endpoint: "redis-master.dev-redis.svc.cluster.local"
-    gitlab_db_endpoint: "pg-cluster.postgres.svc.cluster.local"
     DISABLE_REGISTRY_REDIRECT: "true"
     GITLAB_PAGES_ENABLED: true
     GITLAB_ADMIN_GROUPS: ["/GitLab Admin", "/UDS Core/Admin"]

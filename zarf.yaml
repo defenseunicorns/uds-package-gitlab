@@ -15,7 +15,7 @@ variables:
   - name: BUCKET_SUFFIX
     default: ""
   - name: GITLAB_REDIS_ENDPOINT
-    default: "redis-master"
+    default: ""
   - name: GITLAB_REDIS_SCHEME
     default: "redis"
   - name: GITLAB_DB_NAME

@@ -21,10 +21,21 @@ packages:
     overrides:
       postgres-operator:
         uds-postgres-config:
-          variables:
-            - name: POSTGRESQL
-              description: "Configure postgres using CRs via the uds-postgres-config chart"
-              path: postgresql
+          values:
+            - path: postgresql
+              value:
+                enabled: true  # Set to false to not create the PostgreSQL resource
+                teamId: "uds"
+                volume:
+                  size: "10Gi"
+                numberOfInstances: 2
+                users:
+                  gitlab.gitlab: []  # database owner
+                databases:
+                  gitlabdb: gitlab.gitlab
+                version: "13"
+                ingress:
+                  remoteGenerated: Anywhere
 
   - name: valkey
     repository: ghcr.io/defenseunicorns/packages/uds/valkey
@@ -71,6 +82,11 @@ packages:
               description: "Array of group names that grant admin role gitlab when saml protocol is active."
               path: "sso.adminGroups"
         gitlab:
+          values:
+            - path: global.psql.host
+              value: pg-cluster.postgres.svc.cluster.local
+            - path: global.redis.host
+              value: valkey-master.valkey.svc.cluster.local
           variables:
             - name: GITLAB_SSO_ENABLED
               description: "Boolean to enable or disable sso things"
