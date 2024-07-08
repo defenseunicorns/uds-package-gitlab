@@ -17,8 +17,8 @@ redis:
   # Set to false to use external redis
   internal: true
   selector:
-    app.kubernetes.io/name: redis
-  namespace: dev-redis
+    app.kubernetes.io/name: valkey
+  namespace: valkey
   port: 6379
 postgres:
   password: ""
