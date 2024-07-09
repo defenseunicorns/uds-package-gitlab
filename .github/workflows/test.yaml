@@ -34,7 +34,7 @@ permissions:
 jobs:
   run-test:
     name: ${{ matrix.type }} ${{ matrix.flavor }}
-    runs-on: uds-ubuntu-big-boy-8-core
+    runs-on: uds-swf-ubuntu-big-boy-8-core
     timeout-minutes: 25
     strategy:
       matrix:

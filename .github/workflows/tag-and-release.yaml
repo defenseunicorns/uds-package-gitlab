@@ -23,7 +23,7 @@ jobs:
     needs: tag-new-version
     if: ${{ needs.tag-new-version.outputs.release_created == 'true' }}
     # TODO: (@WSTARR) since we don't run the tests on arm currently we don't need to use the 8 core
-    runs-on: ${{ matrix.architecture == 'arm64' && 'uds-ubuntu-arm64-4-core' || 'uds-ubuntu-big-boy-8-core' }}
+    runs-on: ${{ matrix.architecture == 'arm64' && 'uds-swf-ubuntu-arm64-4-core' || 'uds-swf-ubuntu-big-boy-8-core' }}
     name: Publish ${{ matrix.flavor }} ${{ matrix.architecture }}
     timeout-minutes: 40
     strategy:
