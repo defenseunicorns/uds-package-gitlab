@@ -1,4 +1,5 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/defenseunicorns/zarf/main/zarf.schema.json
+# TODO: (@WSTARR) This will no longer be needed after the next release of GitLab
 kind: ZarfPackageConfig
 metadata:
   name: dev-peer-auth-shim
