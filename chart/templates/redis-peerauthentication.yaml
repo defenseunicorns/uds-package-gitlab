@@ -2,14 +2,14 @@
 apiVersion: "security.istio.io/v1beta1"
 kind: PeerAuthentication
 metadata:
-  name: redis-peerauthentication-exception
-  namespace: {{ .Release.Namespace }}
+  name: gitlab-redis-peerauthentication-exception
+  namespace: {{ .Values.redis.namespace }}
 spec:
   mtls:
     mode: STRICT
   selector:
     matchLabels:
-      {{ .Values.redis.selector }}
+      {{ .Values.redis.selector | toYaml }}
   portLevelMtls:
     # Redis/Valkey exception to support GitLab dependency init containers
     {{ .Values.redis.port }}:
