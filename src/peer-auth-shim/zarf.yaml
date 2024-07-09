@@ -1,0 +1,14 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/defenseunicorns/zarf/main/zarf.schema.json
+kind: ZarfPackageConfig
+metadata:
+  name: dev-peer-auth-shim
+  version: "0.1.0"
+
+components:
+  - name: gitlab-peer-auth-shim
+    required: true
+    manifests:
+      - name: gitlab-peer-auth-shim
+        files:
+          - "postgres-peerauthentication.yaml"
+          - "redis-peerauthentication.yaml"

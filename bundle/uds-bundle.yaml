@@ -63,6 +63,10 @@ packages:
     path: ../
     ref: 0.1.0
 
+  - name: dev-peer-auth-shim
+    path: ../
+    ref: 0.1.0
+
   - name: gitlab
     path: ../
     # x-release-please-start-version
