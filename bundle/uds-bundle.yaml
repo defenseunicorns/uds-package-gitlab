@@ -17,7 +17,7 @@ packages:
 
   - name: postgres-operator
     repository: ghcr.io/defenseunicorns/packages/uds/postgres-operator
-    ref: 1.12.2-uds.0-upstream
+    ref: 1.12.2-uds.1-upstream
     overrides:
       postgres-operator:
         uds-postgres-config:
@@ -85,6 +85,10 @@ packages:
           values:
             - path: global.psql.host
               value: pg-cluster.postgres.svc.cluster.local
+            - path: "global.psql.username"
+              value: "gitlab.gitlab"
+            - path: "global.psql.password.secret"
+              value: "gitlab.gitlab.pg-cluster.credentials.postgresql.acid.zalan.do"
             - path: global.redis.host
               value: valkey-master.valkey.svc.cluster.local
           variables:
@@ -121,11 +125,3 @@ packages:
             - name: SHELL_REPLICAS
               description: "Gitlab Shell Min Replicas"
               path: "gitlab.gitlab-shell.minReplicas"
-            - name: POSTGRES_USERNAME
-              description: "Gitlab Postgres Username"
-              path: "global.psql.username"
-              default: "gitlab.gitlab"
-            - name: POSTGRES_SECRET_REF
-              description: "Gitlab Postgres Password Secret Ref"
-              path: "global.psql.password.secret"
-              default: "gitlab.gitlab.pg-cluster.credentials.postgresql.acid.zalan.do"
