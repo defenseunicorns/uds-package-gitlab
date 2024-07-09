@@ -46,32 +46,32 @@ jobs:
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
 
       - name: Environment setup
-        uses: defenseunicorns/uds-common/.github/actions/setup@0901c37366f37fea586768c79708e14e964e714e # v0.6.1
+        uses: defenseunicorns/uds-common/.github/actions/setup@772b3337950b7c8e0882c527263684306bba7ce4 # v0.7.1
         with:
           registry1Username: ${{ secrets.IRON_BANK_ROBOT_USERNAME }}
           registry1Password: ${{ secrets.IRON_BANK_ROBOT_PASSWORD }}
           ghToken: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Playwright setup
-        uses: defenseunicorns/uds-common/.github/actions/playwright@0901c37366f37fea586768c79708e14e964e714e # v0.6.1
+        uses: defenseunicorns/uds-common/.github/actions/playwright@772b3337950b7c8e0882c527263684306bba7ce4 # v0.7.1
 
       - name: Test
-        uses: defenseunicorns/uds-common/.github/actions/test@0901c37366f37fea586768c79708e14e964e714e # v0.6.1
+        uses: defenseunicorns/uds-common/.github/actions/test@772b3337950b7c8e0882c527263684306bba7ce4 # v0.7.1
         with:
           flavor: ${{ matrix.flavor }}
           type: ${{ matrix.type }}
 
       - name: Debug Output
         if: ${{ always() }}
-        uses: defenseunicorns/uds-common/.github/actions/debug-output@0901c37366f37fea586768c79708e14e964e714e # v0.6.1
+        uses: defenseunicorns/uds-common/.github/actions/debug-output@772b3337950b7c8e0882c527263684306bba7ce4 # v0.7.1
 
       - name: Save logs
         if: always()
-        uses: defenseunicorns/uds-common/.github/actions/save-logs@0901c37366f37fea586768c79708e14e964e714e # v0.6.1
+        uses: defenseunicorns/uds-common/.github/actions/save-logs@772b3337950b7c8e0882c527263684306bba7ce4 # v0.7.1
         with:
           suffix: ${{ matrix.type }}-${{ matrix.flavor }}-${{ github.run_id }}-${{ github.run_attempt }}
 
-      - uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # v4.3.3
+      - uses: actions/upload-artifact@0b2256b8c012f0828dc542b3febcab082c67f72b # v4.3.4
         if: always()
         with:
           name: playwright-report-${{ matrix.type }}-${{ matrix.flavor }}-${{ github.run_id }}-${{ github.run_attempt }}

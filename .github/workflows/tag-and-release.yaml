@@ -42,14 +42,14 @@ jobs:
       - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
 
       - name: Environment setup
-        uses: defenseunicorns/uds-common/.github/actions/setup@0901c37366f37fea586768c79708e14e964e714e # v0.6.1
+        uses: defenseunicorns/uds-common/.github/actions/setup@772b3337950b7c8e0882c527263684306bba7ce4 # v0.7.1
         with:
           registry1Username: ${{ secrets.IRON_BANK_ROBOT_USERNAME }}
           registry1Password: ${{ secrets.IRON_BANK_ROBOT_PASSWORD }}
           ghToken: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Playwright setup
-        uses: defenseunicorns/uds-common/.github/actions/playwright@0901c37366f37fea586768c79708e14e964e714e # v0.6.1
+        uses: defenseunicorns/uds-common/.github/actions/playwright@772b3337950b7c8e0882c527263684306bba7ce4 # v0.7.1
 
       - name: Build Package
         run: uds run -f tasks/publish.yaml build-package --set FLAVOR=${{ matrix.flavor }} --no-progress
@@ -70,10 +70,10 @@ jobs:
 
       - name: Debug Output
         if: ${{ always() }}
-        uses: defenseunicorns/uds-common/.github/actions/debug-output@0901c37366f37fea586768c79708e14e964e714e # v0.6.1
+        uses: defenseunicorns/uds-common/.github/actions/debug-output@772b3337950b7c8e0882c527263684306bba7ce4 # v0.7.1
 
       - name: Save logs
         if: always()
-        uses: defenseunicorns/uds-common/.github/actions/save-logs@0901c37366f37fea586768c79708e14e964e714e # v0.6.1
+        uses: defenseunicorns/uds-common/.github/actions/save-logs@772b3337950b7c8e0882c527263684306bba7ce4 # v0.7.1
         with:
           suffix: '${{ matrix.flavor }}-${{ matrix.architecture }}-${{ github.run_id }}-${{ github.run_attempt }}'
