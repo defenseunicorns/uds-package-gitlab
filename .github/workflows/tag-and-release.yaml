@@ -23,7 +23,7 @@ jobs:
     needs: tag-new-version
     if: ${{ needs.tag-new-version.outputs.release_created == 'true' }}
     # TODO: (@WSTARR) since we don't run the tests on arm currently we don't need to use the 8 core
-    runs-on: ${{ matrix.architecture == 'arm64' && 'uds-ubuntu-arm64-4-core' || 'uds-ubuntu-big-boy-8-core' }}
+    runs-on: ${{ matrix.architecture == 'arm64' && 'uds-swf-ubuntu-arm64-4-core' || 'uds-swf-ubuntu-big-boy-8-core' }}
     name: Publish ${{ matrix.flavor }} ${{ matrix.architecture }}
     timeout-minutes: 40
     strategy:
@@ -52,21 +52,21 @@ jobs:
         uses: defenseunicorns/uds-common/.github/actions/playwright@772b3337950b7c8e0882c527263684306bba7ce4 # v0.7.1
 
       - name: Build Package
-        run: uds run -f tasks/publish.yaml build-package --set FLAVOR=${{ matrix.flavor }}
+        run: uds run -f tasks/publish.yaml build-package --set FLAVOR=${{ matrix.flavor }} --no-progress
 
       - name: Build Bundle
-        run: uds run -f tasks/publish.yaml build-test-bundle --set FLAVOR=${{ matrix.flavor }}
+        run: uds run -f tasks/publish.yaml build-test-bundle --set FLAVOR=${{ matrix.flavor }} --no-progress
 
       - name: Test Package
         if: ${{ runner.arch != 'ARM64' }}
-        run: uds run -f tasks/publish.yaml test-package --set FLAVOR=${{ matrix.flavor }}
+        run: uds run -f tasks/publish.yaml test-package --set FLAVOR=${{ matrix.flavor }} --no-progress
 
       - name: Publish Package
-        run: uds run -f tasks/publish.yaml publish-package --set FLAVOR=${{ matrix.flavor }}
+        run: uds run -f tasks/publish.yaml publish-package --set FLAVOR=${{ matrix.flavor }} --no-progress
 
       - name: Publish Bundle
         if: ${{ matrix.flavor == 'upstream' }}
-        run: uds run -f tasks/publish.yaml publish-test-bundle --set FLAVOR=${{ matrix.flavor }}
+        run: uds run -f tasks/publish.yaml publish-test-bundle --set FLAVOR=${{ matrix.flavor }} --no-progress
 
       - name: Debug Output
         if: ${{ always() }}

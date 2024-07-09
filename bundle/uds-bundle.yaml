@@ -17,20 +17,53 @@ packages:
 
   - name: postgres-operator
     repository: ghcr.io/defenseunicorns/packages/uds/postgres-operator
-    ref: 1.10.1-uds.4-upstream
+    ref: 1.12.2-uds.1-upstream
     overrides:
       postgres-operator:
         uds-postgres-config:
-          variables:
-            - name: POSTGRESQL
-              description: "Configure postgres using CRs via the uds-postgres-config chart"
-              path: postgresql
+          values:
+            - path: postgresql
+              value:
+                enabled: true  # Set to false to not create the PostgreSQL resource
+                teamId: "uds"
+                volume:
+                  size: "10Gi"
+                numberOfInstances: 2
+                users:
+                  gitlab.gitlab: []  # database owner
+                databases:
+                  gitlabdb: gitlab.gitlab
+                version: "14"
+                ingress:
+                  - remoteNamespace: gitlab
 
-  - name: dev-redis
-    repository: ghcr.io/defenseunicorns/packages/uds/dev-redis
-    ref: 0.0.2
+  - name: valkey
+    repository: ghcr.io/defenseunicorns/packages/uds/valkey
+    ref: 7.2.5-uds.1-upstream
+    overrides:
+      valkey:
+        uds-valkey-config:
+          values:
+            - path: custom
+              value:
+                - direction: Ingress
+                  selector:
+                    app.kubernetes.io/name: valkey
+                  remoteNamespace: gitlab
+                  port: 6379
+                  description: "Ingress from GitLab"
+            - path: copyPassword
+              value:
+                enabled: true
+                namespace: gitlab
+                secretName: gitlab-redis
+                secretKey: password
 
   - name: dev-secrets
+    path: ../
+    ref: 0.1.0
+
+  - name: dev-peer-auth-shim
     path: ../
     ref: 0.1.0
 
@@ -52,7 +85,23 @@ packages:
             - name: GITLAB_ADMIN_GROUPS
               description: "Array of group names that grant admin role gitlab when saml protocol is active."
               path: "sso.adminGroups"
+          values:
+            # TODO: (@WSTARR) The below two overrides will no longer be needed after the next release
+            - path: redis.namespace
+              value: valkey
+            - path: redis.selector
+              value:
+                app.kubernetes.io/name: valkey
         gitlab:
+          values:
+            - path: global.psql.host
+              value: pg-cluster.postgres.svc.cluster.local
+            - path: "global.psql.username"
+              value: "gitlab.gitlab"
+            - path: "global.psql.password.secret"
+              value: "gitlab.gitlab.pg-cluster.credentials.postgresql.acid.zalan.do"
+            - path: global.redis.host
+              value: valkey-master.valkey.svc.cluster.local
           variables:
             - name: GITLAB_SSO_ENABLED
               description: "Boolean to enable or disable sso things"
@@ -87,11 +136,3 @@ packages:
             - name: SHELL_REPLICAS
               description: "Gitlab Shell Min Replicas"
               path: "gitlab.gitlab-shell.minReplicas"
-            - name: POSTGRES_USERNAME
-              description: "Gitlab Postgres Username"
-              path: "global.psql.username"
-              default: "gitlab.gitlab"
-            - name: POSTGRES_SECRET_REF
-              description: "Gitlab Postgres Password Secret Ref"
-              path: "global.psql.password.secret"
-              default: "gitlab.gitlab.pg-cluster.credentials.postgresql.acid.zalan.do"
