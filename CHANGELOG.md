@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file.
 
+## [17.1.1-uds.1](https://github.com/defenseunicorns/uds-package-gitlab/compare/v17.1.1-uds.0...v17.1.1-uds.1) (2024-07-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* allow redis password secret creation and GitLab PeerAuthentication exceptions ([#161](https://github.com/defenseunicorns/uds-package-gitlab/issues/161))
+
+### Features
+
+* allow redis password secret creation and GitLab PeerAuthentication exceptions ([#161](https://github.com/defenseunicorns/uds-package-gitlab/issues/161)) ([a5e9bd1](https://github.com/defenseunicorns/uds-package-gitlab/commit/a5e9bd1f9c116acbea06b28d78d651dec5f5696d))
+
+
+### Miscellaneous
+
+* **deps:** update gitlab support dependencies ([#158](https://github.com/defenseunicorns/uds-package-gitlab/issues/158)) ([32aece7](https://github.com/defenseunicorns/uds-package-gitlab/commit/32aece705213305db19b115a2acc74fb3166e20a))
+* remove and gitignore .vscode directory ([#159](https://github.com/defenseunicorns/uds-package-gitlab/issues/159)) ([c087596](https://github.com/defenseunicorns/uds-package-gitlab/commit/c087596604d2296ca9d05e915d59d6c715fd90a9))
+* update license ([#148](https://github.com/defenseunicorns/uds-package-gitlab/issues/148)) ([a457cc4](https://github.com/defenseunicorns/uds-package-gitlab/commit/a457cc4946be87160e86743e7416a10d69dfaf8c))
+
 ## [17.1.1-uds.0](https://github.com/defenseunicorns/uds-package-gitlab/compare/v17.0.2-uds.0...v17.1.1-uds.0) (2024-06-27)
 
 
