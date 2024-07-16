@@ -85,6 +85,9 @@ packages:
             - name: GITLAB_ADMIN_GROUPS
               description: "Array of group names that grant admin role gitlab when saml protocol is active."
               path: "sso.adminGroups"
+            - name: GITLAB_REQUIRED_GROUPS
+              description: "Array of group names that are required for GitLab acess."
+              path: "sso.requiredGroups"
           values:
             # TODO: (@WSTARR) The below two overrides will no longer be needed after the next release
             - path: redis.namespace
