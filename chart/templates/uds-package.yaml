@@ -78,14 +78,6 @@ spec:
             }
           }
   {{- end }}
-  monitor:
-    - portName: http-metrics
-      targetPort: 3807 
-      selector: 
-        app: sidekiq
-      kind: PodMonitor
-      description: "Sidekiq Metrics" 
-      path: "/metrics"
   network:
     expose:
       - service: gitlab-webservice-default
@@ -110,6 +102,7 @@ spec:
       - direction: Ingress
         remoteGenerated: IntraNamespace
 
+    # ingress from runner only if runner lives in cluster. Otherwise, it goes through the gateway
     {{- if .Values.runner.internal }}
       - direction: Ingress
         selector:
@@ -198,7 +191,7 @@ spec:
         remoteSelector:
           app: prometheus
         selector:
-          app: gitlab-sidekiq
+          app: sidekiq
         port: 3807
         description: "Sidekiq Pod Monitor"
 
