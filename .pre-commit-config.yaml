@@ -40,7 +40,7 @@ repos:
         args:
           [
             "--schemafile",
-            "https://raw.githubusercontent.com/defenseunicorns/zarf/v0.35.0/zarf.schema.json",
+            "https://raw.githubusercontent.com/defenseunicorns/zarf/v0.36.1/zarf.schema.json",
             "--no-cache"
           ]
   - repo: https://github.com/golangci/golangci-lint
@@ -48,6 +48,6 @@ repos:
     hooks:
       - id: golangci-lint
   - repo: https://github.com/renovatebot/pre-commit-hooks
-    rev: 37.426.4
+    rev: 37.432.0
     hooks:
       - id: renovate-config-validator
