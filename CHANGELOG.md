@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## [17.1.2-uds.0](https://github.com/defenseunicorns/uds-package-gitlab/compare/v17.1.1-uds.1...v17.1.2-uds.0) (2024-07-18)
+
+
+### Features
+
+* expose `requiredGroups` in sso config ([#167](https://github.com/defenseunicorns/uds-package-gitlab/issues/167)) ([c0b4c37](https://github.com/defenseunicorns/uds-package-gitlab/commit/c0b4c37940fac22c879dd785405b5012a819e55c))
+
+
+### Miscellaneous
+
+* **deps:** update gitlab package dependencies ([#163](https://github.com/defenseunicorns/uds-package-gitlab/issues/163)) ([78d5f4d](https://github.com/defenseunicorns/uds-package-gitlab/commit/78d5f4dcabb3ddaaf7cb87761c560c6cdc2b8c1f))
+* **deps:** update gitlab support dependencies ([#162](https://github.com/defenseunicorns/uds-package-gitlab/issues/162)) ([0c49973](https://github.com/defenseunicorns/uds-package-gitlab/commit/0c49973a26cfa58026a2e88b0314e33dfe000792))
+
 ## [17.1.1-uds.1](https://github.com/defenseunicorns/uds-package-gitlab/compare/v17.1.1-uds.0...v17.1.1-uds.1) (2024-07-09)
 
 
