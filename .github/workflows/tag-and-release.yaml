@@ -48,9 +48,6 @@ jobs:
           registry1Password: ${{ secrets.IRON_BANK_ROBOT_PASSWORD }}
           ghToken: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Playwright setup
-        uses: defenseunicorns/uds-common/.github/actions/playwright@172a905901cb9bd76d096d2850bf31af5c5a4fa1 # v0.8.0
-
       - name: Build Package
         run: uds run -f tasks/publish.yaml build-package --set FLAVOR=${{ matrix.flavor }} --no-progress
 
