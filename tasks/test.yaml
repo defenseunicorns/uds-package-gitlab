@@ -119,7 +119,12 @@ tasks:
   - name: ui
     description: GitLab UI Checks
     actions:
-      - cmd: npx playwright test
+      - cmd: |
+          docker run --rm --ipc=host --net=host --mount type=bind,source="$(pwd)",target=/app mcr.microsoft.com/playwright:v1.43.1-jammy sh -c " \
+            cd app && \
+            npm ci && \
+            npx playwright test \
+            "
         dir: tests
 
   - name: create-doug-admin
@@ -152,10 +157,3 @@ tasks:
     actions:
       - description: Get the root password for GitLab (useful for local dev)
         cmd: ./uds zarf tools kubectl get secret -n gitlab gitlab-gitlab-initial-root-password -o jsonpath={.data.password} | base64 -d
-
-  - name: install-playwright-deps
-    actions:
-      - cmd: npm ci
-        dir: tests
-      - cmd: npx playwright install --with-deps
-        dir: tests
