@@ -187,6 +187,15 @@ spec:
         port: 9235
         description: "Pages Service Monitor"
 
+      - direction: Ingress
+        remoteNamespace: monitoring
+        remoteSelector:
+          app: prometheus
+        selector:
+          app: sidekiq
+        port: 3807
+        description: "Sidekiq Pod Monitor"
+
       - direction: Egress
         selector:
           app: registry

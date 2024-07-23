@@ -1,0 +1,20 @@
+{{- if .Capabilities.APIVersions.Has "monitoring.coreos.com/v1" }}
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: gitlab-sidekiq-metrics
+  namespace: {{ .Release.Namespace }}
+spec:
+  scrapeClass: istio-certs
+  namespaceSelector:
+    matchNames:
+    - gitlab
+  podMetricsEndpoints:
+  - path: /metrics
+    port: http-metrics
+    scheme: https
+    enableHttp2: false
+  selector:
+    matchLabels:
+      app: sidekiq
+{{- end }}
