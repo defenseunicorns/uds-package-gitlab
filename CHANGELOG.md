@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## [17.1.2-uds.1](https://github.com/defenseunicorns/uds-package-gitlab/compare/v17.1.2-uds.0...v17.1.2-uds.1) (2024-07-23)
+
+
+### Bug Fixes
+
+* add working podmonitor for sidekiq ([#169](https://github.com/defenseunicorns/uds-package-gitlab/issues/169)) ([5ff550a](https://github.com/defenseunicorns/uds-package-gitlab/commit/5ff550a9465720fd102ea5c2badcd5962fef5355))
+
+
+### Miscellaneous
+
+* change playwright to a docker container ([#172](https://github.com/defenseunicorns/uds-package-gitlab/issues/172)) ([9c805ff](https://github.com/defenseunicorns/uds-package-gitlab/commit/9c805ffd057745e79aa7e89877097efd5ce0d5d2))
+* **deps:** update gitlab support dependencies ([#170](https://github.com/defenseunicorns/uds-package-gitlab/issues/170)) ([f02875b](https://github.com/defenseunicorns/uds-package-gitlab/commit/f02875bcd3e0314bf27136bbb6e8de90872891fe))
+
 ## [17.1.2-uds.0](https://github.com/defenseunicorns/uds-package-gitlab/compare/v17.1.1-uds.1...v17.1.2-uds.0) (2024-07-18)
 
 

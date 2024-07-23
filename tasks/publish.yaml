@@ -33,7 +33,7 @@ tasks:
         task: publish:package
         with:
           # x-release-please-start-version
-          version: "17.1.2-uds.0"
+          version: "17.1.2-uds.1"
           # x-release-please-end
 
   - name: publish-test-bundle
@@ -43,5 +43,5 @@ tasks:
         task: publish:test-bundle
         with:
           # x-release-please-start-version
-          version: "17.1.2-uds.0"
+          version: "17.1.2-uds.1"
           # x-release-please-end
