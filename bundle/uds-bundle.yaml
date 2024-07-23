@@ -3,7 +3,7 @@ metadata:
   name: gitlab-test
   description: A UDS bundle for deploying Gitlab and it's dependencies on a development cluster
   # x-release-please-start-version
-  version: 17.1.1-uds.1
+  version: 17.1.2-uds.0
   # x-release-please-end
 
 packages:
@@ -39,7 +39,7 @@ packages:
 
   - name: valkey
     repository: ghcr.io/defenseunicorns/packages/uds/valkey
-    ref: 7.2.5-uds.1-upstream
+    ref: 7.2.5-uds.2-upstream
     overrides:
       valkey:
         uds-valkey-config:
@@ -70,7 +70,7 @@ packages:
   - name: gitlab
     path: ../
     # x-release-please-start-version
-    ref: 17.1.1-uds.1
+    ref: 17.1.2-uds.0
     # x-release-please-end
     overrides:
       gitlab:
