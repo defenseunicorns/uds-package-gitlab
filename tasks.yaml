@@ -51,10 +51,7 @@ tasks:
     description: Test the GitLab package from the current branch
     actions:
       - task: create-gl-test-bundle
-      - task: setup:k3d-full-cluster
-      # - cmd: ./uds zarf package deploy oci://defenseunicorns/uds-k3d:0.7.0 --set=K3D_IMAGE="rancher/k3s:v1.29.5-k3s1" --confirm --no-progress
-      # - cmd: ./uds zarf package deploy oci://defenseunicorns/init:v0.35.0 --confirm --no-progress
-      # - cmd: ./uds zarf package deploy oci://defenseunicorns/packages/private/uds/snapshots/core:latest-unicorn --confirm --no-progress
+      - task: setup:k3d-test-cluster
       - task: deploy:test-bundle
       - task: setup:create-doug-user
       - task: test:all
