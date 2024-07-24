@@ -363,7 +363,9 @@ spec:
         description: "SSO Internal"
 
       - direction: Egress
-        remoteGenerated: Anywhere
+        remoteNamespace: istio-tenant-gateway
+        remoteSelector:
+          app: tenant-ingressgateway
         selector:
           app: webservice
         port: 443
