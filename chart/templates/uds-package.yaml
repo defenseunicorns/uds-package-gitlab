@@ -363,9 +363,11 @@ spec:
         description: "SSO Internal"
 
       - direction: Egress
-        remoteGenerated: Anywhere
-        selector:
-          app: webservice
+        remoteNamespace: istio-tenant-gateway
+        remoteSelector:
+          app: tenant-ingressgateway
+        selector: 
+          uds/network-access-gitlab: "true"
         port: 443
         description: "SSO External"
 
