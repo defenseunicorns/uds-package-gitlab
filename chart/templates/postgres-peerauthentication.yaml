@@ -11,7 +11,7 @@ spec:
     matchLabels:
       {{ .Values.postgres.selector | toYaml }}
   portLevelMtls:
-    # Postgres exception to support GitLab dependency init containers
+    # Postgres exception to support GitLab 'dependency' init containers
     {{ .Values.postgres.port }}:
       mode: PERMISSIVE
 {{- end }}

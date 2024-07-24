@@ -11,7 +11,7 @@ spec:
     matchLabels:
       {{ .Values.redis.selector | toYaml }}
   portLevelMtls:
-    # Redis/Valkey exception to support GitLab dependency init containers
+    # Redis/Valkey exception to support GitLab 'dependency' init containers
     {{ .Values.redis.port }}:
       mode: PERMISSIVE
 {{- end }}

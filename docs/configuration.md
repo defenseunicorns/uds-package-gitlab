@@ -11,6 +11,9 @@ Network policies are controlled via the `uds-gitlab-config` chart in accordance 
 - `postgres`: sets network policies for accessing a Postgres database from all GitLab services (`webservice`, `toolbox`, `sidekiq`, `migrations`, `gitlab-exporter`)
 - `custom`: sets custom network policies for the GitLab namespace - this allows for custom integrations with other services (i.e. Jira)
 
+> [!NOTE]
+> Currently the GitLab UDS Package contains Istio `PeerAuthentication` exceptions to allow the `dependency` init containers to reach out and check the Redis and Postgres services.  These are only added with `redis.internal` or `postgres.internal` set to `true` and will be removed once UDS Core [switches to native sidecars](https://github.com/defenseunicorns/uds-core/issues/536).
+
 ## Database
 
 GitLab uses Postgres as its backing database service and supports the [common database providers within UDS Software Factory](https://github.com/defenseunicorns/uds-software-factory/blob/main/docs/database.md).  
