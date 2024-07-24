@@ -366,8 +366,8 @@ spec:
         remoteNamespace: istio-tenant-gateway
         remoteSelector:
           app: tenant-ingressgateway
-        selector: 
-          uds/network-access-gitlab: "true"
+        selector:
+          app: webservice
         port: 443
         description: "SSO External"
 
