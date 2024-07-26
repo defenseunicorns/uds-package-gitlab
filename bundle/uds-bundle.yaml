@@ -80,7 +80,7 @@ packages:
               description: "Boolean to enable or disable sso things"
               path: "sso.enabled"
             - name: GITLAB_SSO_PROTOCOL
-              description: "Protocol to use. Valid values are 'openid_connect' and 'saml'. Default value is 'saml'"
+              description: "Protocol to use. Valid values are 'openid-connect' and 'saml'. Default value is 'saml'"
               path: "sso.protocol"
             - name: GITLAB_ADMIN_GROUPS
               description: "Array of group names that grant admin role gitlab when saml protocol is active."
@@ -110,7 +110,7 @@ packages:
               description: "Boolean to enable or disable sso things"
               path: "global.appConfig.omniauth.enabled"
             - name: GITLAB_SSO_PROTOCOL
-              description: "Protocol to use. Valid values are 'openid_connect' and 'saml'. Default value is 'saml'"
+              description: "Protocol to use. Valid values are 'openid-connect' and 'saml'. Default value is 'saml'"
               path: "global.appConfig.omniauth.autoSignInWithProvider"
             - name: MIGRATIONS_RESOURCES
               description: "Gitlab Migrations Resources"
