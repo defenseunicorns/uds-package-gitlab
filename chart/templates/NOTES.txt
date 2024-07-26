@@ -1,0 +1,8 @@
+{{- $NOTICE := "\n=== NOTICE" -}}
+{{- $WARNING := "\n=== WARNING" -}}
+{{- $CRITICAL := "\n=== CRITICAL" -}}
+
+{{- if eq .Values.sso.protocol "openid_connect" }}
+{{ $NOTICE }}
+Setting `.sso.protocol` to `openid_connect` has been deprecated - please switch to using `openid-connect` instead
+{{- end }}
