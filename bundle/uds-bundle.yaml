@@ -79,9 +79,6 @@ packages:
             - name: GITLAB_SSO_ENABLED
               description: "Boolean to enable or disable sso things"
               path: "sso.enabled"
-            - name: GITLAB_SSO_PROTOCOL
-              description: "Protocol to use. Valid values are 'openid-connect' and 'saml'. Default value is 'saml'"
-              path: "sso.protocol"
             - name: GITLAB_ADMIN_GROUPS
               description: "Array of group names that grant admin role gitlab when saml protocol is active."
               path: "sso.adminGroups"
@@ -89,12 +86,9 @@ packages:
               description: "Array of group names that are required for GitLab acess."
               path: "sso.requiredGroups"
           values:
-            # TODO: (@WSTARR) The below two overrides will no longer be needed after the next release
-            - path: redis.namespace
-              value: valkey
-            - path: redis.selector
-              value:
-                app.kubernetes.io/name: valkey
+            - path: sso.protocol
+              description: "Protocol to use. Valid values are 'openid-connect' and 'saml'. Default value is 'saml' (NOTE this takes an '-' for OIDC!)"
+              value: saml
         gitlab:
           values:
             - path: global.psql.host
@@ -105,13 +99,13 @@ packages:
               value: "gitlab.gitlab.pg-cluster.credentials.postgresql.acid.zalan.do"
             - path: global.redis.host
               value: valkey-master.valkey.svc.cluster.local
+            - path: "global.appConfig.omniauth.autoSignInWithProvider"
+              description: "Protocol to use. Valid values are 'openid_connect' and 'saml'. Default value is 'saml' (NOTE this takes an '_' for OIDC!)"
+              value: "saml"
           variables:
             - name: GITLAB_SSO_ENABLED
               description: "Boolean to enable or disable sso things"
               path: "global.appConfig.omniauth.enabled"
-            - name: GITLAB_SSO_PROTOCOL
-              description: "Protocol to use. Valid values are 'openid-connect' and 'saml'. Default value is 'saml'"
-              path: "global.appConfig.omniauth.autoSignInWithProvider"
             - name: MIGRATIONS_RESOURCES
               description: "Gitlab Migrations Resources"
               path: "gitlab.migrations.resources"
