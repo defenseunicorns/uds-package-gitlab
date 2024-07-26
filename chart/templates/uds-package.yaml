@@ -4,7 +4,7 @@ metadata:
   name: gitlab
   namespace: {{ .Release.Namespace }}
 spec:
-  {{- if and (.Values.sso.enabled) (eq .Values.sso.protocol "openid_connect") }}
+  {{- if and (.Values.sso.enabled) (or (eq .Values.sso.protocol "openid_connect") (eq .Values.sso.protocol "openid-connect")) }}
   sso:
     - name: GitLab Login
       clientId: uds-swf-gitlab
