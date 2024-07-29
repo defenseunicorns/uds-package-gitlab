@@ -18,6 +18,7 @@ variables:
     GITLAB_PAGES_ENABLED: true
     GITLAB_REQUIRED_GROUPS: [] # ["/GitLab"]
     GITLAB_ADMIN_GROUPS: ["/GitLab Admin", "/UDS Core/Admin"]
+    GITLAB_SSO_PROTOCOL: saml
     # # Overrides for scaled down cluster for local dev and CI
     webservice_replicas: 1
     webservice_resources:

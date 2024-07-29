@@ -79,16 +79,15 @@ packages:
             - name: GITLAB_SSO_ENABLED
               description: "Boolean to enable or disable sso things"
               path: "sso.enabled"
+            - name: GITLAB_SSO_PROTOCOL
+              description: "Protocol to use. Valid values are 'openid_connect' and 'saml'. Default value is 'saml'"
+              path: "sso.protocol"
             - name: GITLAB_ADMIN_GROUPS
               description: "Array of group names that grant admin role gitlab when saml protocol is active."
               path: "sso.adminGroups"
             - name: GITLAB_REQUIRED_GROUPS
               description: "Array of group names that are required for GitLab acess."
               path: "sso.requiredGroups"
-          values:
-            - path: sso.protocol
-              description: "Protocol to use. Valid values are 'openid_connect', 'oidc' and 'saml'. Default value is 'saml' (NOTE 'oidc' is not valid in autoSignInWithProvider!)"
-              value: saml
         gitlab:
           values:
             - path: global.psql.host
@@ -99,13 +98,13 @@ packages:
               value: "gitlab.gitlab.pg-cluster.credentials.postgresql.acid.zalan.do"
             - path: global.redis.host
               value: valkey-master.valkey.svc.cluster.local
-            - path: "global.appConfig.omniauth.autoSignInWithProvider"
-              description: "Protocol to use. Valid values are 'openid_connect' and 'saml'. Default value is 'saml'"
-              value: "saml"
           variables:
             - name: GITLAB_SSO_ENABLED
               description: "Boolean to enable or disable sso things"
               path: "global.appConfig.omniauth.enabled"
+            - name: GITLAB_SSO_PROTOCOL
+              description: "Protocol to use. Valid values are 'openid_connect' and 'saml'. Default value is 'saml'"
+              path: "global.appConfig.omniauth.autoSignInWithProvider"
             - name: MIGRATIONS_RESOURCES
               description: "Gitlab Migrations Resources"
               path: "gitlab.migrations.resources"
