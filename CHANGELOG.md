@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## [17.2.1-uds.0](https://github.com/defenseunicorns/uds-package-gitlab/compare/v17.1.2-uds.1...v17.2.1-uds.0) (2024-07-29)
+
+
+### ⚠ BREAKING CHANGES
+
+* remove egress anywhere for SSO ([#177](https://github.com/defenseunicorns/uds-package-gitlab/issues/177))
+
+### Miscellaneous
+
+* add PeerAuthentication docs and Made for UDS Badge ([#174](https://github.com/defenseunicorns/uds-package-gitlab/issues/174)) ([4909378](https://github.com/defenseunicorns/uds-package-gitlab/commit/49093782822332152dd3e74e7442e8509d1742e9))
+* **deps:** update gitlab package dependencies ([#171](https://github.com/defenseunicorns/uds-package-gitlab/issues/171)) ([f9c0081](https://github.com/defenseunicorns/uds-package-gitlab/commit/f9c00818b401d9d792f936a0c726abfd8fd96a77))
+* **deps:** update gitlab support dependencies ([#175](https://github.com/defenseunicorns/uds-package-gitlab/issues/175)) ([d7be43a](https://github.com/defenseunicorns/uds-package-gitlab/commit/d7be43a755c8ce44cc0d20c06a51ae090771df5f))
+* remove egress anywhere for SSO ([#177](https://github.com/defenseunicorns/uds-package-gitlab/issues/177)) ([996181d](https://github.com/defenseunicorns/uds-package-gitlab/commit/996181dca6784786372ff77e00606c2d66e7fe41))
+* swap to `openid-connect` instead of `_` ([#179](https://github.com/defenseunicorns/uds-package-gitlab/issues/179)) ([59e3954](https://github.com/defenseunicorns/uds-package-gitlab/commit/59e3954f36959b32dce0fbc64c591a0b18d05626))
+
 ## [17.1.2-uds.1](https://github.com/defenseunicorns/uds-package-gitlab/compare/v17.1.2-uds.0...v17.1.2-uds.1) (2024-07-23)
 
 
