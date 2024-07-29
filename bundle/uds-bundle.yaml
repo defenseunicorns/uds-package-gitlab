@@ -87,7 +87,7 @@ packages:
               path: "sso.requiredGroups"
           values:
             - path: sso.protocol
-              description: "Protocol to use. Valid values are 'openid-connect' and 'saml'. Default value is 'saml' (NOTE this takes an '-' for OIDC!)"
+              description: "Protocol to use. Valid values are 'openid_connect', 'oidc' and 'saml'. Default value is 'saml' (NOTE 'oidc' is not valid in autoSignInWithProvider!)"
               value: saml
         gitlab:
           values:
@@ -100,7 +100,7 @@ packages:
             - path: global.redis.host
               value: valkey-master.valkey.svc.cluster.local
             - path: "global.appConfig.omniauth.autoSignInWithProvider"
-              description: "Protocol to use. Valid values are 'openid_connect' and 'saml'. Default value is 'saml' (NOTE this takes an '_' for OIDC!)"
+              description: "Protocol to use. Valid values are 'openid_connect' and 'saml'. Default value is 'saml'"
               value: "saml"
           variables:
             - name: GITLAB_SSO_ENABLED
