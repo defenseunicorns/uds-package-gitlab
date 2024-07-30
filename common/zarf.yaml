@@ -30,3 +30,67 @@ components:
                 name: gitlab
                 namespace: gitlab
                 condition: "'{.status.phase}'=Ready"
+          - description: GitLab Exporter Health Check
+            wait:
+              cluster:
+                kind: Deployment
+                name: gitlab-gitlab-exporter
+                namespace: gitlab
+                condition: Available
+          - description: GitLab Registry Health Check
+            wait:
+              cluster:
+                kind: Deployment
+                name: gitlab-registry
+                namespace: gitlab
+                condition: Available
+          - description: GitLab Shell Health Check
+            wait:
+              cluster:
+                kind: Deployment
+                name: gitlab-gitlab-shell
+                namespace: gitlab
+                condition: Available
+          - description: GitLab Toolbox Health Check
+            wait:
+              cluster:
+                kind: Deployment
+                name: gitlab-toolbox
+                namespace: gitlab
+                condition: Available
+          - description: GitLab Sidekiq Health Check
+            wait:
+              cluster:
+                kind: Deployment
+                name: gitlab-sidekiq-all-in-1-v2
+                namespace: gitlab
+                condition: Available
+          - description: GitLab Webservice Health Check
+            wait:
+              cluster:
+                kind: Deployment
+                name: gitlab-webservice-default
+                namespace: gitlab
+                condition: Available
+          - description: GitLab Pages Health Check
+            wait:
+              cluster:
+                kind: Deployment
+                name: gitlab-gitlab-pages
+                namespace: gitlab
+                condition: Available
+          # StatefulSets don't show conditions themselves so we look for an underlying Pod
+          - description: GitLab Gitaly Health Check
+            wait:
+              cluster:
+                kind: Pod
+                name: app=gitaly
+                namespace: gitlab
+                condition: Ready
+          - description: GitLab Migrations Health Check
+            wait:
+              cluster:
+                kind: Job
+                name: app=migrations
+                namespace: gitlab
+                condition: Complete
