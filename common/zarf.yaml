@@ -30,49 +30,49 @@ components:
                 name: gitlab
                 namespace: gitlab
                 condition: "'{.status.phase}'=Ready"
-          - description: GitLab Exporter Health Check
+          - description: Validate GitLab Exporter Deployment
             wait:
               cluster:
                 kind: Deployment
                 name: gitlab-gitlab-exporter
                 namespace: gitlab
                 condition: Available
-          - description: GitLab Registry Health Check
+          - description: Validate GitLab Registry Deployment
             wait:
               cluster:
                 kind: Deployment
                 name: gitlab-registry
                 namespace: gitlab
                 condition: Available
-          - description: GitLab Shell Health Check
+          - description: Validate GitLab Shell Deployment
             wait:
               cluster:
                 kind: Deployment
                 name: gitlab-gitlab-shell
                 namespace: gitlab
                 condition: Available
-          - description: GitLab Toolbox Health Check
+          - description: Validate GitLab Toolbox Deployment
             wait:
               cluster:
                 kind: Deployment
                 name: gitlab-toolbox
                 namespace: gitlab
                 condition: Available
-          - description: GitLab Sidekiq Health Check
+          - description: Validate GitLab Sidekiq Deployment
             wait:
               cluster:
                 kind: Deployment
                 name: gitlab-sidekiq-all-in-1-v2
                 namespace: gitlab
                 condition: Available
-          - description: GitLab Webservice Health Check
+          - description: Validate GitLab Webservice Deployment
             wait:
               cluster:
                 kind: Deployment
                 name: gitlab-webservice-default
                 namespace: gitlab
                 condition: Available
-          - description: GitLab Pages Health Check
+          - description: Validate GitLab Pages Deployment
             wait:
               cluster:
                 kind: Deployment
@@ -80,14 +80,14 @@ components:
                 namespace: gitlab
                 condition: Available
           # StatefulSets don't show conditions themselves so we look for an underlying Pod
-          - description: GitLab Gitaly Health Check
+          - description: Validate GitLab Gitaly StatefulSet
             wait:
               cluster:
                 kind: Pod
                 name: app=gitaly
                 namespace: gitlab
                 condition: Ready
-          - description: GitLab Migrations Health Check
+          - description: Validate GitLab Migrations Job
             wait:
               cluster:
                 kind: Job
