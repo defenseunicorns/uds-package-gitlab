@@ -21,6 +21,8 @@ components:
           - ../values/common-values.yaml
     actions:
       onDeploy:
+        before:
+          - cmd: ./zarf tools kubectl annotate secret -n gitlab gitlab-postgres meta.helm.sh/release-name=uds-gitlab-config || true
         after:
           - description: Validate GitLab Package
             maxTotalSeconds: 300
