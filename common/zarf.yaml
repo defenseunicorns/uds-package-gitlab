@@ -24,6 +24,8 @@ components:
         before:
           - cmd: ./zarf tools kubectl annotate --overwrite secret -n gitlab gitlab-postgres meta.helm.sh/release-name=uds-gitlab-config || true
           - cmd: ./zarf tools kubectl annotate --overwrite secret -n gitlab gitlab-postgres meta.helm.sh/release-namespace=gitlab || true
+          - cmd: ./zarf tools kubectl annotate --overwrite secret -n gitlab gitlab-redis meta.helm.sh/release-name=uds-gitlab-config || true
+          - cmd: ./zarf tools kubectl annotate --overwrite secret -n gitlab gitlab-redis meta.helm.sh/release-namespace=gitlab || true
         after:
           - description: Validate GitLab Package
             maxTotalSeconds: 300
