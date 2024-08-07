@@ -30,6 +30,7 @@ concurrency:
 
 permissions:
   contents: read
+  id-token: write
 
 jobs:
   run-test:
@@ -38,7 +39,7 @@ jobs:
     timeout-minutes: 25
     strategy:
       matrix:
-        flavor: [upstream, registry1]
+        flavor: [upstream, unicorn, registry1]
         type: [install, upgrade]
 
     steps:
@@ -46,25 +47,26 @@ jobs:
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
 
       - name: Environment setup
-        uses: defenseunicorns/uds-common/.github/actions/setup@91515ef86914334356c35ffb4b2c2c5fb4d19174 # v0.9.0
+        uses: defenseunicorns/uds-common/.github/actions/setup@2536a06363d50a160421105b2df86aacf69388c1 # v0.11.1
         with:
           registry1Username: ${{ secrets.IRON_BANK_ROBOT_USERNAME }}
           registry1Password: ${{ secrets.IRON_BANK_ROBOT_PASSWORD }}
           ghToken: ${{ secrets.GITHUB_TOKEN }}
+          chainguardIdentity: ${{ secrets.CHAINGUARD_IDENTITY }}
 
       - name: Test
-        uses: defenseunicorns/uds-common/.github/actions/test@91515ef86914334356c35ffb4b2c2c5fb4d19174 # v0.9.0
+        uses: defenseunicorns/uds-common/.github/actions/test@2536a06363d50a160421105b2df86aacf69388c1 # v0.11.1
         with:
           flavor: ${{ matrix.flavor }}
           type: ${{ matrix.type }}
 
       - name: Debug Output
         if: ${{ always() }}
-        uses: defenseunicorns/uds-common/.github/actions/debug-output@91515ef86914334356c35ffb4b2c2c5fb4d19174 # v0.9.0
+        uses: defenseunicorns/uds-common/.github/actions/debug-output@2536a06363d50a160421105b2df86aacf69388c1 # v0.11.1
 
       - name: Save logs
         if: always()
-        uses: defenseunicorns/uds-common/.github/actions/save-logs@91515ef86914334356c35ffb4b2c2c5fb4d19174 # v0.9.0
+        uses: defenseunicorns/uds-common/.github/actions/save-logs@2536a06363d50a160421105b2df86aacf69388c1 # v0.11.1
         with:
           suffix: ${{ matrix.type }}-${{ matrix.flavor }}-${{ github.run_id }}-${{ github.run_attempt }}
 
