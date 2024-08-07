@@ -2,49 +2,49 @@ gitlab:
   webservice:
     image:
       repository: cgr.dev/du-uds-defenseunicorns/gitlab-webservice-ee-fips
-      tag: v17.2.1
+      tag: 17.2.1
     workhorse:
       image: cgr.dev/du-uds-defenseunicorns/gitlab-workhorse-ee-fips
       # renovate: datasource=docker depName=cgr.dev/du-uds-defenseunicorns/gitlab-workhorse-ee versioning=semver
-      tag: v17.2.1
+      tag: 17.2.1
   sidekiq:
     image:
       repository: cgr.dev/du-uds-defenseunicorns/gitlab-sidekiq-ee-fips
-      tag: v17.2.1
+      tag: 17.2.1
   migrations:
     image:
       repository: cgr.dev/du-uds-defenseunicorns/gitlab-toolbox-ee-fips
-      tag: v17.2.1
+      tag: 17.2.1
   gitaly:
     image:
       repository: cgr.dev/du-uds-defenseunicorns/gitaly-fips
-      tag: v17.2.1
+      tag: 17.2.1
   gitlab-exporter:
     image:
       repository: cgr.dev/du-uds-defenseunicorns/gitlab-exporter-fips
-      tag: v17.2.1
+      tag: 17.2.1
   gitlab-pages:
     image:
       repository: cgr.dev/du-uds-defenseunicorns/gitlab-pages-fips
-      tag: v17.2.1
+      tag: 17.2.1
   gitlab-shell:
     image:
       repository: cgr.dev/du-uds-defenseunicorns/gitlab-shell-fips
-      tag: v17.2.1
+      tag: 17.2.1
   praefect:
     image:
       repository: cgr.dev/du-uds-defenseunicorns/gitaly-fips
-      tag: v17.2.1
+      tag: 17.2.1
   toolbox:
     image:
       repository: cgr.dev/du-uds-defenseunicorns/gitlab-toolbox-ee-fips
-      tag: v17.2.1
+      tag: 17.2.1
 
 global:
   certificates:
     image:
       repository: cgr.dev/du-uds-defenseunicorns/gitlab-certificates-fips
-      tag: v17.2.1
+      tag: 17.2.1
   gitlabBase:
     image:
       repository: cgr.dev/du-uds-defenseunicorns/gitlab-base-fips
@@ -52,18 +52,18 @@ global:
   kubectl:
     image:
       repository: cgr.dev/du-uds-defenseunicorns/gitlab-kubectl-fips
-      tag: v17.2.1
+      tag: 17.2.1
 
 registry:
   image:
     repository: cgr.dev/du-uds-defenseunicorns/gitlab-container-registry-fips
-    tag: v17.2.1
+    tag: 17.2.1
 
 shared-secrets:
   selfsign:
     image:
       repository: cgr.dev/du-uds-defenseunicorns/cfssl-self-sign-fips
-      tag: v17.1.2
+      tag: 17.1.2
 
 upgradeCheck:
   image:
