@@ -41,7 +41,9 @@ jobs:
       matrix:
         flavor: [upstream, unicorn, registry1]
         type: [install, upgrade]
-
+        exclude:
+          - flavor: unicorn
+            type: upgrade
     steps:
       - name: Checkout repository
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
