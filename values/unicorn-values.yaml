@@ -14,11 +14,11 @@ gitlab:
   migrations:
     image:
       repository: cgr.dev/du-uds-defenseunicorns/gitlab-toolbox-ee-fips
-      tag: 17.2.1
+      tag: 17
   gitaly:
     image:
       repository: cgr.dev/du-uds-defenseunicorns/gitaly-fips
-      tag: 17.2.1
+      tag: 17.2.0
   gitlab-exporter:
     image:
       repository: cgr.dev/du-uds-defenseunicorns/gitlab-exporter-fips
@@ -38,7 +38,7 @@ gitlab:
   toolbox:
     image:
       repository: cgr.dev/du-uds-defenseunicorns/gitlab-toolbox-ee-fips
-      tag: 17.2.1
+      tag: 17
 
 global:
   certificates:
@@ -52,7 +52,7 @@ global:
   kubectl:
     image:
       repository: cgr.dev/du-uds-defenseunicorns/gitlab-kubectl-fips
-      tag: 17.2.1
+      tag: 1.30.3
 
 registry:
   image:
