@@ -58,7 +58,7 @@ components:
       - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-webservice:17.2.1"
       - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-workhorse:17.2.1"
       - "registry1.dso.mil/ironbank/gitlab/gitlab/kubectl:17.2.1"
-      - "registry1.dso.mil/ironbank/redhat/ubi/ubi9:9.4"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-base:17.2.1"
       - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-exporter:17.2.1"
 
   # Note: upstream flavor is experimental
@@ -85,5 +85,5 @@ components:
       - "registry.gitlab.com/gitlab-org/build/cng/gitlab-webservice-ee:v17.2.1"
       - "registry.gitlab.com/gitlab-org/build/cng/gitlab-workhorse-ee:v17.2.1"
       - "registry.gitlab.com/gitlab-org/build/cng/kubectl:v17.2.1"
-      - "docker.io/redhat/ubi9:9.4"
+      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-base:v17.2.1"
       - "registry.gitlab.com/gitlab-org/build/cng/gitlab-exporter:v17.2.1"
