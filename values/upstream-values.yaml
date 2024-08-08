@@ -47,8 +47,8 @@ global:
       tag: v17.2.1
   gitlabBase:
     image:
-      repository: docker.io/redhat/ubi9
-      tag: "9.4"
+      repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-base
+      tag: v17.2.1
   kubectl:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/kubectl
@@ -67,5 +67,5 @@ shared-secrets:
 
 upgradeCheck:
   image:
-    repository: docker.io/redhat/ubi9
-    tag: "9.4"
+    repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-base
+    tag: v17.2.1
