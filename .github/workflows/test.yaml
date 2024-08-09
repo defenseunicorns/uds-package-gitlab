@@ -30,6 +30,7 @@ concurrency:
 
 permissions:
   contents: read
+  id-token: write
 
 jobs:
   run-test:
@@ -38,9 +39,11 @@ jobs:
     timeout-minutes: 25
     strategy:
       matrix:
-        flavor: [upstream, registry1]
+        flavor: [upstream, unicorn, registry1]
         type: [install, upgrade]
-
+        exclude:
+          - flavor: unicorn
+            type: upgrade
     steps:
       - name: Checkout repository
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
@@ -51,6 +54,7 @@ jobs:
           registry1Username: ${{ secrets.IRON_BANK_ROBOT_USERNAME }}
           registry1Password: ${{ secrets.IRON_BANK_ROBOT_PASSWORD }}
           ghToken: ${{ secrets.GITHUB_TOKEN }}
+          chainguardIdentity: ${{ secrets.CHAINGUARD_IDENTITY }}
 
       - name: Test
         uses: defenseunicorns/uds-common/.github/actions/test@76287d41ec5f06ecbdd0a6453877a78675aceffe # v0.11.2
