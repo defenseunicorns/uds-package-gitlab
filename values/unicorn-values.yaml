@@ -1,8 +1,8 @@
 gitlab:
   webservice:
     image:
-      repository: cgr.dev/du-uds-defenseunicorns/gitlab-webservice-ee
-      tag: 17.2.1
+      repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-webservice-ee
+      tag: v17.2.1
     workhorse:
       image: registry.gitlab.com/gitlab-org/build/cng/gitlab-workhorse-ee
       # renovate: datasource=docker depName=registry.gitlab.com/gitlab-org/build/cng/gitlab-workhorse-ee versioning=semver
@@ -17,8 +17,8 @@ gitlab:
       tag: v17.2.1
   gitaly:
     image:
-      repository: cgr.dev/du-uds-defenseunicorns/gitaly-fips
-      tag: 17.2.2
+      repository: registry.gitlab.com/gitlab-org/build/cng/gitaly
+      tag: v17.2.1
   gitlab-exporter:
     image:
       repository: cgr.dev/du-uds-defenseunicorns/gitlab-exporter-fips
