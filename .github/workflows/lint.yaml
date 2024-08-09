@@ -12,6 +12,7 @@ jobs:
     name: Lint
     permissions:
       contents: read # Allows reading the repo contents
+      id-token: write
 
     steps:
       - name: Checkout
@@ -20,11 +21,13 @@ jobs:
           fetch-depth: 0
 
       - name: Environment setup
-        uses: defenseunicorns/uds-common/.github/actions/setup@91515ef86914334356c35ffb4b2c2c5fb4d19174 # v0.9.0
+        uses: defenseunicorns/uds-common/.github/actions/setup@2536a06363d50a160421105b2df86aacf69388c1 # v0.11.1
         with:
           registry1Username: ${{ secrets.IRON_BANK_ROBOT_USERNAME }}
           registry1Password: ${{ secrets.IRON_BANK_ROBOT_PASSWORD }}
           ghToken: ${{ secrets.GITHUB_TOKEN }}
+          chainguardIdentity: ${{ secrets.CHAINGUARD_IDENTITY }}
+
 
       - name: Install lint deps
         run: |
