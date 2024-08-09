@@ -88,10 +88,10 @@ components:
       - "docker.io/redhat/ubi9:9.4"
       - "registry.gitlab.com/gitlab-org/build/cng/gitlab-exporter:v17.2.1"
 
-  # Note: upstream flavor is experimental
+ 
   - name: gitlab
     required: true
-    description: "Deploy gitlab"
+    description: "Deploy gitlab with chainguard images"
     import:
       path: common
     only:
@@ -101,16 +101,16 @@ components:
         valuesFiles:
           - values/unicorn-values.yaml
     images:
-      - "cgr.dev/du-uds-defenseunicorns/gitlab-certificates-fips:17.2.1"
+      - "registry.gitlab.com/gitlab-org/build/cng/certificates:v17.2.1"
       - "cgr.dev/du-uds-defenseunicorns/cfssl-self-sign-fips:17.1.2"
-      - "cgr.dev/du-uds-defenseunicorns/gitaly-fips:17.2.0"
+      - "cgr.dev/du-uds-defenseunicorns/gitaly-fips:17.2.2"
       - "cgr.dev/du-uds-defenseunicorns/gitlab-container-registry-fips:17.2.1"
-      - "cgr.dev/du-uds-defenseunicorns/gitlab-pages-fips:17.2.1"
+      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-pages:v17.2.1"
       - "cgr.dev/du-uds-defenseunicorns/gitlab-shell-fips:17.2.1"
-      - "cgr.dev/du-uds-defenseunicorns/gitlab-sidekiq-ee-fips:17.2.1"
-      - "cgr.dev/du-uds-defenseunicorns/gitlab-toolbox-ee-fips:17"
-      - "cgr.dev/du-uds-defenseunicorns/gitlab-webservice-ee-fips:17.2.1"
-      - "cgr.dev/du-uds-defenseunicorns/gitlab-workhorse-ee-fips:17"
-      - "cgr.dev/du-uds-defenseunicorns/gitlab-kubectl-fips:1.30.3"
+      - "cgr.dev/du-uds-defenseunicorns/gitlab-sidekiq-ee:17.2.1"
+      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-toolbox-ee:v17.2.1"
+      - "cgr.dev/du-uds-defenseunicorns/gitlab-webservice-ee:17.2.1"
+      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-workhorse-ee:v17.2.1"
+      - "registry.gitlab.com/gitlab-org/build/cng/kubectl:v17.2.1"
       - "cgr.dev/du-uds-defenseunicorns/gitlab-base-fips:17.2.1"
       - "cgr.dev/du-uds-defenseunicorns/gitlab-exporter-fips:17.2.1"

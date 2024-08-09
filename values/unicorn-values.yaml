@@ -1,32 +1,32 @@
 gitlab:
   webservice:
     image:
-      repository: cgr.dev/du-uds-defenseunicorns/gitlab-webservice-ee-fips
+      repository: cgr.dev/du-uds-defenseunicorns/gitlab-webservice-ee
       tag: 17.2.1
     workhorse:
-      image: cgr.dev/du-uds-defenseunicorns/gitlab-workhorse-ee-fips
-      # renovate: datasource=docker depName=cgr.dev/du-uds-defenseunicorns/gitlab-workhorse-ee versioning=semver
-      tag: 17.2.1
+      image: registry.gitlab.com/gitlab-org/build/cng/gitlab-workhorse-ee
+      # renovate: datasource=docker depName=registry.gitlab.com/gitlab-org/build/cng/gitlab-workhorse-ee versioning=semver
+      tag: v17.2.1
   sidekiq:
     image:
-      repository: cgr.dev/du-uds-defenseunicorns/gitlab-sidekiq-ee-fips
+      repository: cgr.dev/du-uds-defenseunicorns/gitlab-sidekiq-ee
       tag: 17.2.1
   migrations:
     image:
-      repository: cgr.dev/du-uds-defenseunicorns/gitlab-toolbox-ee-fips
-      tag: 17
+      repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-toolbox-ee
+      tag: v17.2.1
   gitaly:
     image:
       repository: cgr.dev/du-uds-defenseunicorns/gitaly-fips
-      tag: 17.2.0
+      tag: 17.2.2
   gitlab-exporter:
     image:
       repository: cgr.dev/du-uds-defenseunicorns/gitlab-exporter-fips
       tag: 17.2.1
   gitlab-pages:
     image:
-      repository: cgr.dev/du-uds-defenseunicorns/gitlab-pages-fips
-      tag: 17.2.1
+      repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-pages
+      tag: v17.2.1
   gitlab-shell:
     image:
       repository: cgr.dev/du-uds-defenseunicorns/gitlab-shell-fips
@@ -34,25 +34,25 @@ gitlab:
   praefect:
     image:
       repository: cgr.dev/du-uds-defenseunicorns/gitaly-fips
-      tag: 17.2.1
+      tag: 17.2.2
   toolbox:
     image:
-      repository: cgr.dev/du-uds-defenseunicorns/gitlab-toolbox-ee-fips
-      tag: 17
+      repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-toolbox-ee
+      tag: v17.2.1
 
 global:
   certificates:
     image:
-      repository: cgr.dev/du-uds-defenseunicorns/gitlab-certificates-fips
-      tag: 17.2.1
+      repository: registry.gitlab.com/gitlab-org/build/cng/certificates
+      tag: v17.2.1
   gitlabBase:
     image:
       repository: cgr.dev/du-uds-defenseunicorns/gitlab-base-fips
       tag: 17.2.1
   kubectl:
     image:
-      repository: cgr.dev/du-uds-defenseunicorns/gitlab-kubectl-fips
-      tag: 1.30.3
+      repository: registry.gitlab.com/gitlab-org/build/cng/kubectl
+      tag: v17.2.1
 
 registry:
   image:
