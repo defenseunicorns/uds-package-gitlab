@@ -49,7 +49,7 @@ jobs:
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
 
       - name: Environment setup
-        uses: defenseunicorns/uds-common/.github/actions/setup@2536a06363d50a160421105b2df86aacf69388c1 # v0.11.1
+        uses: defenseunicorns/uds-common/.github/actions/setup@76287d41ec5f06ecbdd0a6453877a78675aceffe # v0.11.2
         with:
           registry1Username: ${{ secrets.IRON_BANK_ROBOT_USERNAME }}
           registry1Password: ${{ secrets.IRON_BANK_ROBOT_PASSWORD }}
@@ -57,22 +57,22 @@ jobs:
           chainguardIdentity: ${{ secrets.CHAINGUARD_IDENTITY }}
 
       - name: Test
-        uses: defenseunicorns/uds-common/.github/actions/test@2536a06363d50a160421105b2df86aacf69388c1 # v0.11.1
+        uses: defenseunicorns/uds-common/.github/actions/test@76287d41ec5f06ecbdd0a6453877a78675aceffe # v0.11.2
         with:
           flavor: ${{ matrix.flavor }}
           type: ${{ matrix.type }}
 
       - name: Debug Output
         if: ${{ always() }}
-        uses: defenseunicorns/uds-common/.github/actions/debug-output@2536a06363d50a160421105b2df86aacf69388c1 # v0.11.1
+        uses: defenseunicorns/uds-common/.github/actions/debug-output@76287d41ec5f06ecbdd0a6453877a78675aceffe # v0.11.2
 
       - name: Save logs
         if: always()
-        uses: defenseunicorns/uds-common/.github/actions/save-logs@2536a06363d50a160421105b2df86aacf69388c1 # v0.11.1
+        uses: defenseunicorns/uds-common/.github/actions/save-logs@76287d41ec5f06ecbdd0a6453877a78675aceffe # v0.11.2
         with:
           suffix: ${{ matrix.type }}-${{ matrix.flavor }}-${{ github.run_id }}-${{ github.run_attempt }}
 
-      - uses: actions/upload-artifact@0b2256b8c012f0828dc542b3febcab082c67f72b # v4.3.4
+      - uses: actions/upload-artifact@834a144ee995460fba8ed112a2fc961b36a5ec5a # v4.3.6
         if: always()
         with:
           name: playwright-report-${{ matrix.type }}-${{ matrix.flavor }}-${{ github.run_id }}-${{ github.run_attempt }}
