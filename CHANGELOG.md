@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## [17.2.2-uds.0](https://github.com/defenseunicorns/uds-package-gitlab/compare/v17.2.1-uds.0...v17.2.2-uds.0) (2024-08-13)
+
+
+### Bug Fixes
+
+* update chart and swap images to fix update ([#188](https://github.com/defenseunicorns/uds-package-gitlab/issues/188)) ([dbd955b](https://github.com/defenseunicorns/uds-package-gitlab/commit/dbd955b9a95a1a25e6f1cd459b8e90f47f677c84))
+
+
+### Miscellaneous
+
+* **deps:** update gitlab package dependencies ([#182](https://github.com/defenseunicorns/uds-package-gitlab/issues/182)) ([dde48c0](https://github.com/defenseunicorns/uds-package-gitlab/commit/dde48c0657cb64d77a2428cccb7fe2fc74d29961))
+* **deps:** update gitlab support dependencies ([#181](https://github.com/defenseunicorns/uds-package-gitlab/issues/181)) ([b14c243](https://github.com/defenseunicorns/uds-package-gitlab/commit/b14c243617a5f55812c517f3652aedb1455eea01))
+* move health check into package itself ([#183](https://github.com/defenseunicorns/uds-package-gitlab/issues/183)) ([97b687e](https://github.com/defenseunicorns/uds-package-gitlab/commit/97b687e106cccd132f4da7326da4d4d7247ab9f7))
+
 ## [17.2.1-uds.0](https://github.com/defenseunicorns/uds-package-gitlab/compare/v17.1.2-uds.1...v17.2.1-uds.0) (2024-07-29)
 
 
