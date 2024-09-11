@@ -1,3 +1,4 @@
+{{- if .Values.settingsJob.enabled }}
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -17,8 +18,8 @@ spec:
         command: ["/bin/sh", "-c"]
         args:
           - |
-            # Read the JSON file from the mounted settings secret
-            SETTINGS=$(cat /etc/gitlab-settings/settings.json)
+            # Read the JSON file from the mounted application settings secret
+            SETTINGS=$(cat /etc/gitlab-settings/application.json)
 
             # Dynamically parse each key-value pair in the JSON using yq and construct query parameters
             QUERY_PARAMS=$(echo $SETTINGS | yq e 'to_entries | map("\(.key)=\(.value)") | join("&")' -)
@@ -46,3 +47,4 @@ spec:
       - name: gitlab-settings-volume
         secret:
           secretName: gitlab-settings-secret
+{{- end }}

@@ -3,7 +3,7 @@ yaml-files:
   - '.yamllint'
 
 ignore:
-  - '**/chart/templates**'
+  - '**/charts/**/templates**'
 
 rules:
   anchors: enable

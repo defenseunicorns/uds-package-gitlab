@@ -82,8 +82,6 @@ global:
       providers:
         - secret: gitlab-sso
           key: providers
-    initialDefaults:
-      signupEnabled: ###ZARF_VAR_GITLAB_SIGNUP_ENABLED###
 
   registry:
     bucket: ###ZARF_VAR_BUCKET_PREFIX###gitlab-registry###ZARF_VAR_BUCKET_SUFFIX###
