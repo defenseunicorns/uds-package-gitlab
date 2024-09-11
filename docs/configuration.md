@@ -79,11 +79,13 @@ By default this package deploys GitLab in an HTTPS-only mode - this reduces the 
 
 #### `uds-gitlab-config` chart:
 
-<!-- TODO: (@WSTARR) Configure the Gateway and Ingresses here -->
+- `ssh.enabled` - set this to `true` to enable the additional gateway and virtual service
+- `ssh.port` - set this to a different integer if you'd like to expose ssh over a different port (defaults to `2222`)
 
 #### `gitlab` chart:
 
 - `gitlab.gitlab-shell.enabled` - set this to `true` to enable the SSH daemon within the GitLab deployment
+- `global.shell.port` - set this if you overrode `ssh.port` above to correct the port in the UI (defaults to `2222`)
 
 #### `uds-gitlab-settings` chart:
 

@@ -13,5 +13,5 @@ spec:
     spec:
       ttlSecondsAfterFinished: 30
       template:
-        {{ include "settings-pod" . | indent 8 }}
+        {{ include "uds-gitlab-settings.settings-pod" . | indent 8 }}
 {{- end }}

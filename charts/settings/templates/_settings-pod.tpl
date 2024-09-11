@@ -1,4 +1,5 @@
 # Reusable Pod spec for settings jobs
+{{- define "uds-gitlab-settings.settings-pod" }}
 metadata:
   labels:
     app: gitlab
@@ -39,3 +40,4 @@ spec:
   - name: gitlab-settings-volume
     secret:
       secretName: gitlab-settings-secret
+{{- end }}

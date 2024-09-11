@@ -42,6 +42,9 @@ global:
     credentials:
       {}
 
+  shell:
+    port: 2222
+
   appConfig:
     object_store:
       enabled: true

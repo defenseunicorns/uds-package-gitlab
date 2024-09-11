@@ -1,0 +1,20 @@
+{{- if .Values.ssh.enabled }}
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: gitlab-ssh
+  namespace: {{ .Release.Namespace }}
+spec:
+  gateways:
+  - istio-tenant-gateway/gitlab-ssh-gateway
+  hosts:
+  - gitlab.{{ .Values.domain }}
+  tcp:
+  - match:
+    - port: {{ .Values.ssh.port }}
+    route:
+    - destination:
+        host: gitlab-gitlab-shell.gitlab.svc.cluster.local
+        port:
+          number: 2222
+{{- end }}

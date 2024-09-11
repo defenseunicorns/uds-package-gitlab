@@ -99,17 +99,26 @@ spec:
         host: registry
         gateway: tenant
         port: 5000
-  {{- if .Values.ssh.enabled }}
-      - service: gitlab-gitlab-shell
-        selector:
-          app: gitlab-shell
-        host: gitlab
-        gateway: tenant
-        port: 2222
-    {{- end }}
     allow:
       - direction: Ingress
         remoteGenerated: IntraNamespace
+
+    {{- if .Values.ssh.enabled }}
+     - direction: Ingress
+        selector:
+          app: gitlab-shell
+        remoteNamespace: istio-tenant-gateway
+        remoteSelector:
+          app: tenant-ingressgateway
+        port: 2222
+        description: "SSH Ingress"
+      # TODO: (@WSTARR) This needs validation
+     - direction: Egress
+        selector:
+          app: gitlab-shell
+        remoteGenerated: Anywhere
+        description: "???"
+    {{- end }}
 
     # ingress from runner only if runner lives in cluster. Otherwise, it goes through the gateway
     {{- if .Values.runner.internal }}
