@@ -101,4 +101,4 @@ To change or add settings you can add your desired key to the `settingsJob.appli
 > Simple key-value pairs can be set as-is, however objects/arrays should be set to the values that would be expected as a query parameter.  As an example, `{"restricted_visibility_levels": ["public"]}` becomes `restricted_visibility_levels: public` in the YAML object.
 
 > [!TIP]
-> If you wish to disable this settings Job and keep GitLab's default application settings you can do so with the `settingsJob.enabled` value
+> If you wish to disable the settings Job and CronJob and keep GitLab's default application settings you can do so with the `settingsJob.enabled` value.  You can also adjust the CronJob schedule (when it will reset the application settings) with the `settingsJob.schedule` value.

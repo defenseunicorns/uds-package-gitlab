@@ -75,6 +75,11 @@ packages:
     overrides:
       gitlab:
         uds-gitlab-config:
+          # values:
+          #   - path: "ssh.enabled"
+          #     value: true
+          #   - path: "ssh.port"
+          #     value: 2223
           variables:
             - name: GITLAB_SSO_ENABLED
               description: "Boolean to enable or disable sso things"
@@ -90,6 +95,10 @@ packages:
               path: "sso.requiredGroups"
         gitlab:
           values:
+            # - path: "gitlab.gitlab-shell.enabled"
+            #   value: true
+            # - path: "global.shell.port"
+            #   value: 2223
             - path: global.psql.host
               value: pg-cluster.postgres.svc.cluster.local
             - path: "global.psql.username"
@@ -132,3 +141,7 @@ packages:
             - name: SHELL_REPLICAS
               description: "Gitlab Shell Min Replicas"
               path: "gitlab.gitlab-shell.minReplicas"
+        # uds-gitlab-settings:
+        #   values:
+        #     - path: "settingsJob.application.enabled_git_access_protocol"
+        #       value: all

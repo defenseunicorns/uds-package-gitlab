@@ -104,7 +104,7 @@ spec:
         remoteGenerated: IntraNamespace
 
     {{- if .Values.ssh.enabled }}
-     - direction: Ingress
+      - direction: Ingress
         selector:
           app: gitlab-shell
         remoteNamespace: istio-tenant-gateway
@@ -112,8 +112,8 @@ spec:
           app: tenant-ingressgateway
         port: 2222
         description: "SSH Ingress"
-      # TODO: (@WSTARR) This needs validation
-     - direction: Egress
+      # TODO: (@WSTARR) This needs more validation
+      - direction: Egress
         selector:
           app: gitlab-shell
         remoteGenerated: Anywhere
