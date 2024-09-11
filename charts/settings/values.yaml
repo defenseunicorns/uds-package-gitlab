@@ -6,49 +6,49 @@ global:
 
 settingsJob:
   enabled: true
-  # settings here come from: https://docs.gitlab.com/ee/api/settings.html
-  # NOTE: This JSON object is converted to query parameters later on so
-  # nested objects/arrays will need to be encoded properly to work.
-  application: |-
-    {
-      "default_snippet_visibility" : "private",
-      "default_project_visibility" : "private",
-      "default_group_visibility" : "private",
-      "restricted_visibility_levels": "public",
-      "enabled_git_access_protocol": "http",
-      "rsa_key_restriction": 2048,
-      "ecdsa_key_restriction": 256,
-      "ecdsa_sk_key_restriction": 256,
-      "ed25519_key_restriction": -1,
-      "ed25519_sk_key_restriction": -1,
-      "dsa_key_restriction": -1,
-      "disable_feed_token": true,
-      "gravatar_enabled": false,
-      "signup_enabled": false,
-      "email_confirmation_setting": hard,
-      "password_authentication_enabled_for_web": false,
-      "password_authentication_enabled_for_git": false,
-      "admin_mode": true,
-      "notify_on_unknown_sign_in": true,
-      "dns_rebinding_protection_enabled": true,
-      "throttle_authenticated_api_enabled": true,
-      "throttle_authenticated_api_period_in_seconds": 3600,
-      "throttle_authenticated_api_requests_per_period": 7200,
-      "throttle_authenticated_packages_api_enabled": true,
-      "throttle_authenticated_packages_api_period_in_seconds": 3600,
-      "throttle_authenticated_packages_api_requests_per_period": 7200,
-      "throttle_authenticated_web_enabled": true,
-      "throttle_authenticated_web_period_in_seconds": 3600,
-      "throttle_authenticated_web_requests_per_period": 7200,
-      "throttle_unauthenticated_api_enabled": true,
-      "throttle_unauthenticated_api_period_in_seconds": 3600,
-      "throttle_unauthenticated_api_requests_per_period": 3600,
-      "throttle_unauthenticated_packages_api_enabled": true,
-      "throttle_unauthenticated_packages_api_period_in_seconds": 3600,
-      "throttle_unauthenticated_packages_api_requests_per_period": 3600,
-      "throttle_unauthenticated_web_enabled": true,
-      "throttle_unauthenticated_web_period_in_seconds": 3600,
-      "throttle_unauthenticated_web_requests_per_period": 3600,
-      "usage_ping_enabled": false,
-      "include_optional_metrics_in_service_ping": false
-    }
+  # Settings here come from: https://docs.gitlab.com/ee/api/settings.html
+  # NOTE: These keys are converted to a JSON object that is converted to query
+  # parameters later on so any nested objects/arrays should be encoded as a 
+  # string query parameter instead of their full type.
+  application:
+    default_snippet_visibility: private
+    default_project_visibility: private
+    default_group_visibility: private
+    # restricted_visibility_levels is actually an array but is a single element string to work here
+    restricted_visibility_levels: public
+    enabled_git_access_protocol: http
+    rsa_key_restriction: 2048
+    ecdsa_key_restriction: 256
+    ecdsa_sk_key_restriction: 256
+    ed25519_key_restriction: -1
+    ed25519_sk_key_restriction: -1
+    dsa_key_restriction: -1
+    disable_feed_token: true
+    gravatar_enabled: false
+    signup_enabled: false
+    email_confirmation_setting: hard
+    password_authentication_enabled_for_web: false
+    password_authentication_enabled_for_git: false
+    admin_mode: true
+    notify_on_unknown_sign_in: true
+    dns_rebinding_protection_enabled: true
+    throttle_authenticated_api_enabled: true
+    throttle_authenticated_api_period_in_seconds: 3600
+    throttle_authenticated_api_requests_per_period: 7200
+    throttle_authenticated_packages_api_enabled: true
+    throttle_authenticated_packages_api_period_in_seconds: 3600
+    throttle_authenticated_packages_api_requests_per_period: 7200
+    throttle_authenticated_web_enabled: true
+    throttle_authenticated_web_period_in_seconds: 3600
+    throttle_authenticated_web_requests_per_period: 7200
+    throttle_unauthenticated_api_enabled: true
+    throttle_unauthenticated_api_period_in_seconds: 3600
+    throttle_unauthenticated_api_requests_per_period: 3600
+    throttle_unauthenticated_packages_api_enabled: true
+    throttle_unauthenticated_packages_api_period_in_seconds: 3600
+    throttle_unauthenticated_packages_api_requests_per_period: 3600
+    throttle_unauthenticated_web_enabled: true
+    throttle_unauthenticated_web_period_in_seconds: 3600
+    throttle_unauthenticated_web_requests_per_period: 3600
+    usage_ping_enabled: false
+    include_optional_metrics_in_service_ping: false

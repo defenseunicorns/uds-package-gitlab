@@ -51,7 +51,7 @@ https://github.com/defenseunicorns/uds-software-factory/issues/45
 
 GitLab uses Redis as a key value store for caching, job queueing and more and supports external providers (such as Elasticache) as well as the [UDS Valkey](https://github.com/defenseunicorns/uds-package-valkey/) package to provide the service.
 
-### Manual Database Connection
+### Manual Keystore Connection
 
 You can use the following Helm overrides to configure a connection to Redis / Valkey:
 
@@ -72,3 +72,31 @@ You can use the following Helm overrides to configure a connection to Redis / Va
 - `global.redis.scheme` - provides the scheme to use to connect to the key value store (i.e. `redis` or `rediss`)
 - `global.redis.host` - provides the endpoint to use to connect to the key value store (i.e. `pg-cluster.postgres.svc.cluster.local`)
 - `global.redis.port` - provides the port to use to connect to the key value store (defaults to `6379`)
+
+## Configuring SSH
+
+By default this package deploys GitLab in an HTTPS-only mode - this reduces the attack surface by removing one potential point of ingress but if you need to enable SSH git cloning and have mitigated this risk in other ways you can do so with the following overrides:
+
+#### `uds-gitlab-config` chart:
+
+<!-- TODO: (@WSTARR) Configure the Gateway and Ingresses here -->
+
+#### `gitlab` chart:
+
+- `gitlab.gitlab-shell.enabled` - set this to `true` to enable the SSH daemon within the GitLab deployment
+
+#### `uds-gitlab-settings` chart:
+
+- `settingsJob.application.enabled_git_access_protocol` - set this to `all` to reenable the SSH option when selecting a repository's clone dropdown
+
+## Configuring GitLab Settings
+
+This package contains an additional chart that will force GitLab application settings to take the values recommended in the [GitLab Application Hardening Recommendations](https://docs.gitlab.com/ee/security/hardening_application_recommendations.html) guide.  These settings may need to be modified for your instance or you may wish to make tweaks to add additional settings that can be found in the [GitLab Application Settings documentation](https://docs.gitlab.com/ee/api/settings.html).
+
+To change or add settings you can add your desired key to the `settingsJob.application` value of the `uds-gitlab-settings` chart.  This YAML object will be converted to a JSON object and then into query parameters to pass to the [GitLab Application Settings API](https://docs.gitlab.com/ee/api/settings.html).
+
+> [!IMPORTANT]
+> Simple key-value pairs can be set as-is, however objects/arrays should be set to the values that would be expected as a query parameter.  As an example, `{"restricted_visibility_levels": ["public"]}` becomes `restricted_visibility_levels: public` in the YAML object.
+
+> [!TIP]
+> If you wish to disable this settings Job and keep GitLab's default application settings you can do so with the `settingsJob.enabled` value
