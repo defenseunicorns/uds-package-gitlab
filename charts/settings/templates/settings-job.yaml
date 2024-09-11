@@ -8,5 +8,5 @@ metadata:
 spec:
   ttlSecondsAfterFinished: 30
   template:
-    {{ include "gitlab-settings-pod" . | indent 4 }}
+    {{ include "settings-pod" . | indent 4 }}
 {{- end }}
