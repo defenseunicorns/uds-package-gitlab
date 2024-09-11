@@ -99,6 +99,14 @@ spec:
         host: registry
         gateway: tenant
         port: 5000
+  {{- if .Values.ssh.enabled }}
+      - service: gitlab-gitlab-shell
+        selector:
+          app: gitlab-shell
+        host: gitlab
+        gateway: tenant
+        port: 2222
+    {{- end }}
     allow:
       - direction: Ingress
         remoteGenerated: IntraNamespace

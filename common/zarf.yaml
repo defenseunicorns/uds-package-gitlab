@@ -44,13 +44,6 @@ components:
                 name: gitlab-registry
                 namespace: gitlab
                 condition: Available
-          - description: GitLab Shell to be Healthy
-            wait:
-              cluster:
-                kind: Deployment
-                name: gitlab-gitlab-shell
-                namespace: gitlab
-                condition: Available
           - description: GitLab Toolbox to be Healthy
             wait:
               cluster:

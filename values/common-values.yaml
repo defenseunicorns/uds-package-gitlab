@@ -17,6 +17,7 @@ global:
       name: registry.###ZARF_VAR_DOMAIN###
     pages:
       name: pages.###ZARF_VAR_DOMAIN###
+
   psql:
     host: ###ZARF_VAR_GITLAB_DB_ENDPOINT###
     port: 5432
@@ -171,9 +172,9 @@ gitlab:
       serviceMonitor:
         enabled: true
 
-  # override to enable ssh
   gitlab-shell:
-    enabled: true
+    # override to enable ssh
+    enabled: false
     sshDaemon: gitlab-sshd
     metrics:
       enabled: true
