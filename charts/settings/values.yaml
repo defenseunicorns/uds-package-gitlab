@@ -9,7 +9,7 @@ settingsJob:
   schedule: "0 2 * * *"  # Run at 2:00 AM every day
   # Settings here come from: https://docs.gitlab.com/ee/api/settings.html
   # NOTE: These keys are converted to a JSON object that is converted to query
-  # parameters later on so any nested objects/arrays should be encoded as a 
+  # parameters later on so any nested objects/arrays should be encoded as a
   # string query parameter instead of their full type.
   application:
     default_snippet_visibility: private
