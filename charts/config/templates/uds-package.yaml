@@ -112,12 +112,6 @@ spec:
           app: tenant-ingressgateway
         port: 2222
         description: "SSH Ingress"
-      # TODO: (@WSTARR) This needs more validation
-      - direction: Egress
-        selector:
-          app: gitlab-shell
-        remoteGenerated: Anywhere
-        description: "???"
     {{- end }}
 
     # ingress from runner only if runner lives in cluster. Otherwise, it goes through the gateway
