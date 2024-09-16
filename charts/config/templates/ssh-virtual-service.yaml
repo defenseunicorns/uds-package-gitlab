@@ -16,5 +16,5 @@ spec:
     - destination:
         host: gitlab-gitlab-shell.gitlab.svc.cluster.local
         port:
-          number: 2222
+          number: {{ .Values.ssh.port }}
 {{- end }}

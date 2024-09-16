@@ -75,7 +75,38 @@ You can use the following Helm overrides to configure a connection to Redis / Va
 
 ## Configuring SSH
 
-By default this package deploys GitLab in an HTTPS-only mode - this reduces the attack surface by removing one potential point of ingress but if you need to enable SSH git cloning and have mitigated this risk in other ways you can do so with the following overrides:
+By default this package deploys GitLab in an HTTPS-only mode - this reduces the attack surface by removing one potential point of ingress, but if you need to enable SSH git cloning and have mitigated this risk in other ways you can do so with the following overrides:
+
+#### `uds-core` package:
+
+Before configuring the GitLab package to allow SSH traffic you will need to also allow the traffic through UDS Core (and everything before it).  To configure UDS Core to pass through SSH you will need to add the following (where `2222` is replaced with your chosen SSH port):
+
+```yaml
+    overrides:
+      istio-tenant-gateway:
+        gateway:
+          values:
+            - path: "service.ports"
+              value:
+                - name: status-port
+                  port: 15021
+                  protocol: TCP
+                  targetPort: 15021
+                - name: http2
+                  port: 80
+                  protocol: TCP
+                  targetPort: 80
+                - name: https
+                  port: 443
+                  protocol: TCP
+                  targetPort: 443
+                - name: tcp-ssh
+                  port: 2222
+                  protocol: TCP
+                  targetPort: 2222
+```
+
+This will allow SSH traffic to traverse the LoadBalancer and hit the Istio Gateway that is configured in the GitLab chart.
 
 #### `uds-gitlab-config` chart:
 
@@ -85,7 +116,7 @@ By default this package deploys GitLab in an HTTPS-only mode - this reduces the 
 #### `gitlab` chart:
 
 - `gitlab.gitlab-shell.enabled` - set this to `true` to enable the SSH daemon within the GitLab deployment
-- `global.shell.port` - set this if you overrode `ssh.port` above to correct the port in the UI (defaults to `2222`)
+- `global.shell.port` - set this if you overrode `ssh.port` above to correct the port for the `gitlab-shell` service and the UI (defaults to `2222`)
 
 #### `uds-gitlab-settings` chart:
 
