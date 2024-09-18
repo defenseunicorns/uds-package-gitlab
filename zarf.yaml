@@ -4,7 +4,7 @@ metadata:
   name: gitlab
   description: "UDS GitLab Package"
   # x-release-please-start-version
-  version: "17.2.5-uds.0"
+  version: "17.2.7-uds.0"
   # x-release-please-end
 
 variables:
