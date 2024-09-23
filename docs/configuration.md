@@ -126,7 +126,7 @@ This will allow SSH traffic to traverse the LoadBalancer and hit the Istio Gatew
 
 This package contains an additional chart that will force GitLab application settings to take the values recommended in the [GitLab Application Hardening Recommendations](https://docs.gitlab.com/ee/security/hardening_application_recommendations.html) guide.  These settings may need to be modified for your instance or you may wish to make tweaks to add additional settings that can be found in the [GitLab Application Settings documentation](https://docs.gitlab.com/ee/api/settings.html).
 
-To change or add settings you can add your desired key to the `settingsJob.application` value of the `uds-gitlab-settings` chart.  This YAML object will be converted to a JSON object and then into query parameters to pass to the [GitLab Application Settings API](https://docs.gitlab.com/ee/api/settings.html).
+It is recommended to inspect these settings and further lock them down for your specific environment if you are able.  You can change or add settings by adding your desired key to the `settingsJob.application` value of the `uds-gitlab-settings` chart.  This YAML object will be converted to a JSON object and then into query parameters to pass to the [GitLab Application Settings API](https://docs.gitlab.com/ee/api/settings.html).
 
 > [!IMPORTANT]
 > Simple key-value pairs can be set as-is, however objects/arrays should be set to the values that would be expected as a query parameter.  As an example, `{"restricted_visibility_levels": ["public"]}` becomes `restricted_visibility_levels: public` in the YAML object.

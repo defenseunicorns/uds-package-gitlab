@@ -30,6 +30,11 @@ settingsJob:
     email_confirmation_setting: hard
     password_authentication_enabled_for_web: false
     password_authentication_enabled_for_git: false
+    minimum_password_length: 16
+    password_number_required: true
+    password_symbol_required: true
+    password_uppercase_required: true
+    password_lowercase_required: true
     admin_mode: true
     notify_on_unknown_sign_in: true
     dns_rebinding_protection_enabled: true
@@ -53,3 +58,4 @@ settingsJob:
     throttle_unauthenticated_web_requests_per_period: 3600
     usage_ping_enabled: false
     include_optional_metrics_in_service_ping: false
+    version_check_enabled: false
