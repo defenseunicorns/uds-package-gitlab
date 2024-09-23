@@ -7,6 +7,7 @@ includes:
   - pull: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.13.0/tasks/pull.yaml
   - deploy: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.13.0/tasks/deploy.yaml
   - setup: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.13.0/tasks/setup.yaml
+  - upgrade: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.13.0/tasks/upgrade.yaml
 
 tasks:
   - name: default
