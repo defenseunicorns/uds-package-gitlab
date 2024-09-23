@@ -26,9 +26,8 @@ tasks:
   - name: create-gl-test-bundle
     description: Create a local UDS Gitlab bundle with dependencies
     actions:
-      - task: create-gl-package
       - task: dependencies:create
-      - task: create:test-bundle
+      - task: upgrade:create-latest-tag-bundle
 
   - name: create-gl-latest-release-bundle
     description: Create UDS Gitlab bundle with dependencies based on the latest release
