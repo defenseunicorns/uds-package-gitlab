@@ -45,12 +45,6 @@ tasks:
       - task: create-gl-test-bundle
       - task: deploy:test-bundle
 
-  - name: doug-admin
-    description: Promote Doug to admin (requires running setup:create-doug-user and logging into gitlab ui first)
-    actions:
-      - cmd: |
-         ./uds zarf tools kubectl exec -n gitlab deployment/gitlab-toolbox -- gitlab-rails runner -e production "user = User.find_by(username: 'doug'); user.admin = true; user.save!"
-
 # CI will execute the following (via uds-common/.github/actions/test) so they need to be here with these names
 
   - name: test-package
