@@ -2,12 +2,12 @@ includes:
   - cleanup: ./tasks/cleanup.yaml
   - dependencies: ./tasks/dependencies.yaml
   - test: ./tasks/test.yaml
-  - create: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.13.0/tasks/create.yaml
-  - lint: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.13.0/tasks/lint.yaml
-  - pull: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.13.0/tasks/pull.yaml
-  - deploy: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.13.0/tasks/deploy.yaml
-  - setup: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.13.0/tasks/setup.yaml
-  - upgrade: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.13.0/tasks/upgrade.yaml
+  - create: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.13.1/tasks/create.yaml
+  - lint: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.13.1/tasks/lint.yaml
+  - pull: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.13.1/tasks/pull.yaml
+  - deploy: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.13.1/tasks/deploy.yaml
+  - setup: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.13.1/tasks/setup.yaml
+  - upgrade: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.13.1/tasks/upgrade.yaml
 
 tasks:
   - name: default
@@ -27,17 +27,16 @@ tasks:
   - name: create-gl-test-bundle
     description: Create a local UDS Gitlab bundle with dependencies
     actions:
+      - task: create-gl-package
       - task: dependencies:create
-      - task: upgrade:create-latest-tag-bundle
+      - task: create:test-bundle
 
   - name: create-gl-latest-release-bundle
     description: Create UDS Gitlab bundle with dependencies based on the latest release
     actions:
-      - task: pull:latest-package-release
+      - task: upgrade:create-latest-tag-bundle
         with:
-          spoof_release: "true"
-      - task: dependencies:create
-      - task: create:test-bundle
+          dep_commands: uds run dependencies:create
 
   - name: dev
     description: deploy against running cluster
