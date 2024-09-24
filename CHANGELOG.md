@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file.
 
+## [17.2.7-uds.1](https://github.com/defenseunicorns/uds-package-gitlab/compare/v17.2.7-uds.0...v17.2.7-uds.1) (2024-09-24)
+
+
+### ⚠ BREAKING CHANGES
+
+* allow configurability of SSH and harden application settings ([#196](https://github.com/defenseunicorns/uds-package-gitlab/issues/196))
+
+### Features
+
+* allow configurability of SSH and harden application settings ([#196](https://github.com/defenseunicorns/uds-package-gitlab/issues/196)) ([bcd34c6](https://github.com/defenseunicorns/uds-package-gitlab/commit/bcd34c6e0499c6d00954fb8cb34b6fe6b9a3dcd4))
+
+
+### Miscellaneous
+
+* **deps:** update gitlab support dependencies ([#191](https://github.com/defenseunicorns/uds-package-gitlab/issues/191)) ([3e90272](https://github.com/defenseunicorns/uds-package-gitlab/commit/3e90272895d69038feb0444bd8f29a83ab9b9f0f))
+
 ## [17.2.7-uds.0](https://github.com/defenseunicorns/uds-package-gitlab/compare/v17.2.5-uds.0...v17.2.7-uds.0) (2024-09-18)
 
 
