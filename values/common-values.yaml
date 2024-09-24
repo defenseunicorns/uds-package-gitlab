@@ -17,6 +17,7 @@ global:
       name: registry.###ZARF_VAR_DOMAIN###
     pages:
       name: pages.###ZARF_VAR_DOMAIN###
+
   psql:
     host: ###ZARF_VAR_GITLAB_DB_ENDPOINT###
     port: 5432
@@ -40,6 +41,9 @@ global:
     enabled: false
     credentials:
       {}
+
+  shell:
+    port: 2222
 
   appConfig:
     object_store:
@@ -81,8 +85,6 @@ global:
       providers:
         - secret: gitlab-sso
           key: providers
-    initialDefaults:
-      signupEnabled: ###ZARF_VAR_GITLAB_SIGNUP_ENABLED###
 
   registry:
     bucket: ###ZARF_VAR_BUCKET_PREFIX###gitlab-registry###ZARF_VAR_BUCKET_SUFFIX###
@@ -171,9 +173,9 @@ gitlab:
       serviceMonitor:
         enabled: true
 
-  # override to enable ssh
   gitlab-shell:
-    enabled: true
+    # override to enable ssh
+    enabled: false
     sshDaemon: gitlab-sshd
     metrics:
       enabled: true

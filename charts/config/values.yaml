@@ -1,4 +1,9 @@
 domain: "###ZARF_VAR_DOMAIN###"
+
+ssh:
+  enabled: false
+  port: 2222
+
 sso:
   enabled: true
   protocol: saml

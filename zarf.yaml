@@ -46,6 +46,9 @@ components:
       - name: gitlab
         valuesFiles:
           - values/registry1-values.yaml
+      - name: uds-gitlab-settings
+        valuesFiles:
+          - values/registry1-values.yaml
     images:
       - "registry1.dso.mil/ironbank/gitlab/gitlab/certificates:17.2.7"
       - "registry1.dso.mil/ironbank/gitlab/gitlab/cfssl-self-sign:1.6.1"
@@ -71,6 +74,9 @@ components:
       flavor: upstream
     charts:
       - name: gitlab
+        valuesFiles:
+          - values/upstream-values.yaml
+      - name: uds-gitlab-settings
         valuesFiles:
           - values/upstream-values.yaml
     images:

@@ -1,12 +1,8 @@
 import { test, expect } from "@playwright/test";
 import path from "path";
 
-function randomProjectName(prefix: string = 'uds-package-test') {
-  return [ prefix, Math.floor((Math.random() * 10_000)) ].join('-');
-}
-
-test('setup a project', async ({ page }) => {
-  const projectName = randomProjectName();
+test('setup a project', async ({ page, browserName }) => {
+  const projectName = `${process.env.PROJECT_NAME!}-${browserName}`
 
   await page.goto('/projects/new#blank_project');
   await page.getByLabel('Project name').fill(projectName);

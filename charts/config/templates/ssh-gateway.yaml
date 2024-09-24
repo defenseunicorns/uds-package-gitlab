@@ -1,0 +1,17 @@
+{{- if .Values.ssh.enabled }}
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: gitlab-ssh-gateway
+  namespace: istio-tenant-gateway
+spec:
+  selector:
+    app: tenant-ingressgateway
+  servers:
+    - hosts:
+      - gitlab.{{ .Values.domain }}
+      port:
+        name: tcp-ssh
+        number: {{ .Values.ssh.port }}
+        protocol: TCP
+{{- end }}

@@ -7,7 +7,6 @@ tasks:
     actions:
       - task: test:ingress
       - task: test:ui
-      - task: test:git
 
   - name: ingress
     actions:
@@ -24,32 +23,42 @@ tasks:
             exit 1
           fi
 
-  - name: git
-    description: GitLab Repository Mirror Checks
-    actions:
-      - cmd: |
-          ./uds zarf package create --confirm
-        dir: tests/data
-      - task: create-doug-pat
-      - cmd: |
-          ./uds zarf package mirror-resources \
-            zarf-package-gitlab-git-tests-${UDS_ARCH}-0.0.1.tar.zst \
-            --git-url "https://gitlab.uds.dev" \
-            --git-push-username "doug" \
-            --git-push-password "${GITLAB_TOKEN}" \
-            --confirm
-        dir: tests/data
-
   - name: ui
-    description: GitLab UI Checks
+    description: GitLab UI/Auth Checks
     actions:
+      # Setup the project name and SSH Key
+      - cmd: echo "uds-package-test-$(date +%s)"
+        setVariables:
+          - name: PROJECT_NAME
+      - cmd: rm -f ./gitlab-test-ssh-key && ssh-keygen -t rsa -b 4096 -C "your_email@example.com" -f ./gitlab-test-ssh-key -P ""
+        dir: tests/data
+      # Login, and create a project
       - cmd: |
-          docker run --rm --ipc=host --net=host --mount type=bind,source="$(pwd)",target=/app mcr.microsoft.com/playwright:v1.43.1-jammy sh -c " \
+          docker run --rm --ipc=host --net=host -e SSH_PUBLIC_KEY="$(cat ./data/gitlab-test-ssh-key.pub)" -e PROJECT_NAME="${PROJECT_NAME}" --mount type=bind,source="$(pwd)",target=/app mcr.microsoft.com/playwright:v1.43.1-jammy sh -c " \
             cd app && \
             npm ci && \
             npx playwright test \
             "
         dir: tests
+      # Pull the project via SSH (gateway -> gitlab-shell -> gitaly)
+      - cmd: |
+          mkdir -p "${PROJECT_NAME}" && cd "${PROJECT_NAME}" && git init
+          git config core.sshCommand "ssh -i ../gitlab-test-ssh-key -o StrictHostKeyChecking=no"
+          git remote add origin "ssh://git@gitlab.uds.dev:2223/doug/${PROJECT_NAME}-firefox.git"
+          git pull origin main
+        dir: tests/data
+      # Push to the project via HTTPS (gateway -> gitlab-webservice -> gitaly)
+      - task: create-doug-pat
+      - cmd: |
+          cd "${PROJECT_NAME}"
+          git config commit.gpgsign false
+          git remote set-url origin "https://doug:${GITLAB_TOKEN}@gitlab.uds.dev/doug/${PROJECT_NAME}-firefox.git"
+          touch hello-kitteh.txt && git add . && git commit -m "Add hello kitteh"
+          git push -u origin --all
+        dir: tests/data
+      # Cleanup the git repo
+      - cmd: rm -rf "${PROJECT_NAME}"
+        dir: tests/data
 
   - name: create-doug-admin
     description: Create "doug" account as admin (must be run *before* first login)

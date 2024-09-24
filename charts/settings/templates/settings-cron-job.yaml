@@ -1,0 +1,17 @@
+{{- if .Values.settingsJob.enabled }}
+# CronJob to reapply settings on schedule
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: gitlab-settings-cronjob
+  namespace: {{ .Release.Namespace }}
+spec:
+  schedule: "{{ .Values.settingsJob.schedule }}"
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 30
+      template:
+        {{ include "uds-gitlab-settings.settings-pod" . | indent 8 }}
+{{- end }}

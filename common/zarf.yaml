@@ -11,7 +11,7 @@ components:
       - name: uds-gitlab-config
         namespace: gitlab
         version: 0.2.0
-        localPath: ../chart
+        localPath: ../charts/config
       - name: gitlab
         namespace: gitlab
         url: https://charts.gitlab.io/
@@ -19,6 +19,10 @@ components:
         version: "8.3.3"
         valuesFiles:
           - ../values/common-values.yaml
+      - name: uds-gitlab-settings
+        namespace: gitlab
+        version: 0.1.0
+        localPath: ../charts/settings
     actions:
       onDeploy:
         after:
@@ -42,13 +46,6 @@ components:
               cluster:
                 kind: Deployment
                 name: gitlab-registry
-                namespace: gitlab
-                condition: Available
-          - description: GitLab Shell to be Healthy
-            wait:
-              cluster:
-                kind: Deployment
-                name: gitlab-gitlab-shell
                 namespace: gitlab
                 condition: Available
           - description: GitLab Toolbox to be Healthy

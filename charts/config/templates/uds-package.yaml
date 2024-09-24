@@ -103,6 +103,17 @@ spec:
       - direction: Ingress
         remoteGenerated: IntraNamespace
 
+    {{- if .Values.ssh.enabled }}
+      - direction: Ingress
+        selector:
+          app: gitlab-shell
+        remoteNamespace: istio-tenant-gateway
+        remoteSelector:
+          app: tenant-ingressgateway
+        port: 2222
+        description: "SSH Ingress"
+    {{- end }}
+
     # ingress from runner only if runner lives in cluster. Otherwise, it goes through the gateway
     {{- if .Values.runner.internal }}
       - direction: Ingress
