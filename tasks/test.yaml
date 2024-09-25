@@ -60,19 +60,6 @@ tasks:
       - cmd: rm -rf "${PROJECT_NAME}"
         dir: tests/data
 
-  - name: create-doug-admin
-    description: Create "doug" account as admin (must be run *before* first login)
-    actions:
-      - cmd: |
-          ./uds zarf tools kubectl exec -n gitlab deployment/gitlab-toolbox -- gitlab-rails runner -e production '\
-          user = User.new(username: "doug", name: "Doug Unicorn", email: "doug@uds.dev", password: "0123456789!", password_confirmation: "0123456789!"); \
-          user.assign_personal_namespace!; \
-          user.skip_confirmation!; \
-          user.admin = true; \
-          user.save!; \
-          puts user.username; puts user.id; \
-          '
-
   - name: create-doug-pat
     description: Create personal access token (PAT) for "doug" account
     actions:
