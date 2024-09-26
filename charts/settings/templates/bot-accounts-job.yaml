@@ -1,0 +1,12 @@
+{{- if .Values.botAccounts }}
+# Job to apply settings immediately on deployment
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: gitlab-bot-accounts-job
+  namespace: {{ .Release.Namespace }}
+spec:
+  #ttlSecondsAfterFinished: 30 #todo (@ewyles) -- put this back
+  template:
+    {{ include "uds-gitlab-settings.botaccounts-pod" . | indent 4 }}
+{{- end }}

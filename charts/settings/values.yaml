@@ -4,6 +4,29 @@ global:
       repository: registry.gitlab.com/gitlab-org/build/cng/kubectl
       tag: v17.2.4
 
+
+botAccounts:
+  - username: renovatebot
+    secret:
+      name: gitlab-renovatebot
+      namespace: renovate
+      keyName: TOKEN
+  - username: anotherbot
+    secret:
+      name: gitlab-otherbotbot
+      namespace: otherbot
+      keyName: TOKEN
+
+  # -- list of accounts
+  #   username
+  #   namespace
+  #   secret name
+
+  #   ^ create a new job to go over these and make it happen (create the user and the pat, persist to secret)
+  #     will need to be similar to settings-pod.tpl but use a different service account
+
+  #   -- use helm templating to range over the list and create the namespaces
+
 settingsJob:
   enabled: true
   schedule: "0 2 * * *"  # Run at 2:00 AM every day
