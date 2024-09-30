@@ -143,5 +143,16 @@ packages:
               path: "gitlab.gitlab-shell.minReplicas"
         uds-gitlab-settings:
           values:
+            - path: botAccounts
+              value:
+                - username: renovatebot
+                  scopes:
+                    - api
+                    - read_repository
+                    - write_repository
+                  secret:
+                    name: gitlab-renovatebot
+                    namespace: renovate
+                    keyName: TOKEN
             - path: settingsJob.application.enabled_git_access_protocol
               value: all

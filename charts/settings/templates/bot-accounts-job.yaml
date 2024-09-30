@@ -14,7 +14,7 @@ spec:
       containers:
       - name: gitlab-settings-botaccounts
         image: "{{ .Values.global.kubectl.image.repository }}:{{ .Values.global.kubectl.image.tag }}"
-        command: ["/bin/sh", "-c"]
+        command: ["/bin/bash", "-c"]
         args:
           - |
             create_gitlab_user_token() {
@@ -49,7 +49,6 @@ spec:
 
                     # Step 2: Create the user account if it doesn't exist
                     password = SecureRandom.alphanumeric(16)
-                    STDERR.puts 'Generated password is: ' + password  # Send password info to stderr to avoid mixing with the token
 
                     user = User.new(username: '$username', email: '$username@example.com', name: '$username', password: password);
                     user.assign_personal_namespace(Organizations::Organization.default_organization);
@@ -70,14 +69,11 @@ spec:
                 # If the user already exists, the script will exit early and return additional details
                 if echo "$user_info" | grep -q "User already exists"; then
                     log_message "$user_info"
-                    log_message "User '$username' already exists. Exiting."
-                    exit 0
+                    log_message "User '$username' already exists."
                 elif [ -z "$user_info" ]; then
                     log_message "Failed to generate personal access token for '$username'."
-                    exit 1
+                    return 1
                 fi
-
-                log_message "Generated personal access token: $user_info"
 
                 # Step 4: Create Kubernetes secret with the generated PAT
                 kubectl create secret generic "$secretName" \
@@ -88,20 +84,26 @@ spec:
                     log_message "Kubernetes secret '$secretName' created successfully in namespace '$secretNamespace'."
                 else
                     log_message "Failed to create Kubernetes secret."
-                    exit 1
+                    return 1
                 fi
             }
 
+            # Track failed accounts in a string
+            failed_accounts=""
+
             {{- range .Values.botAccounts }}
             create_gitlab_user_token "{{ .username }}" "{{ .scopes  | join "," }}" "{{ .secret.name }}" "{{ .secret.namespace }}" "{{ .secret.keyName }}"
+            if [ $? -ne 0 ]; then
+                failed_accounts="$failed_accounts {{ .username }}"
+            fi
             {{- end }}
-        volumeMounts:
-          - name: gitlab-settings-volume
-            mountPath: /etc/gitlab-settings
-            readOnly: true
+
+            # After attempting all accounts, check if any failed
+            if [ -n "$failed_accounts" ]; then
+                log_message "The following bot accounts failed to create:$failed_accounts"
+                exit 1  # Fail the job if any account creation failed
+            else
+                log_message "All bot accounts were created successfully."
+            fi
       restartPolicy: Never
-      volumes:
-      - name: gitlab-settings-volume
-        secret:
-          secretName: gitlab-settings-secret
 {{- end }}

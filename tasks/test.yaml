@@ -5,8 +5,9 @@ variables:
 tasks:
   - name: all
     actions:
-      - task: test:ingress
-      - task: test:ui
+      - task: ingress
+      - task: ui
+      - task: bot-account
 
   - name: ingress
     actions:
@@ -59,6 +60,23 @@ tasks:
       # Cleanup the git repo
       - cmd: rm -rf "${PROJECT_NAME}"
         dir: tests/data
+
+  - name: bot-account
+    description: Bot Account Access Tests
+    actions:
+      - cmd: kubectl get secret gitlab-renovatebot -n renovate -o jsonpath="{.data.TOKEN}" | base64 --decode
+        setVariables:
+          - name: GITLAB_TOKEN
+      - cmd: |
+          response=$(curl --write-out "%{http_code}" --silent --output /dev/null --header "PRIVATE-TOKEN: $GITLAB_TOKEN" https://gitlab.uds.dev/api/v4/user)
+
+          # Check if the status code is 200 (OK)
+          if [ "$response" -eq 200 ]; then
+            echo "GitLab API token is valid."
+          else
+            echo "Error: GitLab API token is invalid or cannot access the API."
+            exit 1
+          fi
 
   - name: create-doug-pat
     description: Create personal access token (PAT) for "doug" account
