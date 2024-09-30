@@ -1,22 +1,3 @@
-{{- if .Values.botAccounts }}
-apiVersion: batch/v1
-kind: Job
-metadata:
-  name: gitlab-bot-accounts-job
-  namespace: {{ .Release.Namespace }}
-spec:
-  template:
-    metadata:
-      labels:
-        app: gitlab
-    spec:
-      serviceAccountName: gitlab-botaccounts-sa
-      containers:
-      - name: gitlab-settings-botaccounts
-        image: "{{ .Values.global.kubectl.image.repository }}:{{ .Values.global.kubectl.image.tag }}"
-        command: ["/bin/sh", "-c"]
-        args:
-          - |
             create_gitlab_user_token() {
                 # Input parameters
                 username="$1"
@@ -92,16 +73,6 @@ spec:
                 fi
             }
 
-            {{- range .Values.botAccounts }}
-            create_gitlab_user_token "{{ .username }}" "{{ .scopes  | join "," }}" "{{ .secret.name }}" "{{ .secret.namespace }}" "{{ .secret.keyName }}"
-            {{- end }}
-        volumeMounts:
-          - name: gitlab-settings-volume
-            mountPath: /etc/gitlab-settings
-            readOnly: true
-      restartPolicy: Never
-      volumes:
-      - name: gitlab-settings-volume
-        secret:
-          secretName: gitlab-settings-secret
-{{- end }}
+
+
+        create_gitlab_user_token "anotherbot5" "api,read_repository" "gitlab-otherbotbot" "otherbot" "TOKEN"

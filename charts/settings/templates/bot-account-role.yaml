@@ -1,0 +1,68 @@
+{{- if .Values.settingsJob.enabled }}
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: gitlab-botaccounts-sa
+  namespace: {{ .Release.Namespace }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: gitlab-botaccounts-role
+  namespace: {{ .Release.Namespace }}
+rules:
+  # Only allow exec into the toolbox pod
+  - apiGroups: [""]
+    resources: ["pods/exec"]
+    verbs: ["create"]
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs: ["list"]
+  - apiGroups: ["apps"]
+    resources: ["deployments"]
+    verbs: ["get"]
+    resourceNames:
+      - gitlab-toolbox
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: gitlab-botaccounts-rolebinding
+  namespace: {{ .Release.Namespace }}
+subjects:
+  - kind: ServiceAccount
+    name: gitlab-botaccounts-sa
+    namespace: {{ .Release.Namespace }}
+roleRef:
+  kind: Role
+  name: gitlab-botaccounts-role
+  apiGroup: rbac.authorization.k8s.io
+{{- range .Values.botAccounts }}
+---
+# New Role for creating secrets in the '{{ .secret.namespace }}' namespace
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: gitlab-botaccounts-{{ .secret.namespace }}-role
+  namespace: {{ .secret.namespace }}
+rules:
+  - apiGroups: [""]
+    resources: ["secrets"]
+    verbs: ["create", "get", "list", "update", "delete"]
+---
+# RoleBinding to allow the ServiceAccount to manage secrets in '{{ .secret.namespace }}' namespace
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: gitlab-botaccounts-{{ .secret.namespace }}-rolebinding
+  namespace: {{ .secret.namespace }}
+subjects:
+  - kind: ServiceAccount
+    name: gitlab-botaccounts-sa
+    namespace: {{ $.Release.Namespace }} # Reference to the ServiceAccount in the original namespace
+roleRef:
+  kind: Role
+  name: gitlab-botaccounts-{{ .secret.namespace }}-role
+  apiGroup: rbac.authorization.k8s.io
+{{- end }}
+{{- end }}
