@@ -116,7 +116,7 @@ spec:
                 done
 
                 # Create a Personal Access Token (PAT) for the new user with the specified scopes
-                pat_response=$(curl --header "PRIVATE-TOKEN: $TOKEN" \
+                pat_response=$(curl --silent --header "PRIVATE-TOKEN: $TOKEN" \
                     --data "name=UDS Generated PAT$scope_data" \
                     --request POST "${gitlab_host}/api/v4/users/$user_id/personal_access_tokens")
 
@@ -139,7 +139,7 @@ spec:
             # Generate and capture a GitLab token from the GitLab Toolbox Rails Console for the root user
             TOKEN=$(kubectl exec -n gitlab deployment/gitlab-toolbox -- \
             gitlab-rails runner -e production \
-            "token = User.find_by_username('root').personal_access_tokens.create(scopes: ['api', 'admin_mode'], name: 'Bot Accounts API Token', expires_at: 1.hours.from_now); token.save!; puts token.token" | tail -n 1)
+            "token = User.find_by_username('root').personal_access_tokens.create(scopes: ['api', 'admin_mode'], name: 'Bot Accounts API Token', expires_at: 1.days.from_now); token.save!; puts token.token" | tail -n 1)
 
             response=$(curl --silent --header "PRIVATE-TOKEN: $TOKEN" "${gitlab_host}/api/v4/license")
 
