@@ -160,4 +160,4 @@ Example:
       keyName: TOKEN
 ```
 
-This will configure a bot account named `renovatebot` and create a PAT for the account. The value of the PAT will be stored in the key `TOKEN` in a secret `gitlab-renovate` in the `renovate` namespace.
+This will configure a bot account named `renovatebot` and create a PAT with scopes `api`, `read_repository`, and `write_repository` for the account. The value of the PAT will be stored in the key `TOKEN` in a secret `gitlab-renovate` in the `renovate` namespace.
