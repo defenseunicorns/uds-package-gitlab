@@ -4,6 +4,8 @@ GitLab in this package is configured through the upstream [GitLab chart](https:/
 
 ## GitLab License
 
+#### `uds-gitlab-config` chart:
+
 - `license` - Set this to the contents of a GitLab license file to enable GitLab Premium or Ultimate.
 
 ## Networking
