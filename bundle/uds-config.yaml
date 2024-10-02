@@ -64,4 +64,3 @@ variables:
             name: gitlab-test-bot
             namespace: test-bot
             keyName: TOKEN
-
