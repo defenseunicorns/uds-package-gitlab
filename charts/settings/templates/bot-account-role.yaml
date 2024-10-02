@@ -1,4 +1,4 @@
-{{- if .Values.settingsJob.enabled }}
+{{- if .Values.botAccounts.enabled }}
 apiVersion: v1
 kind: ServiceAccount
 metadata:
