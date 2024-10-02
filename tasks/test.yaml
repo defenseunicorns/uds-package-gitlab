@@ -96,6 +96,7 @@ tasks:
       - description: Get the root password for GitLab (useful for local dev)
         cmd: ./uds zarf tools kubectl get secret -n gitlab gitlab-gitlab-initial-root-password -o jsonpath={.data.password} | base64 -d
 
+  # TODO (@ewyles) - might be useful in uds-common as a generic thing in the future
   - name: bot-account-script
     actions:
       - description: Manually run the bot account script from the helm template locally
