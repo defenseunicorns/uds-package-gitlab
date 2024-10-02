@@ -128,8 +128,6 @@ This will allow SSH traffic to traverse the LoadBalancer and hit the Istio Gatew
 
 - `settingsJob.application.enabled_git_access_protocol` - set this to `all` to reenable the SSH option when selecting a repository's clone dropdown
 
-NOTE: If the GitLab instance is configured with a license for Premium or Ultimate, [Gitlab Service Accounts](https://docs.gitlab.com/ee/user/profile/service_accounts.html) will be created. Otherwise, standard user accounts will be created.
-
 ## Configuring GitLab Settings
 
 This package contains an additional chart that will force GitLab application settings to take the values recommended in the [GitLab Application Hardening Recommendations](https://docs.gitlab.com/ee/security/hardening_application_recommendations.html) guide.  These settings may need to be modified for your instance or you may wish to make tweaks to add additional settings that can be found in the [GitLab Application Settings documentation](https://docs.gitlab.com/ee/api/settings.html).
@@ -163,3 +161,5 @@ Example:
 ```
 
 This will configure a bot account named `renovatebot` and create a PAT with scopes `api`, `read_repository`, and `write_repository` for the account. The value of the PAT will be stored in the key `TOKEN` in a secret `gitlab-renovate` in the `renovate` namespace.
+
+NOTE: If the GitLab instance is configured with a license for Premium or Ultimate, [Gitlab Service Accounts](https://docs.gitlab.com/ee/user/profile/service_accounts.html) will be created. Otherwise, standard user accounts will be created.
