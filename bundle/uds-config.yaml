@@ -52,3 +52,16 @@ variables:
         memory: 625M
     registry_replicas: 1
     shell_replicas: 1
+    bot_accounts:
+      enabled: true
+      accounts:
+        - username: test-bot
+          scopes:
+            - api
+            - read_repository
+            - write_repository
+          secret:
+            name: gitlab-test-bot
+            namespace: test-bot
+            keyName: TOKEN
+

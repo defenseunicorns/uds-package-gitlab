@@ -143,18 +143,9 @@ packages:
               path: "gitlab.gitlab-shell.minReplicas"
         uds-gitlab-settings:
           values:
-            - path: botAccounts
-              value:
-                enabled: true
-                accounts:
-                  - username: test-bot
-                    scopes:
-                      - api
-                      - read_repository
-                      - write_repository
-                    secret:
-                      name: gitlab-test-bot
-                      namespace: test-bot
-                      keyName: TOKEN
             - path: settingsJob.application.enabled_git_access_protocol
               value: all
+          variables:
+            - name: BOT_ACCOUNTS
+              description: "Bot Accounts to Create"
+              path: "botAccounts"

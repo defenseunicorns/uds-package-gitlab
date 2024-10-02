@@ -52,7 +52,7 @@ spec:
                 local service_account="$1"
                 local username="$2"
                 local scope_list="$3"  # Scopes as a comma-separated list
-                local email="$username@example.com"
+                local email="$username@gitlab.{{ .Values.domain }}"
                 local name=$username
 
                 log_message "Creating gitlab user account with inputs:"
@@ -98,7 +98,7 @@ spec:
                 fi                    
 
                 # Extract the new user's ID from the response
-                user_id=$(echo "$user_response" | grep -o '"id":[0-9]*' | head -1 | awk -F':' '{print $2}')
+                user_id=$(echo "$user_response" | yq e '.id' -)
                 
                 # Check if the user ID is valid
                 if [ "$user_id" == "null" ] || [ -z "$user_id" ]; then
@@ -127,7 +127,7 @@ spec:
                 fi
 
                 # Extract the generated token from the response
-                generated_pat=$(echo "$pat_response" | grep -o '"token":"[^"]*"' | sed 's/"token":"\(.*\)"/\1/')
+                generated_pat=$(echo "$pat_response" | yq e '.token' -)
 
                 # Check if token is returned
                 if [ "$generated_pat" == "null" ] || [ -z "$generated_pat" ]; then
@@ -151,19 +151,21 @@ spec:
                 exit 1
             fi
 
-            plan=$(echo "$response" | grep -o '"plan":"[^"]*"' | sed 's/"plan":"\(.*\)"/\1/')
+            plan=$(echo "$response" | yq e '.plan' -)
             service_accounts="false" #init this to false, it will only be true if plan is ultimate or premium
 
             # Check if plan is found and proceed based on the plan type
-            if [ -n "$plan" ]; then
+            if [ -n "$plan" ] && [ "$plan" != "null" ]; then
                 log_message "GitLab Plan: $plan. Creating GitLab service accounts."
                 service_accounts="true"
             else
                 log_message "No license plan information available. Creating Gitlab user accounts."
             fi
 
-            # Track failed accounts in a string
+            # Track created, failed and existing accounts
+            created_accounts=""
             failed_accounts=""
+            existing_accounts=""
 
             {{- range .Values.botAccounts.accounts }}
             log_message "Creating account [{{ .username }}]..."
@@ -174,7 +176,7 @@ spec:
             if [ $? -eq 0 ]; then
                 # Secret exists
                 log_message "Secret '{{ .secret.name }}' in namespace '{{ .secret.namespace }}' already exists. Skipping account '{{ .username }}'."
-                failed_accounts+=" {{ .username }}"
+                existing_accounts+=" {{ .username }}"
             else
                 # Call the function to create the service account and set the PAT
                 create_gitlab_account "$service_accounts" "{{ .username }}" "{{ .scopes  | join "," }}"
@@ -185,22 +187,30 @@ spec:
                     if [ $? -ne 0 ]; then
                         log_message "Failed to create Kubernetes secret for account '{{ .username }}'."
                         failed_accounts+=" {{ .username }}"
+                    else
+                        created_accounts+=" {{ .username }}"
                     fi
                 fi
             fi
             {{- end }}
 
-            # After attempting all accounts, check if any failed
-            if [ -n "$failed_accounts" ]; then
-                log_message "The following bot accounts failed to create:$failed_accounts"
-                exit 1  # Fail the job if any account creation failed
-            else
-                log_message "All bot accounts were created successfully."
-            fi
-
             # Revoke the token after use
             kubectl exec -n gitlab deployment/gitlab-toolbox -- \
                 gitlab-rails runner -e production \
                 "token = PersonalAccessToken.find_by_token('$TOKEN'); token.revoke!"            
+
+            if [ -n "$existing_accounts" ]; then
+                log_message "The following bot accounts were skipped because they already exist:$existing_accounts"
+            fi
+
+            if [ -n "$created_accounts" ]; then
+                log_message "The following bot accounts were created successfully:$created_accounts"
+            fi
+
+            # After attempting all accounts, check if any failed
+            if [ -n "$failed_accounts" ]; then
+                log_message "The following bot accounts failed to create:$failed_accounts"
+                exit 1  # Fail the job if any account creation failed
+            fi
       restartPolicy: Never
 {{- end }}
