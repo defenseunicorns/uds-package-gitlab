@@ -4,16 +4,18 @@ global:
       repository: registry.gitlab.com/gitlab-org/build/cng/kubectl
       tag: v17.2.4
 
-botAccounts: {}
-  # - username: renovatebot
-  #   scopes:
-  #     - api
-  #     - read_repository
-  #     - write_repository
-  #   secret:
-  #     name: gitlab-renovatebot
-  #     namespace: renovate
-  #     keyName: TOKEN
+botAccounts:
+  enabled: true
+  accounts:
+    - username: renovatebot
+      scopes:
+        - api
+        - read_repository
+        - write_repository
+      secret:
+        name: gitlab-renovatebot
+        namespace: renovate
+        keyName: TOKEN
 
 settingsJob:
   enabled: true

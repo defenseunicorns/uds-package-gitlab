@@ -144,7 +144,8 @@ It is recommended to inspect these settings and further lock them down for your 
 
 #### `uds-gitlab-config` chart:
 
-- `botAccounts` - set this to an optional list of bot accounts to create. If specified, each account will be created in GitLab with the given `username` and `scopes`. A GitLab Personal Access Token (PAT) will be created for the account and stored in the secret specified by `secret.name`, `secret.namespace`, and `secret.keyName`. Any namespaces specified in `botAccounts` secrets will be created automatically.
+- `botAccounts.enabled` - set this to true to enable bot accounts.
+- `botAccounts.accounts` - set this to a list of bot accounts to create. If specified, each account will be created in GitLab with the given `username` and `scopes`. A GitLab Personal Access Token (PAT) will be created for the account and stored in the secret specified by `secret.name`, `secret.namespace`, and `secret.keyName`. Any namespaces specified in `botAccounts` secrets will be created automatically.
 
 Example:
 

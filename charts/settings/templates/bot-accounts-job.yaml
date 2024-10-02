@@ -1,4 +1,4 @@
-{{- if .Values.botAccounts }}
+{{- if .Values.botAccounts.enabled }}
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -16,12 +16,6 @@ spec:
       - name: gitlab-settings-botaccounts
         image: "{{ .Values.global.kubectl.image.repository }}:{{ .Values.global.kubectl.image.tag }}"
         command: ["/bin/bash", "-c"]
-
-        # Handy command for testing this locally outside of a deploy lifecycle:
-        #     helm template charts/settings --show-only templates/bot-accounts-job.yaml | \
-        #      yq -r '.spec.template.spec.containers[0].args[0]' | \
-        #      sed 's|http://gitlab-webservice-default.gitlab.svc.cluster.local:8181|https://gitlab.uds.dev|g' | \
-        #      sh
         args:
           - |
             gitlab_host="http://gitlab-webservice-default.gitlab.svc.cluster.local:8181"
@@ -172,7 +166,7 @@ spec:
             # Track failed accounts in a string
             failed_accounts=""
 
-            {{- range .Values.botAccounts }}
+            {{- range .Values.botAccounts.accounts }}
             log_message "Creating account [{{ .username }}]..."
             
             # Call the function to create the service account and set the PAT
