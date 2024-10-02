@@ -136,6 +136,8 @@ spec:
                 fi
             }
 
+            log_message "Bot accounts job started."
+
             # Generate and capture a GitLab token from the GitLab Toolbox Rails Console for the root user
             TOKEN=$(kubectl exec -n gitlab deployment/gitlab-toolbox -- \
             gitlab-rails runner -e production \
@@ -153,14 +155,11 @@ spec:
             service_accounts="false" #init this to false, it will only be true if plan is ultimate or premium
 
             # Check if plan is found and proceed based on the plan type
-            if [ "$plan" != "null" ]; then
-                log_message "GitLab Plan: $plan"
-                if [ "$plan" == "ultimate" ] || [ "$plan" == "premium" ]; then
-                    log_message "Plan is $plan, creating GitLab service accounts..."
-                    service_accounts="true"
-                else
-                    log_message "No license plan information available. Creating Gitlab user accounts..."
-                fi
+            if [ -n "$plan" ]; then
+                log_message "GitLab Plan: $plan. Creating GitLab service accounts."
+                service_accounts="true"
+            else
+                log_message "No license plan information available. Creating Gitlab user accounts."
             fi
 
             # Track failed accounts in a string

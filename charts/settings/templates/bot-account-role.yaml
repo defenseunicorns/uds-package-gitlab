@@ -43,18 +43,22 @@ roleRef:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  name: gitlab-botaccounts-{{ .secret.namespace }}-role
+  name: gitlab-botaccounts-{{ .username }}-role
   namespace: {{ .secret.namespace }}
 rules:
   - apiGroups: [""]
     resources: ["secrets"]
-    verbs: ["create", "get", "update"]
+    verbs: ["create"]
+  - apiGroups: [""]
+    resources: ["secrets"]
+    resourceNames: ["{{ .secret.name }}"]
+    verbs: ["get"]
 ---
 # RoleBinding to allow the ServiceAccount to manage secrets in '{{ .secret.namespace }}' namespace
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: gitlab-botaccounts-{{ .secret.namespace }}-rolebinding
+  name: gitlab-botaccounts-{{ .username }}-rolebinding
   namespace: {{ .secret.namespace }}
 subjects:
   - kind: ServiceAccount
@@ -62,7 +66,7 @@ subjects:
     namespace: {{ $.Release.Namespace }} # Reference to the ServiceAccount in the original namespace
 roleRef:
   kind: Role
-  name: gitlab-botaccounts-{{ .secret.namespace }}-role
+  name: gitlab-botaccounts-{{ .username }}-role
   apiGroup: rbac.authorization.k8s.io
 {{- end }}
 {{- end }}
