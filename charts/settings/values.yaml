@@ -5,14 +5,14 @@ global:
       tag: v17.2.4
 
 botAccounts: {}
-  # - username: eric110
+  # - username: renovatebot
   #   scopes:
   #     - api
   #     - read_repository
   #     - write_repository
   #   secret:
-  #     name: gitlab-eric103
-  #     namespace: default
+  #     name: gitlab-renovatebot
+  #     namespace: renovate
   #     keyName: TOKEN
 
 settingsJob:
