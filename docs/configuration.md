@@ -110,6 +110,8 @@ This will allow SSH traffic to traverse the LoadBalancer and hit the Istio Gatew
 
 #### `uds-gitlab-config` chart:
 
+- `license` - Set this to the contents of a GitLab license file to enable GitLab Premium or Ultimate.
+
 - `ssh.enabled` - set this to `true` to enable the additional gateway and virtual service
 - `ssh.port` - set this to a different integer if you'd like to expose ssh over a different port (defaults to `2222`)
 
@@ -121,6 +123,10 @@ This will allow SSH traffic to traverse the LoadBalancer and hit the Istio Gatew
 #### `uds-gitlab-settings` chart:
 
 - `settingsJob.application.enabled_git_access_protocol` - set this to `all` to reenable the SSH option when selecting a repository's clone dropdown
+
+- `botAccounts` - set this to an optional list of bot accounts to create. If specified, each account will be created in GitLab with the given `username` and `scopes`. A PAT will be created for the account and stored in the secret specified by `secret.name`, `secret.namespace`, and `secret.keyName`. Any namespaces specified in `botAccounts` secrets will be created automatically.
+
+NOTE: If the GitLab instance is configured with a license for Premium or Ultimate, [Gitlab Service Accounts](https://docs.gitlab.com/ee/user/profile/service_accounts.html) will be created. Otherwise, standard user accounts will be created.
 
 ## Configuring GitLab Settings
 
