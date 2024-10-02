@@ -169,15 +169,24 @@ spec:
             {{- range .Values.botAccounts.accounts }}
             log_message "Creating account [{{ .username }}]..."
             
-            # Call the function to create the service account and set the PAT
-            create_gitlab_account "$service_accounts" "{{ .username }}" "{{ .scopes  | join "," }}"
-            if [ $? -ne 0 ]; then
+            # Check if the secret exists
+            kubectl get secret "{{ .secret.name }}" --namespace="{{ .secret.namespace }}"
+
+            if [ $? -eq 0 ]; then
+                # Secret exists
+                log_message "Secret '{{ .secret.name }}' in namespace '{{ .secret.namespace }}' already exists. Skipping account '{{ .username }}'."
                 failed_accounts+=" {{ .username }}"
             else
-                create_kubernetes_secret "{{ .secret.name }}" "{{ .secret.namespace }}" "{{ .secret.keyName }}" "$generated_pat"
+                # Call the function to create the service account and set the PAT
+                create_gitlab_account "$service_accounts" "{{ .username }}" "{{ .scopes  | join "," }}"
                 if [ $? -ne 0 ]; then
-                    log_message "Failed to create Kubernetes secret for account '{{ .username }}'."
                     failed_accounts+=" {{ .username }}"
+                else
+                    create_kubernetes_secret "{{ .secret.name }}" "{{ .secret.namespace }}" "{{ .secret.keyName }}" "$generated_pat"
+                    if [ $? -ne 0 ]; then
+                        log_message "Failed to create Kubernetes secret for account '{{ .username }}'."
+                        failed_accounts+=" {{ .username }}"
+                    fi
                 fi
             fi
             {{- end }}

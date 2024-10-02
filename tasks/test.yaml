@@ -96,11 +96,21 @@ tasks:
       - description: Get the root password for GitLab (useful for local dev)
         cmd: ./uds zarf tools kubectl get secret -n gitlab gitlab-gitlab-initial-root-password -o jsonpath={.data.password} | base64 -d
 
-  - name: bot-account-job
+  - name: bot-account-script
     actions:
-      - description: Manually run the bot account job from the helm template locally
+      - description: Manually run the bot account script from the helm template locally
         cmd: |
           helm template charts/settings --show-only templates/bot-accounts-job.yaml | \
           yq -r '.spec.template.spec.containers[0].args[0]' | \
           sed 's|http://gitlab-webservice-default.gitlab.svc.cluster.local:8181|https://gitlab.uds.dev|g' | \
+          sh
+
+  - name: debug-bot-account-script
+    actions:
+      - description: Manually run the bot account script from the helm template locally
+        cmd: |
+          helm template charts/settings --show-only templates/bot-accounts-job.yaml | \
+          yq -r '.spec.template.spec.containers[0].args[0]' | \
+          sed 's|http://gitlab-webservice-default.gitlab.svc.cluster.local:8181|https://gitlab.uds.dev|g' | \
+          { echo "set -x"; cat; } | \
           sh
