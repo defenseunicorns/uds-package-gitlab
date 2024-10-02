@@ -1,4 +1,8 @@
 global:
+  gitlab:
+    license:
+      secret: gitlab-license
+
   image:
     pullPolicy: IfNotPresent
 

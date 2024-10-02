@@ -64,7 +64,7 @@ tasks:
   - name: bot-account
     description: Bot Account Access Tests
     actions:
-      - cmd: kubectl get secret gitlab-renovatebot -n renovate -o jsonpath="{.data.TOKEN}" | base64 --decode
+      - cmd: kubectl get secret gitlab-test-bot -n test-bot -o jsonpath="{.data.TOKEN}" | base64 --decode
         setVariables:
           - name: GITLAB_TOKEN
       - cmd: |

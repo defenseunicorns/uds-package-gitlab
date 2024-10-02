@@ -1,5 +1,8 @@
 domain: "###ZARF_VAR_DOMAIN###"
 
+# contents of a gitlab license, if available
+# license: |
+
 ssh:
   enabled: false
   port: 2222
