@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [17.2.7-uds.2](https://github.com/defenseunicorns/uds-package-gitlab/compare/v17.2.7-uds.1...v17.2.7-uds.2) (2024-10-03)
+
+
+### Features
+
+* add configurable bot accounts and gitlab license ([#206](https://github.com/defenseunicorns/uds-package-gitlab/issues/206)) ([0e22c21](https://github.com/defenseunicorns/uds-package-gitlab/commit/0e22c219f41e54e7f5ccddc15366d0f4eb30d5d9))
+
+
+### Miscellaneous
+
+* update admin tasks for consistency ([#202](https://github.com/defenseunicorns/uds-package-gitlab/issues/202)) ([b376718](https://github.com/defenseunicorns/uds-package-gitlab/commit/b37671899b5226223e13b829d509363bc124b1cd))
+
 ## [17.2.7-uds.1](https://github.com/defenseunicorns/uds-package-gitlab/compare/v17.2.7-uds.0...v17.2.7-uds.1) (2024-09-24)
 
 
