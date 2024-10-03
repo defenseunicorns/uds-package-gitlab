@@ -2,6 +2,12 @@
 
 GitLab in this package is configured through the upstream [GitLab chart](https://docs.gitlab.com/charts/) as well as a UDS configuration chart that supports the following:
 
+## GitLab License
+
+#### `uds-gitlab-config` chart:
+
+- `license` - Set this to the contents of a GitLab license file to enable GitLab Premium or Ultimate.
+
 ## Networking
 
 Network policies are controlled via the `uds-gitlab-config` chart in accordance with the [common patterns for networking within UDS Software Factory](https://github.com/defenseunicorns/uds-software-factory/blob/main/docs/networking.md).  GitLab interacts with GitLab runners, object storage, Redis and Postgresql externally and supports the following keys:
@@ -133,3 +139,29 @@ It is recommended to inspect these settings and further lock them down for your 
 
 > [!TIP]
 > If you wish to disable the settings Job and CronJob and keep GitLab's default application settings you can do so with the `settingsJob.enabled` value.  You can also adjust the CronJob schedule (when it will reset the application settings) with the `settingsJob.schedule` value.
+
+## Configuring Bot Accounts
+
+#### `uds-gitlab-config` chart:
+
+- `botAccounts.enabled` - set this to true to enable bot accounts.
+- `botAccounts.accounts` - set this to a list of bot accounts to create. If specified, each account will be created in GitLab with the given `username` and `scopes`. A GitLab Personal Access Token (PAT) will be created for the account and stored in the secret specified by `secret.name`, `secret.namespace`, and `secret.keyName`. Any namespaces specified in `botAccounts` secrets will be created automatically.
+
+Example:
+
+```yaml
+  - username: renovatebot
+    scopes:
+      - api
+      - read_repository
+      - write_repository
+    secret:
+      name: gitlab-renovate
+      namespace: renovate
+      keyName: TOKEN
+```
+
+This will configure a bot account named `renovatebot` and create a PAT with scopes `api`, `read_repository`, and `write_repository` for the account. The value of the PAT will be stored in the key `TOKEN` in a secret `gitlab-renovate` in the `renovate` namespace.
+
+> [!NOTE]
+> If the GitLab instance is configured with a license for Premium or Ultimate, [Gitlab Service Accounts](https://docs.gitlab.com/ee/user/profile/service_accounts.html) will be created. Otherwise, standard user accounts will be created.

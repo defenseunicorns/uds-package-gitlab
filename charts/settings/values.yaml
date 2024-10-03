@@ -1,8 +1,23 @@
+domain: "###ZARF_VAR_DOMAIN###"
+
 global:
   kubectl:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/kubectl
       tag: v17.2.4
+
+botAccounts:
+  enabled: false
+  # accounts:
+  #   - username: renovatebot
+  #     scopes:
+  #       - api
+  #       - read_repository
+  #       - write_repository
+  #     secret:
+  #       name: gitlab-renovatebot
+  #       namespace: renovate
+  #       keyName: TOKEN
 
 settingsJob:
   enabled: true
