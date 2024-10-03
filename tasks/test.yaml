@@ -5,8 +5,9 @@ variables:
 tasks:
   - name: all
     actions:
-      - task: test:ingress
-      - task: test:ui
+      - task: ingress
+      - task: ui
+      - task: bot-account
 
   - name: ingress
     actions:
@@ -60,6 +61,23 @@ tasks:
       - cmd: rm -rf "${PROJECT_NAME}"
         dir: tests/data
 
+  - name: bot-account
+    description: Bot Account Access Tests
+    actions:
+      - cmd: kubectl get secret gitlab-test-bot -n test-bot -o jsonpath="{.data.TOKEN}" | base64 --decode
+        setVariables:
+          - name: GITLAB_TOKEN
+      - cmd: |
+          response=$(curl --write-out "%{http_code}" --silent --output /dev/null --header "PRIVATE-TOKEN: $GITLAB_TOKEN" https://gitlab.uds.dev/api/v4/user)
+
+          # Check if the status code is 200 (OK)
+          if [ "$response" -eq 200 ]; then
+            echo "GitLab API token is valid."
+          else
+            echo "Error: GitLab API token is invalid or cannot access the API."
+            exit 1
+          fi
+
   - name: create-doug-pat
     description: Create personal access token (PAT) for "doug" account
     actions:
@@ -77,3 +95,23 @@ tasks:
     actions:
       - description: Get the root password for GitLab (useful for local dev)
         cmd: ./uds zarf tools kubectl get secret -n gitlab gitlab-gitlab-initial-root-password -o jsonpath={.data.password} | base64 -d
+
+  # TODO (@ewyles) - might be useful in uds-common as a generic thing in the future
+  - name: bot-account-script
+    actions:
+      - description: Manually run the bot account script from the helm template locally
+        cmd: |
+          helm template charts/settings --show-only templates/bot-accounts-job.yaml | \
+          yq -r '.spec.template.spec.containers[0].args[0]' | \
+          sed 's|http://gitlab-webservice-default.gitlab.svc.cluster.local:8181|https://gitlab.uds.dev|g' | \
+          sh
+
+  - name: debug-bot-account-script
+    actions:
+      - description: Manually run the bot account script from the helm template locally
+        cmd: |
+          helm template charts/settings --show-only templates/bot-accounts-job.yaml | \
+          yq -r '.spec.template.spec.containers[0].args[0]' | \
+          sed 's|http://gitlab-webservice-default.gitlab.svc.cluster.local:8181|https://gitlab.uds.dev|g' | \
+          { echo "set -x"; cat; } | \
+          sh

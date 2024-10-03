@@ -1,0 +1,216 @@
+{{- if .Values.botAccounts.enabled }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: gitlab-bot-accounts-job
+  namespace: {{ .Release.Namespace }}
+spec:
+  ttlSecondsAfterFinished: 600
+  template:
+    metadata:
+      labels:
+        app: gitlab
+    spec:
+      serviceAccountName: gitlab-botaccounts-sa
+      containers:
+      - name: gitlab-settings-botaccounts
+        image: "{{ .Values.global.kubectl.image.repository }}:{{ .Values.global.kubectl.image.tag }}"
+        command: ["/bin/bash", "-c"]
+        args:
+          - |
+            gitlab_host="http://gitlab-webservice-default.gitlab.svc.cluster.local:8181"
+
+            # Global variable to store the generated PAT for each account
+            generated_pat=""
+
+            # Function for logging messages with timestamp in UTC in parentheses
+            log_message() {
+                echo "$(date -u +'%Y-%m-%d %H:%M:%S') (UTC) $1"
+            }
+
+            create_kubernetes_secret() {
+                local secretName=$1
+                local secretNamespace=$2
+                local secretKeyName=$3
+                local generated_pat=$4
+
+                # Step 4: Create Kubernetes secret with the generated PAT
+                kubectl create secret generic "$secretName" \
+                    --namespace="$secretNamespace" \
+                    --from-literal="$secretKeyName=$generated_pat"
+
+                if [ $? -eq 0 ]; then
+                    log_message "Kubernetes secret '$secretName' created successfully in namespace '$secretNamespace'."
+                else
+                    log_message "Failed to create Kubernetes secret '$secretName' in namespace '$secretNamespace'."
+                    return 1
+                fi
+            }
+
+            create_gitlab_account() {
+                # Input parameters
+                local service_account="$1"
+                local username="$2"
+                local scope_list="$3"  # Scopes as a comma-separated list
+                local email="$username@gitlab.{{ .Values.domain }}"
+                local name=$username
+
+                log_message "Creating gitlab user account with inputs:"
+                log_message "    service_account=$service_account"
+                log_message "    username=$username"
+                log_message "    scope_list=$scope_list"
+
+                local user_exists
+                user_exists=$(curl --silent --header "PRIVATE-TOKEN: $TOKEN" "${gitlab_host}/api/v4/users?username=$username")
+
+                if echo "$user_exists" | grep -q '"id":'; then
+                    log_message "User already exists"
+                    log_message "User details: $user_exists"
+                    return 1
+                fi
+
+                if [ "$service_account" == "true" ]; then
+                    user_response=$(curl --silent --header "PRIVATE-TOKEN: $TOKEN" \
+                        --data "username=$username&name=$name" \
+                        --request POST "${gitlab_host}/api/v4/service_accounts")                
+                else
+                    # Generate a random password
+                    local password
+                    password=$(openssl rand -base64 16)
+
+                    # Create the user if it doesn't exist
+                    user_response=$(curl --silent --request POST "${gitlab_host}/api/v4/users" \
+                        --header "PRIVATE-TOKEN: $TOKEN" \
+                        --header "Content-Type: application/json" \
+                        --data "{
+                            \"email\": \"$email\",
+                            \"username\": \"$username\",
+                            \"name\": \"$name\",
+                            \"password\": \"$password\",
+                            \"skip_confirmation\": true
+                        }")
+                fi
+
+                # Check if user creation was successful
+                if [ $? -ne 0 ]; then
+                    log_message "Error: Failed to create the user. $user_response"
+                    return 1
+                fi                    
+
+                # Extract the new user's ID from the response
+                user_id=$(echo "$user_response" | yq e '.id' -)
+                
+                # Check if the user ID is valid
+                if [ "$user_id" == "null" ] || [ -z "$user_id" ]; then
+                    log_message "Error: Failed to retrieve the user ID. $user_id"
+                    return 1
+                fi
+
+                log_message "User created with ID: $user_id"
+
+                # Convert the comma-delimited list into separate --data fields for the request
+                local scope_data=""
+                IFS=',' read -ra scopes <<< "$scope_list"
+                for scope in "${scopes[@]}"; do
+                    scope_data+="&scopes[]=$scope"
+                done
+
+                # Create a Personal Access Token (PAT) for the new user with the specified scopes
+                pat_response=$(curl --silent --header "PRIVATE-TOKEN: $TOKEN" \
+                    --data "name=UDS Generated PAT$scope_data" \
+                    --request POST "${gitlab_host}/api/v4/users/$user_id/personal_access_tokens")
+
+                # Check if token creation was successful
+                if [ $? -ne 0 ]; then
+                    log_message "Error: Failed to create the Personal Access Token. $pat_response"
+                    return 1
+                fi
+
+                # Extract the generated token from the response
+                generated_pat=$(echo "$pat_response" | yq e '.token' -)
+
+                # Check if token is returned
+                if [ "$generated_pat" == "null" ] || [ -z "$generated_pat" ]; then
+                    log_message "Error: Failed to retrieve the generated token. $generated_pat"
+                    return 1
+                fi
+            }
+
+            log_message "Bot accounts job started."
+
+            # Generate and capture a GitLab token from the GitLab Toolbox Rails Console for the root user
+            TOKEN=$(kubectl exec -n gitlab deployment/gitlab-toolbox -- \
+            gitlab-rails runner -e production \
+            "token = User.find_by_username('root').personal_access_tokens.create(scopes: ['api', 'admin_mode'], name: 'Bot Accounts API Token', expires_at: 1.days.from_now); token.save!; puts token.token" | tail -n 1)
+
+            response=$(curl --silent --header "PRIVATE-TOKEN: $TOKEN" "${gitlab_host}/api/v4/license")
+
+            # Check if the request was successful
+            if [ $? -ne 0 ]; then
+                log_message "Error: Failed to make request to GitLab API. $response"
+                exit 1
+            fi
+
+            plan=$(echo "$response" | yq e '.plan' -)
+            service_accounts="false" #init this to false, it will only be true if plan is ultimate or premium
+
+            # Check if plan is found and proceed based on the plan type
+            if [ -n "$plan" ] && [ "$plan" != "null" ]; then
+                log_message "GitLab Plan: $plan. Creating GitLab service accounts."
+                service_accounts="true"
+            else
+                log_message "No license plan information available. Creating Gitlab user accounts."
+            fi
+
+            # Track created, failed and existing accounts
+            created_accounts=""
+            failed_accounts=""
+            existing_accounts=""
+
+            {{- range .Values.botAccounts.accounts }}
+            log_message "Creating account [{{ .username }}]..."
+            
+            # Check if the secret exists
+            kubectl get secret "{{ .secret.name }}" --namespace="{{ .secret.namespace }}"
+
+            if [ $? -eq 0 ]; then
+                # Secret exists
+                log_message "Secret '{{ .secret.name }}' in namespace '{{ .secret.namespace }}' already exists. Skipping account '{{ .username }}'."
+                existing_accounts+=" {{ .username }}"
+            else
+                # Call the function to create the service account and set the PAT
+                create_gitlab_account "$service_accounts" "{{ .username }}" "{{ .scopes  | join "," }}"
+                if [ $? -ne 0 ]; then
+                    failed_accounts+=" {{ .username }}"
+                else
+                    create_kubernetes_secret "{{ .secret.name }}" "{{ .secret.namespace }}" "{{ .secret.keyName }}" "$generated_pat"
+                    if [ $? -ne 0 ]; then
+                        log_message "Failed to create Kubernetes secret for account '{{ .username }}'."
+                        failed_accounts+=" {{ .username }}"
+                    else
+                        created_accounts+=" {{ .username }}"
+                    fi
+                fi
+            fi
+            {{- end }}
+
+            # Revoke the token after use
+            kubectl exec -n gitlab deployment/gitlab-toolbox -- \
+                gitlab-rails runner -e production \
+                "token = PersonalAccessToken.find_by_token('$TOKEN'); token.revoke!"            
+
+            if [ -n "$existing_accounts" ]; then
+                log_message "The following bot accounts were skipped because they already exist:$existing_accounts"
+            fi
+
+            if [ -n "$created_accounts" ]; then
+                log_message "The following bot accounts were created successfully:$created_accounts"
+            fi
+
+            # After attempting all accounts, check if any failed
+            if [ -n "$failed_accounts" ]; then
+                log_message "The following bot accounts failed to create:$failed_accounts"
+                exit 1  # Fail the job if any account creation failed
+            fi
+      restartPolicy: Never
+{{- end }}

@@ -145,3 +145,7 @@ packages:
           values:
             - path: settingsJob.application.enabled_git_access_protocol
               value: all
+          variables:
+            - name: BOT_ACCOUNTS
+              description: "Bot Accounts to Create"
+              path: "botAccounts"
