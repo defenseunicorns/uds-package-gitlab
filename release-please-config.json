@@ -15,7 +15,7 @@
       "prerelease-type": "uds",
       "extra-files": [
         "bundle/uds-bundle.yaml",
-        "tasks/publish.yaml",
+        "tasks.yaml",
         "zarf.yaml"
       ]
     }
