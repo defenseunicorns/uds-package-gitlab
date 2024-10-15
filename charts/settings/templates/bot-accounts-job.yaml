@@ -5,7 +5,7 @@ metadata:
   name: gitlab-bot-accounts-job
   namespace: {{ .Release.Namespace }}
 spec:
-  ttlSecondsAfterFinished: 600
+  ttlSecondsAfterFinished: 30
   template:
     metadata:
       labels:

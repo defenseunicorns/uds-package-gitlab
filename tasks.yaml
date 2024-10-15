@@ -68,6 +68,8 @@ tasks:
       - task: setup:k3d-test-cluster
       - task: deploy:test-bundle
       - task: create-gl-test-bundle
+      # TODO: (@WSTARR) Remove after v17.2.9-uds.0 release - Shim to delete the bot Job since it hangs around a little too long
+      - cmd: ./uds zarf tools kubectl delete -n gitlab Job gitlab-bot-accounts-job
       - task: deploy:test-bundle
       - task: setup:create-doug-user
       - task: test:all
