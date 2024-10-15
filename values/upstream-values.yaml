@@ -2,70 +2,70 @@ gitlab:
   webservice:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-webservice-ee
-      tag: v17.2.7
+      tag: v17.2.9
     workhorse:
       image: registry.gitlab.com/gitlab-org/build/cng/gitlab-workhorse-ee
       # renovate: datasource=docker depName=registry.gitlab.com/gitlab-org/build/cng/gitlab-workhorse-ee versioning=semver
-      tag: v17.2.7
+      tag: v17.2.9
   sidekiq:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-sidekiq-ee
-      tag: v17.2.7
+      tag: v17.2.9
   migrations:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-toolbox-ee
-      tag: v17.2.7
+      tag: v17.2.9
   gitaly:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/gitaly
-      tag: v17.2.7
+      tag: v17.2.9
   gitlab-exporter:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-exporter
-      tag: v17.2.7
+      tag: v17.2.9
   gitlab-pages:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-pages
-      tag: v17.2.7
+      tag: v17.2.9
   gitlab-shell:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-shell
-      tag: v17.2.7
+      tag: v17.2.9
   praefect:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/gitaly
-      tag: v17.2.7
+      tag: v17.2.9
   toolbox:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-toolbox-ee
-      tag: v17.2.7
+      tag: v17.2.9
 
 global:
   certificates:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/certificates
-      tag: v17.2.7
+      tag: v17.2.9
   gitlabBase:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-base
-      tag: v17.2.7
+      tag: v17.2.9
   kubectl:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/kubectl
-      tag: v17.2.7
+      tag: v17.2.9
 
 registry:
   image:
     repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-container-registry
-    tag: v17.2.7
+    tag: v17.2.9
 
 shared-secrets:
   selfsign:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/cfssl-self-sign
-      tag: v17.2.7
+      tag: v17.2.9
 
 upgradeCheck:
   image:
     repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-base
-    tag: v17.2.7
+    tag: v17.2.9
