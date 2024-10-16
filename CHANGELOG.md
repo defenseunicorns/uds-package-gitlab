@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [17.2.9-uds.1](https://github.com/defenseunicorns/uds-package-gitlab/compare/v17.2.9-uds.0...v17.2.9-uds.1) (2024-10-16)
+
+
+### Bug Fixes
+
+* made for uds badge url ([#210](https://github.com/defenseunicorns/uds-package-gitlab/issues/210)) ([d086202](https://github.com/defenseunicorns/uds-package-gitlab/commit/d0862027d28302bd55580d35724a2a294d0ed131))
+
 ## [17.2.9-uds.0](https://github.com/defenseunicorns/uds-package-gitlab/compare/v17.2.7-uds.2...v17.2.9-uds.0) (2024-10-15)
 
 
