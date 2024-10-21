@@ -1,76 +1,65 @@
+# Copyright 2024 Defense Unicorns
+# SPDX-License-Identifier: AGPL-3.0-or-later OR LicenseRef-Defense-Unicorns-Commercial
+
 name: Test
 
-# This workflow is triggered on pull requests to the main branch.
 on:
+  # This workflow is triggered on pull requests to the main branch.
   pull_request:
-    branches: [main]
-    types: [milestoned, opened, synchronize]
+    # milestoned is added here as a workaround for release-please not triggering PR workflows (PRs should be added to a milestone to trigger the workflow).
+    types: [milestoned, opened, reopened, synchronize]
     paths-ignore:
       - "**.md"
       - "**.jpg"
       - "**.png"
       - "**.gif"
       - "**.svg"
-      - "adr/**"
-      - "docs/**"
-      - ".gitignore"
-      - "renovate.json"
-      - ".release-please-config.json"
-      - "release-please-config.json"
-      - "oscal-component.yaml"
-      - "CODEOWNERS"
-      - "LICENSE"
-      - "CONTRIBUTING.md"
-      - "SECURITY.md"
+      - adr/**
+      - docs/**
+      - .gitignore
+      - renovate.json
+      - .release-please-config.json
+      - release-please-config.json
+      - CODEOWNERS
+      - LICENSE
+      - CONTRIBUTING.md
+      - SECURITY.md
+
+# Permissions for the GITHUB_TOKEN used by the workflow.
+permissions:
+  contents: read # Allows reading the content of the repository.
+  packages: read # Allows reading the content of the repository's packages.
+  id-token: write
 
 # Abort prior jobs in the same workflow / PR
 concurrency:
   group: test-${{ github.ref }}
   cancel-in-progress: true
 
-permissions:
-  contents: read
-
 jobs:
-  run-test:
-    name: ${{ matrix.type }} ${{ matrix.flavor }}
-    runs-on: uds-swf-ubuntu-big-boy-8-core
-    timeout-minutes: 25
-    strategy:
-      matrix:
-        flavor: [upstream, registry1]
-        type: [install, upgrade]
-
+  check-flavor:
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@eef61447b9ff4aafe5dcd4e0bbf5d482be7e7871 # v4.2.1
 
-      - name: Environment setup
-        uses: defenseunicorns/uds-common/.github/actions/setup@97fc3a00fb2b9897316131cd210026691e160d5a # v1.1.1
-        with:
-          registry1Username: ${{ secrets.IRON_BANK_ROBOT_USERNAME }}
-          registry1Password: ${{ secrets.IRON_BANK_ROBOT_PASSWORD }}
-          ghToken: ${{ secrets.GITHUB_TOKEN }}
+      - name: test-flavor
+        uses: defenseunicorns/uds-common/.github/actions/test-flavor@97fc3a00fb2b9897316131cd210026691e160d5a # v1.1.1
+        id: test-flavor
+    outputs:
+      upgrade-flavors: ${{ steps.test-flavor.outputs.upgrade-flavors }}
 
-      - name: Test
-        uses: defenseunicorns/uds-common/.github/actions/test-deploy@97fc3a00fb2b9897316131cd210026691e160d5a # v1.1.1
-        with:
-          flavor: ${{ matrix.flavor }}
-          type: ${{ matrix.type }}
-
-      - name: Debug Output
-        if: ${{ always() }}
-        uses: defenseunicorns/uds-common/.github/actions/debug-output@97fc3a00fb2b9897316131cd210026691e160d5a # v1.1.1
-
-      - name: Save logs
-        if: always()
-        uses: defenseunicorns/uds-common/.github/actions/save-logs@97fc3a00fb2b9897316131cd210026691e160d5a # v1.1.1
-        with:
-          suffix: ${{ matrix.type }}-${{ matrix.flavor }}-${{ github.run_id }}-${{ github.run_attempt }}
-
-      - uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882 # v4.4.3
-        if: always()
-        with:
-          name: playwright-report-${{ matrix.type }}-${{ matrix.flavor }}-${{ github.run_id }}-${{ github.run_attempt }}
-          path: tests/.playwright/reports/
-          retention-days: 30
+  validate:
+    needs: check-flavor
+    strategy:
+      fail-fast: false
+      matrix:
+        type: [install, upgrade]
+        flavor: [upstream, registry1]
+    uses: defenseunicorns/uds-common/.github/workflows/callable-test.yaml@97fc3a00fb2b9897316131cd210026691e160d5a # v1.1.1
+    with:
+      upgrade-flavors: ${{ needs.check-flavor.outputs.upgrade-flavors }}
+      flavor: ${{ matrix.flavor }}
+      type: ${{ matrix.type }}
+      runsOn: uds-swf-ubuntu-big-boy-8-core
+    secrets: inherit # Inherits all secrets from the parent workflow.
