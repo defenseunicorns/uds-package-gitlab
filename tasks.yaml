@@ -11,7 +11,7 @@ includes:
   - deploy: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.1.1/tasks/deploy.yaml
   - setup: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.1.1/tasks/setup.yaml
   - actions: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.1.1/tasks/actions.yaml
-  - badge: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.1.1/tasks/badge.yaml
+  - badge: https://raw.githubusercontent.com/defenseunicorns/uds-common/improve-badge-verification/tasks/badge.yaml
   - upgrade: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.1.1/tasks/upgrade.yaml
   - compliance: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.1.1/tasks/compliance.yaml
 
