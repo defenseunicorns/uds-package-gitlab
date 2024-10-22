@@ -5,7 +5,7 @@ variables:
   uds-k3d-dev:
     K3D_EXTRA_ARGS: "-p 2223:2223@server:*"
     NGINX_EXTRA_PORTS: "[2223]"
-  core-slim-dev:
+  core-base:
     TENANT_SERVICE_PORTS:
       - name: status-port
         port: 15021
