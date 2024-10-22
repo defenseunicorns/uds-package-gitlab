@@ -21,7 +21,11 @@ overlay-values-*
 
 # Tests
 node_modules/
+tests/node_modules/*
+tests/node_modules/**/*
 .playwright/
+tests/.playwright/*
+tests/.playwright/**/*
 tests/data/gitlab-test-ssh-key
 tests/data/gitlab-test-ssh-key.pub
 tests/data/uds-package-test-*

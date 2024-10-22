@@ -1,3 +1,6 @@
+# Copyright 2024 Defense Unicorns
+# SPDX-License-Identifier: AGPL-3.0-or-later OR LicenseRef-Defense-Unicorns-Commercial
+
 kind: UDSBundle
 metadata:
   name: gitlab-test
@@ -60,10 +63,6 @@ packages:
                 secretKey: password
 
   - name: dev-secrets
-    path: ../
-    ref: 0.1.0
-
-  - name: dev-peer-auth-shim
     path: ../
     ref: 0.1.0
 

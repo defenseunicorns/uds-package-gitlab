@@ -1,0 +1,69 @@
+# Copyright 2024 Defense Unicorns
+# SPDX-License-Identifier: AGPL-3.0-or-later OR LicenseRef-Defense-Unicorns-Commercial
+
+component-definition:
+  uuid: d891a9a2-3661-4845-a262-1fbfa64efe8d
+  metadata:
+    title: UDS Package GitLab
+    last-modified: "2023-11-27T17:09:15Z"
+    version: "20231127"
+    oscal-version: 1.1.2
+    parties:
+      - uuid: f3cf70f8-ba44-4e55-9ea3-389ef24847d3
+        type: organization
+        name: Defense Unicorns
+        links:
+          - href: https://defenseunicorns.com
+            rel: website
+  components:
+    - uuid: 022fd27e-e965-4abb-b949-ca1d40c3905e
+      type: software
+      title: GitLab
+      description: |
+        GitLab is a web-based DevOps lifecycle tool that provides a Git-repository manager with wiki, issue-tracking, and CI/CD pipeline features. It enables teams to
+         collaborate on code development, from planning and project management to testing and deployment, all within a single platform.
+      purpose: Provides users with secure DevSecOps pipelines, Git operations, issue-tracking, and CI/CD capabilities.
+      responsible-roles:
+        - role-id: provider
+          party-uuids:
+            - f3cf70f8-ba44-4e55-9ea3-389ef24847d3
+      control-implementations:
+        - uuid: d2afb4c4-2cd8-5305-a6cc-d1bc7b388d0c
+          source: https://raw.githubusercontent.com/GSA/fedramp-automation/93ca0e20ff5e54fc04140613476fba80f08e3c7d/dist/content/rev5/baselines/json/FedRAMP_rev5_HIGH-baseline-resolved-profile_catalog.json
+          description: Controls implemented by GitLab for inheritance by applications that adheres to FedRAMP High Baseline and DoD IL 6.
+          implemented-requirements:
+            - uuid: 5b74c791-0a05-4785-b618-f2359f95dfcf
+              control-id: au-3
+              description: >-
+                GitLab logs type of event, time of the even, location of the event, source of the event, outcome of the event, and subjects/objects involved in the event.
+            - uuid: ff8ab164-e0c2-466e-9015-0d37318e03f2
+              control-id: au-8
+              description: >-
+                GitLab event logs contain NIST compliant timestamps.
+            - uuid: bf51cef3-72f2-46fd-92ef-914ae609169b
+              control-id: cm-3.6
+              description: >-
+                GitLab utilizes the underlying Istio for FIPS encryption in transit. GitLab also utilize the RedHat base container image's FIPS modules. GitLab stores data in an encrypted Redis, PostgreSQL, and KMS backed S3 Buckets.
+            - uuid: bd5aba7b-0698-4b10-b120-0633f153a867
+              control-id: cm-7
+              description: >-
+                GitLab is configured to only allow specific ports, services, and functionalities required.
+            - uuid: 0f7b3292-475c-4dad-8853-11a7afda6043
+              control-id: sc-13
+              description: >-
+                GitLab utilizes Istio Network for FIPS encryption in transit. FIPS encryption for data at rest is handled by PostgreSQL, Redis, and AWS S3 backed by KMS. GitLab also leverages the RedHat
+                base container image's FIPS modules.
+            - uuid: cebd7013-1131-41a3-9259-f7b13177aecd
+              control-id: sc-45
+              description: >-
+                GitLab utilizes NIST compliant time clock settings.
+            - uuid: 39a66a2c-93d9-4b43-a2c6-33bcf0862d15
+              control-id: sc-45.1
+              description: >-
+                GitLab utilizes NIST compliant time clock settings.
+  back-matter:
+    resources:
+      - uuid: 845131d2-2430-4bcb-ab4b-60824ea8a0d6
+        title: UDS Package GitLab
+        rlinks:
+          - href: https://github.com/defenseunicorns/uds-package-gitlab
