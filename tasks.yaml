@@ -64,7 +64,6 @@ tasks:
           dep_commands: ./uds run dependencies:create
       - task: setup:k3d-test-cluster
       - task: deploy:test-bundle
-      - task: setup:create-doug-user
       - task: compliance:validate
       - task: create-dev-package
       - task: create-deploy-test-bundle
