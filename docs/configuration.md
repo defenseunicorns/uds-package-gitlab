@@ -53,6 +53,39 @@ The Software Factory team has not yet tested IRSA with AWS RDS - there is an ope
 
 https://github.com/defenseunicorns/uds-software-factory/issues/45
 
+## Object Storage
+
+> [!NOTE]
+> This section is subject to change / improvement once [`uds-package-minio-operator`](https://github.com/defenseunicorns/uds-package-minio-operator) is fully ready for production use cases.
+
+Object Storage works a bit differently as there are many kinds of file stores GitLab can be configured to use.
+
+- Create the secret `gitlab-object-store` in the `gitlab` namespace with the following keys:
+  - An example for in-cluster Minio can be found in this repository at the path `src/dev-secrets/minio-secret.yaml`
+  - `connection`
+    - This key refers to the configuration for the main GitLab service. The documentation for what goes in this key is located [here](https://docs.gitlab.com/16.0/ee/administration/object_storage.html#configure-the-connection-settings)
+  - `registry`
+    - This key refers to the configuration for the gitlab registry. The documentation for what goes in this key is located [here](https://docs.docker.com/registry/configuration/#storage)
+  - `backups`
+    - This key refers to the configuration for the gitlab-toolbox backup tool. It relies on a program called `s3cmd`. The documentation for what goes in this key is located [here](https://s3tools.org/kb/item14.htm)
+- Below are the list of buckets that need to be created before starting GitLab:
+
+```yaml
+  - uds-gitlab-pages
+  - uds-gitlab-registry
+  - uds-gitlab-lfs
+  - uds-gitlab-artifacts
+  - uds-gitlab-uploads
+  - uds-gitlab-packages
+  - uds-gitlab-mr-diffs
+  - uds-gitlab-terraform-state
+  - uds-gitlab-ci-secure-files
+  - uds-gitlab-dependency-proxy
+  - uds-gitlab-backups
+  - uds-gitlab-tmp
+```
+- These buckets can have a suffix applied via the `BUCKET_SUFFIX` Zarf variable (e.g. `-some-deployment-name` plus `uds-gitlab-backups` would be `uds-gitlab-backups-some-deployment-name`)
+
 ## Redis / Valkey
 
 GitLab uses Redis as a key value store for caching, job queueing and more and supports external providers (such as Elasticache) as well as the [UDS Valkey](https://github.com/defenseunicorns/uds-package-valkey/) package to provide the service.
