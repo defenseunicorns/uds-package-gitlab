@@ -52,7 +52,7 @@ jobs:
   validate:
     needs: check-flavor
     strategy:
-      fail-fast: false
+      fail-fast: true
       matrix:
         type: [install, upgrade]
         flavor: [upstream, registry1, unicorn]
