@@ -3,14 +3,11 @@
 
 global:
   gitlab:
-<<<<<<< HEAD
     serviceName: webservice
     hostnameOverride: gitlab.###ZARF_VAR_DOMAIN###
-=======
     license:
       secret: gitlab-license
 
->>>>>>> main
   image:
     pullPolicy: IfNotPresent
 
