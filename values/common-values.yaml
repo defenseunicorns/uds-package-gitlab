@@ -3,6 +3,8 @@
 
 global:
   gitlab:
+    serviceName: webservice
+    hostnameOverride: gitlab.###ZARF_VAR_DOMAIN###
     license:
       secret: gitlab-license
 
@@ -17,7 +19,7 @@ global:
     enabled: false
 
   hosts:
-    domain: ###ZARF_VAR_DOMAIN###
+    domain: default.###ZARF_VAR_DOMAIN###
     gitlab:
       name: gitlab.###ZARF_VAR_DOMAIN###
     registry:
