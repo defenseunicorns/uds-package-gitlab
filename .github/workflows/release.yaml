@@ -36,7 +36,7 @@ jobs:
     if: ${{ needs.tag-new-version.outputs.release_created == 'true' }}
     strategy:
       matrix:
-        flavor: [upstream, registry1]
+        flavor: [upstream, registry1, unicorn]
         architecture: [amd64, arm64]
         exclude:
           - flavor: registry1
