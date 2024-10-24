@@ -64,7 +64,8 @@ spec:
                 log_message "    scope_list=$scope_list"
 
                 local user_exists
-                user_exists=$(curl --silent --header "PRIVATE-TOKEN: $TOKEN" "${gitlab_host}/api/v4/users?username=$username")
+                user_exists=$(kubectl exec -n gitlab deployment/gitlab-toolbox -- \
+                    curl --silent --header "PRIVATE-TOKEN: $TOKEN" "${gitlab_host}/api/v4/users?username=$username")
 
                 if echo "$user_exists" | grep -q '"id":'; then
                     log_message "User already exists"
@@ -73,25 +74,27 @@ spec:
                 fi
 
                 if [ "$service_account" == "true" ]; then
-                    user_response=$(curl --silent --header "PRIVATE-TOKEN: $TOKEN" \
-                        --data "username=$username&name=$name" \
-                        --request POST "${gitlab_host}/api/v4/service_accounts")                
+                    user_response=$(kubectl exec -n gitlab deployment/gitlab-toolbox -- \
+                        curl --silent --header "PRIVATE-TOKEN: $TOKEN" \
+                            --data "username=$username&name=$name" \
+                            --request POST "${gitlab_host}/api/v4/service_accounts")                
                 else
                     # Generate a random password
                     local password
                     password=$(openssl rand -base64 16)
 
                     # Create the user if it doesn't exist
-                    user_response=$(curl --silent --request POST "${gitlab_host}/api/v4/users" \
-                        --header "PRIVATE-TOKEN: $TOKEN" \
-                        --header "Content-Type: application/json" \
-                        --data "{
-                            \"email\": \"$email\",
-                            \"username\": \"$username\",
-                            \"name\": \"$name\",
-                            \"password\": \"$password\",
-                            \"skip_confirmation\": true
-                        }")
+                    user_response=$(kubectl exec -n gitlab deployment/gitlab-toolbox -- \
+                        curl --silent --request POST "${gitlab_host}/api/v4/users" \
+                            --header "PRIVATE-TOKEN: $TOKEN" \
+                            --header "Content-Type: application/json" \
+                            --data "{
+                                \"email\": \"$email\",
+                                \"username\": \"$username\",
+                                \"name\": \"$name\",
+                                \"password\": \"$password\",
+                                \"skip_confirmation\": true
+                            }")
                 fi
 
                 # Check if user creation was successful
@@ -119,9 +122,10 @@ spec:
                 done
 
                 # Create a Personal Access Token (PAT) for the new user with the specified scopes
-                pat_response=$(curl --silent --header "PRIVATE-TOKEN: $TOKEN" \
-                    --data "name=UDS Generated PAT$scope_data" \
-                    --request POST "${gitlab_host}/api/v4/users/$user_id/personal_access_tokens")
+                pat_response=$(kubectl exec -n gitlab deployment/gitlab-toolbox -- \
+                    curl --silent --header "PRIVATE-TOKEN: $TOKEN" \
+                        --data "name=UDS Generated PAT$scope_data" \
+                        --request POST "${gitlab_host}/api/v4/users/$user_id/personal_access_tokens")
 
                 # Check if token creation was successful
                 if [ $? -ne 0 ]; then
@@ -146,7 +150,8 @@ spec:
             gitlab-rails runner -e production \
             "token = User.find_by_username('root').personal_access_tokens.create(scopes: ['api', 'admin_mode'], name: 'Bot Accounts API Token', expires_at: 1.days.from_now); token.save!; puts token.token" | tail -n 1)
 
-            response=$(curl --silent --header "PRIVATE-TOKEN: $TOKEN" "${gitlab_host}/api/v4/license")
+            response=$(kubectl exec -n gitlab deployment/gitlab-toolbox -- \
+                curl --silent --header "PRIVATE-TOKEN: $TOKEN" "${gitlab_host}/api/v4/license")
 
             # Check if the request was successful
             if [ $? -ne 0 ]; then
