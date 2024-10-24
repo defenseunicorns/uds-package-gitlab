@@ -7,7 +7,7 @@ global:
   kubectl:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/kubectl
-      tag: v17.2.9
+      tag: v17.5.1
 
 botAccounts:
   enabled: false
