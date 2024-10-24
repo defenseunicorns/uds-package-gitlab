@@ -1,9 +1,12 @@
+# Copyright 2024 Defense Unicorns
+# SPDX-License-Identifier: AGPL-3.0-or-later OR LicenseRef-Defense-Unicorns-Commercial
+
 kind: UDSBundle
 metadata:
   name: gitlab-test
   description: A UDS bundle for deploying Gitlab and it's dependencies on a development cluster
   # x-release-please-start-version
-  version: 17.2.7-uds.1
+  version: 17.2.9-uds.0
   # x-release-please-end
 
 packages:
@@ -63,14 +66,10 @@ packages:
     path: ../
     ref: 0.1.0
 
-  - name: dev-peer-auth-shim
-    path: ../
-    ref: 0.1.0
-
   - name: gitlab
     path: ../
     # x-release-please-start-version
-    ref: 17.2.7-uds.1
+    ref: 17.2.9-uds.0
     # x-release-please-end
     overrides:
       gitlab:
@@ -145,3 +144,7 @@ packages:
           values:
             - path: settingsJob.application.enabled_git_access_protocol
               value: all
+          variables:
+            - name: BOT_ACCOUNTS
+              description: "Bot Accounts to Create"
+              path: "botAccounts"

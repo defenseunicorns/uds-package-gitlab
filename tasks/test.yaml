@@ -1,3 +1,6 @@
+# Copyright 2024 Defense Unicorns
+# SPDX-License-Identifier: AGPL-3.0-or-later OR LicenseRef-Defense-Unicorns-Commercial
+
 variables:
   - name: GITLAB_TOKEN
     default: glpat-NO_DEFAULT_VALUE
@@ -5,8 +8,9 @@ variables:
 tasks:
   - name: all
     actions:
-      - task: test:ingress
-      - task: test:ui
+      - task: ingress
+      - task: ui
+      - task: bot-account
 
   - name: ingress
     actions:
@@ -18,7 +22,7 @@ tasks:
         cmd: |
           STATUS=$(curl -s -o /dev/null --write-out '%{http_code}' 'https://gitlab.uds.dev/-/readiness?all=1')
           echo "GitLab readiness status: ${STATUS}"
-          if [ $STATUS != "200" ]; then
+          if [ "$STATUS" != "200" ]; then
             sleep 10
             exit 1
           fi
@@ -50,7 +54,7 @@ tasks:
       # Push to the project via HTTPS (gateway -> gitlab-webservice -> gitaly)
       - task: create-doug-pat
       - cmd: |
-          cd "${PROJECT_NAME}"
+          cd "${PROJECT_NAME}" || exit
           git config commit.gpgsign false
           git remote set-url origin "https://doug:${GITLAB_TOKEN}@gitlab.uds.dev/doug/${PROJECT_NAME}-firefox.git"
           touch hello-kitteh.txt && git add . && git commit -m "Add hello kitteh"
@@ -60,18 +64,22 @@ tasks:
       - cmd: rm -rf "${PROJECT_NAME}"
         dir: tests/data
 
-  - name: create-doug-admin
-    description: Create "doug" account as admin (must be run *before* first login)
+  - name: bot-account
+    description: Bot Account Access Tests
     actions:
+      - cmd: kubectl get secret gitlab-test-bot -n test-bot -o jsonpath="{.data.TOKEN}" | base64 --decode
+        setVariables:
+          - name: GITLAB_TOKEN
       - cmd: |
-          ./uds zarf tools kubectl exec -n gitlab deployment/gitlab-toolbox -- gitlab-rails runner -e production '\
-          user = User.new(username: "doug", name: "Doug Unicorn", email: "doug@uds.dev", password: "0123456789!", password_confirmation: "0123456789!"); \
-          user.assign_personal_namespace!; \
-          user.skip_confirmation!; \
-          user.admin = true; \
-          user.save!; \
-          puts user.username; puts user.id; \
-          '
+          response=$(curl --write-out "%{http_code}" --silent --output /dev/null --header "PRIVATE-TOKEN: $GITLAB_TOKEN" https://gitlab.uds.dev/api/v4/user)
+
+          # Check if the status code is 200 (OK)
+          if [ "$response" -eq 200 ]; then
+            echo "GitLab API token is valid."
+          else
+            echo "Error: GitLab API token is invalid or cannot access the API."
+            exit 1
+          fi
 
   - name: create-doug-pat
     description: Create personal access token (PAT) for "doug" account
@@ -89,4 +97,30 @@ tasks:
   - name: root-password
     actions:
       - description: Get the root password for GitLab (useful for local dev)
-        cmd: ./uds zarf tools kubectl get secret -n gitlab gitlab-gitlab-initial-root-password -o jsonpath={.data.password} | base64 -d
+        cmd: ./uds zarf tools kubectl get secret -n gitlab gitlab-gitlab-initial-root-password -o jsonpath='{.data.password}' | base64 -d
+
+  # TODO (@ewyles) - might be useful in uds-common as a generic thing in the future
+  - name: bot-account-script
+    actions:
+      - description: Manually run the bot account script from the helm template locally
+        cmd: |
+          helm template charts/settings --show-only templates/bot-accounts-job.yaml | \
+          yq -r '.spec.template.spec.containers[0].args[0]' | \
+          sed 's|http://gitlab-webservice-default.gitlab.svc.cluster.local:8181|https://gitlab.uds.dev|g' | \
+          sh
+
+  - name: debug-bot-account-script
+    actions:
+      - description: Manually run the bot account script from the helm template locally
+        cmd: |
+          helm template charts/settings --show-only templates/bot-accounts-job.yaml | \
+          yq -r '.spec.template.spec.containers[0].args[0]' | \
+          sed 's|http://gitlab-webservice-default.gitlab.svc.cluster.local:8181|https://gitlab.uds.dev|g' | \
+          { echo "set -x"; cat; } | \
+          sh
+
+  - name: doug-admin
+    description: Promote Doug to admin (requires running setup:create-doug-user and logging into gitlab ui first)
+    actions:
+      - cmd: |
+         ./uds zarf tools kubectl exec -n gitlab deployment/gitlab-toolbox -- gitlab-rails runner -e production "user = User.find_by(username: 'doug'); user.admin = true; user.save!"

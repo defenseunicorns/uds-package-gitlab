@@ -1,8 +1,26 @@
+# Copyright 2024 Defense Unicorns
+# SPDX-License-Identifier: AGPL-3.0-or-later OR LicenseRef-Defense-Unicorns-Commercial
+
+domain: "###ZARF_VAR_DOMAIN###"
+
 global:
   kubectl:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/kubectl
-      tag: v17.2.4
+      tag: v17.2.9
+
+botAccounts:
+  enabled: false
+  # accounts:
+  #   - username: renovatebot
+  #     scopes:
+  #       - api
+  #       - read_repository
+  #       - write_repository
+  #     secret:
+  #       name: gitlab-renovatebot
+  #       namespace: renovate
+  #       keyName: TOKEN
 
 settingsJob:
   enabled: true

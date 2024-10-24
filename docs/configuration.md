@@ -2,6 +2,12 @@
 
 GitLab in this package is configured through the upstream [GitLab chart](https://docs.gitlab.com/charts/) as well as a UDS configuration chart that supports the following:
 
+## GitLab License
+
+#### `uds-gitlab-config` chart:
+
+- `license` - Set this to the contents of a GitLab license file to enable GitLab Premium or Ultimate.
+
 ## Networking
 
 Network policies are controlled via the `uds-gitlab-config` chart in accordance with the [common patterns for networking within UDS Software Factory](https://github.com/defenseunicorns/uds-software-factory/blob/main/docs/networking.md).  GitLab interacts with GitLab runners, object storage, Redis and Postgresql externally and supports the following keys:
@@ -46,6 +52,39 @@ If you are using the [UDS Postgres Operator](https://github.com/defenseunicorns/
 The Software Factory team has not yet tested IRSA with AWS RDS - there is an open issue linked below with further linked issues to test this that could act as a starting point to implement:
 
 https://github.com/defenseunicorns/uds-software-factory/issues/45
+
+## Object Storage
+
+> [!NOTE]
+> This section is subject to change / improvement once [`uds-package-minio-operator`](https://github.com/defenseunicorns/uds-package-minio-operator) is fully ready for production use cases.
+
+Object Storage works a bit differently as there are many kinds of file stores GitLab can be configured to use.
+
+- Create the secret `gitlab-object-store` in the `gitlab` namespace with the following keys:
+  - An example for in-cluster Minio can be found in this repository at the path `src/dev-secrets/minio-secret.yaml`
+  - `connection`
+    - This key refers to the configuration for the main GitLab service. The documentation for what goes in this key is located [here](https://docs.gitlab.com/16.0/ee/administration/object_storage.html#configure-the-connection-settings)
+  - `registry`
+    - This key refers to the configuration for the gitlab registry. The documentation for what goes in this key is located [here](https://docs.docker.com/registry/configuration/#storage)
+  - `backups`
+    - This key refers to the configuration for the gitlab-toolbox backup tool. It relies on a program called `s3cmd`. The documentation for what goes in this key is located [here](https://s3tools.org/kb/item14.htm)
+- Below are the list of buckets that need to be created before starting GitLab:
+
+```yaml
+  - uds-gitlab-pages
+  - uds-gitlab-registry
+  - uds-gitlab-lfs
+  - uds-gitlab-artifacts
+  - uds-gitlab-uploads
+  - uds-gitlab-packages
+  - uds-gitlab-mr-diffs
+  - uds-gitlab-terraform-state
+  - uds-gitlab-ci-secure-files
+  - uds-gitlab-dependency-proxy
+  - uds-gitlab-backups
+  - uds-gitlab-tmp
+```
+- These buckets can have a suffix applied via the `BUCKET_SUFFIX` Zarf variable (e.g. `-some-deployment-name` plus `uds-gitlab-backups` would be `uds-gitlab-backups-some-deployment-name`)
 
 ## Redis / Valkey
 
@@ -133,3 +172,29 @@ It is recommended to inspect these settings and further lock them down for your 
 
 > [!TIP]
 > If you wish to disable the settings Job and CronJob and keep GitLab's default application settings you can do so with the `settingsJob.enabled` value.  You can also adjust the CronJob schedule (when it will reset the application settings) with the `settingsJob.schedule` value.
+
+## Configuring Bot Accounts
+
+#### `uds-gitlab-config` chart:
+
+- `botAccounts.enabled` - set this to true to enable bot accounts.
+- `botAccounts.accounts` - set this to a list of bot accounts to create. If specified, each account will be created in GitLab with the given `username` and `scopes`. A GitLab Personal Access Token (PAT) will be created for the account and stored in the secret specified by `secret.name`, `secret.namespace`, and `secret.keyName`. Any namespaces specified in `botAccounts` secrets will be created automatically.
+
+Example:
+
+```yaml
+  - username: renovatebot
+    scopes:
+      - api
+      - read_repository
+      - write_repository
+    secret:
+      name: gitlab-renovate
+      namespace: renovate
+      keyName: TOKEN
+```
+
+This will configure a bot account named `renovatebot` and create a PAT with scopes `api`, `read_repository`, and `write_repository` for the account. The value of the PAT will be stored in the key `TOKEN` in a secret `gitlab-renovate` in the `renovate` namespace.
+
+> [!NOTE]
+> If the GitLab instance is configured with a license for Premium or Ultimate, [Gitlab Service Accounts](https://docs.gitlab.com/ee/user/profile/service_accounts.html) will be created. Otherwise, standard user accounts will be created.
