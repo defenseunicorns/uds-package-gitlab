@@ -121,7 +121,7 @@ components:
       - "cgr.dev/du-uds-defenseunicorns/gitlab-shell-fips:17.4.0"  #"registry.gitlab.com/gitlab-org/build/cng/gitlab-shell:v17.2.7"
       - "cgr.dev/du-uds-defenseunicorns/gitlab-sidekiq-ee-fips:17.4.2" #"registry.gitlab.com/gitlab-org/build/cng/gitlab-sidekiq-ee:v17.2.7"
       - "cgr.dev/du-uds-defenseunicorns/gitlab-toolbox-ee-fips:17.4.0"
-      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-toolbox-ee:v17.4.2" 
+      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-toolbox-ee:v17.4.2"
       - "cgr.dev/du-uds-defenseunicorns/gitlab-webservice-ee:17.4.2" #"registry.gitlab.com/gitlab-org/build/cng/gitlab-webservice-ee:v17.2.7"
       - "cgr.dev/du-uds-defenseunicorns/gitlab-workhorse-ee:17.4.2" #"registry.gitlab.com/gitlab-org/build/cng/gitlab-workhorse-ee:v17.2.7"
       - cgr.dev/du-uds-defenseunicorns/gitlab-kubectl-fips:1.31.1 #1.31.0 #"registry.gitlab.com/gitlab-org/build/cng/kubectl:v17.4.0" #"cgr.dev/du-uds-defenseunicorns/gitlab-kubectl-fips:1.31.0"
