@@ -12,7 +12,7 @@ This package is designed for use as part of a [UDS Software Factory](https://git
 
 ## Pre-requisites
 
-The GitLab Package expects to be deployed on top of [UDS Core](https://github.com/defenseunicorns/uds-core) with a configured Redis/Valkey instance, Postgres database and S2 compatible object storage.  To learn more about configuring GitLab see the [configuration documentation](./docs/configuration.md).
+The GitLab Package expects to be deployed on top of [UDS Core](https://github.com/defenseunicorns/uds-core) with a configured Redis/Valkey instance, Postgres database and S3 compatible object storage.  To learn more about configuring GitLab see the [configuration documentation](./docs/configuration.md).
 
 > [!IMPORTANT]
 > **NOTE**: Some GitLab features (such as GitLab pages) will also require a [GitLab runner](https://github.com/defenseunicorns/uds-package-gitlab-runner) along with additional configuration such as an additional certificate SAN for `*.pages.<your-domain>`.
