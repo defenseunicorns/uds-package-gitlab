@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file.
 
+## [17.3.6-uds.0](https://github.com/defenseunicorns/uds-package-gitlab/compare/v17.2.9-uds.0...v17.3.6-uds.0) (2024-10-25)
+
+
+### Bug Fixes
+
+* made for uds badge url ([#210](https://github.com/defenseunicorns/uds-package-gitlab/issues/210)) ([d086202](https://github.com/defenseunicorns/uds-package-gitlab/commit/d0862027d28302bd55580d35724a2a294d0ed131))
+
+
+### Miscellaneous
+
+* **deps:** update gitlab package dependencies to v17.3.6 ([#212](https://github.com/defenseunicorns/uds-package-gitlab/issues/212)) ([ec9b792](https://github.com/defenseunicorns/uds-package-gitlab/commit/ec9b7921f1cc6c76f2d71ebb5d64794328841938))
+* **deps:** update gitlab support dependencies ([#203](https://github.com/defenseunicorns/uds-package-gitlab/issues/203)) ([979b39f](https://github.com/defenseunicorns/uds-package-gitlab/commit/979b39fb7c3e74b67cfae48bc17a928cde613d05))
+* set fail-fast to true on test matrix ([#218](https://github.com/defenseunicorns/uds-package-gitlab/issues/218)) ([301f2e0](https://github.com/defenseunicorns/uds-package-gitlab/commit/301f2e012552211abf1a42d3bfdf3c3aea5e2fc0))
+* streamline README and add workflow permissions ([#214](https://github.com/defenseunicorns/uds-package-gitlab/issues/214)) ([9a0629b](https://github.com/defenseunicorns/uds-package-gitlab/commit/9a0629b1edc48b6b3770fb3dec5b3068e5312578))
+* update commitlint.yaml permissions ([#216](https://github.com/defenseunicorns/uds-package-gitlab/issues/216)) ([82fc9f5](https://github.com/defenseunicorns/uds-package-gitlab/commit/82fc9f5a515f2a2cecb226f1d6b1aabe0ccf5e53))
+
 ## [17.2.9-uds.0](https://github.com/defenseunicorns/uds-package-gitlab/compare/v17.2.7-uds.2...v17.2.9-uds.0) (2024-10-15)
 
 
