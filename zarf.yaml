@@ -7,7 +7,7 @@ metadata:
   name: gitlab
   description: "UDS GitLab Package"
   # x-release-please-start-version
-  version: "17.2.9-uds.0"
+  version: "17.3.6-uds.0"
   # x-release-please-end
 
 variables:
@@ -53,19 +53,19 @@ components:
         valuesFiles:
           - values/registry1-values.yaml
     images:
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/certificates:17.2.9"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/certificates:17.3.6"
       - "registry1.dso.mil/ironbank/gitlab/gitlab/cfssl-self-sign:1.6.1"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitaly:17.2.9"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-container-registry:17.2.9"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-pages:17.2.9"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-shell:17.2.9"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-sidekiq:17.2.9"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-toolbox:17.2.9"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-webservice:17.2.9"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-workhorse:17.2.9"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/kubectl:17.2.9"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-base:17.2.9"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-exporter:17.2.9"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitaly:17.3.6"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-container-registry:17.3.6"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-pages:17.3.6"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-shell:17.3.6"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-sidekiq:17.3.6"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-toolbox:17.3.6"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-webservice:17.3.6"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-workhorse:17.3.6"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/kubectl:17.3.6"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-base:17.3.6"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-exporter:17.3.6"
 
   # Note: upstream flavor is experimental
   - name: gitlab
@@ -127,3 +127,4 @@ components:
       - "cgr.dev/du-uds-defenseunicorns/gitlab-kubectl-fips:1.31.1" #1.31.0 #"registry.gitlab.com/gitlab-org/build/cng/kubectl:v17.4.0" #"cgr.dev/du-uds-defenseunicorns/gitlab-kubectl-fips:1.31.0"
       - "cgr.dev/du-uds-defenseunicorns/gitlab-base-fips:17.5.1" #"registry.gitlab.com/gitlab-org/build/cng/gitlab-base:v17.2.7"
       - "cgr.dev/du-uds-defenseunicorns/gitlab-exporter-fips:17.5.1" #"registry.gitlab.com/gitlab-org/build/cng/gitlab-exporter:v17.2.7"
+
