@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [17.3.6-uds.1](https://github.com/defenseunicorns/uds-package-gitlab/compare/v17.3.6-uds.0...v17.3.6-uds.1) (2024-10-28)
+
+
+### Features
+
+* add unicorn flavor ([#221](https://github.com/defenseunicorns/uds-package-gitlab/issues/221)) ([28aaa13](https://github.com/defenseunicorns/uds-package-gitlab/commit/28aaa1390e14312d32598a6dba23dbe38a48b487))
+
+
+### Miscellaneous
+
+* fix S2-&gt;S3 in README.md ([#219](https://github.com/defenseunicorns/uds-package-gitlab/issues/219)) ([361c74a](https://github.com/defenseunicorns/uds-package-gitlab/commit/361c74aaf90bfff09e7f233b836c9dbcf0c56785))
+
 ## [17.3.6-uds.0](https://github.com/defenseunicorns/uds-package-gitlab/compare/v17.2.9-uds.0...v17.3.6-uds.0) (2024-10-25)
 
 
