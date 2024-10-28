@@ -97,36 +97,6 @@ components:
       - "registry.gitlab.com/gitlab-org/build/cng/gitlab-base:v17.3.6"
       - "registry.gitlab.com/gitlab-org/build/cng/gitlab-exporter:v17.3.6"
 
-  # Note: upstream flavor is experimental
-  - name: gitlab
-    required: true
-    description: "Deploy gitlab"
-    import:
-      path: common
-    only:
-      flavor: upstream
-    charts:
-      - name: gitlab
-        valuesFiles:
-          - values/upstream-values.yaml
-      - name: uds-gitlab-settings
-        valuesFiles:
-          - values/upstream-values.yaml
-    images:
-      - "registry.gitlab.com/gitlab-org/build/cng/certificates:v17.3.6"
-      - "registry.gitlab.com/gitlab-org/build/cng/cfssl-self-sign:v17.3.6"
-      - "registry.gitlab.com/gitlab-org/build/cng/gitaly:v17.3.6"
-      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-container-registry:v17.3.6"
-      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-pages:v17.3.6"
-      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-shell:v17.3.6"
-      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-sidekiq-ee:v17.3.6"
-      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-toolbox-ee:v17.3.6"
-      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-webservice-ee:v17.3.6"
-      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-workhorse-ee:v17.3.6"
-      - "registry.gitlab.com/gitlab-org/build/cng/kubectl:v17.3.6"
-      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-base:v17.3.6"
-      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-exporter:v17.3.6"
-
  # Note: unicorn flavor is experimental
   - name: gitlab
     required: true
