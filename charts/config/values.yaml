@@ -48,6 +48,16 @@ runner:
     app: gitlab-runner
   namespace: gitlab-runner
   sandboxNamespace: gitlab-runner-sandbox
+
+# Gitaly is responsible for mirroring actions, and there are 4 valid protocols with the following ports
+# ssh: 22
+# http: 80
+# https: 443
+# git: 9418
+mirroring:
+  ports:
+    - 443
+
 # custom:
 #    # Notice no `remoteGenerated` field here on custom internal rule
 #   - direction: Ingress
