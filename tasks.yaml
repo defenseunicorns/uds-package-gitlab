@@ -87,11 +87,11 @@ tasks:
         task: publish:package
         with:
           # x-release-please-start-version
-          version: "17.3.6-uds.1"
+          version: "17.3.6-uds.2"
           # x-release-please-end
       - description: Publish the bundle
         task: publish:test-bundle
         with:
           # x-release-please-start-version
-          version: "17.3.6-uds.1"
+          version: "17.3.6-uds.2"
           # x-release-please-end
