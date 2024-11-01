@@ -446,6 +446,7 @@ spec:
         description: "Gitlab Pages Storage"
 
       # Gitaly
+      {{ if .Values.mirroring.enabled }}
       - direction: Egress
         selector:
           app: gitaly
@@ -453,6 +454,7 @@ spec:
         ports:
           {{- .Values.mirroring.ports | toYaml | nindent 10 }}
         description: Gitaly repository mirroring
+      {{- end }}
 
       # Custom rules for unanticipated scenarios
       {{- range .Values.custom }}

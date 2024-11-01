@@ -55,6 +55,7 @@ runner:
 # https: 443
 # git: 9418
 mirroring:
+  enabled: false
   ports:
     - 443
 
