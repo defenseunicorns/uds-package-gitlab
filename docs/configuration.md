@@ -15,6 +15,7 @@ Network policies are controlled via the `uds-gitlab-config` chart in accordance 
 - `storage`: sets network policies for accessing object storage from all GitLab services (`registry`, `pages`, `webservice`, `toolbox`, `sidekiq`)
 - `redis`:  sets network policies for accessing a Redis-compatible server from all GitLab services (`webservice`, `toolbox`, `sidekiq`, `migrations`, `gitlab-exporter`)
 - `postgres`: sets network policies for accessing a Postgres database from all GitLab services (`webservice`, `toolbox`, `sidekiq`, `migrations`, `gitlab-exporter`)
+- `mirroring`: sets network policies that allow the gitlab repository mirroring feature to work. It defaults to only `https` (443) but can be set to allow the other protocols gitlab supports via the `ports` key.
 - `custom`: sets custom network policies for the GitLab namespace - this allows for custom integrations with other services (i.e. Jira)
 
 > [!NOTE]
