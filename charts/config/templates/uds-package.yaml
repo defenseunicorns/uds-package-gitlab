@@ -445,6 +445,18 @@ spec:
         {{- end }}
         description: "Gitlab Pages Storage"
 
+      # Gitaly
+      - direction: Egress
+        selector:
+          app: gitaly
+        remoteGenerated: Anywhere
+        ports:
+          - 9418
+          - 443
+          - 80
+          - 22
+        description: Gitaly repository mirroring
+
       # Custom rules for unanticipated scenarios
       {{- range .Values.custom }}
       - direction: {{ .direction }}
