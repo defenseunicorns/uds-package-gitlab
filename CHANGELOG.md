@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [17.5.1-uds.0](https://github.com/defenseunicorns/uds-package-gitlab/compare/v17.3.6-uds.2...v17.5.1-uds.0) (2024-11-05)
+
+
+### Bug Fixes
+
+* add trusted proxies to properly handle rate limits ([#227](https://github.com/defenseunicorns/uds-package-gitlab/issues/227)) ([8d5c30a](https://github.com/defenseunicorns/uds-package-gitlab/commit/8d5c30a4eefda79ee59931157e1d62bcf9744829))
+
+
+### Miscellaneous
+
+* **deps:** update gitlab package dependencies ([#222](https://github.com/defenseunicorns/uds-package-gitlab/issues/222)) ([832d263](https://github.com/defenseunicorns/uds-package-gitlab/commit/832d263bb27d6c9595f84683602816ccceb30a15))
+
 ## [17.3.6-uds.2](https://github.com/defenseunicorns/uds-package-gitlab/compare/v17.3.6-uds.1...v17.3.6-uds.2) (2024-11-01)
 
 
