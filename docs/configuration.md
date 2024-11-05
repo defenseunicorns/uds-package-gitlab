@@ -21,6 +21,9 @@ Network policies are controlled via the `uds-gitlab-config` chart in accordance 
 > [!NOTE]
 > Currently the GitLab UDS Package contains Istio `PeerAuthentication` exceptions to allow the `dependency` init containers to reach out and check the Redis and Postgres services.  These are only added with `redis.internal` or `postgres.internal` set to `true` and will be removed once UDS Core [switches to native sidecars](https://github.com/defenseunicorns/uds-core/issues/536).
 
+> [!IMPORTANT]
+> GitLab is configured to rate-limit by default (this can be changed in [application settings](#configuring-gitlab-settings) below).  It will trust Istio to give it the proper headers to record the client IP, however, if you have additional proxies or tunnels in front of the Istio LoadBalancers it may receive a single IP for all users and should either be reconfigured or disabled.
+
 ## Database
 
 GitLab uses Postgres as its backing database service and supports the [common database providers within UDS Software Factory](https://github.com/defenseunicorns/uds-software-factory/blob/main/docs/database.md).  
