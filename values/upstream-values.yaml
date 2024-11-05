@@ -72,4 +72,3 @@ upgradeCheck:
   image:
     repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-base
     tag: v17.5.1
-

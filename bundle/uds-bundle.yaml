@@ -6,7 +6,7 @@ metadata:
   name: gitlab-test
   description: A UDS bundle for deploying Gitlab and it's dependencies on a development cluster
   # x-release-please-start-version
-  version: 17.3.6-uds.0
+  version: 17.3.6-uds.2
   # x-release-please-end
 
 packages:
@@ -20,7 +20,7 @@ packages:
 
   - name: postgres-operator
     repository: ghcr.io/defenseunicorns/packages/uds/postgres-operator
-    ref: 1.13.0-uds.2-upstream
+    ref: 1.13.0-uds.4-upstream
     overrides:
       postgres-operator:
         uds-postgres-config:
@@ -42,7 +42,7 @@ packages:
 
   - name: valkey
     repository: ghcr.io/defenseunicorns/packages/uds/valkey
-    ref: 7.2.7-uds.0-upstream
+    ref: 8.0.1-uds.0-upstream
     overrides:
       valkey:
         uds-valkey-config:
@@ -69,7 +69,7 @@ packages:
   - name: gitlab
     path: ../
     # x-release-please-start-version
-    ref: 17.3.6-uds.0
+    ref: 17.3.6-uds.2
     # x-release-please-end
     overrides:
       gitlab:

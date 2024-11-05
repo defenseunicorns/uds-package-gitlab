@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file.
 
+## [17.3.6-uds.2](https://github.com/defenseunicorns/uds-package-gitlab/compare/v17.3.6-uds.1...v17.3.6-uds.2) (2024-11-01)
+
+
+### Bug Fixes
+
+* add netpol to allow gitaly to perform repository mirroring actions ([#226](https://github.com/defenseunicorns/uds-package-gitlab/issues/226)) ([4e3621a](https://github.com/defenseunicorns/uds-package-gitlab/commit/4e3621abc2abc04bf11ca01faf2f2cce7a958e61))
+
+
+### Miscellaneous
+
+* **deps:** update gitlab support dependencies ([#215](https://github.com/defenseunicorns/uds-package-gitlab/issues/215)) ([d3adef6](https://github.com/defenseunicorns/uds-package-gitlab/commit/d3adef6a0f2a994fef15622c13ae65934c25788d))
+* exclude publishing unicorn flavor arm64 package ([#223](https://github.com/defenseunicorns/uds-package-gitlab/issues/223)) ([4e3974d](https://github.com/defenseunicorns/uds-package-gitlab/commit/4e3974df09286bb1a8924b38b1c3124f1098f9b0))
+
+## [17.3.6-uds.1](https://github.com/defenseunicorns/uds-package-gitlab/compare/v17.3.6-uds.0...v17.3.6-uds.1) (2024-10-28)
+
+
+### Features
+
+* add unicorn flavor ([#221](https://github.com/defenseunicorns/uds-package-gitlab/issues/221)) ([28aaa13](https://github.com/defenseunicorns/uds-package-gitlab/commit/28aaa1390e14312d32598a6dba23dbe38a48b487))
+
+
+### Miscellaneous
+
+* fix S2-&gt;S3 in README.md ([#219](https://github.com/defenseunicorns/uds-package-gitlab/issues/219)) ([361c74a](https://github.com/defenseunicorns/uds-package-gitlab/commit/361c74aaf90bfff09e7f233b836c9dbcf0c56785))
+
 ## [17.3.6-uds.0](https://github.com/defenseunicorns/uds-package-gitlab/compare/v17.2.9-uds.0...v17.3.6-uds.0) (2024-10-25)
 
 
