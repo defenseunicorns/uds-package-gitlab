@@ -18,7 +18,7 @@ zarf-sbom
 tmp/
 values-*.yaml
 overlay-values-*
-
+upgrade-test/
 # Tests
 node_modules/
 tests/node_modules/*
