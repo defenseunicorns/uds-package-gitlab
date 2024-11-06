@@ -1,0 +1,16 @@
+# Copyright 2024 Defense Unicorns
+# SPDX-License-Identifier: AGPL-3.0-or-later OR LicenseRef-Defense-Unicorns-Commercial
+
+kind: ZarfPackageConfig
+metadata:
+  name: dev-namespace
+  description: "create namespaces for cross-ns secret functionality of pg operator"
+  version: 0.1.0
+
+components:
+  - name: deploy-namespace-for-cross-ns-secret
+    required: true
+    manifests:
+      - name: dev-namespace
+        files:
+          - gitlab-ns.yaml

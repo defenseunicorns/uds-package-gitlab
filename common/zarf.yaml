@@ -29,6 +29,7 @@ components:
     actions:
       onDeploy:
         before:
+          - cmd: ./zarf tools kubectl annotate secret -n gitlab gitlab-object-store meta.helm.sh/release-namespace=gitlab || true
           - cmd: ./zarf tools kubectl label secret -n gitlab gitlab-object-store app.kubernetes.io/managed-by=Helm || true
           - cmd: ./zarf tools kubectl annotate secret -n gitlab gitlab-object-store meta.helm.sh/release-name=uds-gitlab-config || true
         after:
