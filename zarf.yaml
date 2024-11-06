@@ -29,6 +29,8 @@ variables:
     default: "postgresql"
   - name: GITLAB_PAGES_ENABLED
     default: "false"
+  - name: REGION
+    default: "minio"
   - name: GITLAB_SIGNUP_ENABLED
     default: "true"
   - name: DISABLE_REGISTRY_REDIRECT

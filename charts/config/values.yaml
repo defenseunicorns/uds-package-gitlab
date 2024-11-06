@@ -18,12 +18,43 @@ sso:
   requiredGroups: []
   adminGroups: ["/GitLab Admin", "/UDS Core/Admin"]
 storage:
-  # Set to false to use external storage
-  internal: true
+  internal: true  # Set to false to use external storage
   selector:
     app: minio
-  namespace: dev-minio
+  namespace: minio
   port: 9000
+  endpoint: "http://uds-minio-hl.minio.svc.cluster.local:9000"
+  createSecret:
+    enabled: true
+    useIAMProfile: false
+    accessKey: ""
+    secretKey: ""
+    bucketPrefix: "###ZARF_VAR_BUCKET_PREFIX###"
+    bucketSuffix: "###ZARF_VAR_BUCKET_SUFFIX###"
+    region: "###ZARF_VAR_REGION###"
+    provider: "minio"  # aws or minio; if aws, assumed IRSA is used, and annotations are passed to necessary service accounts
+    secretRef:
+      enabled: true  # Set to true to use secret reference
+      secretNamespace: "gitlab"
+      secretName: "gitlab-minio"
+      secretIDKey: "access_key"
+      secretPasswordKey: "secret_key"
+
+
+objectStore:
+  provider: "minio"  # or "aws"
+
+  region: "minio" # or AWS region e.g., "us-west-2"
+  endpoint: "http://minio.minio.svc.cluster.local:9000"
+ # Only for AWS provider
+  credential:
+    # Use this for direct keys
+    accessKey: "###ZARF_VAR_ACCESS_KEY###"
+    secretKey: "###ZARF_VAR_SECRET_KEY###"
+    # Use this for secret reference
+
+
+
 redis:
   password: ""
 
