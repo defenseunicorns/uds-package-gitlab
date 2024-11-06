@@ -2,6 +2,7 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later OR LicenseRef-Defense-Unicorns-Commercial
 
 includes:
+  # TODO Delete dependencies.yaml after next releaser
   - dependencies: ./tasks/dependencies.yaml
   - test: ./tasks/test.yaml
   - create: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.2.2/tasks/create.yaml
@@ -33,7 +34,6 @@ tasks:
   - name: create-deploy-test-bundle
     description: Test and validate cluster is deployed with GitLab
     actions:
-      - task: dependencies:create
       - task: create:test-bundle
       - task: deploy:test-bundle
       - task: setup:create-doug-user
@@ -59,6 +59,7 @@ tasks:
   - name: test-upgrade
     description: Test an upgrade from the latest released package to the current branch
     actions:
+      # TODO Delete dependencies.yaml after next releaser
       - task: upgrade:create-latest-tag-bundle
         with:
           dep_commands: ./uds run dependencies:create
