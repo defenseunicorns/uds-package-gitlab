@@ -36,6 +36,7 @@ tasks:
       - task: create:test-bundle
       - task: deploy:test-bundle
       - cmd: ./uds zarf tools kubectl -n gitlab rollout restart deployment
+      - cmd: ./uds zarf tools kubectl rollout status deploy -n gitlab
       - task: setup:create-doug-user
       - task: test:all
 
