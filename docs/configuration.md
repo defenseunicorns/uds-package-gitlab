@@ -21,9 +21,6 @@ Network policies are controlled via the `uds-gitlab-config` chart in accordance 
 > [!NOTE]
 > Currently the GitLab UDS Package contains Istio `PeerAuthentication` exceptions to allow the `dependency` init containers to reach out and check the Redis and Postgres services.  These are only added with `redis.internal` or `postgres.internal` set to `true` and will be removed once UDS Core [switches to native sidecars](https://github.com/defenseunicorns/uds-core/issues/536).
 
-> [!IMPORTANT]
-> GitLab is configured to rate-limit by default (this can be changed in [application settings](#configuring-gitlab-settings) below).  It will trust Istio to give it the proper headers to record the client IP, however, if you have additional proxies or tunnels in front of the Istio LoadBalancers it may receive a single IP for all users and should either be reconfigured or disabled.
-
 ## Database
 
 GitLab uses Postgres as its backing database service and supports the [common database providers within UDS Software Factory](https://github.com/defenseunicorns/uds-software-factory/blob/main/docs/database.md).  
@@ -176,6 +173,29 @@ It is recommended to inspect these settings and further lock them down for your 
 
 > [!TIP]
 > If you wish to disable the settings Job and CronJob and keep GitLab's default application settings you can do so with the `settingsJob.enabled` value.  You can also adjust the CronJob schedule (when it will reset the application settings) with the `settingsJob.schedule` value.
+
+> [!IMPORTANT]
+> [GitLab's Application Hardening Recommendations](https://docs.gitlab.com/ee/security/hardening_application_recommendations.html) guide recommends setting rate limits for various request types however in this package these are disabled by default.  This is because UDS Core does not by default pass the real IP of the client down to the GitLab Pod.  If you need this functionality you must make the following overrides:
+>
+> `uds-core/istio-passthrough-gateway/gateway`
+> ```yaml
+> service:
+>   externalTrafficPolicy: Local
+> ```
+>
+> `uds-package-gitlab/gitlab/uds-gitlab-settings`
+> ```yaml
+> settingsJob:
+>   application:
+>     throttle_authenticated_api_enabled: true
+>     throttle_authenticated_packages_api_enabled: true
+>     throttle_authenticated_web_enabled: true
+>     throttle_unauthenticated_api_enabled: true
+>     throttle_unauthenticated_packages_api_enabled: true
+>     throttle_unauthenticated_web_enabled: true
+> ```
+>
+> Also note this configuration may become default but as of now is not fully supported and is pending further testing.
 
 ## Configuring Bot Accounts
 
