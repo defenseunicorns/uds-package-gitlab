@@ -28,6 +28,10 @@ components:
         localPath: ../charts/settings
     actions:
       onDeploy:
+        before:
+          - cmd: ./zarf tools kubectl annotate secret -n gitlab gitlab-object-store meta.helm.sh/release-namespace=gitlab --overwrite || true
+          - cmd: ./zarf tools kubectl label secret -n gitlab gitlab-object-store app.kubernetes.io/managed-by=Helm --overwrite || true
+          - cmd: ./zarf tools kubectl annotate secret -n gitlab gitlab-object-store meta.helm.sh/release-name=uds-gitlab-config --overwrite || true
         after:
           - description: Validate GitLab Package
             maxTotalSeconds: 300

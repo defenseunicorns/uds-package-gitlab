@@ -10,13 +10,39 @@ metadata:
   # x-release-please-end
 
 packages:
-  - name: dev-minio
-    repository: ghcr.io/defenseunicorns/packages/uds/dev-minio
-    ref: 0.0.2
-
-  - name: dev-namespace
-    path: ../
-    ref: 0.1.0
+  - name: minio-operator
+    repository: ghcr.io/defenseunicorns/packages/uds/minio-operator
+    # x-release-please-start-version
+    ref: 6.0.4-uds.0-upstream
+    # x-release-please-end
+    overrides:
+      minio-operator:
+        uds-minio-config:
+          values:
+            # Test helm overrides to provision app specific buckets, policies and creds
+            - path: apps
+              value:
+                - name: gitlab
+                  namespace: gitlab
+                  bucketNames:
+                    - uds-gitlab-artifacts
+                    - uds-gitlab-backups
+                    - uds-gitlab-ci-secure-files
+                    - uds-gitlab-dependency-proxy
+                    - uds-gitlab-lfs
+                    - uds-gitlab-mr-diffs
+                    - uds-gitlab-packages
+                    - uds-gitlab-pages
+                    - uds-gitlab-terraform-state
+                    - uds-gitlab-uploads
+                    - uds-gitlab-registry
+                    - uds-gitlab-tmp
+                  policy: ""
+                  copyPassword:
+                    enabled: true
+                    secretName: "gitlab-minio"
+                    secretIDKey: "access_key"
+                    secretPasswordKey: "secret_key"
 
   - name: postgres-operator
     repository: ghcr.io/defenseunicorns/packages/uds/postgres-operator
@@ -61,10 +87,6 @@ packages:
                 namespace: gitlab
                 secretName: gitlab-redis
                 secretKey: password
-
-  - name: dev-secrets
-    path: ../
-    ref: 0.1.0
 
   - name: gitlab
     path: ../
