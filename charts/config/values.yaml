@@ -26,7 +26,6 @@ storage:
   endpoint: "http://uds-minio-hl.minio.svc.cluster.local:9000"
   createSecret:
     enabled: true
-    useIAMProfile: false
     accessKey: ""
     secretKey: ""
     bucketPrefix: "###ZARF_VAR_BUCKET_PREFIX###"
