@@ -88,10 +88,6 @@ packages:
                 secretName: gitlab-redis
                 secretKey: password
 
-  # - name: dev-secrets
-  #   path: ../
-  #   ref: 0.1.0
-
   - name: gitlab
     path: ../
     # x-release-please-start-version

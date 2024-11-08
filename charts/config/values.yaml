@@ -30,8 +30,10 @@ storage:
     secretKey: ""
     bucketPrefix: "###ZARF_VAR_BUCKET_PREFIX###"
     bucketSuffix: "###ZARF_VAR_BUCKET_SUFFIX###"
-    region: "###ZARF_VAR_REGION###"
-    provider: "minio"  # aws or minio; if aws, assumed IRSA is used, and annotations are passed to necessary service accounts
+    region: "minio"
+    # provider: aws or minio; if aws, assumed IRSA is used
+    # and annotations need to be passed to necessary service accounts in the gitlab chart
+    provider: "minio"
     secretRef:
       enabled: true  # Set to true to use secret reference
       secretNamespace: "gitlab"
