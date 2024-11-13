@@ -17,7 +17,7 @@ variables:
     default: "uds-"
   - name: BUCKET_SUFFIX
     default: ""
-  - names: GENERATE_STORAGE_SECRET
+  - name: GENERATE_STORAGE_SECRET
     default: "true"
   - name: GITLAB_REDIS_ENDPOINT
     default: ""
