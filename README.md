@@ -6,6 +6,7 @@
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/defenseunicorns/uds-package-gitlab/badge)](https://api.securityscorecards.dev/projects/github.com/defenseunicorns/uds-package-gitlab)
 
 This package is designed for use as part of a [UDS Software Factory](https://github.com/defenseunicorns/uds-software-factory) bundle deployed on [UDS Core](https://github.com/defenseunicorns/uds-core).
+
 > GitLab is a comprehensive DevOps platform that streamlines the entire software development lifecycle, from planning and source code management to testing, security, and deployment. It offers a unified interface for teams to collaborate effectively and deliver high-quality software efficiently.
 
 > [!IMPORTANT]  
