@@ -107,7 +107,7 @@ When configuring the GitLab to connect to S3 storage in AWS, it is assumed IRSA 
               path: gitlab.gitlab-pages.serviceAccount.annotations.irsa/role-arn
 ```
 
-With this override definition one can then provide the IAM Role ARNs to the deployment via either `--set` variables or via a `uds-config.yaml`.
+With this override definition one can then provide the IAM role ARNs to the deployment via either `--set` variables or via a `uds-config.yaml`.
 
 ## Redis / Valkey
 
