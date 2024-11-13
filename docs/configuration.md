@@ -56,36 +56,58 @@ https://github.com/defenseunicorns/uds-software-factory/issues/45
 
 ## Object Storage
 
-> [!NOTE]
-> This section is subject to change / improvement once [`uds-package-minio-operator`](https://github.com/defenseunicorns/uds-package-minio-operator) is fully ready for production use cases.
+Object Storage works a bit differently as there are many kinds of file stores GitLab can be configured to use. As part of this package, there is a helper to generate the object storage secret required by GitLab based on providing some value overrides to the config chart. 
 
-Object Storage works a bit differently as there are many kinds of file stores GitLab can be configured to use.
-
-- Create the secret `gitlab-object-store` in the `gitlab` namespace with the following keys:
-  - An example for in-cluster Minio can be found in this repository at the path `src/dev-secrets/minio-secret.yaml`
-  - `connection`
-    - This key refers to the configuration for the main GitLab service. The documentation for what goes in this key is located [here](https://docs.gitlab.com/16.0/ee/administration/object_storage.html#configure-the-connection-settings)
-  - `registry`
-    - This key refers to the configuration for the gitlab registry. The documentation for what goes in this key is located [here](https://docs.docker.com/registry/configuration/#storage)
-  - `backups`
-    - This key refers to the configuration for the gitlab-toolbox backup tool. It relies on a program called `s3cmd`. The documentation for what goes in this key is located [here](https://s3tools.org/kb/item14.htm)
-- Below are the list of buckets that need to be created before starting GitLab:
+Below are the list of buckets that need to be created before starting GitLab:
 
 ```yaml
-  - uds-gitlab-pages
-  - uds-gitlab-registry
-  - uds-gitlab-lfs
-  - uds-gitlab-artifacts
-  - uds-gitlab-uploads
-  - uds-gitlab-packages
-  - uds-gitlab-mr-diffs
-  - uds-gitlab-terraform-state
-  - uds-gitlab-ci-secure-files
-  - uds-gitlab-dependency-proxy
-  - uds-gitlab-backups
-  - uds-gitlab-tmp
+  - gitlab-pages
+  - gitlab-registry
+  - gitlab-lfs
+  - gitlab-artifacts
+  - gitlab-uploads
+  - gitlab-packages
+  - gitlab-mr-diffs
+  - gitlab-terraform-state
+  - gitlab-ci-secure-files
+  - gitlab-dependency-proxy
+  - gitlab-backups
+  - gitlab-tmp
 ```
-- These buckets can have a suffix applied via the `BUCKET_SUFFIX` Zarf variable (e.g. `-some-deployment-name` plus `uds-gitlab-backups` would be `uds-gitlab-backups-some-deployment-name`)
+
+> [!NOTE] 
+> These buckets can have a prefix or suffix applied via the `BUCKET_PREFIX` and `BUCKET_SUFFIX` Zarf variables (e.g. a prefix of `uds-` and a suffix of `-some-deployment-name` plus `gitlab-backups` would be `uds-gitlab-backups-some-deployment-name`)
+
+By default, the application is configured to work with `uds-package-minio-operator` package, adding [these overrides](https://github.com/defenseunicorns/uds-package-gitlab/blob/e2eb77af77c58ed423289db761dee43d9e7f82e2/bundle/uds-bundle.yaml#L18-L45) to the operator to provision the object storage required by GitLab.
+
+If you are not using in-cluster MinIO, but rather are using an external cloud providers object storage, you have two options. You can either create an object storage secret manually and disable the or have the helm chart generate one for you based on a set of input values. 
+
+> [!NOTE] 
+> If you would like to opt out of the in-chart secret generation process, you may disable it by setting the zarf variable GENERATE_STORAGE_SECRET to false. Then you can provide your own object store secret, named gitlab-object-store, as needed following GitLab's documentation.
+
+When configuring the GitLab to connect to S3 storage in AWS, it is assumed IRSA will be used to connect to the buckets. The prerequisites for this are the buckets created with the appropriate iam roles and policies. Once those are created, two values need to be overriden in the config chart for secret generation: `storage.createSecret.provider` needs to be set to `aws` and `storage.createSecret.region` needs to be set to your AWS regions (i.e `us-gov-west-1`). From there, additional overrides are required in the gitlab chart to finish this setup. Specifically, the gitlab service accounts need to be overridden to have the annotations that are required for IRSA. Below is an example of how you would define the variable overrides where you would then pass in the IAM role ARNs on deploy.
+
+```yaml
+        gitlab:
+          variables:
+            - name: REGISTRY_ROLE_ARN
+              description: "The ARN of the role to assume for the registry pods"
+              path: registry.serviceAccount.annotations.irsa/role-arn
+            - name: SIDEKIQ_ROLE_ARN
+              description: "The ARN of the role to assume for the sidekiq pods"
+              path: gitlab.sidekiq.serviceAccount.annotations.irsa/role-arn
+            - name: WEBSERVICE_ROLE_ARN
+              description: "The ARN of the role to assume for the web service pods"
+              path: gitlab.webservice.serviceAccount.annotations.irsa/role-arn
+            - name: TOOLBOX_ROLE_ARN
+              description: "The ARN of the role to assume for the toolbox pods"
+              path: gitlab.toolbox.serviceAccount.annotations.irsa/role-arn
+            - name: PAGES_ROLE_ARN
+              description: "The ARN of the role to assume for the pages pods"
+              path: gitlab.gitlab-pages.serviceAccount.annotations.irsa/role-arn
+```
+
+With this override definition one can then provide the IAM Role ARNs to the deployment via either `--set` variables or via a `uds-config.yaml`.
 
 ## Redis / Valkey
 
