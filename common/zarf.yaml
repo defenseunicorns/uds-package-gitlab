@@ -30,11 +30,11 @@ components:
       onDeploy:
         before:
           - cmd: |
-          if [ "$ZARF_VAR_GENERATE_STORAGE_SECRET" == "true" ]; then
-            ./zarf tools kubectl annotate secret -n gitlab gitlab-object-store meta.helm.sh/release-namespace=gitlab --overwrite || true
-            ./zarf tools kubectl label secret -n gitlab gitlab-object-store app.kubernetes.io/managed-by=Helm --overwrite || true
-            ./zarf tools kubectl annotate secret -n gitlab gitlab-object-store meta.helm.sh/release-name=uds-gitlab-config --overwrite || true
-          fi
+              if [ "$ZARF_VAR_GENERATE_STORAGE_SECRET" == "true" ]; then
+                ./zarf tools kubectl annotate secret -n gitlab gitlab-object-store meta.helm.sh/release-namespace=gitlab --overwrite || true
+                ./zarf tools kubectl label secret -n gitlab gitlab-object-store app.kubernetes.io/managed-by=Helm --overwrite || true
+                ./zarf tools kubectl annotate secret -n gitlab gitlab-object-store meta.helm.sh/release-name=uds-gitlab-config --overwrite || true
+              fi
         after:
           - description: Validate GitLab Package
             maxTotalSeconds: 300
