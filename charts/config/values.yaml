@@ -25,7 +25,7 @@ storage:
   port: 9000
   endpoint: "http://uds-minio-hl.minio.svc.cluster.local:9000"
   createSecret:
-    enabled: true
+    enabled: "###ZARF_VAR_GENERATE_STORAGE_SECRET###"
     accessKey: ""
     secretKey: ""
     bucketPrefix: "###ZARF_VAR_BUCKET_PREFIX###"
