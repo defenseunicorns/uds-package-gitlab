@@ -80,7 +80,7 @@ Below are the list of buckets that need to be created before starting GitLab:
 
 By default, the application is configured to work with `uds-package-minio-operator` package, adding [these overrides](https://github.com/defenseunicorns/uds-package-gitlab/blob/e2eb77af77c58ed423289db761dee43d9e7f82e2/bundle/uds-bundle.yaml#L18-L45) to the operator to provision the object storage required by GitLab.
 
-If you are not using in-cluster MinIO, but rather are using an external cloud providers object storage, you have two options. You can either create an object storage secret manually and disable the or have the helm chart generate one for you based on a set of input values. 
+If you are not using in-cluster MinIO, but rather are using an external cloud providers object storage, you have two options. You can either create an object storage secret manually and disable the generation of the secret or have the helm chart generate one for you based on a set of input values. 
 
 > [!NOTE] 
 > If you would like to opt out of the in-chart secret generation process, you may disable it by setting the zarf variable GENERATE_STORAGE_SECRET to false. Then you can provide your own object store secret, named gitlab-object-store, as needed following GitLab's documentation.
