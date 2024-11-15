@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [17.5.1-uds.2](https://github.com/defenseunicorns/uds-package-gitlab/compare/v17.5.1-uds.1...v17.5.1-uds.2) (2024-11-15)
+
+
+### Features
+
+* add ability to change default scopes ([#236](https://github.com/defenseunicorns/uds-package-gitlab/issues/236)) ([90080c5](https://github.com/defenseunicorns/uds-package-gitlab/commit/90080c59fb0b2c1808603887e1d41c44037474f8))
+
 ## [17.5.1-uds.1](https://github.com/defenseunicorns/uds-package-gitlab/compare/v17.5.1-uds.0...v17.5.1-uds.1) (2024-11-14)
 
 
