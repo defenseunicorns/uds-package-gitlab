@@ -62,8 +62,6 @@ tasks:
     actions:
       # TODO Delete dependencies.yaml after next releaser
       - task: upgrade:create-latest-tag-bundle
-        with:
-          dep_commands: ./uds run dependencies:create
       - task: setup:k3d-test-cluster
       - task: deploy:test-bundle
       - task: compliance:validate
