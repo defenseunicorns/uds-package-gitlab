@@ -17,6 +17,8 @@ sso:
   # Note: the following settings only apply when using `saml`
   requiredGroups: []
   adminGroups: ["/GitLab Admin", "/UDS Core/Admin"]
+  # This will replace the current list of default scopes.
+  defaultClientScopes: []
 storage:
   internal: true  # Set to false to use external storage
   selector:
