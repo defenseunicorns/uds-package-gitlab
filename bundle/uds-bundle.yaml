@@ -6,15 +6,13 @@ metadata:
   name: gitlab-test
   description: A UDS bundle for deploying Gitlab and it's dependencies on a development cluster
   # x-release-please-start-version
-  version: 17.5.1-uds.0
+  version: 17.5.1-uds.1
   # x-release-please-end
 
 packages:
   - name: minio-operator
     repository: ghcr.io/defenseunicorns/packages/uds/minio-operator
-    # x-release-please-start-version
     ref: 6.0.4-uds.0-upstream
-    # x-release-please-end
     overrides:
       minio-operator:
         uds-minio-config:
@@ -91,7 +89,7 @@ packages:
   - name: gitlab
     path: ../
     # x-release-please-start-version
-    ref: 17.5.1-uds.0
+    ref: 17.5.1-uds.1
     # x-release-please-end
     overrides:
       gitlab:
