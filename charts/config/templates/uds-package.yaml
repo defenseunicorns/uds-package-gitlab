@@ -21,8 +21,8 @@ spec:
       {{- end }}
       groups:
         anyOf:
-        {{- if .Values.sso.keycloakRequiredGroups }}
-          {{- range .Values.sso.keycloakRequiredGroups }}
+        {{- if .Values.sso.requiredGroups }}
+          {{- range .Values.sso.requiredGroups }}
             - "{{ . }}"
           {{- end }}
         {{- end }}
@@ -79,8 +79,8 @@ spec:
       {{- end }}
       groups:
         anyOf:
-        {{- if .Values.sso.keycloakRequiredGroups }}
-          {{- range .Values.sso.keycloakRequiredGroups }}
+        {{- if .Values.sso.requiredGroups }}
+          {{- range .Values.sso.requiredGroups }}
             - "{{ . }}"
           {{- end }}
         {{- end }}
