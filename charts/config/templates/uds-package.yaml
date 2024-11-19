@@ -19,6 +19,13 @@ spec:
           - "{{ . }}"
         {{- end }}
       {{- end }}
+      groups:
+        anyOf:
+        {{- if .Values.sso.keycloakRequiredGroups }}
+          {{- range .Values.sso.keycloakRequiredGroups }}
+            - "{{ . }}"
+          {{- end }}
+        {{- end }}
       secretName: {{ .Values.sso.secretName }}
       secretTemplate:
         # GitLab expects a providers JSON file that is documented more here: https://gitlab-org.gitlab.io/technical-writing-group/gitlab-docs-hugo/administration/auth/oidc/
@@ -70,6 +77,13 @@ spec:
         - "mapper-saml-lastname-last_name"
         - "mapper-saml-grouplist-groups"
       {{- end }}
+      groups:
+        anyOf:
+        {{- if .Values.sso.keycloakRequiredGroups }}
+          {{- range .Values.sso.keycloakRequiredGroups }}
+            - "{{ . }}"
+          {{- end }}
+        {{- end }}
       attributes:
         saml.client.signature: "false"
 
