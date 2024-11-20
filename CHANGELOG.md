@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [17.5.2-uds.1](https://github.com/defenseunicorns/uds-package-gitlab/compare/v17.5.2-uds.0...v17.5.2-uds.1) (2024-11-20)
+
+
+### Features
+
+* add ability to set user groups for access ([#241](https://github.com/defenseunicorns/uds-package-gitlab/issues/241)) ([a33379b](https://github.com/defenseunicorns/uds-package-gitlab/commit/a33379b36920c85056e5463d7dc8f412e7123d65))
+
+
+### Miscellaneous
+
+* fix overridden misspelling ([#243](https://github.com/defenseunicorns/uds-package-gitlab/issues/243)) ([f4e1eab](https://github.com/defenseunicorns/uds-package-gitlab/commit/f4e1eabc450032bd4efc943511be89778bf1327a))
+
 ## [17.5.2-uds.0](https://github.com/defenseunicorns/uds-package-gitlab/compare/v17.5.1-uds.2...v17.5.2-uds.0) (2024-11-19)
 
 
