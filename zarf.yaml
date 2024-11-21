@@ -115,18 +115,17 @@ components:
         valuesFiles:
           - values/unicorn-values.yaml
     images:
-      - "cgr.dev/du-uds-defenseunicorns/gitlab-certificates-fips:17.5.1" #"registry.gitlab.com/gitlab-org/build/cng/certificates:v17.2.7"
-      - "cgr.dev/du-uds-defenseunicorns/cfssl-self-sign-fips:17.5.1" #"registry.gitlab.com/gitlab-org/build/cng/cfssl-self-sign:v17.2.7"
-      - "registry.gitlab.com/gitlab-org/build/cng/gitaly:v17.5.1" #"cgr.dev/du-uds-defenseunicorns/gitaly-fips:17.5.1" #
-      - "cgr.dev/du-uds-defenseunicorns/gitlab-container-registry-fips:17.5.1"  #"registry.gitlab.com/gitlab-org/build/cng/gitlab-container-registry:v17.2.7"
-      - "cgr.dev/du-uds-defenseunicorns/gitlab-pages-fips:17.5.1"
-      - "cgr.dev/du-uds-defenseunicorns/gitlab-shell-fips:17.5.1"  #"registry.gitlab.com/gitlab-org/build/cng/gitlab-shell:v17.2.7"
-      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-sidekiq-ee:v17.5.1" #"cgr.dev/du-uds-defenseunicorns/gitlab-sidekiq-ee-fips:17.4.3" #17.5.1 #"registry.gitlab.com/gitlab-org/build/cng/gitlab-sidekiq-ee:v17.2.7"
-      #- "cgr.dev/du-uds-defenseunicorns/gitlab-toolbox-ee-fips:17.5.1"
-      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-toolbox-ee:v17.5.1"
-      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-webservice-ee:v17.5.1" #"cgr.dev/du-uds-defenseunicorns/gitlab-webservice-ee:17.4.3" #17.5.1 #"registry.gitlab.com/gitlab-org/build/cng/gitlab-webservice-ee:v17.2.7"
-      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-workhorse-ee:v17.5.1" #"registry.gitlab.com/gitlab-org/build/cng/gitlab-workhorse-ee:v17.2.7"
-      - "cgr.dev/du-uds-defenseunicorns/gitlab-kubectl-fips:1.31.1" #1.31.0 #"registry.gitlab.com/gitlab-org/build/cng/kubectl:v17.4.0" #"cgr.dev/du-uds-defenseunicorns/gitlab-kubectl-fips:1.31.0"
-      - "cgr.dev/du-uds-defenseunicorns/gitlab-base-fips:17.5.1" #"registry.gitlab.com/gitlab-org/build/cng/gitlab-base:v17.2.7"
-      - "cgr.dev/du-uds-defenseunicorns/gitlab-exporter-fips:17.5.1" #"registry.gitlab.com/gitlab-org/build/cng/gitlab-exporter:v17.2.7"
+      - "cgr.dev/du-uds-defenseunicorns/gitlab-certificates-fips:17.5.1"
+      - "cgr.dev/du-uds-defenseunicorns/cfssl-self-sign-fips:17.5.1"
+      - "cgr.dev/du-uds-defenseunicorns/gitaly-fips:17.5.2"
+      - "cgr.dev/du-uds-defenseunicorns/gitlab-container-registry-fips:17.5.1"
+      - "cgr.dev/du-uds-defenseunicorns/gitlab-pages-fips:17.5.2"
+      - "cgr.dev/du-uds-defenseunicorns/gitlab-shell-fips:17.5.1"
+      - "cgr.dev/du-uds-defenseunicorns/gitlab-sidekiq-ee-fips:17.5.2"
+      - "cgr.dev/du-uds-defenseunicorns/gitlab-toolbox-ee-fips:17.5.1-r2"
+      - "cgr.dev/du-uds-defenseunicorns/gitlab-workhorse-ee-fips:17.5.2"
+      - "cgr.dev/du-uds-defenseunicorns/gitlab-webservice-ee-fips:17.5.2"
+      - "cgr.dev/du-uds-defenseunicorns/gitlab-kubectl-fips:1.31.2"
+      - "cgr.dev/du-uds-defenseunicorns/gitlab-base-fips:17.5.1"
+      - "cgr.dev/du-uds-defenseunicorns/gitlab-exporter-fips:17.5.1"
 
