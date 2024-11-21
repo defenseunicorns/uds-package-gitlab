@@ -128,4 +128,3 @@ components:
       - "cgr.dev/du-uds-defenseunicorns/gitlab-kubectl-fips:1.31.2"
       - "cgr.dev/du-uds-defenseunicorns/gitlab-base-fips:17.5.1"
       - "cgr.dev/du-uds-defenseunicorns/gitlab-exporter-fips:17.5.1"
-

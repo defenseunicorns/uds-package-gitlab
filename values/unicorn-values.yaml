@@ -10,7 +10,6 @@ gitlab:
       image: cgr.dev/du-uds-defenseunicorns/gitlab-workhorse-ee-fips
       # renovate: datasource=docker depName=cgr.dev/du-uds-defenseunicorns/gitlab-workhorse-ee-fips versioning=semver
       tag: 17.5.2
-
   sidekiq:
     image:
       repository: cgr.dev/du-uds-defenseunicorns/gitlab-sidekiq-ee-fips
