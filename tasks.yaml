@@ -2,18 +2,17 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later OR LicenseRef-Defense-Unicorns-Commercial
 
 includes:
-  - dependencies: ./tasks/dependencies.yaml
   - test: ./tasks/test.yaml
-  - create: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.2.2/tasks/create.yaml
-  - publish: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.2.2/tasks/publish.yaml
-  - lint: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.2.2/tasks/lint.yaml
-  - pull: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.2.2/tasks/pull.yaml
-  - deploy: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.2.2/tasks/deploy.yaml
-  - setup: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.2.2/tasks/setup.yaml
-  - actions: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.2.2/tasks/actions.yaml
-  - badge: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.2.2/tasks/badge.yaml
-  - upgrade: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.2.2/tasks/upgrade.yaml
-  - compliance: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.2.2/tasks/compliance.yaml
+  - create: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.3.0/tasks/create.yaml
+  - publish: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.3.0/tasks/publish.yaml
+  - lint: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.3.0/tasks/lint.yaml
+  - pull: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.3.0/tasks/pull.yaml
+  - deploy: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.3.0/tasks/deploy.yaml
+  - setup: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.3.0/tasks/setup.yaml
+  - actions: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.3.0/tasks/actions.yaml
+  - badge: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.3.0/tasks/badge.yaml
+  - upgrade: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.3.0/tasks/upgrade.yaml
+  - compliance: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.3.0/tasks/compliance.yaml
 
 tasks:
   - name: default
@@ -33,9 +32,10 @@ tasks:
   - name: create-deploy-test-bundle
     description: Test and validate cluster is deployed with GitLab
     actions:
-      - task: dependencies:create
       - task: create:test-bundle
       - task: deploy:test-bundle
+      - cmd: ./uds zarf tools kubectl -n gitlab rollout restart deployment
+      - cmd: ./uds zarf tools kubectl rollout status deploy -n gitlab
       - task: setup:create-doug-user
       - task: test:all
 
@@ -60,8 +60,6 @@ tasks:
     description: Test an upgrade from the latest released package to the current branch
     actions:
       - task: upgrade:create-latest-tag-bundle
-        with:
-          dep_commands: ./uds run dependencies:create
       - task: setup:k3d-test-cluster
       - task: deploy:test-bundle
       - task: compliance:validate
@@ -79,19 +77,17 @@ tasks:
         if: ${{ or (ne .variables.FLAVOR "upstream") (ne .variables.ARCH "arm64") }}
       - task: create-deploy-test-bundle
         if: ${{ or (ne .variables.FLAVOR "upstream") (ne .variables.ARCH "arm64") }}
-      - task: dependencies:create
-        if: ${{ and (eq .variables.FLAVOR "upstream") (eq .variables.ARCH "arm64") }}
       - task: create:test-bundle
         if: ${{ and (eq .variables.FLAVOR "upstream") (eq .variables.ARCH "arm64") }}
       - description: Publish the package
         task: publish:package
         with:
           # x-release-please-start-version
-          version: "17.3.6-uds.2"
+          version: "17.5.2-uds.1"
           # x-release-please-end
       - description: Publish the bundle
         task: publish:test-bundle
         with:
           # x-release-please-start-version
-          version: "17.3.6-uds.2"
+          version: "17.5.2-uds.1"
           # x-release-please-end

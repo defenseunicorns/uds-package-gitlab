@@ -13,7 +13,19 @@ spec:
       clientId: uds-swf-gitlab
       redirectUris:
         - "https://gitlab.{{ .Values.domain }}/users/auth/openid_connect/callback"
-
+      defaultClientScopes:
+      {{- if .Values.sso.defaultClientScopes }}
+        {{- range .Values.sso.defaultClientScopes }}
+          - "{{ . }}"
+        {{- end }}
+      {{- end }}
+      groups:
+        anyOf:
+        {{- if .Values.sso.requiredGroups }}
+          {{- range .Values.sso.requiredGroups }}
+            - "{{ . }}"
+          {{- end }}
+        {{- end }}
       secretName: {{ .Values.sso.secretName }}
       secretTemplate:
         # GitLab expects a providers JSON file that is documented more here: https://gitlab-org.gitlab.io/technical-writing-group/gitlab-docs-hugo/administration/auth/oidc/
@@ -55,11 +67,23 @@ spec:
 
       protocol: saml
       defaultClientScopes:
+      {{- if .Values.sso.defaultClientScopes }}
+        {{- range .Values.sso.defaultClientScopes }}
+          - "{{ . }}"
+        {{- end }}
+      {{- else }}
         - "mapper-saml-email-email"
         - "mapper-saml-firstname-first_name"
         - "mapper-saml-lastname-last_name"
         - "mapper-saml-grouplist-groups"
-
+      {{- end }}
+      groups:
+        anyOf:
+        {{- if .Values.sso.requiredGroups }}
+          {{- range .Values.sso.requiredGroups }}
+            - "{{ . }}"
+          {{- end }}
+        {{- end }}
       attributes:
         saml.client.signature: "false"
 

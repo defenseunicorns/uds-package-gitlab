@@ -7,6 +7,8 @@
 
 This package is designed for use as part of a [UDS Software Factory](https://github.com/defenseunicorns/uds-software-factory) bundle deployed on [UDS Core](https://github.com/defenseunicorns/uds-core).
 
+> GitLab is a comprehensive DevOps platform that streamlines the entire software development lifecycle, from planning and source code management to testing, security, and deployment. It offers a unified interface for teams to collaborate effectively and deliver high-quality software efficiently.
+
 > [!IMPORTANT]  
 > The `arm64` package includes `amd64` images due to lack of availability of `arm64` images from upstream projects at this time. This means you can deploy the `arm64` package on an `arm64` kubernetes cluster, but some of the images contained in the package will require emulation (e.g., qemu or rosetta) to run properly.
 

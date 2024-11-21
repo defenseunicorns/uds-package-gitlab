@@ -136,6 +136,7 @@ gitlab:
         config:
           secret: gitlab-object-store
           key: backups
+    trusted_proxies: ["127.0.0.6"]
 
   gitlab-exporter:
     enabled: true
@@ -155,6 +156,7 @@ gitlab:
       enabled: true
       podMonitor:
         enabled: false
+    trusted_proxies: ["127.0.0.6"]
 
   webservice:
     ingress:
@@ -164,6 +166,7 @@ gitlab:
       port: 8083
       serviceMonitor:
         enabled: true
+    trusted_proxies: ["127.0.0.6"]
     workhorse:
       metrics:
         enabled: true

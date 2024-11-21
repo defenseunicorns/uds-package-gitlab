@@ -56,22 +56,16 @@ settingsJob:
     admin_mode: true
     notify_on_unknown_sign_in: true
     dns_rebinding_protection_enabled: true
-    throttle_authenticated_api_enabled: true
     throttle_authenticated_api_period_in_seconds: 3600
     throttle_authenticated_api_requests_per_period: 7200
-    throttle_authenticated_packages_api_enabled: true
     throttle_authenticated_packages_api_period_in_seconds: 3600
     throttle_authenticated_packages_api_requests_per_period: 7200
-    throttle_authenticated_web_enabled: true
     throttle_authenticated_web_period_in_seconds: 3600
     throttle_authenticated_web_requests_per_period: 7200
-    throttle_unauthenticated_api_enabled: true
     throttle_unauthenticated_api_period_in_seconds: 3600
     throttle_unauthenticated_api_requests_per_period: 3600
-    throttle_unauthenticated_packages_api_enabled: true
     throttle_unauthenticated_packages_api_period_in_seconds: 3600
     throttle_unauthenticated_packages_api_requests_per_period: 3600
-    throttle_unauthenticated_web_enabled: true
     throttle_unauthenticated_web_period_in_seconds: 3600
     throttle_unauthenticated_web_requests_per_period: 3600
     usage_ping_enabled: false

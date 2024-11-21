@@ -2,6 +2,68 @@
 
 All notable changes to this project will be documented in this file.
 
+## [17.5.2-uds.1](https://github.com/defenseunicorns/uds-package-gitlab/compare/v17.5.2-uds.0...v17.5.2-uds.1) (2024-11-20)
+
+
+### Features
+
+* add ability to set user groups for access ([#241](https://github.com/defenseunicorns/uds-package-gitlab/issues/241)) ([a33379b](https://github.com/defenseunicorns/uds-package-gitlab/commit/a33379b36920c85056e5463d7dc8f412e7123d65))
+
+
+### Miscellaneous
+
+* fix overridden misspelling ([#243](https://github.com/defenseunicorns/uds-package-gitlab/issues/243)) ([f4e1eab](https://github.com/defenseunicorns/uds-package-gitlab/commit/f4e1eabc450032bd4efc943511be89778bf1327a))
+
+## [17.5.2-uds.0](https://github.com/defenseunicorns/uds-package-gitlab/compare/v17.5.1-uds.2...v17.5.2-uds.0) (2024-11-19)
+
+
+### Miscellaneous
+
+* **deps:** update gitlab package dependencies ([#233](https://github.com/defenseunicorns/uds-package-gitlab/issues/233)) ([f739a28](https://github.com/defenseunicorns/uds-package-gitlab/commit/f739a28577508ef43bdd3fe98b3959ede4672be9))
+* **deps:** update support-deps to v1.3.0 ([#238](https://github.com/defenseunicorns/uds-package-gitlab/issues/238)) ([43b581b](https://github.com/defenseunicorns/uds-package-gitlab/commit/43b581bcd3d4808b13ad4d0b9960f13e8cf77dcc))
+
+## [17.5.1-uds.2](https://github.com/defenseunicorns/uds-package-gitlab/compare/v17.5.1-uds.1...v17.5.1-uds.2) (2024-11-15)
+
+
+### Features
+
+* add ability to change default scopes ([#236](https://github.com/defenseunicorns/uds-package-gitlab/issues/236)) ([90080c5](https://github.com/defenseunicorns/uds-package-gitlab/commit/90080c59fb0b2c1808603887e1d41c44037474f8))
+
+## [17.5.1-uds.1](https://github.com/defenseunicorns/uds-package-gitlab/compare/v17.5.1-uds.0...v17.5.1-uds.1) (2024-11-14)
+
+
+### ⚠ BREAKING CHANGES
+
+* add object store secret generation ([#229](https://github.com/defenseunicorns/uds-package-gitlab/issues/229))
+
+### Features
+
+* add object store secret generation ([#229](https://github.com/defenseunicorns/uds-package-gitlab/issues/229)) ([e2eb77a](https://github.com/defenseunicorns/uds-package-gitlab/commit/e2eb77af77c58ed423289db761dee43d9e7f82e2))
+
+
+### Bug Fixes
+
+* add docs and escape hatch for object storage generation ([#234](https://github.com/defenseunicorns/uds-package-gitlab/issues/234)) ([ebb282a](https://github.com/defenseunicorns/uds-package-gitlab/commit/ebb282aacd965c825bcfb847f9b9cbdb4152accd))
+* remove rate-limiting from default settings ([#230](https://github.com/defenseunicorns/uds-package-gitlab/issues/230)) ([e78a74d](https://github.com/defenseunicorns/uds-package-gitlab/commit/e78a74d516ac26016521ae5a9d345a34a48642f5))
+
+
+### Miscellaneous
+
+* update CODEOWNERS file ([#235](https://github.com/defenseunicorns/uds-package-gitlab/issues/235)) ([23778e6](https://github.com/defenseunicorns/uds-package-gitlab/commit/23778e621ff06869adbfd307b5d6dafad948199e))
+* update README.md ([#232](https://github.com/defenseunicorns/uds-package-gitlab/issues/232)) ([4b2305c](https://github.com/defenseunicorns/uds-package-gitlab/commit/4b2305c772d7dfef7b07b79d6d26b305d8237e35))
+
+## [17.5.1-uds.0](https://github.com/defenseunicorns/uds-package-gitlab/compare/v17.3.6-uds.2...v17.5.1-uds.0) (2024-11-05)
+
+
+### Bug Fixes
+
+* add trusted proxies to properly handle rate limits ([#227](https://github.com/defenseunicorns/uds-package-gitlab/issues/227)) ([8d5c30a](https://github.com/defenseunicorns/uds-package-gitlab/commit/8d5c30a4eefda79ee59931157e1d62bcf9744829))
+
+
+### Miscellaneous
+
+* **deps:** update gitlab package dependencies ([#222](https://github.com/defenseunicorns/uds-package-gitlab/issues/222)) ([832d263](https://github.com/defenseunicorns/uds-package-gitlab/commit/832d263bb27d6c9595f84683602816ccceb30a15))
+
 ## [17.3.6-uds.2](https://github.com/defenseunicorns/uds-package-gitlab/compare/v17.3.6-uds.1...v17.3.6-uds.2) (2024-11-01)
 
 
