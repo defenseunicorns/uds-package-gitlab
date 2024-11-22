@@ -17,4 +17,8 @@ spec:
     # Redis/Valkey exception to support GitLab 'dependency' init containers
     {{ .Values.redis.port }}:
       mode: PERMISSIVE
+    {{- if .Values.redis.sentinel.enabled }}
+    {{ .Values.redis.sentinel.port }}:
+      mode: PERMISSIVE
+    {{- end }}
 {{- end }}

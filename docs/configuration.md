@@ -113,6 +113,58 @@ With this override definition one can then provide the IAM role ARNs to the depl
 
 GitLab uses Redis as a key value store for caching, job queueing and more and supports external providers (such as Elasticache) as well as the [UDS Valkey](https://github.com/defenseunicorns/uds-package-valkey/) package to provide the service.
 
+### Valkey HA Configuration
+
+The [Valkey UDS Application Package](https://github.com/defenseunicorns/uds-package-valkey) supports the HA replicated architecture ([as of v8.0.1-uds.1](https://github.com/defenseunicorns/uds-package-valkey/releases/tag/v8.0.1-uds.1)) where there is one write node (called a primary), multiple read nodes, and sentinels as side-cars who will elect a new primary in the event the existing primary goes down.
+This configuration further [documented in the repo](https://github.com/defenseunicorns/uds-package-valkey/blob/main/docs/configuration.md#high-availability). All configuration changes required to connect an HA Valkey to GitLab will be performed at the _bundle_ level. To connect that HA Valkey to Gitlab:
+
+1. Perform the [configuration changes](https://github.com/defenseunicorns/uds-package-valkey/blob/main/docs/configuration.md#configuration-changes) to configure the Valkey Application Package to deploy an HA instance in your bundle.
+
+2. Configure GitLab to point at the valkey node service for read requests instead of the standalone service. You can set this through the `GITLAB_REDIS_ENDPOINT` Zarf variable or override it directly in the bundle as shown below.
+
+  ```yaml
+  packages:
+    - name: gitlab
+      overrides:
+        gitlab:
+          gitlab:
+            values:
+              - path: global.redis.host
+                value: valkey.<valkey namespace>.svc.cluster.local
+  ```
+
+3. _At the bundle level_, override the `global.redis.sentinels` path in the GitLab chart with the valkey sentinel service as shown below. This must be done _at the bundle level_ due to limitations with Zarf variables. While these excerpts show the full yaml path for clarity, in practice, this change would be right next to the prior change.
+
+```yaml
+packages:
+  - name: gitlab
+    overrides:
+      gitlab:
+        gitlab:
+          values:
+            # See https://docs.gitlab.com/charts/charts/globals.html#redis-sentinel-support
+            # for more details on this section of GitLab's chart.
+            - path: global.redis.sentinels
+              value:
+                # Only one host is needed. The Kubernetes service will load balance to an
+                # available sentinel instance
+                - host: valkey.<valkey namespace>.svc.cluster.local
+                  port: 26379
+```
+
+4. Set `redis.sentinel.enabled` to `true` in `uds-gitlab-config` chart. This will cause the GitLab UDS Package to include add network policies allowing the GitLab services to access the sentinel's port in addition to the read/write ports.
+
+```yaml
+packages:
+  - name: gitlab
+    overrides:
+      gitlab:
+        uds-gitlab-config:
+          values:
+            - path: redis.sentinel.enabled
+              value: true
+```
+
 ### Manual Keystore Connection
 
 You can use the following Helm overrides to configure a connection to Redis / Valkey:
