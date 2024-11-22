@@ -25,7 +25,7 @@ gitlab:
     cgroups:
       initContainer:
         image:
-          repository: registry.com/gitlab-org/build/cng/gitaly-init-cgroups
+          repository: registry.gitlab.com/gitlab-org/build/cng/gitaly-init-cgroups
           tag: v17.5.2
   gitlab-exporter:
     image:
