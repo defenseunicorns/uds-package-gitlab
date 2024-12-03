@@ -120,7 +120,7 @@ This configuration further [documented in the repo](https://github.com/defenseun
 
 1. Perform the [configuration changes](https://github.com/defenseunicorns/uds-package-valkey/blob/main/docs/configuration.md#configuration-changes) to configure the Valkey Application Package to deploy an HA instance in your bundle.
 
-2. Configure GitLab to point at the valkey node service for read requests instead of the standalone service. You can set this through the `GITLAB_REDIS_ENDPOINT` Zarf variable or override it directly in the bundle as shown below.
+2. **WARNING: what follows is unintuitive.** Change the `global.redis.host` value to be the _name_ of the primary node's role. By default, that is `mymaster`. This value is no longer to be the address for redis. This is somewhat intuitive considering that GitLab will be using the sentinel to find the redis address, but needs to know the name of the primary's role, so this value is still key info required in finding the redis host, but the value _is not_ the redis host address.
 
   ```yaml
   packages:
@@ -130,10 +130,10 @@ This configuration further [documented in the repo](https://github.com/defenseun
           gitlab:
             values:
               - path: global.redis.host
-                value: valkey.<valkey namespace>.svc.cluster.local
+                value: mymaster
   ```
 
-3. _At the bundle level_, override the `global.redis.sentinels` path in the GitLab chart with the valkey sentinel service as shown below. This must be done _at the bundle level_ due to limitations with Zarf variables. While these excerpts show the full yaml path for clarity, in practice, this change would be right next to the prior change.
+3. _At the bundle level_, override the `global.redis.sentinels` path in the GitLab chart with a list of the valkey sentinel headless addresses, shown below. This must be done _at the bundle level_ due to limitations with Zarf variables. While these excerpts show the full yaml path for clarity, in practice, this change would be right next to the prior change. They would also likely be best done through UDS variables, not hardcoded values, so the operator can scale Valkey and update GitLab without rebuilding the bundle.
 
 ```yaml
 packages:
@@ -146,9 +146,11 @@ packages:
             # for more details on this section of GitLab's chart.
             - path: global.redis.sentinels
               value:
-                # Only one host is needed. The Kubernetes service will load balance to an
-                # available sentinel instance
-                - host: valkey.<valkey namespace>.svc.cluster.local
+                - host: valkey-node-0.valkey-headless.<valkey namespace>.svc.cluster.local
+                  port: 26379
+                - host: valkey-node-1.valkey-headless.<valkey namespace>.svc.cluster.local
+                  port: 26379
+                - host: valkey-node-2.valkey-headless.<valkey namespace>.svc.cluster.local
                   port: 26379
 ```
 
@@ -162,6 +164,32 @@ packages:
         uds-gitlab-config:
           values:
             - path: redis.sentinel.enabled
+              value: true
+```
+
+5. Make sure GitLab and Valkey agree on whether auth is required for normal valkey, and whether authentication is required for the sentinel.
+
+```yaml
+# The values in the valkey chart
+packages:
+  - name: valkey
+    overrides:
+      valkey:
+        valkey:
+          namespace: gitlab-valkey
+          values:
+            - path: auth.enabled
+              value: true
+            - path: auth.sentinel
+              value: true
+  - name: gitlab
+    overrides:
+      gitlab:
+        gitlab:
+          values:
+            - path: global.redis.auth.enabled
+              value: true
+            - path: global.redis.sentinelAuth.enabled
               value: true
 ```
 
