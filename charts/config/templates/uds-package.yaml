@@ -268,26 +268,13 @@ spec:
         remoteNamespace: {{ .Values.redis.namespace | quote }}
         remoteSelector:
           {{ .Values.redis.selector | toYaml | nindent 10 }}
-        port: {{ .Values.redis.port }}
+        ports:
+          - {{ .Values.redis.port }}
+          - {{- if .Values.redis.sentinel.enabled }}{{ .Values.redis.sentinel.port }}{{- end }}
         {{- else }}
         remoteGenerated: Anywhere
         {{- end }}
         description: "Sidekiq Redis"
-
-      {{- if .Values.redis.sentinel.enabled }}
-      - direction: Egress
-        selector:
-          app: sidekiq
-        {{- if .Values.redis.internal }}
-        remoteNamespace: {{ .Values.redis.namespace | quote }}
-        remoteSelector:
-          {{ .Values.redis.selector | toYaml | nindent 10 }}
-        port: {{ .Values.redis.sentinel.port }}
-        {{- else }}
-        remoteGenerated: Anywhere
-        {{- end }}
-        description: "Sidekiq Redis Sentinel"
-      {{- end}}
 
       - direction: Egress
         selector:
@@ -309,26 +296,13 @@ spec:
         remoteNamespace: {{ .Values.redis.namespace | quote }}
         remoteSelector:
           {{ .Values.redis.selector | toYaml | nindent 10 }}
-        port: {{ .Values.redis.port }}
+        ports:
+          - {{ .Values.redis.port }}
+          - {{- if .Values.redis.sentinel.enabled }}{{ .Values.redis.sentinel.port }}{{- end }}
         {{- else }}
         remoteGenerated: Anywhere
         {{- end }}
         description: "Exporter Redis"
-
-      {{- if .Values.redis.sentinel.enabled }}
-      - direction: Egress
-        selector:
-          app: gitlab-exporter
-        {{- if .Values.redis.internal }}
-        remoteNamespace: {{ .Values.redis.namespace | quote }}
-        remoteSelector:
-          {{ .Values.redis.selector | toYaml | nindent 10 }}
-        port: {{ .Values.redis.sentinel.port }}
-        {{- else }}
-        remoteGenerated: Anywhere
-        {{- end }}
-        description: "Exporter Redis Sentinel"
-      {{- end}}
 
       - direction: Egress
         selector:
@@ -364,26 +338,13 @@ spec:
         remoteNamespace: {{ .Values.redis.namespace | quote }}
         remoteSelector:
           {{ .Values.redis.selector | toYaml | nindent 10 }}
-        port: {{ .Values.redis.port }}
+        ports:
+          - {{ .Values.redis.port }}
+          - {{- if .Values.redis.sentinel.enabled }}{{ .Values.redis.sentinel.port }}{{- end }}
         {{- else }}
         remoteGenerated: Anywhere
         {{- end }}
         description: "Migrations Redis"
-
-      {{- if .Values.redis.sentinel.enabled }}
-      - direction: Egress
-        selector:
-          app: migrations
-        {{- if .Values.redis.internal }}
-        remoteNamespace: {{ .Values.redis.namespace | quote }}
-        remoteSelector:
-          {{ .Values.redis.selector | toYaml | nindent 10 }}
-        port: {{ .Values.redis.sentinel.port }}
-        {{- else }}
-        remoteGenerated: Anywhere
-        {{- end }}
-        description: "Migrations Redis Sentinel"
-      {{- end}}
 
       # Toolbox Netpols
       - direction: Egress
@@ -419,26 +380,13 @@ spec:
         remoteNamespace: {{ .Values.redis.namespace | quote }}
         remoteSelector:
           {{ .Values.redis.selector | toYaml | nindent 10 }}
-        port: {{ .Values.redis.port }}
+        ports:
+          - {{ .Values.redis.port }}
+          - {{- if .Values.redis.sentinel.enabled }}{{ .Values.redis.sentinel.port }}{{- end }}
         {{- else }}
         remoteGenerated: Anywhere
         {{- end }}
         description: "Toolbox Redis"
-
-      {{- if .Values.redis.sentinel.enabled }}
-      - direction: Egress
-        selector:
-          app: toolbox
-        {{- if .Values.redis.internal }}
-        remoteNamespace: {{ .Values.redis.namespace | quote }}
-        remoteSelector:
-          {{ .Values.redis.selector | toYaml | nindent 10 }}
-        port: {{ .Values.redis.sentinel.port }}
-        {{- else }}
-        remoteGenerated: Anywhere
-        {{- end }}
-        description: "Toolbox Redis Sentinel"
-      {{- end}}
 
       # Gitlab Netpols
       - direction: Egress
@@ -489,26 +437,13 @@ spec:
         remoteNamespace: {{ .Values.redis.namespace | quote }}
         remoteSelector:
           {{ .Values.redis.selector | toYaml | nindent 10 }}
-        port: {{ .Values.redis.port }}
+        ports:
+          - {{ .Values.redis.port }}
+          - {{- if .Values.redis.sentinel.enabled }}{{ .Values.redis.sentinel.port }}{{- end }}
         {{- else }}
         remoteGenerated: Anywhere
         {{- end }}
         description: "Webservice Redis"
-
-      {{- if .Values.redis.sentinel.enabled }}
-      - direction: Egress
-        selector:
-          app: webservice
-        {{- if .Values.redis.internal }}
-        remoteNamespace: {{ .Values.redis.namespace | quote }}
-        remoteSelector:
-          {{ .Values.redis.selector | toYaml | nindent 10 }}
-        port: {{ .Values.redis.sentinel.port }}
-        {{- else }}
-        remoteGenerated: Anywhere
-        {{- end }}
-        description: "Webservice Redis Sentinel"
-      {{- end}}
 
       - direction: Egress
         selector:
