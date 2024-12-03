@@ -118,7 +118,7 @@ GitLab uses Redis as a key value store for caching, job queueing and more and su
 The [Valkey UDS Application Package](https://github.com/defenseunicorns/uds-package-valkey) supports the HA replicated architecture ([as of v8.0.1-uds.1](https://github.com/defenseunicorns/uds-package-valkey/releases/tag/v8.0.1-uds.1)) where there is one write node (called a primary), multiple read nodes, and sentinels as side-cars who will elect a new primary in the event the existing primary goes down.
 This configuration is further [documented in the Valkey repo](https://github.com/defenseunicorns/uds-package-valkey/blob/main/docs/configuration.md#high-availability). All configuration changes required to connect an HA Valkey to GitLab will be performed at the _bundle_ level. To connect the HA Valkey to Gitlab:
 
-1. Perform the [configuration changes](https://github.com/defenseunicorns/uds-package-valkey/blob/main/docs/configuration.md#configuration-changes) to configure the Valkey Application Package to deploy an HA instance in your bundle.
+1. Perform the [configuration changes](https://github.com/defenseunicorns/uds-package-valkey/blob/main/docs/configuration.md#configuration-changes) to configure the Valkey Package to deploy an HA instance in your bundle.
 
 2. **WARNING: what follows is unintuitive.** Change the `global.redis.host` value to be the _name_ of the primary node's role. By default, that is `mymaster`. This value is no longer to be the address for redis. This is somewhat intuitive considering that GitLab will be using the sentinel to find the redis address, but needs to know the name of the primary's role, so this value is still key info required in finding the redis host, but the value _is not_ the redis host address.
 
