@@ -63,15 +63,20 @@ tasks:
       # Cleanup the git repo
       - cmd: rm -rf "${PROJECT_NAME}"
         dir: tests/data
+      - cmd: |
+          echo "${GITLAB_TOKEN}" | docker login registry.uds.dev -u doug --password-stdin
+          docker pull nginx:latest
+          docker tag nginx:latest "registry.uds.dev/doug/${PROJECT_NAME}-firefox"
+          docker push "registry.uds.dev/doug/${PROJECT_NAME}-firefox"
 
   - name: bot-account
     description: Bot Account Access Tests
     actions:
       - cmd: kubectl get secret gitlab-test-bot -n test-bot -o jsonpath="{.data.TOKEN}" | base64 --decode
         setVariables:
-          - name: GITLAB_TOKEN
+          - name: GITLAB_BOT_TOKEN
       - cmd: |
-          response=$(curl --write-out "%{http_code}" --silent --output /dev/null --header "PRIVATE-TOKEN: $GITLAB_TOKEN" https://gitlab.uds.dev/api/v4/user)
+          response=$(curl --write-out "%{http_code}" --silent --output /dev/null --header "PRIVATE-TOKEN: $GITLAB_BOT_TOKEN" https://gitlab.uds.dev/api/v4/user)
 
           # Check if the status code is 200 (OK)
           if [ "$response" -eq 200 ]; then

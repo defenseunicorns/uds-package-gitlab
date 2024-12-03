@@ -55,7 +55,7 @@ components:
         valuesFiles:
           - values/registry1-values.yaml
     images:
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/certificates:17.5.2"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/certificates:17.6.1"
       - "registry1.dso.mil/ironbank/gitlab/gitlab/cfssl-self-sign:1.6.1"
       - "registry1.dso.mil/ironbank/gitlab/gitlab/gitaly:17.5.2"
       - "registry.gitlab.com/gitlab-org/build/cng/gitaly-init-cgroups:v17.5.2"

@@ -32,7 +32,7 @@ setup('authenticate', async ({ page, context }) => {
   await page.goto("/-/user_settings/ssh_keys")
   await page.getByRole('button', { name: "Add new key" }).click();
 
-  await page.getByLabel('Key').fill(process.env.SSH_PUBLIC_KEY!);
+  await page.getByLabel('Key', { exact: true}).fill(process.env.SSH_PUBLIC_KEY!);
   await page.getByRole('button', { name: "Add key" }).click();
   
   await page.goto('/dashboard/projects');
