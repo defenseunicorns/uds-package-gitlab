@@ -12,7 +12,7 @@ metadata:
 packages:
   - name: minio-operator
     repository: ghcr.io/defenseunicorns/packages/uds/minio-operator
-    ref: 6.0.4-uds.1-upstream
+    ref: 6.0.4-uds.2-upstream
     overrides:
       minio-operator:
         uds-minio-config:
