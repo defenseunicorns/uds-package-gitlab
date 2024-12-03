@@ -52,6 +52,9 @@ redis:
     app.kubernetes.io/name: valkey
   namespace: valkey
   port: 6379
+  sentinel:
+    enabled: false
+    port: 26379
 postgres:
   password: ""
 

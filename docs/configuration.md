@@ -113,6 +113,89 @@ With this override definition one can then provide the IAM role ARNs to the depl
 
 GitLab uses Redis as a key value store for caching, job queueing and more and supports external providers (such as Elasticache) as well as the [UDS Valkey](https://github.com/defenseunicorns/uds-package-valkey/) package to provide the service.
 
+### Valkey HA Configuration
+
+The [Valkey UDS Package](https://github.com/defenseunicorns/uds-package-valkey) supports the HA replicated architecture ([as of v8.0.1-uds.1](https://github.com/defenseunicorns/uds-package-valkey/releases/tag/v8.0.1-uds.1)) where there is one write node (called a primary), multiple read nodes, and sentinels as side-cars who will elect a new primary in the event the existing primary goes down.
+This configuration is further [documented in the Valkey repo](https://github.com/defenseunicorns/uds-package-valkey/blob/main/docs/configuration.md#high-availability). All configuration changes required to connect an HA Valkey to GitLab will be performed at the _bundle_ level. To connect the HA Valkey to Gitlab:
+
+1. Perform the [configuration changes](https://github.com/defenseunicorns/uds-package-valkey/blob/main/docs/configuration.md#configuration-changes) to configure the Valkey Package to deploy an HA instance in your bundle.
+
+2. Change the `global.redis.host` value to be the _name_ of the primary node's role. By default, that is `mymaster`. This value is no longer to be the address for redis.
+
+> [!WARNING]
+> This may seem unintuitive until you consider that GitLab will be using the sentinel to find the redis address, but needs to know the name of the primary's role.  This value is still key info required in finding the redis host, but the value ends up _not_ being the redis host address.
+
+  ```yaml
+  packages:
+    - name: gitlab
+      overrides:
+        gitlab:
+          gitlab:
+            values:
+              - path: global.redis.host
+                value: mymaster
+  ```
+
+3. _At the bundle level_, override the `global.redis.sentinels` path in the GitLab chart with a list of the valkey sentinel headless addresses, shown below.
+
+```yaml
+packages:
+  - name: gitlab
+    overrides:
+      gitlab:
+        gitlab:
+          values:
+            # See https://docs.gitlab.com/charts/charts/globals.html#redis-sentinel-support
+            # for more details on this section of GitLab's chart.
+            - path: global.redis.sentinels
+              value:
+                - host: valkey-node-0.valkey-headless.<valkey namespace>.svc.cluster.local
+                  port: 26379
+                - host: valkey-node-1.valkey-headless.<valkey namespace>.svc.cluster.local
+                  port: 26379
+                - host: valkey-node-2.valkey-headless.<valkey namespace>.svc.cluster.local
+                  port: 26379
+```
+
+4. Set `redis.sentinel.enabled` to `true` in `uds-gitlab-config` chart. This will cause the GitLab UDS Package to include add network policies allowing the GitLab services to access the sentinel's port in addition to the read/write ports.
+
+```yaml
+packages:
+  - name: gitlab
+    overrides:
+      gitlab:
+        uds-gitlab-config:
+          values:
+            - path: redis.sentinel.enabled
+              value: true
+```
+
+5. Make sure GitLab and Valkey agree on whether auth is required for normal valkey, and whether authentication is required for the sentinel.
+
+```yaml
+# The values in the valkey chart
+packages:
+  - name: valkey
+    overrides:
+      valkey:
+        valkey:
+          namespace: gitlab-valkey
+          values:
+            - path: auth.enabled
+              value: true
+            - path: auth.sentinel
+              value: true
+  - name: gitlab
+    overrides:
+      gitlab:
+        gitlab:
+          values:
+            - path: global.redis.auth.enabled
+              value: true
+            - path: global.redis.sentinelAuth.enabled
+              value: true
+```
+
 ### Manual Keystore Connection
 
 You can use the following Helm overrides to configure a connection to Redis / Valkey:
