@@ -300,7 +300,7 @@ spec:
           {{ .Values.redis.selector | toYaml | nindent 10 }}
         ports:
           - {{ .Values.redis.port }}
-                    {{- if .Values.redis.sentinel.enabled }}
+          {{- if .Values.redis.sentinel.enabled }}
           - {{ .Values.redis.sentinel.port }}
           {{- end }}
         {{- else }}
@@ -388,7 +388,7 @@ spec:
           {{ .Values.redis.selector | toYaml | nindent 10 }}
         ports:
           - {{ .Values.redis.port }}
-                    {{- if .Values.redis.sentinel.enabled }}
+          {{- if .Values.redis.sentinel.enabled }}
           - {{ .Values.redis.sentinel.port }}
           {{- end }}
         {{- else }}
@@ -447,7 +447,7 @@ spec:
           {{ .Values.redis.selector | toYaml | nindent 10 }}
         ports:
           - {{ .Values.redis.port }}
-                    {{- if .Values.redis.sentinel.enabled }}
+          {{- if .Values.redis.sentinel.enabled }}
           - {{ .Values.redis.sentinel.port }}
           {{- end }}
         {{- else }}
