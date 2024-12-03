@@ -136,7 +136,7 @@ This configuration is further [documented in the Valkey repo](https://github.com
                 value: mymaster
   ```
 
-3. _At the bundle level_, override the `global.redis.sentinels` path in the GitLab chart with a list of the valkey sentinel headless addresses, shown below. This must be done _at the bundle level_ due to limitations with Zarf variables. While these excerpts show the full yaml path for clarity, in practice, this change would be right next to the prior change. They would also likely be best done through UDS variables, not hardcoded values, so the operator can scale Valkey and update GitLab without rebuilding the bundle.
+3. _At the bundle level_, override the `global.redis.sentinels` path in the GitLab chart with a list of the valkey sentinel headless addresses, shown below.
 
 ```yaml
 packages:
