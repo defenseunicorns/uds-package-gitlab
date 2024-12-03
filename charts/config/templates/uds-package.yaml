@@ -270,7 +270,9 @@ spec:
           {{ .Values.redis.selector | toYaml | nindent 10 }}
         ports:
           - {{ .Values.redis.port }}
-          - {{- if .Values.redis.sentinel.enabled }}{{ .Values.redis.sentinel.port }}{{- end }}
+          {{- if .Values.redis.sentinel.enabled }}
+          - {{ .Values.redis.sentinel.port }}
+          {{- end }}
         {{- else }}
         remoteGenerated: Anywhere
         {{- end }}
@@ -298,7 +300,9 @@ spec:
           {{ .Values.redis.selector | toYaml | nindent 10 }}
         ports:
           - {{ .Values.redis.port }}
-          - {{- if .Values.redis.sentinel.enabled }}{{ .Values.redis.sentinel.port }}{{- end }}
+                    {{- if .Values.redis.sentinel.enabled }}
+          - {{ .Values.redis.sentinel.port }}
+          {{- end }}
         {{- else }}
         remoteGenerated: Anywhere
         {{- end }}
@@ -340,7 +344,9 @@ spec:
           {{ .Values.redis.selector | toYaml | nindent 10 }}
         ports:
           - {{ .Values.redis.port }}
-          - {{- if .Values.redis.sentinel.enabled }}{{ .Values.redis.sentinel.port }}{{- end }}
+          {{- if .Values.redis.sentinel.enabled }}
+          - {{ .Values.redis.sentinel.port }}
+          {{- end }}
         {{- else }}
         remoteGenerated: Anywhere
         {{- end }}
@@ -382,7 +388,9 @@ spec:
           {{ .Values.redis.selector | toYaml | nindent 10 }}
         ports:
           - {{ .Values.redis.port }}
-          - {{- if .Values.redis.sentinel.enabled }}{{ .Values.redis.sentinel.port }}{{- end }}
+                    {{- if .Values.redis.sentinel.enabled }}
+          - {{ .Values.redis.sentinel.port }}
+          {{- end }}
         {{- else }}
         remoteGenerated: Anywhere
         {{- end }}
@@ -439,7 +447,9 @@ spec:
           {{ .Values.redis.selector | toYaml | nindent 10 }}
         ports:
           - {{ .Values.redis.port }}
-          - {{- if .Values.redis.sentinel.enabled }}{{ .Values.redis.sentinel.port }}{{- end }}
+                    {{- if .Values.redis.sentinel.enabled }}
+          - {{ .Values.redis.sentinel.port }}
+          {{- end }}
         {{- else }}
         remoteGenerated: Anywhere
         {{- end }}
