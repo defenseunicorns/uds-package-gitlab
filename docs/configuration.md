@@ -120,7 +120,10 @@ This configuration is further [documented in the Valkey repo](https://github.com
 
 1. Perform the [configuration changes](https://github.com/defenseunicorns/uds-package-valkey/blob/main/docs/configuration.md#configuration-changes) to configure the Valkey Package to deploy an HA instance in your bundle.
 
-2. **WARNING: what follows is unintuitive.** Change the `global.redis.host` value to be the _name_ of the primary node's role. By default, that is `mymaster`. This value is no longer to be the address for redis. This is somewhat intuitive considering that GitLab will be using the sentinel to find the redis address, but needs to know the name of the primary's role, so this value is still key info required in finding the redis host, but the value _is not_ the redis host address.
+2. Change the `global.redis.host` value to be the _name_ of the primary node's role. By default, that is `mymaster`. This value is no longer to be the address for redis.
+
+> [!WARNING]
+> This may seem unintuitive until you consider that GitLab will be using the sentinel to find the redis address, but needs to know the name of the primary's role.  This value is still key info required in finding the redis host, but the value ends up _not_ being the redis host address.
 
   ```yaml
   packages:
