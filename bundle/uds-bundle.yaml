@@ -44,7 +44,7 @@ packages:
 
   - name: postgres-operator
     repository: ghcr.io/defenseunicorns/packages/uds/postgres-operator
-    ref: 1.13.0-uds.4-upstream
+    ref: 1.13.0-uds.5-upstream
     overrides:
       postgres-operator:
         uds-postgres-config:
@@ -66,7 +66,7 @@ packages:
 
   - name: valkey
     repository: ghcr.io/defenseunicorns/packages/uds/valkey
-    ref: 8.0.1-uds.1-upstream
+    ref: 8.0.1-uds.2-upstream
     overrides:
       valkey:
         uds-valkey-config:
