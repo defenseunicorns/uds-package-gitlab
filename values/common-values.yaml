@@ -186,6 +186,15 @@ gitlab:
       enabled: true
       serviceMonitor:
         enabled: true
+    cgroups:
+      enabled: false
+      initContainer:
+        securityContext:
+          # This multi-line oddity is a hacky way to bypass: https://gitlab.com/gitlab-org/gitlab/-/issues/507883
+          runAsUser: |
+            0
+              privileged: true
+          runAsGroup: 0
 
   gitlab-shell:
     # override to enable ssh
