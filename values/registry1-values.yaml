@@ -21,12 +21,12 @@ gitlab:
   gitaly:
     image:
       repository: registry1.dso.mil/ironbank/gitlab/gitlab/gitaly
-      tag: 17.5.2
+      tag: 17.6.1
     cgroups:
       initContainer:
         image:
           repository: registry.gitlab.com/gitlab-org/build/cng/gitaly-init-cgroups
-          tag: v17.5.2
+          tag: v17.6.1
   gitlab-exporter:
     image:
       repository: registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-exporter
