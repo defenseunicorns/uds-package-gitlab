@@ -186,6 +186,14 @@ gitlab:
       enabled: true
       serviceMonitor:
         enabled: true
+    cgroups:
+      enabled: false
+      initContainer:
+        securityContext:
+          runAsUser: |
+            0
+              privileged: true
+          runAsGroup: 0
 
   gitlab-shell:
     # override to enable ssh
