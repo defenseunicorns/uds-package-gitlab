@@ -327,3 +327,15 @@ This will configure a bot account named `renovatebot` and create a PAT with scop
 
 > [!NOTE]
 > If the GitLab instance is configured with a license for Premium or Ultimate, [Gitlab Service Accounts](https://docs.gitlab.com/ee/user/profile/service_accounts.html) will be created. Otherwise, standard user accounts will be created.
+
+
+## Gitaly HA
+
+To use [custom cgroup sizes for Gitaly](https://docs.gitlab.com/ee/administration/gitaly/kubernetes.html#constrain-git-processes-resource-usage):
+
+1. Set `gitlab.gitaly.cgroups.enabled` to `true` in the `gitlab` chart.
+2. Set the cgroup permissions under the pod's resource limits as shown in the [GitLab docs](https://docs.gitlab.com/ee/administration/gitaly/kubernetes.html#constrain-git-processes-resource-usage).
+3. Set `gitaly-cgroups-init.enabled` to `true` in the `uds-gitlab-config` chart. This causes a policy exemption to be created allowing the init container privileged access to the host nodes, required to customize the cgroups.
+
+> [!NOTE]
+> Only the `upstream` and `unicorn` flavors include the Gitaly init container required for this configuration. It will not work if using the `registry1` flavor.
