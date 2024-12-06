@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [17.6.1-uds.1](https://github.com/defenseunicorns/uds-package-gitlab/compare/v17.6.1-uds.0...v17.6.1-uds.1) (2024-12-06)
+
+
+### Bug Fixes
+
+* added gitaly cgroups init image to package ([#246](https://github.com/defenseunicorns/uds-package-gitlab/issues/246)) ([31613df](https://github.com/defenseunicorns/uds-package-gitlab/commit/31613df2b30784476a9c0c2d7102fa79abeac1d0))
+
+
+### Miscellaneous
+
+* **deps:** update gitlab package dependencies ([#250](https://github.com/defenseunicorns/uds-package-gitlab/issues/250)) ([f23020c](https://github.com/defenseunicorns/uds-package-gitlab/commit/f23020cfd94534f8252283ecc9875f57a57220a2))
+
 ## [17.6.1-uds.0](https://github.com/defenseunicorns/uds-package-gitlab/compare/v17.5.2-uds.1...v17.6.1-uds.0) (2024-12-03)
 
 
