@@ -1,0 +1,22 @@
+# Copyright 2024 Defense Unicorns
+# SPDX-License-Identifier: AGPL-3.0-or-later OR LicenseRef-Defense-Unicorns-Commercial
+
+{{- if .Values.gitaly-cgroups-init.enabled }}
+apiVersion: uds.dev/v1alpha1
+kind: Exemption
+metadata:
+  name: gitaly-cgroups-init-container
+  namespace: uds-policy-exemptions
+spec:
+  exemptions:
+    - policies:
+        - RestrictHostPathWrite
+        - RestrictVolumeTypes
+        - RequireNonRootUser
+        - DisallowPrivileged
+      matcher:
+        namespace: {{ .Release.Namespace }}
+        name: "gitlab-gitaly.*"
+      title: "gitlab gitaly exemptions"
+      description: "Exemption allows cgroup modification by init container. See https://docs.gitlab.com/ee/administration/gitaly/kubernetes.html#constrain-git-processes-resource-usage"
+{{- end }}
