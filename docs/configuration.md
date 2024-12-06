@@ -334,7 +334,7 @@ To use [custom cgroup sizes for Gitaly](https://docs.gitlab.com/ee/administratio
 
 1. Set `gitlab.gitaly.cgroups.enabled` to `true` in the `gitlab` chart.
 2. Set the cgroup permissions under the pod's resource limits as shown in the [GitLab docs](https://docs.gitlab.com/ee/administration/gitaly/kubernetes.html#constrain-git-processes-resource-usage).
-3. Set `gitaly-cgroups-init.enabled` to `true` in the `uds-gitlab-config` chart. This causes a policy exemption to be created allowing the init container privileged access to the host nodes, required to customize the cgroups.
+3. Set `gitalyCgroupsInit` to `true` in the `uds-gitlab-config` chart. This causes a policy exemption to be created allowing the init container privileged access to the host nodes, required to customize the cgroups.
 
 > [!NOTE]
 > Only the `upstream` and `unicorn` flavors include the Gitaly init container required for this configuration. It will not work if using the `registry1` flavor.

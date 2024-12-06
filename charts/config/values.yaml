@@ -82,7 +82,7 @@ mirroring:
     - 443
 
 # Add the exemption for the gitaly cgroups init container
-gitaly-cgroups-init:
+gitalyCgroupsInit:
   enabled: false
 
 # custom:
