@@ -22,6 +22,7 @@ gitlab:
     image:
       repository: registry1.dso.mil/ironbank/gitlab/gitlab/gitaly
       tag: 17.6.1
+      # Note, the registry1 flavor is missing the cgroups init image because it's not in ironbank
   gitlab-exporter:
     image:
       repository: registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-exporter

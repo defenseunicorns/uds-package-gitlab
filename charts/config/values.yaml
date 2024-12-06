@@ -81,6 +81,10 @@ mirroring:
   ports:
     - 443
 
+# Add the exemption for the gitaly cgroups init container
+gitalyCgroupsInit:
+  enabled: false
+
 # custom:
 #    # Notice no `remoteGenerated` field here on custom internal rule
 #   - direction: Ingress
