@@ -328,7 +328,6 @@ This will configure a bot account named `renovatebot` and create a PAT with scop
 > [!NOTE]
 > If the GitLab instance is configured with a license for Premium or Ultimate, [Gitlab Service Accounts](https://docs.gitlab.com/ee/user/profile/service_accounts.html) will be created. Otherwise, standard user accounts will be created.
 
-
 ## Gitaly HA
 
 To use [custom cgroup sizes for Gitaly](https://docs.gitlab.com/ee/administration/gitaly/kubernetes.html#constrain-git-processes-resource-usage):
