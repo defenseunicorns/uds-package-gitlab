@@ -71,7 +71,7 @@ packages:
       valkey:
         uds-valkey-config:
           values:
-            - path: customadditionalNetworkAllow
+            - path: additionalNetworkAllow
               value:
                 - direction: Ingress
                   selector:
