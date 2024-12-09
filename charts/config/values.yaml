@@ -85,7 +85,7 @@ mirroring:
 gitalyCgroupsInit:
   enabled: false
 
-# custom:
+# additionalNetworkAllow:
 #    # Notice no `remoteGenerated` field here on custom internal rule
 #   - direction: Ingress
 #     selector:
