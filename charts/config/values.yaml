@@ -1,5 +1,6 @@
 # Copyright 2024 Defense Unicorns
 # SPDX-License-Identifier: AGPL-3.0-or-later OR LicenseRef-Defense-Unicorns-Commercial
+# yaml-language-server: $schema=./values.schema.json
 
 domain: "###ZARF_VAR_DOMAIN###"
 
@@ -85,7 +86,7 @@ mirroring:
 gitalyCgroupsInit:
   enabled: false
 
-# additionalNetworkAllow:
+additionalNetworkAllow: []
 #    # Notice no `remoteGenerated` field here on custom internal rule
 #   - direction: Ingress
 #     selector:

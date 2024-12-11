@@ -1,0 +1,211 @@
+{
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "domain": {
+        "type": "string"
+      },
+      "global": {
+        "type": "object",
+        "properties": {
+          "kubectl": {
+            "type": "object",
+            "properties": {
+              "image": {
+                "type": "object",
+                "properties": {
+                  "repository": {
+                    "type": "string"
+                  },
+                  "tag": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "botAccounts": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "enabled": {
+            "type": "boolean"
+          },
+          "accounts": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "username": {
+                  "type": "string"
+                },
+                "scopes": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "secret": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "namespace": {
+                      "type": "string"
+                    },
+                    "keyName": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["name", "namespace", "keyName"]
+                }
+              },
+              "required": ["username", "scopes", "secret"]
+            }
+          }
+        },
+        "required": ["enabled"]
+      },
+      "settingsJob": {
+        "type": "object",
+        "properties": {
+          "enabled": {
+            "type": "boolean"
+          },
+          "schedule": {
+            "type": "string"
+          },
+          "application": {
+            "type": "object",
+            "properties": {
+              "default_snippet_visibility": {
+                "type": "string"
+              },
+              "default_project_visibility": {
+                "type": "string"
+              },
+              "default_group_visibility": {
+                "type": "string"
+              },
+              "restricted_visibility_levels": {
+                "type": "string"
+              },
+              "enabled_git_access_protocol": {
+                "type": "string"
+              },
+              "rsa_key_restriction": {
+                "type": "number"
+              },
+              "ecdsa_key_restriction": {
+                "type": "number"
+              },
+              "ecdsa_sk_key_restriction": {
+                "type": "number"
+              },
+              "ed25519_key_restriction": {
+                "type": "number"
+              },
+              "ed25519_sk_key_restriction": {
+                "type": "number"
+              },
+              "dsa_key_restriction": {
+                "type": "number"
+              },
+              "disable_feed_token": {
+                "type": "boolean"
+              },
+              "gravatar_enabled": {
+                "type": "boolean"
+              },
+              "signup_enabled": {
+                "type": "boolean"
+              },
+              "email_confirmation_setting": {
+                "type": "string"
+              },
+              "password_authentication_enabled_for_web": {
+                "type": "boolean"
+              },
+              "password_authentication_enabled_for_git": {
+                "type": "boolean"
+              },
+              "minimum_password_length": {
+                "type": "number"
+              },
+              "password_number_required": {
+                "type": "boolean"
+              },
+              "password_symbol_required": {
+                "type": "boolean"
+              },
+              "password_uppercase_required": {
+                "type": "boolean"
+              },
+              "password_lowercase_required": {
+                "type": "boolean"
+              },
+              "admin_mode": {
+                "type": "boolean"
+              },
+              "notify_on_unknown_sign_in": {
+                "type": "boolean"
+              },
+              "dns_rebinding_protection_enabled": {
+                "type": "boolean"
+              },
+              "throttle_authenticated_api_period_in_seconds": {
+                "type": "number"
+              },
+              "throttle_authenticated_api_requests_per_period": {
+                "type": "number"
+              },
+              "throttle_authenticated_packages_api_period_in_seconds": {
+                "type": "number"
+              },
+              "throttle_authenticated_packages_api_requests_per_period": {
+                "type": "number"
+              },
+              "throttle_authenticated_web_period_in_seconds": {
+                "type": "number"
+              },
+              "throttle_authenticated_web_requests_per_period": {
+                "type": "number"
+              },
+              "throttle_unauthenticated_api_period_in_seconds": {
+                "type": "number"
+              },
+              "throttle_unauthenticated_api_requests_per_period": {
+                "type": "number"
+              },
+              "throttle_unauthenticated_packages_api_period_in_seconds": {
+                "type": "number"
+              },
+              "throttle_unauthenticated_packages_api_requests_per_period": {
+                "type": "number"
+              },
+              "throttle_unauthenticated_web_period_in_seconds": {
+                "type": "number"
+              },
+              "throttle_unauthenticated_web_requests_per_period": {
+                "type": "number"
+              },
+              "usage_ping_enabled": {
+                "type": "boolean"
+              },
+              "include_optional_metrics_in_service_ping": {
+                "type": "boolean"
+              },
+              "version_check_enabled": {
+                "type": "boolean"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  
