@@ -215,6 +215,14 @@
           }
         }
       },
+      "gitalyCgroupsInit": {
+        "type": "object",
+        "properties": {
+          "enabled": {
+            "type": "boolean"
+          }
+        }
+      },
       "additionalNetworkAllow": {
         "type": "array",
         "items": {
@@ -260,8 +268,7 @@
           },
           "required": [
             "direction",
-            "selector",
-            "port"
+            "selector"
           ],
           "oneOf": [
             {
