@@ -1,0 +1,8 @@
+# Copyright 2024 Defense Unicorns
+# SPDX-License-Identifier: AGPL-3.0-or-later OR LicenseRef-Defense-Unicorns-Commercial
+
+global:
+  kubectl:
+    image:
+      repository: registry1.dso.mil/ironbank/gitlab/gitlab/kubectl
+      tag: 17.6.1

@@ -1,0 +1,302 @@
+{
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "domain": {
+        "type": "string"
+      },
+      "license": {
+        "type": "string"
+      },
+      "ssh": {
+        "type": "object",
+        "properties": {
+          "enabled": {
+            "type": "boolean"
+          },
+          "port": {
+            "type": "number"
+          }
+        }
+      },
+      "sso": {
+        "type": "object",
+        "properties": {
+          "enabled": {
+            "type": "boolean"
+          },
+          "protocol": {
+            "type": "string"
+          },
+          "secretName": {
+            "type": "string"
+          },
+          "requiredGroups": {
+            "type": "array",
+            "items": {}
+          },
+          "adminGroups": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "defaultClientScopes": {
+            "type": "array",
+            "items": {}
+          }
+        }
+      },
+      "storage": {
+        "type": "object",
+        "properties": {
+          "internal": {
+            "type": "boolean"
+          },
+          "selector": {
+            "type": "object",
+            "properties": {
+              "app": {
+                "type": "string"
+              }
+            }
+          },
+          "namespace": {
+            "type": "string"
+          },
+          "port": {
+            "type": "number"
+          },
+          "endpoint": {
+            "type": "string"
+          },
+          "createSecret": {
+            "type": "object",
+            "properties": {
+              "enabled": {
+                "type": "string"
+              },
+              "accessKey": {
+                "type": "string"
+              },
+              "secretKey": {
+                "type": "string"
+              },
+              "bucketPrefix": {
+                "type": "string"
+              },
+              "bucketSuffix": {
+                "type": "string"
+              },
+              "region": {
+                "type": "string"
+              },
+              "provider": {
+                "type": "string"
+              },
+              "secretRef": {
+                "type": "object",
+                "properties": {
+                  "enabled": {
+                    "type": "boolean"
+                  },
+                  "secretNamespace": {
+                    "type": "string"
+                  },
+                  "secretName": {
+                    "type": "string"
+                  },
+                  "secretIDKey": {
+                    "type": "string"
+                  },
+                  "secretPasswordKey": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "redis": {
+        "type": "object",
+        "properties": {
+          "password": {
+            "type": "string"
+          },
+          "internal": {
+            "type": "boolean"
+          },
+          "selector": {
+            "type": "object",
+            "properties": {
+              "app.kubernetes.io/name": {
+                "type": "string"
+              }
+            }
+          },
+          "namespace": {
+            "type": "string"
+          },
+          "port": {
+            "type": "number"
+          },
+          "sentinel": {
+            "type": "object",
+            "properties": {
+              "enabled": {
+                "type": "boolean"
+              },
+              "port": {
+                "type": "number"
+              }
+            }
+          }
+        }
+      },
+      "postgres": {
+        "type": "object",
+        "properties": {
+          "password": {
+            "type": "string"
+          },
+          "internal": {
+            "type": "boolean"
+          },
+          "selector": {
+            "type": "object",
+            "properties": {
+              "cluster-name": {
+                "type": "string"
+              }
+            }
+          },
+          "namespace": {
+            "type": "string"
+          },
+          "port": {
+            "type": "number"
+          }
+        }
+      },
+      "runner": {
+        "type": "object",
+        "properties": {
+          "internal": {
+            "type": "boolean"
+          },
+          "selector": {
+            "type": "object",
+            "properties": {
+              "app": {
+                "type": "string"
+              }
+            }
+          },
+          "namespace": {
+            "type": "string"
+          },
+          "sandboxNamespace": {
+            "type": "string"
+          }
+        }
+      },
+      "mirroring": {
+        "type": "object",
+        "properties": {
+          "enabled": {
+            "type": "boolean"
+          },
+          "ports": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          }
+        }
+      },
+      "gitalyCgroupsInit": {
+        "type": "object",
+        "properties": {
+          "enabled": {
+            "type": "boolean"
+          }
+        }
+      },
+      "additionalNetworkAllow": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "direction": {
+              "type": "string",
+              "enum": [
+                "Egress",
+                "Ingress"
+              ]
+            },
+            "selector": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            "port": {
+              "type": "number"
+            },
+            "description": {
+              "type": "string"
+            },
+            "remoteNamespace": {
+              "type": "string"
+            },
+            "remoteSelector": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            "remoteGenerated": {
+              "type": "string",
+              "enum": [
+                "Anywhere",
+                "CloudMetadata",
+                "IntraNamespace",
+                "KubeAPI"
+              ]
+            }
+          },
+          "required": [
+            "direction",
+            "selector"
+          ],
+          "oneOf": [
+            {
+              "required": [
+                "remoteNamespace",
+                "remoteSelector"
+              ],
+              "properties": {
+                "remoteGenerated": {
+                  "not": {}
+                }
+              }
+            },
+            {
+              "required": [
+                "remoteGenerated"
+              ],
+              "properties": {
+                "remoteNamespace": {
+                  "not": {}
+                },
+                "remoteSelector": {
+                  "not": {}
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }

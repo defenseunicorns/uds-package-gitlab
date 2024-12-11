@@ -53,7 +53,7 @@ components:
           - values/registry1-values.yaml
       - name: uds-gitlab-settings
         valuesFiles:
-          - values/registry1-values.yaml
+          - values/settings-registry1-values.yaml
     images:
       - "registry1.dso.mil/ironbank/gitlab/gitlab/certificates:17.6.1"
       - "registry1.dso.mil/ironbank/gitlab/gitlab/cfssl-self-sign:1.6.1"
@@ -83,7 +83,7 @@ components:
           - values/upstream-values.yaml
       - name: uds-gitlab-settings
         valuesFiles:
-          - values/upstream-values.yaml
+          - values/settings-upstream-values.yaml
     images:
       - "registry.gitlab.com/gitlab-org/build/cng/certificates:v17.6.1"
       - "registry.gitlab.com/gitlab-org/build/cng/cfssl-self-sign:v17.6.1"
@@ -114,7 +114,7 @@ components:
           - values/unicorn-values.yaml
       - name: uds-gitlab-settings
         valuesFiles:
-          - values/unicorn-values.yaml
+          - values/settings-unicorn-values.yaml
     images:
       - "registry.gitlab.com/gitlab-org/build/cng/certificates:v17.6.1"
       - "registry.gitlab.com/gitlab-org/build/cng/cfssl-self-sign:v17.6.1"
