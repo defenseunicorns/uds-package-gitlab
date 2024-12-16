@@ -56,6 +56,8 @@ tasks:
       - cmd: |
           cd "${PROJECT_NAME}" || exit
           git config commit.gpgsign false
+          git config user.email "doug@uds.dev"
+          git config user.name "Doug Unicorn"
           git remote set-url origin "https://doug:${GITLAB_TOKEN}@gitlab.uds.dev/doug/${PROJECT_NAME}-firefox.git"
           touch hello-kitteh.txt && git add . && git commit -m "Add hello kitteh"
           git push -u origin --all
