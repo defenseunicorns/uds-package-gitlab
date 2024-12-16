@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## [17.6.2-uds.0](https://github.com/defenseunicorns/uds-package-gitlab/compare/v17.6.1-uds.1...v17.6.2-uds.0) (2024-12-16)
+
+
+### ⚠ BREAKING CHANGES
+
+* update custom properties key ([#253](https://github.com/defenseunicorns/uds-package-gitlab/issues/253))
+
+### Miscellaneous
+
+* add values schemas to settings and config charts ([#256](https://github.com/defenseunicorns/uds-package-gitlab/issues/256)) ([e7b47c3](https://github.com/defenseunicorns/uds-package-gitlab/commit/e7b47c3ebf4ead4c41a3fddd066ba4f934c06b8e))
+* **deps:** update gitlab package dependencies ([#257](https://github.com/defenseunicorns/uds-package-gitlab/issues/257)) ([51103f9](https://github.com/defenseunicorns/uds-package-gitlab/commit/51103f983f9c49a1003d0f945a9172208e64b04e))
+* remove deployment/statefulset waits from the package ([#254](https://github.com/defenseunicorns/uds-package-gitlab/issues/254)) ([55b37cb](https://github.com/defenseunicorns/uds-package-gitlab/commit/55b37cb82023ca7c78d269e2c373741c9507bf4a))
+* update custom properties key ([#253](https://github.com/defenseunicorns/uds-package-gitlab/issues/253)) ([de49d8c](https://github.com/defenseunicorns/uds-package-gitlab/commit/de49d8c84b5c800b7ff4abfa31e89b41e6b91f7d))
+
 ## [17.6.1-uds.1](https://github.com/defenseunicorns/uds-package-gitlab/compare/v17.6.1-uds.0...v17.6.1-uds.1) (2024-12-06)
 
 
