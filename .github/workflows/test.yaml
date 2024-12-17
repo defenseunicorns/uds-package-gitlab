@@ -44,7 +44,7 @@ jobs:
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
       - name: test-flavor
-        uses: defenseunicorns/uds-common/.github/actions/test-flavor@164ce64c5cc775193a563db7e8ef9750ffefcdda # v1.3.0
+        uses: defenseunicorns/uds-common/.github/actions/test-flavor@7381e2081c60c745855a95646372165eae4de41a # v1.6.0
         id: test-flavor
     outputs:
       upgrade-flavors: ${{ steps.test-flavor.outputs.upgrade-flavors }}
@@ -56,7 +56,7 @@ jobs:
       matrix:
         type: [install, upgrade]
         flavor: [upstream, registry1, unicorn]
-    uses: defenseunicorns/uds-common/.github/workflows/callable-test.yaml@164ce64c5cc775193a563db7e8ef9750ffefcdda # v1.3.0
+    uses: defenseunicorns/uds-common/.github/workflows/callable-test.yaml@7381e2081c60c745855a95646372165eae4de41a # v1.6.0
     with:
       upgrade-flavors: ${{ needs.check-flavor.outputs.upgrade-flavors }}
       flavor: ${{ matrix.flavor }}
