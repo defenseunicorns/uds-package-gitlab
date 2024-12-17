@@ -6,9 +6,7 @@ kind: ZarfPackageConfig
 metadata:
   name: gitlab
   description: "UDS GitLab Package"
-  # x-release-please-start-version
-  version: "17.6.2-uds.0"
-  # x-release-please-end
+  version: "dev"
 
 variables:
   - name: DOMAIN

@@ -1,0 +1,13 @@
+# Copyright 2024 Defense Unicorns
+# SPDX-License-Identifier: AGPL-3.0-or-later OR LicenseRef-Defense-Unicorns-Commercial
+
+flavors:
+  - name: upstream
+    # renovate-uds: datasource=docker depName=registry.gitlab.com/gitlab-org/build/cng/gitlab-base extractVersion=^v(?<version>\d+\.\d+\.\d+)$
+    version: 17.6.2-uds.1
+  - name: registry1
+    # renovate-uds: datasource=docker depName=registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-base
+    version: 17.6.2-uds.1
+  - name: unicorn
+    # renovate-uds: datasource=docker depName=registry.gitlab.com/gitlab-org/build/cng/gitlab-base extractVersion=^v(?<version>\d+\.\d+\.\d+)$
+    version: 17.6.2-uds.1
