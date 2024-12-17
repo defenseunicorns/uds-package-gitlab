@@ -20,6 +20,9 @@ tasks:
     actions:
       - task: create-dev-package
       - task: setup:k3d-test-cluster
+        with:
+          # we cannot use checkpoint here because of the extra ports needed for GitLab SSH tests
+          use_checkpoint: "false"
       - task: create-deploy-test-bundle
 
   - name: create-dev-package
@@ -53,6 +56,9 @@ tasks:
     actions:
       - task: create-dev-package
       - task: setup:k3d-test-cluster
+        with:
+          # we cannot use checkpoint here because of the extra ports needed for GitLab SSH tests
+          use_checkpoint: "false"
       - task: create-deploy-test-bundle
       - task: compliance:validate
 
@@ -61,6 +67,9 @@ tasks:
     actions:
       - task: upgrade:create-latest-tag-bundle
       - task: setup:k3d-test-cluster
+        with:
+          # we cannot use checkpoint here because of the extra ports needed for GitLab SSH tests
+          use_checkpoint: "false"
       - task: deploy:test-bundle
       - task: compliance:validate
       - task: create-dev-package
@@ -75,6 +84,9 @@ tasks:
       - task: create:package
       - task: setup:k3d-test-cluster
         if: ${{ or (ne .variables.FLAVOR "upstream") (ne .variables.ARCH "arm64") }}
+        with:
+          # we cannot use checkpoint here because of the extra ports needed for GitLab SSH tests
+          use_checkpoint: "false"
       - task: create-deploy-test-bundle
         if: ${{ or (ne .variables.FLAVOR "upstream") (ne .variables.ARCH "arm64") }}
       - task: create:test-bundle
