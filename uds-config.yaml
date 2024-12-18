@@ -4,22 +4,3 @@
 variables:
   uds-k3d-dev:
     K3D_EXTRA_ARGS: "-p 2223:2223@server:*"
-    NGINX_EXTRA_PORTS: "[2223]"
-  core-base:
-    TENANT_SERVICE_PORTS:
-      - name: status-port
-        port: 15021
-        protocol: TCP
-        targetPort: 15021
-      - name: http2
-        port: 80
-        protocol: TCP
-        targetPort: 80
-      - name: https
-        port: 443
-        protocol: TCP
-        targetPort: 443
-      - name: tcp-ssh
-        port: 2223
-        protocol: TCP
-        targetPort: 2223

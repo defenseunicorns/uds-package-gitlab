@@ -6,7 +6,7 @@ name: Lint
 on:
   # This workflow is triggered on pull requests to the main branch.
   pull_request:
-    # milestoned is added here as a workaround for release-please not triggering PR workflows (PRs should be added to a milestone to trigger the workflow).
+    # milestoned is added here as a way to retrigger workflows that are stuck or otherwise didn't run correctly
     types: [milestoned, opened, reopened, synchronize]
 
 # Permissions for the GITHUB_TOKEN used by the workflow.
@@ -15,5 +15,5 @@ permissions:
 
 jobs:
   validate:
-    uses: defenseunicorns/uds-common/.github/workflows/callable-lint.yaml@164ce64c5cc775193a563db7e8ef9750ffefcdda # v1.3.0
+    uses: defenseunicorns/uds-common/.github/workflows/callable-lint.yaml@7381e2081c60c745855a95646372165eae4de41a # v1.6.0
     secrets: inherit

@@ -3,23 +3,24 @@
 
 includes:
   - test: ./tasks/test.yaml
-  - create: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.3.0/tasks/create.yaml
-  - publish: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.3.0/tasks/publish.yaml
-  - lint: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.3.0/tasks/lint.yaml
-  - pull: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.3.0/tasks/pull.yaml
-  - deploy: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.3.0/tasks/deploy.yaml
-  - setup: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.3.0/tasks/setup.yaml
-  - actions: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.3.0/tasks/actions.yaml
-  - badge: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.3.0/tasks/badge.yaml
-  - upgrade: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.3.0/tasks/upgrade.yaml
-  - compliance: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.3.0/tasks/compliance.yaml
+  - local-setup: ./tasks/local-setup.yaml
+  - create: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.6.0/tasks/create.yaml
+  - publish: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.6.0/tasks/publish.yaml
+  - lint: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.6.0/tasks/lint.yaml
+  - pull: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.6.0/tasks/pull.yaml
+  - deploy: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.6.0/tasks/deploy.yaml
+  - setup: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.6.0/tasks/setup.yaml
+  - actions: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.6.0/tasks/actions.yaml
+  - badge: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.6.0/tasks/badge.yaml
+  - upgrade: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.6.0/tasks/upgrade.yaml
+  - compliance: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.6.0/tasks/compliance.yaml
 
 tasks:
   - name: default
     description: Create K3D Cluster with UDS-Core (Dev) and GitLab
     actions:
       - task: create-dev-package
-      - task: setup:k3d-test-cluster
+      - task: local-setup:k3d-test-cluster
       - task: create-deploy-test-bundle
 
   - name: create-dev-package
@@ -52,7 +53,7 @@ tasks:
     description: Test the health of a GitLab deployment
     actions:
       - task: create-dev-package
-      - task: setup:k3d-test-cluster
+      - task: local-setup:k3d-test-cluster
       - task: create-deploy-test-bundle
       - task: compliance:validate
 
@@ -60,7 +61,7 @@ tasks:
     description: Test an upgrade from the latest released package to the current branch
     actions:
       - task: upgrade:create-latest-tag-bundle
-      - task: setup:k3d-test-cluster
+      - task: local-setup:k3d-test-cluster
       - task: deploy:test-bundle
       - task: compliance:validate
       - task: create-dev-package
@@ -73,7 +74,7 @@ tasks:
     actions:
       - task: actions:determine-arch
       - task: create:package
-      - task: setup:k3d-test-cluster
+      - task: local-setup:k3d-test-cluster
         if: ${{ or (ne .variables.FLAVOR "upstream") (ne .variables.ARCH "arm64") }}
       - task: create-deploy-test-bundle
         if: ${{ or (ne .variables.FLAVOR "upstream") (ne .variables.ARCH "arm64") }}
@@ -81,13 +82,5 @@ tasks:
         if: ${{ and (eq .variables.FLAVOR "upstream") (eq .variables.ARCH "arm64") }}
       - description: Publish the package
         task: publish:package
-        with:
-          # x-release-please-start-version
-          version: "17.6.2-uds.0"
-          # x-release-please-end
       - description: Publish the bundle
         task: publish:test-bundle
-        with:
-          # x-release-please-start-version
-          version: "17.6.2-uds.0"
-          # x-release-please-end

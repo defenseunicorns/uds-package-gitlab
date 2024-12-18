@@ -1,0 +1,55 @@
+# Copyright 2024 Defense Unicorns
+# SPDX-License-Identifier: AGPL-3.0-or-later OR LicenseRef-Defense-Unicorns-Commercial
+
+includes:
+  - setup: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.6.0/tasks/setup.yaml
+
+tasks:
+  - name: k3d-test-cluster
+    description: Create K3D Cluster with UDS-Core (Dev) that has an extra port for GitLab SSH (2223)
+    actions:
+      - task: setup:k3d-test-cluster
+        with:
+          options: --set K3D_EXTRA_ARGS="-p 2223:2223@server:*"
+      - cmd: |
+          # Add port 2223 to the tenant ingress gateway
+          ./uds zarf tools kubectl patch svc tenant-ingressgateway \
+            -n istio-tenant-gateway \
+            --type='json' \
+            -p='[
+              {
+                "op": "add",
+                "path": "/spec/ports/-",
+                "value": {
+                  "name": "tcp-ssh",
+                  "port": 2223,
+                  "protocol": "TCP",
+                  "targetPort": 2223
+                }
+              }
+            ]'
+
+          # Add port 2223 to the nginx config
+          ./uds zarf tools kubectl patch configmap nginx-config \
+            -n uds-dev-stack \
+            --type='merge' \
+            -p '{
+              "data": {
+                "nginx.conf": "events {\n    worker_connections  1024;\n}\n\nstream {\n    map $ssl_preread_server_name $selected_upstream {\n        hostnames;\n        *.admin.uds.dev backend_admin;\n        *.uds.dev backend_tenant;\n    }\n\n    upstream backend_admin {\n        server 172.18.0.200:443;\n    }\n\n    upstream backend_tenant {\n        server 172.18.0.201:443;\n    }\n\n    server {\n        listen 443;\n        proxy_pass $selected_upstream;\n        ssl_preread on;\n    }\n\n    upstream backend_tenant_2223 {\n        server 172.18.0.201:2223; \n    }\n\n    server {\n        listen 2223;\n        proxy_pass backend_tenant_2223;\n    }\n}\n\nhttp {\n  # Redirect server block\n  server {\n      listen 80;\n      server_name _;\n      return 301 https://$host$request_uri;\n  }\n}\n\nerror_log /dev/stderr;"
+              }
+            }'
+
+          # Add port 2223 to the nginx daemonset
+          ./uds zarf tools kubectl patch daemonset nginx \
+            -n uds-dev-stack \
+            --type='json' \
+            -p='[
+              {
+                "op": "add",
+                "path": "/spec/template/spec/containers/0/ports/-",
+                "value": {
+                  "containerPort": 2223,
+                  "hostPort": 2223
+                }
+              }
+            ]'
