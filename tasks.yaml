@@ -3,6 +3,7 @@
 
 includes:
   - test: ./tasks/test.yaml
+  - local-setup: ./tasks/local-setup.yaml
   - create: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.6.0/tasks/create.yaml
   - publish: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.6.0/tasks/publish.yaml
   - lint: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.6.0/tasks/lint.yaml
@@ -19,10 +20,7 @@ tasks:
     description: Create K3D Cluster with UDS-Core (Dev) and GitLab
     actions:
       - task: create-dev-package
-      - task: setup:k3d-test-cluster
-        with:
-          # we cannot use checkpoint here because of the extra ports needed for GitLab SSH tests
-          use_checkpoint: "false"
+      - task: local-setup:k3d-test-cluster
       - task: create-deploy-test-bundle
 
   - name: create-dev-package
@@ -55,10 +53,7 @@ tasks:
     description: Test the health of a GitLab deployment
     actions:
       - task: create-dev-package
-      - task: setup:k3d-test-cluster
-        with:
-          # we cannot use checkpoint here because of the extra ports needed for GitLab SSH tests
-          use_checkpoint: "false"
+      - task: local-setup:k3d-test-cluster
       - task: create-deploy-test-bundle
       - task: compliance:validate
 
@@ -66,10 +61,7 @@ tasks:
     description: Test an upgrade from the latest released package to the current branch
     actions:
       - task: upgrade:create-latest-tag-bundle
-      - task: setup:k3d-test-cluster
-        with:
-          # we cannot use checkpoint here because of the extra ports needed for GitLab SSH tests
-          use_checkpoint: "false"
+      - task: local-setup:k3d-test-cluster
       - task: deploy:test-bundle
       - task: compliance:validate
       - task: create-dev-package
@@ -82,11 +74,8 @@ tasks:
     actions:
       - task: actions:determine-arch
       - task: create:package
-      - task: setup:k3d-test-cluster
+      - task: local-setup:k3d-test-cluster
         if: ${{ or (ne .variables.FLAVOR "upstream") (ne .variables.ARCH "arm64") }}
-        with:
-          # we cannot use checkpoint here because of the extra ports needed for GitLab SSH tests
-          use_checkpoint: "false"
       - task: create-deploy-test-bundle
         if: ${{ or (ne .variables.FLAVOR "upstream") (ne .variables.ARCH "arm64") }}
       - task: create:test-bundle
