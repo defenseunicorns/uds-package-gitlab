@@ -2,6 +2,44 @@
 
 All notable changes to this project will be documented in this file.
 
+## [17.6.2-uds.0](https://github.com/defenseunicorns/uds-package-gitlab/compare/v17.6.1-uds.1...v17.6.2-uds.0) (2024-12-16)
+
+
+### ⚠ BREAKING CHANGES
+
+* update custom properties key ([#253](https://github.com/defenseunicorns/uds-package-gitlab/issues/253))
+
+### Miscellaneous
+
+* add values schemas to settings and config charts ([#256](https://github.com/defenseunicorns/uds-package-gitlab/issues/256)) ([e7b47c3](https://github.com/defenseunicorns/uds-package-gitlab/commit/e7b47c3ebf4ead4c41a3fddd066ba4f934c06b8e))
+* **deps:** update gitlab package dependencies ([#257](https://github.com/defenseunicorns/uds-package-gitlab/issues/257)) ([51103f9](https://github.com/defenseunicorns/uds-package-gitlab/commit/51103f983f9c49a1003d0f945a9172208e64b04e))
+* remove deployment/statefulset waits from the package ([#254](https://github.com/defenseunicorns/uds-package-gitlab/issues/254)) ([55b37cb](https://github.com/defenseunicorns/uds-package-gitlab/commit/55b37cb82023ca7c78d269e2c373741c9507bf4a))
+* update custom properties key ([#253](https://github.com/defenseunicorns/uds-package-gitlab/issues/253)) ([de49d8c](https://github.com/defenseunicorns/uds-package-gitlab/commit/de49d8c84b5c800b7ff4abfa31e89b41e6b91f7d))
+
+## [17.6.1-uds.1](https://github.com/defenseunicorns/uds-package-gitlab/compare/v17.6.1-uds.0...v17.6.1-uds.1) (2024-12-06)
+
+
+### Bug Fixes
+
+* added gitaly cgroups init image to package ([#246](https://github.com/defenseunicorns/uds-package-gitlab/issues/246)) ([31613df](https://github.com/defenseunicorns/uds-package-gitlab/commit/31613df2b30784476a9c0c2d7102fa79abeac1d0))
+
+
+### Miscellaneous
+
+* **deps:** update gitlab package dependencies ([#250](https://github.com/defenseunicorns/uds-package-gitlab/issues/250)) ([f23020c](https://github.com/defenseunicorns/uds-package-gitlab/commit/f23020cfd94534f8252283ecc9875f57a57220a2))
+
+## [17.6.1-uds.0](https://github.com/defenseunicorns/uds-package-gitlab/compare/v17.5.2-uds.1...v17.6.1-uds.0) (2024-12-03)
+
+
+### Features
+
+* enabled integration with HA-valkey via network changes and documentation ([#245](https://github.com/defenseunicorns/uds-package-gitlab/issues/245)) ([417faaf](https://github.com/defenseunicorns/uds-package-gitlab/commit/417faaf97f9920a0df9f97e06c76eea15b5e19c6))
+
+
+### Miscellaneous
+
+* **deps:** update gitlab package dependencies ([#247](https://github.com/defenseunicorns/uds-package-gitlab/issues/247)) ([c82a10a](https://github.com/defenseunicorns/uds-package-gitlab/commit/c82a10a72d867bfafe7ade21ca968807eb5370b9))
+
 ## [17.5.2-uds.1](https://github.com/defenseunicorns/uds-package-gitlab/compare/v17.5.2-uds.0...v17.5.2-uds.1) (2024-11-20)
 
 

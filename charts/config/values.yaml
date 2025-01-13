@@ -1,5 +1,6 @@
 # Copyright 2024 Defense Unicorns
 # SPDX-License-Identifier: AGPL-3.0-or-later OR LicenseRef-Defense-Unicorns-Commercial
+# yaml-language-server: $schema=./values.schema.json
 
 domain: "###ZARF_VAR_DOMAIN###"
 
@@ -52,6 +53,9 @@ redis:
     app.kubernetes.io/name: valkey
   namespace: valkey
   port: 6379
+  sentinel:
+    enabled: false
+    port: 26379
 postgres:
   password: ""
 
@@ -78,7 +82,11 @@ mirroring:
   ports:
     - 443
 
-# custom:
+# Add the exemption for the gitaly cgroups init container
+gitalyCgroupsInit:
+  enabled: false
+
+additionalNetworkAllow: []
 #    # Notice no `remoteGenerated` field here on custom internal rule
 #   - direction: Ingress
 #     selector:

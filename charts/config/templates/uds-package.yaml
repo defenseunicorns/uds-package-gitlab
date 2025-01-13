@@ -268,7 +268,11 @@ spec:
         remoteNamespace: {{ .Values.redis.namespace | quote }}
         remoteSelector:
           {{ .Values.redis.selector | toYaml | nindent 10 }}
-        port: {{ .Values.redis.port }}
+        ports:
+          - {{ .Values.redis.port }}
+          {{- if .Values.redis.sentinel.enabled }}
+          - {{ .Values.redis.sentinel.port }}
+          {{- end }}
         {{- else }}
         remoteGenerated: Anywhere
         {{- end }}
@@ -294,7 +298,11 @@ spec:
         remoteNamespace: {{ .Values.redis.namespace | quote }}
         remoteSelector:
           {{ .Values.redis.selector | toYaml | nindent 10 }}
-        port: {{ .Values.redis.port }}
+        ports:
+          - {{ .Values.redis.port }}
+          {{- if .Values.redis.sentinel.enabled }}
+          - {{ .Values.redis.sentinel.port }}
+          {{- end }}
         {{- else }}
         remoteGenerated: Anywhere
         {{- end }}
@@ -334,7 +342,11 @@ spec:
         remoteNamespace: {{ .Values.redis.namespace | quote }}
         remoteSelector:
           {{ .Values.redis.selector | toYaml | nindent 10 }}
-        port: {{ .Values.redis.port }}
+        ports:
+          - {{ .Values.redis.port }}
+          {{- if .Values.redis.sentinel.enabled }}
+          - {{ .Values.redis.sentinel.port }}
+          {{- end }}
         {{- else }}
         remoteGenerated: Anywhere
         {{- end }}
@@ -374,7 +386,11 @@ spec:
         remoteNamespace: {{ .Values.redis.namespace | quote }}
         remoteSelector:
           {{ .Values.redis.selector | toYaml | nindent 10 }}
-        port: {{ .Values.redis.port }}
+        ports:
+          - {{ .Values.redis.port }}
+          {{- if .Values.redis.sentinel.enabled }}
+          - {{ .Values.redis.sentinel.port }}
+          {{- end }}
         {{- else }}
         remoteGenerated: Anywhere
         {{- end }}
@@ -429,7 +445,11 @@ spec:
         remoteNamespace: {{ .Values.redis.namespace | quote }}
         remoteSelector:
           {{ .Values.redis.selector | toYaml | nindent 10 }}
-        port: {{ .Values.redis.port }}
+        ports:
+          - {{ .Values.redis.port }}
+          {{- if .Values.redis.sentinel.enabled }}
+          - {{ .Values.redis.sentinel.port }}
+          {{- end }}
         {{- else }}
         remoteGenerated: Anywhere
         {{- end }}
@@ -481,7 +501,7 @@ spec:
       {{- end }}
 
       # Custom rules for unanticipated scenarios
-      {{- range .Values.custom }}
+      {{- range .Values.additionalNetworkAllow }}
       - direction: {{ .direction }}
         selector:
           {{ .selector | toYaml | nindent 10 }}

@@ -5,14 +5,12 @@ kind: UDSBundle
 metadata:
   name: gitlab-test
   description: A UDS bundle for deploying Gitlab and it's dependencies on a development cluster
-  # x-release-please-start-version
-  version: 17.5.2-uds.1
-  # x-release-please-end
+  version: dev
 
 packages:
   - name: minio-operator
     repository: ghcr.io/defenseunicorns/packages/uds/minio-operator
-    ref: 6.0.4-uds.0-upstream
+    ref: 6.0.4-uds.3-upstream
     overrides:
       minio-operator:
         uds-minio-config:
@@ -44,7 +42,7 @@ packages:
 
   - name: postgres-operator
     repository: ghcr.io/defenseunicorns/packages/uds/postgres-operator
-    ref: 1.13.0-uds.4-upstream
+    ref: 1.13.0-uds.6-upstream
     overrides:
       postgres-operator:
         uds-postgres-config:
@@ -66,12 +64,12 @@ packages:
 
   - name: valkey
     repository: ghcr.io/defenseunicorns/packages/uds/valkey
-    ref: 8.0.1-uds.0-upstream
+    ref: 8.0.1-uds.3-upstream
     overrides:
       valkey:
         uds-valkey-config:
           values:
-            - path: custom
+            - path: additionalNetworkAllow
               value:
                 - direction: Ingress
                   selector:
@@ -88,9 +86,7 @@ packages:
 
   - name: gitlab
     path: ../
-    # x-release-please-start-version
-    ref: 17.5.2-uds.1
-    # x-release-please-end
+    ref: dev
     overrides:
       gitlab:
         uds-gitlab-config:

@@ -16,7 +16,7 @@ Network policies are controlled via the `uds-gitlab-config` chart in accordance 
 - `redis`:  sets network policies for accessing a Redis-compatible server from all GitLab services (`webservice`, `toolbox`, `sidekiq`, `migrations`, `gitlab-exporter`)
 - `postgres`: sets network policies for accessing a Postgres database from all GitLab services (`webservice`, `toolbox`, `sidekiq`, `migrations`, `gitlab-exporter`)
 - `mirroring`: sets network policies that allow the gitlab repository mirroring feature to work. It defaults to only `https` (443) but can be set to allow the other protocols gitlab supports via the `ports` key.
-- `custom`: sets custom network policies for the GitLab namespace - this allows for custom integrations with other services (i.e. Jira)
+- `additionalNetworkAllow`: sets custom network policies for the GitLab namespace - this allows for custom integrations with other services (i.e. Jira)
 
 > [!NOTE]
 > Currently the GitLab UDS Package contains Istio `PeerAuthentication` exceptions to allow the `dependency` init containers to reach out and check the Redis and Postgres services.  These are only added with `redis.internal` or `postgres.internal` set to `true` and will be removed once UDS Core [switches to native sidecars](https://github.com/defenseunicorns/uds-core/issues/536).
@@ -83,7 +83,7 @@ By default, the application is configured to work with `uds-package-minio-operat
 If you are not using in-cluster MinIO, but rather are using an external cloud providers object storage, you have two options. You can either create an object storage secret manually and disable the generation of the secret or have the helm chart generate one for you based on a set of input values. 
 
 > [!NOTE] 
-> If you would like to opt out of the in-chart secret generation process, you may disable it by setting the zarf variable GENERATE_STORAGE_SECRET to false. Then you can provide your own object store secret, named gitlab-object-store, as needed following GitLab's documentation.
+> If you would like to opt out of the in-chart secret generation process, you may disable it by setting the zarf variable `GENERATE_STORAGE_SECRET` to false. Then you can provide your own object store secret, named `gitlab-object-store`, as needed following GitLab's documentation.
 
 When configuring the GitLab to connect to S3 storage in AWS, it is assumed IRSA will be used to connect to the buckets. The prerequisites for this are the buckets created with the appropriate iam roles and policies. Once those are created, two values need to be overridden in the config chart for secret generation: `storage.createSecret.provider` needs to be set to `aws` and `storage.createSecret.region` needs to be set to your AWS regions (i.e `us-gov-west-1`). From there, additional overrides are required in the gitlab chart to finish this setup. Specifically, the gitlab service accounts need to be overridden to have the annotations that are required for IRSA. Below is an example of how you would define the variable overrides where you would then pass in the IAM role ARNs on deploy.
 
@@ -112,6 +112,89 @@ With this override definition one can then provide the IAM role ARNs to the depl
 ## Redis / Valkey
 
 GitLab uses Redis as a key value store for caching, job queueing and more and supports external providers (such as Elasticache) as well as the [UDS Valkey](https://github.com/defenseunicorns/uds-package-valkey/) package to provide the service.
+
+### Valkey HA Configuration
+
+The [Valkey UDS Package](https://github.com/defenseunicorns/uds-package-valkey) supports the HA replicated architecture ([as of v8.0.1-uds.1](https://github.com/defenseunicorns/uds-package-valkey/releases/tag/v8.0.1-uds.1)) where there is one write node (called a primary), multiple read nodes, and sentinels as side-cars who will elect a new primary in the event the existing primary goes down.
+This configuration is further [documented in the Valkey repo](https://github.com/defenseunicorns/uds-package-valkey/blob/main/docs/configuration.md#high-availability). All configuration changes required to connect an HA Valkey to GitLab will be performed at the _bundle_ level. To connect the HA Valkey to Gitlab:
+
+1. Perform the [configuration changes](https://github.com/defenseunicorns/uds-package-valkey/blob/main/docs/configuration.md#configuration-changes) to configure the Valkey Package to deploy an HA instance in your bundle.
+
+2. Change the `global.redis.host` value to be the _name_ of the primary node's role. By default, that is `mymaster`. This value is no longer to be the address for redis.
+
+> [!WARNING]
+> This may seem unintuitive until you consider that GitLab will be using the sentinel to find the redis address, but needs to know the name of the primary's role.  This value is still key info required in finding the redis host, but the value ends up _not_ being the redis host address.
+
+  ```yaml
+  packages:
+    - name: gitlab
+      overrides:
+        gitlab:
+          gitlab:
+            values:
+              - path: global.redis.host
+                value: mymaster
+  ```
+
+3. _At the bundle level_, override the `global.redis.sentinels` path in the GitLab chart with a list of the valkey sentinel headless addresses, shown below.
+
+```yaml
+packages:
+  - name: gitlab
+    overrides:
+      gitlab:
+        gitlab:
+          values:
+            # See https://docs.gitlab.com/charts/charts/globals.html#redis-sentinel-support
+            # for more details on this section of GitLab's chart.
+            - path: global.redis.sentinels
+              value:
+                - host: valkey-node-0.valkey-headless.<valkey namespace>.svc.cluster.local
+                  port: 26379
+                - host: valkey-node-1.valkey-headless.<valkey namespace>.svc.cluster.local
+                  port: 26379
+                - host: valkey-node-2.valkey-headless.<valkey namespace>.svc.cluster.local
+                  port: 26379
+```
+
+4. Set `redis.sentinel.enabled` to `true` in `uds-gitlab-config` chart. This will cause the GitLab UDS Package to include add network policies allowing the GitLab services to access the sentinel's port in addition to the read/write ports.
+
+```yaml
+packages:
+  - name: gitlab
+    overrides:
+      gitlab:
+        uds-gitlab-config:
+          values:
+            - path: redis.sentinel.enabled
+              value: true
+```
+
+5. Make sure GitLab and Valkey agree on whether auth is required for normal valkey, and whether authentication is required for the sentinel.
+
+```yaml
+# The values in the valkey chart
+packages:
+  - name: valkey
+    overrides:
+      valkey:
+        valkey:
+          namespace: gitlab-valkey
+          values:
+            - path: auth.enabled
+              value: true
+            - path: auth.sentinel
+              value: true
+  - name: gitlab
+    overrides:
+      gitlab:
+        gitlab:
+          values:
+            - path: global.redis.auth.enabled
+              value: true
+            - path: global.redis.sentinelAuth.enabled
+              value: true
+```
 
 ### Manual Keystore Connection
 
@@ -244,3 +327,14 @@ This will configure a bot account named `renovatebot` and create a PAT with scop
 
 > [!NOTE]
 > If the GitLab instance is configured with a license for Premium or Ultimate, [Gitlab Service Accounts](https://docs.gitlab.com/ee/user/profile/service_accounts.html) will be created. Otherwise, standard user accounts will be created.
+
+## Gitaly HA
+
+To use [custom cgroup sizes for Gitaly](https://docs.gitlab.com/ee/administration/gitaly/kubernetes.html#constrain-git-processes-resource-usage):
+
+1. Set `gitlab.gitaly.cgroups.enabled` to `true` in the `gitlab` chart.
+2. Set the cgroup permissions under the pod's resource limits as shown in the [GitLab docs](https://docs.gitlab.com/ee/administration/gitaly/kubernetes.html#constrain-git-processes-resource-usage).
+3. Set `gitalyCgroupsInit` to `true` in the `uds-gitlab-config` chart. This causes a policy exemption to be created allowing the init container privileged access to the host nodes, required to customize the cgroups.
+
+> [!NOTE]
+> Only the `upstream` and `unicorn` flavors include the Gitaly init container required for this configuration. It will not work if using the `registry1` flavor.
