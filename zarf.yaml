@@ -129,4 +129,3 @@ components:
       - "cgr.dev/du-uds-defenseunicorns/gitlab-kubectl:1.32.0"
       - "cgr.dev/du-uds-defenseunicorns/gitlab-base:17.7"
       - "cgr.dev/du-uds-defenseunicorns/gitlab-exporter:17.7"
-
