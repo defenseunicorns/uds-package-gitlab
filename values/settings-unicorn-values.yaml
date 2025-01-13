@@ -4,5 +4,5 @@
 global:
   kubectl:
     image:
-      repository: cgr.dev/du-uds-defenseunicorns/gitlab-kubectl-fips
+      repository: cgr.dev/du-uds-defenseunicorns/gitlab-kubectl
       tag: 1.32.0
