@@ -113,6 +113,7 @@ components:
       - name: uds-gitlab-settings
         valuesFiles:
           - values/settings-unicorn-values.yaml
+          - values/settings-unicorn-values.yaml
     images:
       - "cgr.dev/du-uds-defenseunicorns/gitlab-certificates-fips:17.5.1"
       - "cgr.dev/du-uds-defenseunicorns/cfssl-self-sign-fips:17.5.1"
