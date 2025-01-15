@@ -60,6 +60,6 @@ jobs:
       upgrade-flavors: ${{ needs.check-flavor.outputs.upgrade-flavors }}
       flavor: ${{ matrix.flavor }}
       type: ${{ matrix.type }}
-      runsOn: uds-swf-ubuntu-big-boy-8-core
+      runsOn: uds-swf-ubuntu-big-boy-16-core
       timeout: 30
     secrets: inherit # Inherits all secrets from the parent workflow.
