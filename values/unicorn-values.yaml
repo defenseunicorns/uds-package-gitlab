@@ -17,7 +17,7 @@ gitlab:
   migrations:
     image:
       repository: cgr.dev/du-uds-defenseunicorns/gitlab-toolbox-ee-fips
-      tag: 17.7.1
+      tag: "17.7"
   gitaly:
     image:
       repository: cgr.dev/du-uds-defenseunicorns/gitaly-fips
@@ -38,7 +38,7 @@ gitlab:
   gitlab-shell:
     image:
       repository: cgr.dev/du-uds-defenseunicorns/gitlab-shell-fips
-      tag: 17.7.1
+      tag: "17.7"
   praefect:
     image:
       repository: cgr.dev/du-uds-defenseunicorns/gitaly-fips
@@ -46,7 +46,7 @@ gitlab:
   toolbox:
     image:
       repository: cgr.dev/du-uds-defenseunicorns/gitlab-toolbox-ee-fips
-      tag: 17.7.1
+      tag: "17.7"
 global:
   certificates:
     image:
@@ -55,7 +55,7 @@ global:
   gitlabBase:
     image:
       repository: cgr.dev/du-uds-defenseunicorns/gitlab-base-fips
-      tag: 17.7.1
+      tag: "17.7"
   kubectl:
     image:
       repository: cgr.dev/du-uds-defenseunicorns/gitlab-kubectl-fips
@@ -63,7 +63,7 @@ global:
 registry:
   image:
     repository: cgr.dev/du-uds-defenseunicorns/gitlab-container-registry-fips
-    tag: 17.7.1
+    tag: "17.7"
 shared-secrets:
   selfsign:
     image:
@@ -73,4 +73,4 @@ shared-secrets:
 upgradeCheck:
   image:
     repository: cgr.dev/du-uds-defenseunicorns/gitlab-base-fips
-    tag: 17.7.1
+    tag: "17.7"
