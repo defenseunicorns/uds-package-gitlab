@@ -5,15 +5,15 @@ gitlab:
   webservice:
     image:
       repository: cgr.dev/du-uds-defenseunicorns/gitlab-webservice-ee-fips
-      tag: 17.7.1
+      tag: "17.7"
     workhorse:
       image: cgr.dev/du-uds-defenseunicorns/gitlab-workhorse-ee-fips
       # renovate: datasource=docker depName=cgr.dev/du-uds-defenseunicorns/gitlab-workhorse-ee-fips versioning=semver
-      tag: 17.7.1
+      tag: "17.7"
   sidekiq:
     image:
       repository: cgr.dev/du-uds-defenseunicorns/gitlab-sidekiq-ee-fips
-      tag: 17.7.1
+      tag: "17.7"
   migrations:
     image:
       repository: cgr.dev/du-uds-defenseunicorns/gitlab-toolbox-ee-fips
@@ -21,7 +21,7 @@ gitlab:
   gitaly:
     image:
       repository: cgr.dev/du-uds-defenseunicorns/gitaly-fips
-      tag: 17.7.1
+      tag: "17.7"
     cgroups:
       initContainer:
         image:
@@ -30,11 +30,11 @@ gitlab:
   gitlab-exporter:
     image:
       repository: cgr.dev/du-uds-defenseunicorns/gitlab-exporter-fips
-      tag: 17.7.1
+      tag: "17.7"
   gitlab-pages:
     image:
       repository: cgr.dev/du-uds-defenseunicorns/gitlab-pages-fips
-      tag: 17.7.1
+      tag: "17.7"
   gitlab-shell:
     image:
       repository: cgr.dev/du-uds-defenseunicorns/gitlab-shell-fips
@@ -42,7 +42,7 @@ gitlab:
   praefect:
     image:
       repository: cgr.dev/du-uds-defenseunicorns/gitaly-fips
-      tag: 17.7.1
+      tag: "17.7"
   toolbox:
     image:
       repository: cgr.dev/du-uds-defenseunicorns/gitlab-toolbox-ee-fips
@@ -51,7 +51,7 @@ global:
   certificates:
     image:
       repository: cgr.dev/du-uds-defenseunicorns/gitlab-certificates-fips
-      tag: 17.7.1
+      tag: "17.7"
   gitlabBase:
     image:
       repository: cgr.dev/du-uds-defenseunicorns/gitlab-base-fips
@@ -68,7 +68,7 @@ shared-secrets:
   selfsign:
     image:
       repository: cgr.dev/du-uds-defenseunicorns/cfssl-self-sign-fips
-      tag: 17.7.1
+      tag: "17.7"
 
 upgradeCheck:
   image:
