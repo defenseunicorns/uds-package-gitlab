@@ -5,63 +5,63 @@ gitlab:
   webservice:
     image:
       repository: registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-webservice
-      tag: 17.6.2
+      tag: 17.8.1
     workhorse:
       image: registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-workhorse
       # renovate: datasource=docker depName=registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-workhorse versioning=semver
-      tag: 17.6.2
+      tag: 17.8.1
   sidekiq:
     image:
       repository: registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-sidekiq
-      tag: 17.6.2
+      tag: 17.8.1
   migrations:
     image:
       repository: registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-toolbox
-      tag: 17.6.2
+      tag: 17.8.1
   gitaly:
     image:
       repository: registry1.dso.mil/ironbank/gitlab/gitlab/gitaly
-      tag: 17.6.2
+      tag: 17.8.1
       # Note, the registry1 flavor is missing the cgroups init image because it's not in ironbank
   gitlab-exporter:
     image:
       repository: registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-exporter
-      tag: 17.6.2
+      tag: 17.8.1
   gitlab-pages:
     image:
       repository: registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-pages
-      tag: 17.6.2
+      tag: 17.8.1
   gitlab-shell:
     image:
       repository: registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-shell
-      tag: 17.6.2
+      tag: 17.8.1
   praefect:
     image:
       repository: registry1.dso.mil/ironbank/gitlab/gitlab/gitaly
-      tag: 17.6.2
+      tag: 17.8.1
   toolbox:
     image:
       repository: registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-toolbox
-      tag: 17.6.2
+      tag: 17.8.1
 
 global:
   certificates:
     image:
       repository: registry1.dso.mil/ironbank/gitlab/gitlab/certificates
-      tag: 17.6.2
+      tag: 17.8.1
   gitlabBase:
     image:
       repository: registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-base
-      tag: 17.6.2
+      tag: 17.8.1
   kubectl:
     image:
       repository: registry1.dso.mil/ironbank/gitlab/gitlab/kubectl
-      tag: 17.6.2
+      tag: 17.8.1
 
 registry:
   image:
     repository: registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-container-registry
-    tag: 17.6.2
+    tag: 17.8.1
 
 shared-secrets:
   selfsign:
@@ -72,4 +72,4 @@ shared-secrets:
 upgradeCheck:
   image:
     repository: registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-base
-    tag: 17.6.2
+    tag: 17.8.1
