@@ -21,7 +21,21 @@ test('setup a project', async ({ page, browserName }) => {
 
     await page.getByTestId('file-name-field').fill('docs/README.md');
     await page.getByLabel('Editor content;Press Alt+F1').fill('# Docs', { force: true });
-    await page.getByTestId('commit-button').click();
+    await test.step("can create a file", async () => {
+        await page.goto(`/root/${projectName}/-/new/main`);
+    
+        const fname = `foo-${Math.random().toString(36).substring(2, 8)}.md`;
+    
+        await page.getByTestId('file-name-field').fill(fname);
+        await page.getByLabel('Editor content;Press Alt+F1').fill('# Hello World!', { force: true });
+    
+        // Versions greater than 17.8 use a commit modal
+        await page.getByTestId('blob-edit-header-commit-button').click();
+        await page.getByTestId('commit-change-modal-commit-button').click();
+    
+        await expect(page).toHaveURL(`/root/${projectName}/-/blob/main/${fname}`);
+        await expect(page.getByRole('heading', { level: 1 })).toContainText('Hello World!');
+      });
 
     await expect(page).toHaveURL(`/doug/${projectName}/-/blob/main/docs/README.md`)
     await expect(page.getByRole('heading', { level: 1 })).toContainText('Docs');
