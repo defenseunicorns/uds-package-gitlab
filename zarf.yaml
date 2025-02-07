@@ -7,6 +7,12 @@ metadata:
   name: gitlab
   description: "UDS GitLab Package"
   version: "dev"
+  annotations:
+    title: GitLab
+    description: GitLab is one platform that covers 100% of your software development lifecycle with issues, code review, CI, CD, and release cycle analytics wrapped into an elegant UI so you can improve your team's software development AND accelerate your software delivery into critical mission environments.
+    categories: Software Dev,IT Management,Productivity,Security,Collaboration
+    keywords: Full Software Development Lifecycle,CI/CD,Code Review,Release Cycle Analytics,GitLab Integration,Mission-Critical Environments,Workflow Optimization,Software Delivery Acceleration
+    tagline: **The Complete DevOps Platform**
 
 variables:
   - name: DOMAIN
