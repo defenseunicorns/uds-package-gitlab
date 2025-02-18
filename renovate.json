@@ -7,22 +7,36 @@
     "replacements:all",
     "workarounds:all"
   ],
-  "schedule": ["after 7am and before 9am every weekday"],
+  "schedule": [
+    "after 7am and before 9am every weekday"
+  ],
   "packageRules": [
     {
       "groupName": "Gitlab Support Dependencies",
-      "labels": ["support-deps"],
+      "labels": [
+        "support-deps"
+      ],
       "commitMessageTopic": "support-deps",
-      "packagePatterns": ["*"]
+      "matchPackageNames": [
+        "*"
+      ]
     },
     {
       "groupName": "Gitlab Package Dependencies",
-      "labels": ["package-deps"],
+      "labels": [
+        "package-deps"
+      ],
       "commitMessageTopic": "package-deps",
-      "matchDatasources": ["docker", "helm", "git-tags"]
+      "matchDatasources": [
+        "docker",
+        "helm",
+        "git-tags"
+      ]
     },
     {
-      "matchPackageNames": ["https://repo1.dso.mil/big-bang/product/packages/gitlab.git"],
+      "matchPackageNames": [
+        "https://repo1.dso.mil/big-bang/product/packages/gitlab.git"
+      ],
       "allowedVersions": "/.+-bb.+/"
     }
   ]
