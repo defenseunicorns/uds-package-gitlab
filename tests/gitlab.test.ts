@@ -21,8 +21,7 @@ test('setup a project', async ({ page, browserName }) => {
 
     await page.getByTestId('file-name-field').fill('docs/README.md');
     await page.getByLabel('Editor content;Press Alt+F1').fill('# Docs', { force: true });
-    await page.getByTestId('blob-edit-header-commit-button').click();
-    await page.getByTestId('commit-change-modal-commit-button').click();
+    await page.getByTestId('commit-button').click();
 
     await expect(page).toHaveURL(`/doug/${projectName}/-/blob/main/docs/README.md`)
     await expect(page.getByRole('heading', { level: 1 })).toContainText('Docs');

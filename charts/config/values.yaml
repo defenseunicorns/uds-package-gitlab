@@ -23,7 +23,7 @@ sso:
 storage:
   internal: true  # Set to false to use external storage
   selector:
-    v1.min.io/tenant: uds-minio
+    app: minio
   namespace: minio
   port: 9000
   endpoint: "http://uds-minio-hl.minio.svc.cluster.local:9000"
