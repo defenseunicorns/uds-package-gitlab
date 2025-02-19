@@ -53,19 +53,19 @@ components:
         valuesFiles:
           - values/settings-registry1-values.yaml
     images:
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/certificates:17.8.2"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/certificates:17.6.2"
       - "registry1.dso.mil/ironbank/gitlab/gitlab/cfssl-self-sign:1.6.1"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitaly:17.8.2"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-container-registry:17.8.2"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-pages:17.8.2"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-shell:17.8.2"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-sidekiq:17.8.2"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-toolbox:17.8.2"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-webservice:17.8.2"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-workhorse:17.8.2"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/kubectl:17.8.2"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-base:17.8.2"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-exporter:17.8.2"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitaly:17.6.2"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-container-registry:17.6.2"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-pages:17.6.2"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-shell:17.6.2"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-sidekiq:17.6.2"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-toolbox:17.6.2"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-webservice:17.6.2"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-workhorse:17.6.2"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/kubectl:17.6.2"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-base:17.6.2"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-exporter:17.6.2"
 
   # Note: upstream flavor is experimental
   - name: gitlab
@@ -83,20 +83,20 @@ components:
         valuesFiles:
           - values/settings-upstream-values.yaml
     images:
-      - "registry.gitlab.com/gitlab-org/build/cng/certificates:v17.8.2"
-      - "registry.gitlab.com/gitlab-org/build/cng/cfssl-self-sign:v17.8.2"
-      - "registry.gitlab.com/gitlab-org/build/cng/gitaly:v17.8.2"
-      - "registry.gitlab.com/gitlab-org/build/cng/gitaly-init-cgroups:v17.8.2"
-      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-container-registry:v17.8.2"
-      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-pages:v17.8.2"
-      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-shell:v17.8.2"
-      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-sidekiq-ee:v17.8.2"
-      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-toolbox-ee:v17.8.2"
-      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-webservice-ee:v17.8.2"
-      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-workhorse-ee:v17.8.2"
-      - "registry.gitlab.com/gitlab-org/build/cng/kubectl:v17.8.2"
-      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-base:v17.8.2"
-      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-exporter:v17.8.2"
+      - "registry.gitlab.com/gitlab-org/build/cng/certificates:v17.7.1"
+      - "registry.gitlab.com/gitlab-org/build/cng/cfssl-self-sign:v17.7.1"
+      - "registry.gitlab.com/gitlab-org/build/cng/gitaly:v17.7.1"
+      - "registry.gitlab.com/gitlab-org/build/cng/gitaly-init-cgroups:v17.7.1"
+      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-container-registry:v17.7.1"
+      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-pages:v17.7.1"
+      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-shell:v17.7.1"
+      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-sidekiq-ee:v17.7.1"
+      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-toolbox-ee:v17.7.1"
+      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-webservice-ee:v17.7.1"
+      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-workhorse-ee:v17.7.1"
+      - "registry.gitlab.com/gitlab-org/build/cng/kubectl:v17.7.1"
+      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-base:v17.7.1"
+      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-exporter:v17.7.1"
 
  # Note: unicorn flavor is experimental
   - name: gitlab
@@ -115,18 +115,17 @@ components:
           - values/settings-unicorn-values.yaml
           - values/settings-unicorn-values.yaml
     images:
-
-      - "cgr.dev/du-uds-defenseunicorns/gitlab-certificates-fips:17.8.2"
-      - "cgr.dev/du-uds-defenseunicorns/cfssl-self-sign-fips:17.8.2"
-      - "cgr.dev/du-uds-defenseunicorns/gitaly-fips:17.8.2"
-      - "cgr.dev/du-uds-defenseunicorns/gitlab-container-registry-fips:17.8.2"
-      - "cgr.dev/du-uds-defenseunicorns/gitlab-pages-fips:17.8.2"
-      - "cgr.dev/du-uds-defenseunicorns/gitlab-shell-fips:17.8.2"
-      - "registry.gitlab.com/gitlab-org/build/cng/gitaly-init-cgroups:v17.8.2"
-      - "cgr.dev/du-uds-defenseunicorns/gitlab-sidekiq-ee-fips:17.8.2"
-      - "cgr.dev/du-uds-defenseunicorns/gitlab-toolbox-ee-fips:17.8.2"
-      - "cgr.dev/du-uds-defenseunicorns/gitlab-workhorse-ee-fips:17.8.2"
-      - "cgr.dev/du-uds-defenseunicorns/gitlab-webservice-ee-fips:17.8.2"
+      - "cgr.dev/du-uds-defenseunicorns/gitlab-certificates-fips:17.7"
+      - "cgr.dev/du-uds-defenseunicorns/cfssl-self-sign-fips:17.7"
+      - "cgr.dev/du-uds-defenseunicorns/gitaly-fips:17.7"
+      - "cgr.dev/du-uds-defenseunicorns/gitlab-container-registry-fips:17.7"
+      - "cgr.dev/du-uds-defenseunicorns/gitlab-pages-fips:17.7"
+      - "cgr.dev/du-uds-defenseunicorns/gitlab-shell-fips:17.7"
+      - "registry.gitlab.com/gitlab-org/build/cng/gitaly-init-cgroups:v17.7.1"
+      - "cgr.dev/du-uds-defenseunicorns/gitlab-sidekiq-ee-fips:17.7"
+      - "cgr.dev/du-uds-defenseunicorns/gitlab-toolbox-ee-fips:17.7"
+      - "cgr.dev/du-uds-defenseunicorns/gitlab-workhorse-ee-fips:17.7"
+      - "cgr.dev/du-uds-defenseunicorns/gitlab-webservice-ee-fips:17.7"
       - "cgr.dev/du-uds-defenseunicorns/gitlab-kubectl-fips:1.32.0"
-      - "cgr.dev/du-uds-defenseunicorns/gitlab-base-fips:17.8.2"
-      - "cgr.dev/du-uds-defenseunicorns/gitlab-exporter-fips:17.8.2"
+      - "cgr.dev/du-uds-defenseunicorns/gitlab-base-fips:17.7"
+      - "cgr.dev/du-uds-defenseunicorns/gitlab-exporter-fips:17.7"
