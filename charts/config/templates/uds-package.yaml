@@ -71,12 +71,44 @@ spec:
         {{- range .Values.sso.defaultClientScopes }}
           - "{{ . }}"
         {{- end }}
-      {{- else }}
-        - "mapper-saml-email-email"
-        - "mapper-saml-firstname-first_name"
-        - "mapper-saml-lastname-last_name"
-        - "mapper-saml-grouplist-groups"
       {{- end }}
+      # Mappers required by GitLab
+      protocolMappers:
+        - name: email
+          protocol: "saml"
+          protocolMapper: "saml-email-mapper"
+          config:
+            user.attribute: "email"
+            attribute.name: "email"
+            attribute.nameformat: "Basic"
+        - name: first-name
+          protocol: "saml"
+          protocolMapper: "saml-first-name-mapper"
+          config:
+            user.attribute: "firstName"
+            attribute.name: "first_name"
+            attribute.nameformat: "Basic"
+        - name: last-name
+          protocol: "saml"
+          protocolMapper: "saml-last-name-mapper"
+          config:
+            user.attribute: "lastName"
+            attribute.name: "last_name"
+            attribute.nameformat: "Basic"
+        - name: login
+          protocol: "saml"
+          protocolMapper: "saml-login-mapper"
+          config:
+            user.attribute: "username"
+            attribute.name: "login"
+            attribute.nameformat: "Basic"
+        - name: name
+          protocol: "saml"
+          protocolMapper: "saml-name-mapper"
+          config:
+            user.attribute: "username"
+            attribute.name: "name"
+            attribute.nameformat: "Basic"
       groups:
         anyOf:
         {{- if .Values.sso.requiredGroups }}
