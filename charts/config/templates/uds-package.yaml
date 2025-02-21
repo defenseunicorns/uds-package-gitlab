@@ -74,42 +74,6 @@ spec:
       {{- end }}
       # Mappers required by GitLab
       protocolMappers:
-        - name: login
-          protocol: saml
-          protocolMapper: saml-user-attribute-mapper
-          consentRequired: false
-          config:
-            attribute.nameformat: Basic
-            user.attribute: username
-            friendly.name: Login
-            attribute.name: login
-        - name: first-name
-          protocol: saml
-          protocolMapper: saml-user-attribute-mapper
-          consentRequired: false
-          config:
-            attribute.nameformat: Basic
-            user.attribute: firstName
-            friendly.name: First Name
-            attribute.name: first_name
-        - name: name
-          protocol: saml
-          protocolMapper: saml-user-attribute-mapper
-          consentRequired: false
-          config:
-            attribute.nameformat: Basic
-            user.attribute: username
-            friendly.name: Name
-            attribute.name: name
-        - name: last-name
-          protocol: saml
-          protocolMapper: saml-user-attribute-mapper
-          consentRequired: false
-          config:
-            attribute.nameformat: Basic
-            user.attribute: lastName
-            friendly.name: Last Name
-            attribute.name: last_name
         - name: email
           protocol: saml
           protocolMapper: saml-user-attribute-mapper
@@ -119,6 +83,34 @@ spec:
             user.attribute: email
             friendly.name: Email
             attribute.name: email
+        - name: first-name
+          protocol: saml
+          protocolMapper: saml-user-attribute-mapper
+          consentRequired: false
+          config:
+            attribute.nameformat: Basic
+            user.attribute: firstName
+            friendly.name: First Name
+            attribute.name: first_name
+        - name: last-name
+          protocol: saml
+          protocolMapper: saml-user-attribute-mapper
+          consentRequired: false
+          config:
+            attribute.nameformat: Basic
+            user.attribute: lastName
+            friendly.name: Last Name
+            attribute.name: last_name
+        - name: grouplist
+          protocol: saml
+          protocolMapper: saml-group-membership-mapper
+          consentRequired: false
+          config:
+            single: "false"
+            attribute.nameformat: Basic
+            full.path: "true"
+            friendly.name: groups
+            attribute.name: Groups
       groups:
         anyOf:
         {{- if .Values.sso.requiredGroups }}
