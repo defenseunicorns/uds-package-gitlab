@@ -121,7 +121,7 @@ packages:
             - path: "global.psql.password.secret"
               value: "gitlab.gitlab.pg-cluster.credentials.postgresql.acid.zalan.do"
             - path: global.redis.host
-              value: valkey-master.valkey.svc.cluster.local
+              value: valkey-primary.valkey.svc.cluster.local
           variables:
             - name: GITLAB_SSO_ENABLED
               description: "Boolean to enable or disable sso things"
