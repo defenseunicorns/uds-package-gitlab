@@ -64,7 +64,7 @@ packages:
 
   - name: valkey
     repository: ghcr.io/defenseunicorns/packages/uds/valkey
-    ref: 8.0.2-uds.0-upstream
+    ref: 8.0.2-uds.1-upstream
     overrides:
       valkey:
         uds-valkey-config:
