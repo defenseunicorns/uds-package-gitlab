@@ -13,6 +13,7 @@ metadata:
     dev.uds.categories: Software Dev, IT Management, Productivity, Security, Collaboration
     dev.uds.keywords: Full Software Development Lifecycle, CI/CD, Code Review, Release Cycle Analytics, GitLab Integration, Mission-Critical Environments, Workflow Optimization, Software Delivery Acceleration
     dev.uds.icon: data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MCIgaGVpZ2h0PSI4MCIgeG1sbnM6dj0iaHR0cHM6Ly92ZWN0YS5pby9uYW5vIj48cGF0aCBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9Ii4wMSIgZD0iTTEyLDEyaDU2djU2SDEyeiIvPjxwYXRoIGQ9Ik02NS4xMzQsMzQuNThsLS4wNzMtLjE5NC03LjA3OC0xOS4xNzdhMS45LDEuOSAwLDAgMC0uNzI4LS45MTEsMS44NCAxLjg0LDAgMCwwLTEuMTAxLS4yOTMsMS44NiAxLjg2LDAgMCwwLTEuMDY1LjQxNGMtLjMwMi4yNTUtLjUyMi42LS42MjguOTg5bC00Ljc3OSwxNS4xNzlIMzAuMzMxbC00Ljc3OS0xNS4xNzljLS4xMDQtLjM5MS0uMzIzLS43MzgtLjYyOC0uOTkyLS4zMDYtLjI0OC0uNjc3LS4zOTItMS4wNjUtLjQxNGExLjg0LDEuODQgMCwwIDAtMS4xMDEuMjkzYy0uMzI5LjIxNy0uNTgzLjUzNi0uNzI4LjkxMWwtNy4wOTEsMTkuMTY4LS4wNy4xOTRhMTQuMTMsMTQuMTMgMCwwIDAtLjM1OCw4LjY0MWMuNzg3LDIuODQ0IDIuNDQyLDUuMzQ2IDQuNzE3LDcuMTI5bC4wMjQuMDIuMDY1LjA0OCwxMC43ODEgOC4zODIsNS4zMzQgNC4xOTEsMy4yNDkgMi41NDdhMi4xMywyLjEzIDAsMCAwLDIuNjQyIDBsMy4yNDktMi41NDcsNS4zMzQtNC4xOTEsMTAuODQ3LTguNDMzLjAyNy0uMDIzYzIuMjctMS43ODMsMy45MjItNC4yODIsNC43MDctNy4xMjNhMTQuMTQsMTQuMTQgMCwwIDAtLjM1NC04LjYzeiIgZmlsbD0iI2UyNDMyOSIvPjxwYXRoIGQ9Ik02NS4xMzQsMzQuNThsLS4wNzMtLjE5NGMtMy40NDkuNzM1LTYuNjk4LDIuMjUyLTkuNTE3LDQuNDQxTDQsNTEuMDNsOS45MDIsNy43NyAxMC44NDYtOC40MzMuMDI3LS4wMjNjMi4yNzQtMS43ODIsMy45MjgtNC4yODQsNC43MTQtNy4xMjdzLjY2Mi01Ljg3NC0uMzU1LTguNjM3eiIgZmlsbD0iI2ZjNmQyNiIvPjxwYXRoIGQ9Ik0zMC4wOTksNTguOGw1LjMzNCw0LjE5MSAzLjI0OSwyLjU0N2EyLjEzLDIuMTMgMCwwIDAsMi42NDIgMGwzLjI0OS0yLjU0Nyw1LjMzNC00LjE5MUw0LDUxLjAzMWwtOS45MDIsNy43N3oiIGZpbGw9IiNmY2EzMjYiLz48cGF0aCBkPSJNMjQuNDUzLDM4LjgyOGEyMy40NywyMy40NyAwLDAgMC05LjUxNC00LjQ1M2wtLjA3LjE5NGMtMS4wMTksMi43NjQtMS4xNDUsNS43OTctLjM1OCw4LjY0MXMyLjQ0Miw1LjM0NiA0LjcxNyw3LjEyOWwuMDI0LjAyLjA2NS4wNDgsMTAuNzgxIDguMzgyTDQsNTEuMDE5IDI0LjQ1MywzOC44Mjh6IiBmaWxsPSIjZmM2ZDI2Ii8+PC9zdmc+
+
 variables:
   - name: DOMAIN
     default: "uds.dev"
@@ -39,7 +40,9 @@ variables:
   - name: DISABLE_REGISTRY_REDIRECT
     default: "false"
     description: "If your storage endpoint is not publicly accessible set this to true"
+
 components:
+
   - name: gitlab
     required: true
     description: "Deploy gitlab with registry1 images"
@@ -70,6 +73,7 @@ components:
       - "registry1.dso.mil/ironbank/gitlab/gitlab/kubectl:17.9.1"
       - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-base:17.9.1"
       - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-exporter:17.9.1"
+
   # Note: upstream flavor is experimental
   - name: gitlab
     required: true
@@ -100,7 +104,8 @@ components:
       - "registry.gitlab.com/gitlab-org/build/cng/kubectl:v17.9.1"
       - "registry.gitlab.com/gitlab-org/build/cng/gitlab-base:v17.9.1"
       - "registry.gitlab.com/gitlab-org/build/cng/gitlab-exporter:v17.9.1"
-      # Note: unicorn flavor is experimental
+
+  # Note: unicorn flavor is experimental
   - name: gitlab
     required: true
     description: "Deploy gitlab with chainguard images"
