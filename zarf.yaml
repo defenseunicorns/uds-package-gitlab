@@ -104,7 +104,7 @@ components:
       - "registry.gitlab.com/gitlab-org/build/cng/kubectl:v17.9.1"
       - "registry.gitlab.com/gitlab-org/build/cng/gitlab-base:v17.9.1"
       - "registry.gitlab.com/gitlab-org/build/cng/gitlab-exporter:v17.9.1"
-  
+
   # Note: unicorn flavor is experimental
   - name: gitlab
     required: true
