@@ -48,6 +48,9 @@ If you are using the [UDS Postgres Operator](https://github.com/defenseunicorns/
 - `global.psql.host` - provides the endpoint to use to connect to the database (i.e. `pg-cluster.postgres.svc.cluster.local`)
 - `global.psql.port` - provides the port to use to connect to the database (defaults to `5432`)
 
+> [!NOTE]
+> Note: To deploy GitLab in FIPS mode on AWS using RDS, [PostgresSQL version 16.1 or higher](https://docs.aws.amazon.com/AmazonRDS/latest/PostgreSQLReleaseNotes/postgresql-versions.html#postgresql-version16) is required due to TLS1.3 support
+
 ### IAM Roles for Service Accounts
 
 The Software Factory team has not yet tested IRSA with AWS RDS - there is an open issue linked below with further linked issues to test this that could act as a starting point to implement:
