@@ -5,75 +5,75 @@ gitlab:
   webservice:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-webservice-ee
-      tag: v17.10.1-fips
+      tag: v17.10.4-fips
     workhorse:
       image: registry.gitlab.com/gitlab-org/build/cng/gitlab-workhorse-ee
       # renovate: datasource=docker depName=registry.gitlab.com/gitlab-org/build/cng/gitlab-workhorse-ee versioning=semver
-      tag: v17.10.1-fips
+      tag: v17.10.4
   sidekiq:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-sidekiq-ee
-      tag: v17.10.1-fips
+      tag: v17.10.4-fips
   migrations:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-toolbox-ee
-      tag: v17.10.1-fips
+      tag: v17.10.4-fips
   gitaly:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/gitaly
-      tag: v17.10.1-fips
+      tag: v17.10.4-fips
     cgroups:
       initContainer:
         image:
           repository: registry.gitlab.com/gitlab-org/build/cng/gitaly-init-cgroups
-          tag: v17.10.1
+          tag: v17.10.4
   gitlab-exporter:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-exporter
-      tag: v17.10.1-fips
+      tag: v17.10.4-fips
   gitlab-pages:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-pages
-      tag: v17.10.1-fips
+      tag: v17.10.4-fips
   gitlab-shell:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-shell
-      tag: v17.10.1-fips
+      tag: v17.10.4-fips
   praefect:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/gitaly
-      tag: v17.10.1-fips
+      tag: v17.10.4-fips
   toolbox:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-toolbox-ee
-      tag: v17.10.1-fips
+      tag: v17.10.4-fips
 
 global:
   certificates:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/certificates
-      tag: v17.10.1-fips
+      tag: v17.10.4-fips
   gitlabBase:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-base
-      tag: v17.10.1-fips
+      tag: v17.10.4-fips
   kubectl:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/kubectl
-      tag: v17.10.1-fips
+      tag: v17.10.4-fips
 
 registry:
   image:
     repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-container-registry
-    tag: v17.10.1-fips
+    tag: v17.10.4-fips
 
 shared-secrets:
   selfsign:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/cfssl-self-sign
-      tag: v17.10.1-fips
+      tag: v17.10.4-fips
 
 upgradeCheck:
   image:
     repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-base
-    tag: v17.10.1-fips
+    tag: v17.10.4-fips

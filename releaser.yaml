@@ -4,10 +4,10 @@
 flavors:
   - name: upstream
     # renovate-uds: datasource=docker depName=registry.gitlab.com/gitlab-org/build/cng/gitlab-base extractVersion=^v(?<version>\d+\.\d+\.\d+)$
-    version: 17.10.1-uds.0
+    version: 17.10.4-uds.0
   - name: registry1
     # renovate-uds: datasource=docker depName=registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-base
-    version: 17.10.1-uds.0
+    version: 17.10.4-uds.0
   - name: unicorn
     # renovate-uds: datasource=docker depName=registry.gitlab.com/gitlab-org/build/cng/gitlab-base extractVersion=^v(?<version>\d+\.\d+\.\d+)$
-    version: 17.10.1-uds.0
+    version: 17.10.4-uds.0
