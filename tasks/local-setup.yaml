@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later OR LicenseRef-Defense-Unicorns-Commercial
 
 includes:
-  - setup: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.13.0/tasks/setup.yaml
+  - setup: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.14.1/tasks/setup.yaml
 
 tasks:
   - name: k3d-test-cluster
@@ -35,7 +35,7 @@ tasks:
             --type='merge' \
             -p '{
               "data": {
-                "nginx.conf": "events {\n    worker_connections  1024;\n}\n\nstream {\n    map $ssl_preread_server_name $selected_upstream {\n        hostnames;\n        *.admin.uds.dev backend_admin;\n        *.uds.dev backend_tenant;\n    }\n\n    upstream backend_admin {\n        server 172.18.0.200:443;\n    }\n\n    upstream backend_tenant {\n        server 172.18.0.201:443;\n    }\n\n    server {\n        listen 443;\n        proxy_pass $selected_upstream;\n        ssl_preread on;\n    }\n\n    upstream backend_tenant_2223 {\n        server 172.18.0.201:2223; \n    }\n\n    server {\n        listen 2223;\n        proxy_pass backend_tenant_2223;\n    }\n}\n\nhttp {\n  # Redirect server block\n  server {\n      listen 80;\n      server_name _;\n      return 301 https://$host$request_uri;\n  }\n}\n\nerror_log /dev/stderr;"
+                "nginx.conf": "events {\n    worker_connections  1024;\n}\n\nstream {\n    map $ssl_preread_server_name $selected_upstream {\n        hostnames;\n        *.admin.uds.dev backend_admin;\n        *.uds.dev backend_tenant;\n    }\n\n    upstream backend_admin {\n        server 172.18.0.200:443;\n    }\n\n    upstream backend_tenant {\n        server 172.18.0.201:443;\n    }\n\n    server {\n        listen 443;\n        proxy_pass $selected_upstream;\n        ssl_preread on;\n    }\n\n    upstream backend_tenant_2223 {\n        server 172.18.0.201:2223; \n    }\n\n    server {\n        listen 2223;\n        proxy_pass backend_tenant_2223;\n    }\n}\n\nhttp {\n  # Redirect server block\n  server {\n      listen 80;\n      server_name _;\n      return 301 https://$host$request_uri;\n  }\n}\n\n    pid /tmp/nginx.pid; \n\nerror_log /dev/stderr;"
               }
             }'
 
