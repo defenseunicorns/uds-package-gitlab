@@ -34,9 +34,9 @@ test('setup a project', async ({ page, browserName }) => {
   await test.step('create an issue', async () => {
     await page.goto(`/doug/${projectName}/-/issues/new`);
 
-    await page.getByTestId('issuable-form-title-field').fill('We should write more tests!');
+    await page.getByTestId('work-item-title-input').fill('We should write more tests!');
 
-    const descriptionBox = page.getByTestId('issuable-form-description-field');
+    const descriptionBox = page.getByTestId('markdown-editor-form-field');
 
     await descriptionBox.fill(`Why are there no tests???\n\n`);
 
@@ -49,7 +49,7 @@ test('setup a project', async ({ page, browserName }) => {
     // check that markdown description box is updated
     await expect(descriptionBox).toHaveValue(/uploads\/[a-z0-9]+\/unicorns\.jpeg/);
 
-    await page.getByTestId('issuable-create-button').click();
+    await page.getByTestId('create-button').click();
 
     // check that rendered image ends up in issue description
     await expect(page.getByRole('img', { name: 'unicorns' }))
