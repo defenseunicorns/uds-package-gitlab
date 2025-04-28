@@ -25,6 +25,7 @@ jobs:
       issues: read
       packages: read
       pages: read
+      models: read
       pull-requests: read
       repository-projects: read
       statuses: read
