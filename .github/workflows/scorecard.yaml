@@ -25,6 +25,7 @@ jobs:
       issues: read
       packages: read
       pages: read
+      models: read
       pull-requests: read
       repository-projects: read
       statuses: read
@@ -32,5 +33,5 @@ jobs:
       security-events: write
       # Used to receive a badge.
       id-token: write
-    uses: defenseunicorns/uds-common/.github/workflows/callable-scorecard.yaml@63c0653af51bac9805f7f33287a9d79912736120 # v1.10.3
+    uses: defenseunicorns/uds-common/.github/workflows/callable-scorecard.yaml@42196a596353dc9f8acb21a6a86b5d4a4f7ee76f # v1.14.2
     secrets: inherit

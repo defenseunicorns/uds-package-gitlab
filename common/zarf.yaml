@@ -19,7 +19,7 @@ components:
         namespace: gitlab
         url: https://charts.gitlab.io/
         gitPath: chart
-        version: "8.9.1"
+        version: "8.11.1"
         valuesFiles:
           - ../values/common-values.yaml
       - name: uds-gitlab-settings

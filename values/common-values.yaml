@@ -204,6 +204,11 @@ gitlab:
       enabled: true
       serviceMonitor:
         enabled: true
+    config:
+      ciphers: ["aes128-ctr", "aes192-ctr", "aes256-ctr"]
+      kexAlgorithms: ["ecdh-sha2-nistp384", "ecdh-sha2-nistp521"]
+      macs: ["hmac-sha2-256", "hmac-sha2-512"]
+      publicKeyAlgorithms: ["ssh-rsa", "ecdsa-sha2-nistp256", "ecdsa-sha2-nistp384", "ecdsa-sha2-nistp521"]
 
 certmanager:
   install: false

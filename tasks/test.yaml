@@ -34,11 +34,11 @@ tasks:
       - cmd: echo "uds-package-test-$(date +%s)"
         setVariables:
           - name: PROJECT_NAME
-      - cmd: rm -f ./gitlab-test-ssh-key && ssh-keygen -t rsa -b 4096 -C "your_email@example.com" -f ./gitlab-test-ssh-key -P ""
+      - cmd: rm -f ./gitlab-test-ssh-key && ssh-keygen -t ecdsa -b 384 -C "your_email@example.com" -f ./gitlab-test-ssh-key -P ""
         dir: tests/data
       # Login, and create a project
       - cmd: |
-          docker run --rm --ipc=host --net=host -e SSH_PUBLIC_KEY="$(cat ./data/gitlab-test-ssh-key.pub)" -e PROJECT_NAME="${PROJECT_NAME}" --mount type=bind,source="$(pwd)",target=/app mcr.microsoft.com/playwright:v1.51.0-jammy sh -c " \
+          docker run --rm --ipc=host --net=host -e SSH_PUBLIC_KEY="$(cat ./data/gitlab-test-ssh-key.pub)" -e PROJECT_NAME="${PROJECT_NAME}" --mount type=bind,source="$(pwd)",target=/app mcr.microsoft.com/playwright:v1.52.0-jammy sh -c " \
             cd app && \
             npm ci && \
             npx playwright test \
@@ -47,7 +47,9 @@ tasks:
       # Pull the project via SSH (gateway -> gitlab-shell -> gitaly)
       - cmd: |
           mkdir -p "${PROJECT_NAME}" && cd "${PROJECT_NAME}" && git init
-          git config core.sshCommand "ssh -i ../gitlab-test-ssh-key -o StrictHostKeyChecking=no"
+          git config core.sshCommand "ssh -i ../gitlab-test-ssh-key -o StrictHostKeyChecking=no -o Ciphers=aes256-ctr \
+          -o KexAlgorithms=ecdh-sha2-nistp384 \
+          -o MACs=hmac-sha2-256"
           git remote add origin "ssh://git@gitlab.uds.dev:2223/doug/${PROJECT_NAME}-firefox.git"
           git pull origin main
         dir: tests/data
