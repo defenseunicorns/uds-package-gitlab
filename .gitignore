@@ -30,3 +30,4 @@ tests/data/gitlab-test-ssh-key
 tests/data/gitlab-test-ssh-key.pub
 tests/data/uds-package-test-*
 oscal-assessment-results.yaml
+uds-checkpoint.tar

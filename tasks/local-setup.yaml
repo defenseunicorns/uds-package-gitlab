@@ -11,6 +11,7 @@ tasks:
       - task: setup:k3d-test-cluster
         with:
           options: --set K3D_EXTRA_ARGS="-p 2223:2223@server:*"
+          # use_checkpoint: "false"
       - cmd: |
           # Add port 2223 to the tenant ingress gateway
           ./uds zarf tools kubectl patch svc tenant-ingressgateway \
@@ -35,7 +36,7 @@ tasks:
             --type='merge' \
             -p '{
               "data": {
-                "nginx.conf": "events {\n    worker_connections  1024;\n}\n\nstream {\n    map $ssl_preread_server_name $selected_upstream {\n        hostnames;\n        *.admin.uds.dev backend_admin;\n        *.uds.dev backend_tenant;\n    }\n\n    upstream backend_admin {\n        server 172.18.0.200:443;\n    }\n\n    upstream backend_tenant {\n        server 172.18.0.201:443;\n    }\n\n    server {\n        listen 443;\n        proxy_pass $selected_upstream;\n        ssl_preread on;\n    }\n\n    upstream backend_tenant_2223 {\n        server 172.18.0.201:2223; \n    }\n\n    server {\n        listen 2223;\n        proxy_pass backend_tenant_2223;\n    }\n}\n\nhttp {\n  # Redirect server block\n  server {\n      listen 80;\n      server_name _;\n      return 301 https://$host$request_uri;\n  }\n}\n\n    pid /tmp/nginx.pid; \n\nerror_log /dev/stderr;"
+                "nginx.conf": "events {\n    worker_connections  1024;\n}\n\nstream {\n    map $ssl_preread_server_name $selected_upstream {\n        hostnames;\n        *.admin.uds.dev backend_admin;\n        *.uds.dev backend_tenant;\n    }\n\n    upstream backend_admin {\n        server 172.18.0.200:443;\n    }\n\n    upstream backend_tenant {\n        server 172.18.0.201:443;\n    }\n\n    server {\n        listen 443;\n        proxy_pass $selected_upstream;\n        ssl_preread on;\n    }\n    upstream backend_tenant_2223 {\n        server 172.18.0.201:2223;\n    }\n\n    server {\n        listen 2223;\n        proxy_pass backend_tenant_2223;\n    }\n}\n\nhttp {\n# Redirect server block\nserver {\n    listen 80;\n    server_name _;\n    return 301 https://$host$request_uri;\n}\n\n# The unprivileged nginx image requires the tmp paths to be in /tmp (https://github.com/nginx/docker-nginx-unprivileged)\nclient_body_temp_path /tmp/client_temp;\nproxy_temp_path       /tmp/proxy_temp_path;\nfastcgi_temp_path     /tmp/fastcgi_temp;\nuwsgi_temp_path       /tmp/uwsgi_temp;\nscgi_temp_path        /tmp/scgi_temp;\n}\n\n# The unprivileged nginx image requires the PID to be in /tmp (https://github.com/nginx/docker-nginx-unprivileged)\npid /tmp/nginx.pid;\n\nerror_log /dev/stderr;\n"
               }
             }'
 

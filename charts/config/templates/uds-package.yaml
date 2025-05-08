@@ -141,6 +141,8 @@ spec:
           }
   {{- end }}
   network:
+    serviceMesh:
+      mode: ambient
     expose:
       - service: gitlab-webservice-default
         selector:
