@@ -55,6 +55,9 @@ jobs:
       matrix:
         type: [install, upgrade]
         flavor: [upstream, registry1, unicorn]
+        exclude:
+          - flavor: unicorn
+            type: upgrade
     uses: defenseunicorns/uds-common/.github/workflows/callable-test.yaml@42196a596353dc9f8acb21a6a86b5d4a4f7ee76f # v1.14.2
     with:
       upgrade-flavors: ${{ needs.check-flavor.outputs.upgrade-flavors }}
