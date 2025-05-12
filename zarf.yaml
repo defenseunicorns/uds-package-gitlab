@@ -108,7 +108,7 @@ components:
   # Note: unicorn flavor is experimental
   - name: gitlab
     required: true
-    description: "Deploy gitlab with chainguard images"
+    description: "Deploy gitlab with Chainguard images"
     import:
       path: common
     only:
