@@ -5,4 +5,4 @@ global:
   kubectl:
     image:
       repository: registry1.dso.mil/ironbank/gitlab/gitlab/kubectl
-      tag: 17.11.2
+      tag: 18.0.0
