@@ -20,15 +20,16 @@ test('setup a project', async ({ page, browserName }) => {
     await page.goto(`/doug/${projectName}/-/new/main`);
 
     await page.getByTestId('file-name-field').fill('docs/README.md');
-    // updated to work with 17.9+
     await page.getByRole('textbox', { name: 'Code Editor. Press Control +' }).fill('# Docs', { force: true });
-    // pre 17.9
-    // await page.getByLabel('Editor content;Press Alt+F1').fill('# Docs', { force: true });
+
     await page.getByTestId('blob-edit-header-commit-button').click();
     await page.getByTestId('commit-change-modal-commit-button').click();
 
     await expect(page).toHaveURL(`/doug/${projectName}/-/blob/main/docs/README.md`)
-    await expect(page.getByRole('heading', { level: 1 })).toContainText('Docs');
+
+    const content = page.getByTestId('blob-viewer-file-content').locator('h1');
+    await expect(content).toContainText('Docs');
+
   });
 
   await test.step('create an issue', async () => {
