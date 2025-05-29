@@ -79,6 +79,9 @@
               "accessKey": {
                 "type": "string"
               },
+              "domain": {
+                "type": "string"
+              },
               "secretKey": {
                 "type": "string"
               },
@@ -93,6 +96,24 @@
               },
               "provider": {
                 "type": "string"
+              },
+              "azure": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "registryDebug": {
+                    "type": "boolean"
+                  }
+                }
+              },
+              "gcs": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "projectId": {
+                    "type": "string"
+                  }
+                }
               },
               "secretRef": {
                 "type": "object",

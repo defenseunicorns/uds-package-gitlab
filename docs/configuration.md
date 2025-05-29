@@ -110,6 +110,36 @@ When configuring the GitLab to connect to S3 storage in AWS, it is assumed IRSA 
               path: gitlab.gitlab-pages.serviceAccount.annotations.irsa/role-arn
 ```
 
+GCS workload identity can be added using a similar pattern. This below is setting the annotations on the service accounts gitlab creates.
+
+```yaml
+gitlab:
+  values:
+    - path: "global.serviceAccount.annotations"
+      value:
+        iam.gke.io/gcp-service-account: "gitlab-gcs@lmi-ngc2-hackathon.iam.gserviceaccount.com"
+```
+
+Azure workload identity uses pod labels.
+
+```yaml
+gitlab:
+  values:
+    - path: gitlab.registry.podLabels
+      value: 
+        azure.workload.identity/use": true
+    - path: gitlab.sidekiq.podLabels
+      value: 
+        azure.workload.identity/use": true
+    - path: gitlab.webservice.podLabels
+      value: 
+        azure.workload.identity/use": true
+    - path: gitlab.toolbox.podLabels
+      value: 
+        azure.workload.identity/use": true
+    
+```
+
 With this override definition one can then provide the IAM role ARNs to the deployment via either `--set` variables or via a `uds-config.yaml`.
 
 ## Redis / Valkey

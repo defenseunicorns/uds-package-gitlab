@@ -40,6 +40,7 @@ storage:
     bucketPrefix: "###ZARF_VAR_BUCKET_PREFIX###"
     bucketSuffix: "###ZARF_VAR_BUCKET_SUFFIX###"
     region: "minio"
+    domain: "" # "blob.core.usgovcloudapi.net" # Can be empty to use azure commercial
     secretRef:
       enabled: true  # Set to true to use secret reference
       secretNamespace: "gitlab"
@@ -47,14 +48,9 @@ storage:
       secretIDKey: "access_key"
       secretPasswordKey: "secret_key"
     azure: 
-      accountName: ""
-      accountKey: "" 
-      domain: "blob.core.usgovcloudapi.net" # Can be empty to use commercial
-      container: "" 
       registryDebug: false 
     gcs: 
       projectId: "" 
-      bucket: "" 
 
 redis:
   password: ""
