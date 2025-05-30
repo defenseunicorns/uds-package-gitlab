@@ -28,21 +28,29 @@ storage:
   port: 9000
   endpoint: "http://uds-minio-hl.minio.svc.cluster.local:9000"
   createSecret:
-    enabled: "###ZARF_VAR_GENERATE_STORAGE_SECRET###"
+    # provider: aws, minio, azure, gcs
+    # aws - assumed IRSA
+    # gcs - assumed Workload Identity
+    # azure - can use access key or workload identity
+    # and annotations need to be passed to necessary service accounts in the gitlab chart
+    provider: "minio"
+    enabled: "true"
     accessKey: ""
     secretKey: ""
     bucketPrefix: "###ZARF_VAR_BUCKET_PREFIX###"
     bucketSuffix: "###ZARF_VAR_BUCKET_SUFFIX###"
     region: "minio"
-    # provider: aws or minio; if aws, assumed IRSA is used
-    # and annotations need to be passed to necessary service accounts in the gitlab chart
-    provider: "minio"
+    domain: "" # "blob.core.usgovcloudapi.net" # Can be empty to use azure commercial
     secretRef:
       enabled: true  # Set to true to use secret reference
       secretNamespace: "gitlab"
       secretName: "gitlab-minio"
       secretIDKey: "access_key"
       secretPasswordKey: "secret_key"
+    azure:
+      registryDebug: false
+    gcs:
+      projectId: ""
 
 redis:
   password: ""

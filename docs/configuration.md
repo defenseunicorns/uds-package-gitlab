@@ -83,10 +83,10 @@ Below are the list of buckets that need to be created before starting GitLab:
 
 By default, the application is configured to work with `uds-package-minio-operator` package, adding [these overrides](https://github.com/defenseunicorns/uds-package-gitlab/blob/e2eb77af77c58ed423289db761dee43d9e7f82e2/bundle/uds-bundle.yaml#L18-L45) to the operator to provision the object storage required by GitLab.
 
-If you are not using in-cluster MinIO, but rather are using an external cloud providers object storage, you have two options. You can either create an object storage secret manually and disable the generation of the secret or have the helm chart generate one for you based on a set of input values. 
+If you are not using in-cluster MinIO, but rather are using an external cloud providers object storage, you have two options. You can either create an object storage secret manually and disable the generation of the secret or have the helm chart generate one for you based on a set of input values.
 
-> [!NOTE] 
-> If you would like to opt out of the in-chart secret generation process, you may disable it by setting the zarf variable `GENERATE_STORAGE_SECRET` to false. Then you can provide your own object store secret, named `gitlab-object-store`, as needed following GitLab's documentation.
+> [!NOTE]
+> If you would like to opt out of the in-chart secret generation process, you may disable it by setting the zarf variable `GENERATE_STORAGE_SECRET` to 'false'. Then you can provide your own object store secret, named `gitlab-object-store`, as needed following GitLab's documentation.
 
 When configuring the GitLab to connect to S3 storage in AWS, it is assumed IRSA will be used to connect to the buckets. The prerequisites for this are the buckets created with the appropriate iam roles and policies. Once those are created, two values need to be overridden in the config chart for secret generation: `storage.createSecret.provider` needs to be set to `aws` and `storage.createSecret.region` needs to be set to your AWS regions (i.e `us-gov-west-1`). From there, additional overrides are required in the gitlab chart to finish this setup. Specifically, the gitlab service accounts need to be overridden to have the annotations that are required for IRSA. Below is an example of how you would define the variable overrides where you would then pass in the IAM role ARNs on deploy.
 
@@ -109,6 +109,40 @@ When configuring the GitLab to connect to S3 storage in AWS, it is assumed IRSA 
               description: "The ARN of the role to assume for the pages pods"
               path: gitlab.gitlab-pages.serviceAccount.annotations.irsa/role-arn
 ```
+
+When configuring object storage to use Azure, set the `storage.createSecret.domain` to `'blob.core.usgovcloudapi.net'` for Azure Government or `'blob.core.windows.net'` for Azure Commercial.  If registry debugging logs need to be enabled, set `storage.createSecret.azure.registryDebug` to `true` to enable connectivity logs in the gitlab registry pods. The values `storage.createSecret.accessKey` is equivelant to blob storage access name and `storage.createSecret.secretKey` is equivalent to blob storage access key. If `storage.createSecret.secretKey` is empty, then it's assumed to use default_credentials meaning workload identity will be used.
+
+Azure workload identity uses pod labels.
+
+```yaml
+gitlab:
+  values:
+    - path: gitlab.registry.podLabels
+      value: 
+        azure.workload.identity/use: true
+    - path: gitlab.sidekiq.podLabels
+      value: 
+        azure.workload.identity/use: true
+    - path: gitlab.webservice.podLabels
+      value: 
+        azure.workload.identity/use: true
+    - path: gitlab.toolbox.podLabels
+      value: 
+        azure.workload.identity/use: true
+    
+```
+
+Google Cloud Storage(GCS) workload identity can be added using a similar pattern. This below is setting the annotations on the service accounts gitlab creates.
+
+```yaml
+gitlab:
+  values:
+    - path: "global.serviceAccount.annotations"
+      value:
+        iam.gke.io/gcp-service-account: "gitlab-gcs@lmi-ngc2-hackathon.iam.gserviceaccount.com"
+```
+
+Must supply a project id using `storage.createSecret.gcs.projectId` for google cloud storage connection.
 
 With this override definition one can then provide the IAM role ARNs to the deployment via either `--set` variables or via a `uds-config.yaml`.
 
