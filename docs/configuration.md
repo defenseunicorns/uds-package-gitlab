@@ -110,7 +110,29 @@ When configuring the GitLab to connect to S3 storage in AWS, it is assumed IRSA 
               path: gitlab.gitlab-pages.serviceAccount.annotations.irsa/role-arn
 ```
 
-GCS workload identity can be added using a similar pattern. This below is setting the annotations on the service accounts gitlab creates.
+When configuring object storage to use Azure, set the `storage.createSecret.domain` to `'blob.core.usgovcloudapi.net'` for Azure Government or `'blob.core.windows.net'` for Azure Commercial.  If registry debugging logs need to be enabled, set `storage.createSecret.azure.registryDebug` to `true` to enable connectivity logs in the gitlab registry pods. The values `storage.createSecret.accessKey` is equivelant to blob storage access name and `storage.createSecret.secretKey` is equivalent to blob storage access key. If `storage.createSecret.secretKey` is empty, then it's assumed to use default_credentials meaning workload identity will be used.
+
+Azure workload identity uses pod labels.
+
+```yaml
+gitlab:
+  values:
+    - path: gitlab.registry.podLabels
+      value: 
+        azure.workload.identity/use: true
+    - path: gitlab.sidekiq.podLabels
+      value: 
+        azure.workload.identity/use: true
+    - path: gitlab.webservice.podLabels
+      value: 
+        azure.workload.identity/use: true
+    - path: gitlab.toolbox.podLabels
+      value: 
+        azure.workload.identity/use: true
+    
+```
+
+Google Cloud Storage(GCS) workload identity can be added using a similar pattern. This below is setting the annotations on the service accounts gitlab creates.
 
 ```yaml
 gitlab:
@@ -120,25 +142,7 @@ gitlab:
         iam.gke.io/gcp-service-account: "gitlab-gcs@lmi-ngc2-hackathon.iam.gserviceaccount.com"
 ```
 
-Azure workload identity uses pod labels.
-
-```yaml
-gitlab:
-  values:
-    - path: gitlab.registry.podLabels
-      value: 
-        azure.workload.identity/use": true
-    - path: gitlab.sidekiq.podLabels
-      value: 
-        azure.workload.identity/use": true
-    - path: gitlab.webservice.podLabels
-      value: 
-        azure.workload.identity/use": true
-    - path: gitlab.toolbox.podLabels
-      value: 
-        azure.workload.identity/use": true
-    
-```
+Must supply a project id using `storage.createSecret.gcs.projectId` for google cloud storage connection.
 
 With this override definition one can then provide the IAM role ARNs to the deployment via either `--set` variables or via a `uds-config.yaml`.
 
