@@ -83,10 +83,10 @@ Below are the list of buckets that need to be created before starting GitLab:
 
 By default, the application is configured to work with `uds-package-minio-operator` package, adding [these overrides](https://github.com/defenseunicorns/uds-package-gitlab/blob/e2eb77af77c58ed423289db761dee43d9e7f82e2/bundle/uds-bundle.yaml#L18-L45) to the operator to provision the object storage required by GitLab.
 
-If you are not using in-cluster MinIO, but rather are using an external cloud providers object storage, you have two options. You can either create an object storage secret manually and disable the generation of the secret or have the helm chart generate one for you based on a set of input values. 
+If you are not using in-cluster MinIO, but rather are using an external cloud providers object storage, you have two options. You can either create an object storage secret manually and disable the generation of the secret or have the helm chart generate one for you based on a set of input values.
 
-> [!NOTE] 
-> If you would like to opt out of the in-chart secret generation process, you may disable it by setting the zarf variable `GENERATE_STORAGE_SECRET` to false. Then you can provide your own object store secret, named `gitlab-object-store`, as needed following GitLab's documentation.
+> [!NOTE]
+> If you would like to opt out of the in-chart secret generation process, you may disable it by setting the zarf variable `GENERATE_STORAGE_SECRET` to 'false'. Then you can provide your own object store secret, named `gitlab-object-store`, as needed following GitLab's documentation.
 
 When configuring the GitLab to connect to S3 storage in AWS, it is assumed IRSA will be used to connect to the buckets. The prerequisites for this are the buckets created with the appropriate iam roles and policies. Once those are created, two values need to be overridden in the config chart for secret generation: `storage.createSecret.provider` needs to be set to `aws` and `storage.createSecret.region` needs to be set to your AWS regions (i.e `us-gov-west-1`). From there, additional overrides are required in the gitlab chart to finish this setup. Specifically, the gitlab service accounts need to be overridden to have the annotations that are required for IRSA. Below is an example of how you would define the variable overrides where you would then pass in the IAM role ARNs on deploy.
 

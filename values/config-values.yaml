@@ -1,0 +1,3 @@
+storage:
+  createSecret:
+    enabled: "###ZARF_VAR_GENERATE_STORAGE_SECRET###"

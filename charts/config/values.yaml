@@ -34,7 +34,7 @@ storage:
     # azure - can use access key or workload identity
     # and annotations need to be passed to necessary service accounts in the gitlab chart
     provider: "minio"
-    enabled: "###ZARF_VAR_GENERATE_STORAGE_SECRET###"
+    enabled: "true"
     accessKey: ""
     secretKey: ""
     bucketPrefix: "###ZARF_VAR_BUCKET_PREFIX###"
