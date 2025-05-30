@@ -47,10 +47,10 @@ storage:
       secretName: "gitlab-minio"
       secretIDKey: "access_key"
       secretPasswordKey: "secret_key"
-    azure: 
-      registryDebug: false 
-    gcs: 
-      projectId: "" 
+    azure:
+      registryDebug: false
+    gcs:
+      projectId: ""
 
 redis:
   password: ""
