@@ -16,7 +16,7 @@ components:
         version: 0.2.0
         localPath: ../charts/config
         valuesFiles:
-         - ../values/config-values.yaml
+          - ../values/config-values.yaml
       - name: gitlab
         namespace: gitlab
         url: https://charts.gitlab.io/
