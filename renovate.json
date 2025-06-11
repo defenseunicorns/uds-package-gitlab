@@ -27,6 +27,7 @@
         "package-deps"
       ],
       "commitMessageTopic": "package-deps",
+      "matchPackageNames": ["!/^mcr\\.microsoft\\.com\\/playwright$/"],
       "matchDatasources": [
         "docker",
         "helm",
