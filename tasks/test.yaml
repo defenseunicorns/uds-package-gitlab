@@ -38,7 +38,7 @@ tasks:
         dir: tests/data
       # Login, and create a project
       - cmd: |
-          docker run --rm --ipc=host --net=host -e SSH_PUBLIC_KEY="$(cat ./data/gitlab-test-ssh-key.pub)" -e PROJECT_NAME="${PROJECT_NAME}" --mount type=bind,source="$(pwd)",target=/app mcr.microsoft.com/playwright:v1.52.0-jammy sh -c " \
+          docker run --rm --ipc=host --net=host -e SSH_PUBLIC_KEY="$(cat ./data/gitlab-test-ssh-key.pub)" -e PROJECT_NAME="${PROJECT_NAME}" --mount type=bind,source="$(pwd)",target=/app mcr.microsoft.com/playwright:v1.53.0-jammy sh -c " \
             cd app && \
             npm ci && \
             npx playwright test \
