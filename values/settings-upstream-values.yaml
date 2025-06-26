@@ -5,4 +5,4 @@ global:
   kubectl:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/kubectl
-      tag: v18.0.2-fips
+      tag: v18.1.1-fips
