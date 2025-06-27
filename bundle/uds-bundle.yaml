@@ -10,7 +10,7 @@ metadata:
 packages:
   - name: minio-operator
     repository: ghcr.io/defenseunicorns/packages/uds/minio-operator
-    ref: 7.1.1-uds.1-upstream
+    ref: 7.1.1-uds.2-upstream
     overrides:
       minio-operator:
         uds-minio-config:
@@ -42,7 +42,7 @@ packages:
 
   - name: postgres-operator
     repository: ghcr.io/defenseunicorns/packages/uds/postgres-operator
-    ref: 1.14.0-uds.6-upstream
+    ref: 1.14.0-uds.7-upstream
     overrides:
       postgres-operator:
         uds-postgres-config:
@@ -64,7 +64,7 @@ packages:
 
   - name: valkey
     repository: ghcr.io/defenseunicorns/packages/uds/valkey
-    ref: 8.1.1-uds.1-upstream
+    ref: 8.1.1-uds.2-upstream
     overrides:
       valkey:
         uds-valkey-config:
