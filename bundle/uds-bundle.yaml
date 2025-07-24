@@ -42,7 +42,7 @@ packages:
 
   - name: postgres-operator
     repository: ghcr.io/defenseunicorns/packages/uds/postgres-operator
-    ref: 1.14.0-uds.7-upstream
+    ref: 1.14.0-uds.9-upstream
     overrides:
       postgres-operator:
         uds-postgres-config:
