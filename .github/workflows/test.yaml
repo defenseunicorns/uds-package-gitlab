@@ -8,27 +8,13 @@ on:
   pull_request:
     # milestoned is added here as a way to retrigger workflows that are stuck or otherwise didn't run correctly
     types: [milestoned, opened, reopened, synchronize]
-    paths-ignore:
-      - "**.md"
-      - "**.jpg"
-      - "**.png"
-      - "**.gif"
-      - "**.svg"
-      - adr/**
-      - docs/**
-      - .gitignore
-      - renovate.json
-      - releaser.yaml
-      - CODEOWNERS
-      - LICENSE
-      - CONTRIBUTING.md
-      - SECURITY.md
 
 # Permissions for the GITHUB_TOKEN used by the workflow.
 permissions:
   contents: read # Allows reading the content of the repository.
   packages: read # Allows reading the content of the repository's packages.
   id-token: write
+  pull-requests: read
 
 # Abort prior jobs in the same workflow / PR
 concurrency:
@@ -63,3 +49,10 @@ jobs:
       runsOn: uds-swf-ubuntu-big-boy-8-core
       timeout: 30
     secrets: inherit # Inherits all secrets from the parent workflow.
+
+  verify-test:
+    runs-on: ubuntu-latest
+    needs: validate
+    steps:
+      - name: Success
+        run: echo "All tests passed successfully!"
