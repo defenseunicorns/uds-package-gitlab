@@ -11,6 +11,8 @@ test('setup a project', async ({ page, browserName }) => {
 
   await page.goto('/projects/new#blank_project');
   await page.getByLabel('Project name').fill(projectName);
+  await page.locator('#blank-project-name').getByTestId('select-namespace-dropdown').click();
+  await page.getByTestId('listbox-item-gid://gitlab/Namespaces::UserNamespace/3').getByText('doug').click();
   await page.getByLabel('Initialize repository with a README').setChecked(true);
   await page.getByRole('button', { name: 'Create project' }).click();
 
@@ -36,8 +38,9 @@ test('setup a project', async ({ page, browserName }) => {
     await page.goto(`/doug/${projectName}/-/issues/new`);
 
     await page.getByTestId('work-item-title-input').fill('We should write more tests!');
-
-    const descriptionBox = page.getByTestId('markdown-editor-form-field');
+    await page.getByTestId('markdown-editor-form-field').locator('div').filter({ hasText: 'Switch to plain text editing' }).first().click();
+    const descriptionBox = page.getByLabel('Rich text editor');
+    //page.getByTestId('content_editor_editablebox').getByRole('paragraph');
 
     await descriptionBox.fill(`Why are there no tests???\n\n`);
 
@@ -48,7 +51,7 @@ test('setup a project', async ({ page, browserName }) => {
     await fileChooser.setFiles(path.join(__dirname, 'data/unicorns.jpeg'));
 
     // check that markdown description box is updated
-    await expect(descriptionBox).toHaveValue(/uploads\/[a-z0-9]+\/unicorns\.jpeg/);
+    await expect(page.getByPlaceholder('Write a comment or drag your files here…')).toHaveValue(/uploads\/[a-z0-9]+\/unicorns\.jpeg/);
 
     await page.getByTestId('create-button').click();
 

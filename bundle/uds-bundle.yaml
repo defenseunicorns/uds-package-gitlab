@@ -58,7 +58,7 @@ packages:
                   gitlab.gitlab: []  # database owner
                 databases:
                   gitlabdb: gitlab.gitlab
-                version: "14"
+                version: "16"
                 ingress:
                   - remoteNamespace: gitlab
 
