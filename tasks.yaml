@@ -64,6 +64,11 @@ tasks:
       - task: local-setup:k3d-test-cluster
       - task: deploy:test-bundle
       - task: compliance:validate
+      - description: Patch Postgres to v16 for upgrade test
+        cmd: |
+          ./uds zarf tools kubectl patch postgresql pg-cluster -n postgres \
+            --type merge \
+            -p '{"spec":{"postgresql":{"version":"16"}}}'
       - task: create-dev-package
       - task: create-deploy-test-bundle
       - task: compliance:validate
