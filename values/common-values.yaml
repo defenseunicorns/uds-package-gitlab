@@ -210,8 +210,9 @@ gitlab:
       macs: ["hmac-sha2-256", "hmac-sha2-512"]
       publicKeyAlgorithms: ["ssh-rsa", "ecdsa-sha2-nistp256", "ecdsa-sha2-nistp384", "ecdsa-sha2-nistp521"]
 
+installCertmanager: false
 certmanager:
-  install: false
+  installCRDs: false
 
 gitlab-runner:
   install: false
