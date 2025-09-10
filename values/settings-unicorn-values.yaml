@@ -5,4 +5,4 @@ global:
   kubectl:
     image:
       repository: quay.io/rfcurated/gitlab/kubectl
-      tag: 18.3.1-jammy-scratch-fips-rfcurated
+      tag: 18.3.1-jammy-fips-rfcurated
