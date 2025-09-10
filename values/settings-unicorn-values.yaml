@@ -4,5 +4,5 @@
 global:
   kubectl:
     image:
-      repository: registry.gitlab.com/gitlab-org/build/cng/kubectl
-      tag: v18.3.1-fips
+      repository: quay.io/rfcurated/gitlab/kubectl
+      tag: 18.3.1-jammy-scratch-fips-rfcurated
