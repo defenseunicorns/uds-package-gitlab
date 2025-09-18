@@ -6,3 +6,4 @@ global:
     image:
       repository: quay.io/rfcurated/gitlab/kubectl
       tag: 18.3.2-jammy-fips-rfcurated
+

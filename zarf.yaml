@@ -60,19 +60,19 @@ components:
         valuesFiles:
           - values/settings-registry1-values.yaml
     images:
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/certificates:18.3.1"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/certificates:18.3.2"
       - "registry1.dso.mil/ironbank/gitlab/gitlab/cfssl-self-sign:1.6.1"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitaly:18.3.1"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-container-registry:18.3.1"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-pages:18.3.1"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-shell:18.3.1"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-sidekiq:18.3.1"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-toolbox:18.3.1"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-webservice:18.3.1"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-workhorse:18.3.1"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/kubectl:18.3.1"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-base:18.3.1"
-      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-exporter:18.3.1"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitaly:18.3.2"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-container-registry:18.3.2"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-pages:18.3.2"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-shell:18.3.2"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-sidekiq:18.3.2"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-toolbox:18.3.2"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-webservice:18.3.2"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-workhorse:18.3.2"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/kubectl:18.3.2"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-base:18.3.2"
+      - "registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-exporter:18.3.2"
 
   # Note: upstream flavor is experimental
   - name: gitlab
@@ -90,20 +90,20 @@ components:
         valuesFiles:
           - values/settings-upstream-values.yaml
     images:
-      - "registry.gitlab.com/gitlab-org/build/cng/certificates:v18.3.1-fips"
-      - "registry.gitlab.com/gitlab-org/build/cng/cfssl-self-sign:v18.3.1-fips"
-      - "registry.gitlab.com/gitlab-org/build/cng/gitaly:v18.3.1-fips"
-      - "registry.gitlab.com/gitlab-org/build/cng/gitaly-init-cgroups:v18.3.1"
-      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-container-registry:v18.3.1-fips"
-      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-pages:v18.3.1-fips"
-      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-shell:v18.3.1-fips"
-      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-sidekiq-ee:v18.3.1-fips"
-      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-toolbox-ee:v18.3.1-fips"
-      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-webservice-ee:v18.3.1-fips"
-      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-workhorse-ee:v18.3.1-fips"
-      - "registry.gitlab.com/gitlab-org/build/cng/kubectl:v18.3.1-fips"
-      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-base:v18.3.1-fips"
-      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-exporter:v18.3.1-fips"
+      - "registry.gitlab.com/gitlab-org/build/cng/certificates:v18.3.2-fips"
+      - "registry.gitlab.com/gitlab-org/build/cng/cfssl-self-sign:v18.3.2-fips"
+      - "registry.gitlab.com/gitlab-org/build/cng/gitaly:v18.3.2-fips"
+      - "registry.gitlab.com/gitlab-org/build/cng/gitaly-init-cgroups:v18.3.2"
+      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-container-registry:v18.3.2-fips"
+      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-pages:v18.3.2-fips"
+      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-shell:v18.3.2-fips"
+      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-sidekiq-ee:v18.3.2-fips"
+      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-toolbox-ee:v18.3.2-fips"
+      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-webservice-ee:v18.3.2-fips"
+      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-workhorse-ee:v18.3.2-fips"
+      - "registry.gitlab.com/gitlab-org/build/cng/kubectl:v18.3.2-fips"
+      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-base:v18.3.2-fips"
+      - "registry.gitlab.com/gitlab-org/build/cng/gitlab-exporter:v18.3.2-fips"
 
   # Note: unicorn flavor is experimental
   - name: gitlab

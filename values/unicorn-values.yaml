@@ -77,3 +77,4 @@ upgradeCheck:
   image:
     repository: quay.io/rfcurated/gitlab/gitlab-base
     tag: 18.3.2-jammy-fips-rfcurated
+
