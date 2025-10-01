@@ -29,7 +29,7 @@ jobs:
             architecture: arm64
           - flavor: unicorn
             architecture: arm64
-    uses: defenseunicorns/uds-common/.github/workflows/callable-publish.yaml@f6fd3e7d33a489e2a7598234acebbfd3c5a2f7df # v1.20.2
+    uses: defenseunicorns/uds-common/.github/workflows/callable-publish.yaml@f38e2d9595351ba8f9455f201a66eb91ccd039f2 # v1.20.3
     with:
       flavor: ${{ matrix.flavor }}
       runsOn: ${{ matrix.architecture == 'arm64' && 'uds-swf-ubuntu-arm64-4-core' || 'uds-swf-ubuntu-big-boy-8-core' }}
