@@ -4,76 +4,76 @@
 gitlab:
   webservice:
     image:
-      repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-webservice-ee
-      tag: v18.4.1-fips
+      repository: quay.io/rfcurated/gitlab/gitlab-webservice-ee
+      tag: 18.4.1-jammy-fips-rfcurated
     workhorse:
-      image: registry.gitlab.com/gitlab-org/build/cng/gitlab-workhorse-ee
-      # renovate: datasource=docker depName=registry.gitlab.com/gitlab-org/build/cng/gitlab-workhorse-ee versioning=docker
-      tag: v18.4.1-fips
+      image: quay.io/rfcurated/gitlab/gitlab-workhorse-ee
+      # renovate: datasource=docker depName=quay.io/rfcurated/gitlab/gitlab-workhorse-ee versioning=docker
+      tag: 18.4.1-jammy-fips-rfcurated
   sidekiq:
     image:
-      repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-sidekiq-ee
-      tag: v18.4.1-fips
+      repository: quay.io/rfcurated/gitlab/gitlab-sidekiq-ee
+      tag: 18.4.1-jammy-fips-rfcurated
   migrations:
     image:
-      repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-toolbox-ee
-      tag: v18.4.1-fips
+      repository: quay.io/rfcurated/gitlab/gitlab-toolbox-ee
+      tag: 18.4.1-jammy-fips-rfcurated
   gitaly:
     image:
-      repository: registry.gitlab.com/gitlab-org/build/cng/gitaly
-      tag: v18.4.1-fips
+      repository: quay.io/rfcurated/gitlab/gitaly
+      tag: 18.4.1-jammy-fips-rfcurated
     cgroups:
       initContainer:
         image:
-          repository: registry.gitlab.com/gitlab-org/build/cng/gitaly-init-cgroups
-          tag: v18.4.1
+          repository: quay.io/rfcurated/gitlab/gitaly-init-cgroups
+          tag: 18.4.1-jammy-fips-rfcurated
   gitlab-exporter:
     image:
-      repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-exporter
-      tag: v18.4.1-fips
+      repository: quay.io/rfcurated/gitlab/gitlab-exporter
+      tag: 18.4.1-jammy-fips-rfcurated
   gitlab-pages:
     image:
-      repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-pages
-      tag: v18.4.1-fips
+      repository: quay.io/rfcurated/gitlab/gitlab-pages
+      tag: 18.4.1-jammy-fips-rfcurated
   gitlab-shell:
     image:
-      repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-shell
-      tag: v18.4.1-fips
+      repository: quay.io/rfcurated/gitlab/gitlab-shell
+      tag: 18.4.1-jammy-fips-rfcurated
   praefect:
     image:
-      repository: registry.gitlab.com/gitlab-org/build/cng/gitaly
-      tag: v18.4.1-fips
+      repository: quay.io/rfcurated/gitlab/gitaly
+      tag: 18.4.1-jammy-fips-rfcurated
   toolbox:
     image:
-      repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-toolbox-ee
-      tag: v18.4.1-fips
+      repository: quay.io/rfcurated/gitlab/gitlab-toolbox-ee
+      tag: 18.4.1-jammy-fips-rfcurated
 
 global:
   certificates:
     image:
-      repository: registry.gitlab.com/gitlab-org/build/cng/certificates
-      tag: v18.4.1-fips
+      repository: quay.io/rfcurated/gitlab/certificates
+      tag: 18.4.1-jammy-fips-rfcurated
   gitlabBase:
     image:
-      repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-base
-      tag: v18.4.1-fips
+      repository: quay.io/rfcurated/gitlab/gitlab-base
+      tag: 18.4.1-jammy-fips-rfcurated
   kubectl:
     image:
-      repository: registry.gitlab.com/gitlab-org/build/cng/kubectl
-      tag: v18.4.1-fips
+      repository: quay.io/rfcurated/gitlab/kubectl
+      tag: 18.4.1-jammy-fips-rfcurated
 
 registry:
   image:
-    repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-container-registry
-    tag: v18.4.1-fips
+    repository: quay.io/rfcurated/gitlab/gitlab-container-registry
+    tag: 18.4.1-jammy-fips-rfcurated
 
 shared-secrets:
   selfsign:
     image:
-      repository: registry.gitlab.com/gitlab-org/build/cng/cfssl-self-sign
-      tag: v18.4.1-fips
+      repository: quay.io/rfcurated/gitlab/cfssl-self-sign
+      tag: 18.4.1-jammy-fips-rfcurated
 
 upgradeCheck:
   image:
-    repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-base
-    tag: v18.4.1-fips
+    repository: quay.io/rfcurated/gitlab/gitlab-base
+    tag: 18.4.1-jammy-fips-rfcurated
