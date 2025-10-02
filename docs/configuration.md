@@ -21,6 +21,16 @@ Network policies are controlled via the `uds-gitlab-config` chart in accordance 
 > [!NOTE]
 > Currently the GitLab UDS Package contains Istio `PeerAuthentication` exceptions to allow the `dependency` init containers to reach out and check the Redis and Postgres services.  These are only added with `redis.internal` or `postgres.internal` set to `true` and will be removed once UDS Core [switches to native sidecars](https://github.com/defenseunicorns/uds-core/issues/536).
 
+
+### Gateway configuration
+
+By default, gitlab is exposed through the tenant gateway which puts it at `gitlab.domain.com`. If you would rather have gitlab exposed on the admin gateway (`gitlab.admin.domain.com`), there is a value that can be overridden within the `uds-gitlab-config` chart. 
+
+#### `uds-gitlab-config` chart:
+
+- `gateway` - can be set to `admin` or the default value `tenant`
+
+
 ## Database
 
 GitLab uses Postgres as its backing database service and supports the [common database providers within UDS Software Factory](https://github.com/defenseunicorns/uds-software-factory/blob/main/docs/database.md).  
