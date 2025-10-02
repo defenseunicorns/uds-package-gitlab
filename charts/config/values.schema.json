@@ -5,6 +5,13 @@
       "domain": {
         "type": "string"
       },
+      "gateway": {
+        "type": "string",
+        "enum": [
+          "tenant",
+          "admin"
+        ]
+      },
       "license": {
         "type": "string"
       },
