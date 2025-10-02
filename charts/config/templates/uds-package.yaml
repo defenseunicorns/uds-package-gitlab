@@ -7,6 +7,7 @@ metadata:
   name: gitlab
   namespace: {{ .Release.Namespace }}
 spec:
+  {{- $ssoDomain := ternary (trimPrefix "admin." .Values.domain) .Values.domain (eq .Values.gateway "admin") }}
   {{- if and (.Values.sso.enabled) (eq .Values.sso.protocol "openid_connect") }}
   sso:
     - name: GitLab Login
@@ -41,7 +42,7 @@ spec:
                 "profile"
               ],
               "response_type": "code",
-              "issuer": "https://sso.{{ .Values.domain }}/realms/uds",
+              "issuer": "https://sso.{{ $ssoDomain }}/realms/uds",
               "client_auth_method": "query",
               "discovery": false,
               "uid_field": "preferred_username",
@@ -51,9 +52,9 @@ spec:
                 "secret": "clientField(secret)",
                 "redirect_uri": "clientField(redirectUris)[0]",
                 "end_session_endpoint": "http://keycloak-http.keycloak.svc.cluster.local:8080/realms/uds/protocol/openid-connect/logout",
-                "authorization_endpoint": "https://sso.{{ .Values.domain }}/realms/uds/protocol/openid-connect/auth",
+                "authorization_endpoint": "https://sso.{{ $ssoDomain }}/realms/uds/protocol/openid-connect/auth",
                 "token_endpoint": "http://keycloak-http.keycloak.svc.cluster.local:8080/realms/uds/protocol/openid-connect/token",
-                "userinfo_endpoint": "https://sso.{{ .Values.domain }}/realms/uds/protocol/openid-connect/userinfo",
+                "userinfo_endpoint": "https://sso.{{ $ssoDomain }}/realms/uds/protocol/openid-connect/userinfo",
                 "jwks_uri": "http://keycloak-http.keycloak.svc.cluster.local:8080/realms/uds/protocol/openid-connect/certs"
               }
             }
@@ -134,7 +135,7 @@ spec:
             "args":{
                 "assertion_consumer_service_url": "https://gitlab.{{ .Values.domain }}/users/auth/saml/callback",
                 "idp_cert": "clientField(samlIdpCertificate)",
-                "idp_sso_target_url": "https://sso.{{ .Values.domain }}/realms/uds/protocol/saml",
+                "idp_sso_target_url": "https://sso.{{ $ssoDomain }}/realms/uds/protocol/saml",
                 "issuer": "clientField(clientId)",
                 "name_identifier_format": "urn:oasis:names:tc:SAML:2.0:nameid-format:persistent",
             }
@@ -148,19 +149,19 @@ spec:
         selector:
           app: webservice
         host: gitlab
-        gateway: tenant
+        gateway: {{ .Values.gateway }}
         port: 8181
       - service: gitlab-gitlab-pages
         selector:
           app: gitlab-pages
         host: "*.pages"
-        gateway: tenant
+        gateway: {{ .Values.gateway }}
         port: 8090
       - service: gitlab-registry
         selector:
           app: registry
         host: registry
-        gateway: tenant
+        gateway: {{ .Values.gateway }}
         port: 5000
     allow:
       - direction: Ingress
@@ -170,9 +171,9 @@ spec:
       - direction: Ingress
         selector:
           app: gitlab-shell
-        remoteNamespace: istio-tenant-gateway
+        remoteNamespace: istio-{{ .Values.gateway }}-gateway
         remoteSelector:
-          app: tenant-ingressgateway
+          app: {{ .Values.gateway }}-ingressgateway
         port: 2222
         description: "SSH Ingress"
     {{- end }}
@@ -453,9 +454,9 @@ spec:
         description: "SSO Internal"
 
       - direction: Egress
-        remoteNamespace: istio-tenant-gateway
+        remoteNamespace: istio-{{ .Values.gateway }}-gateway
         remoteSelector:
-          app: tenant-ingressgateway
+          app: {{ .Values.gateway }}-ingressgateway
         selector:
           app: webservice
         port: 443
