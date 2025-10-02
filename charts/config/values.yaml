@@ -2,7 +2,8 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later OR LicenseRef-Defense-Unicorns-Commercial
 # yaml-language-server: $schema=./values.schema.json
 
-domain: "###ZARF_VAR_DOMAIN###"
+domain: uds.dev # replace by '###ZARF_VAR_DOMAIN###' in package
+gateway: tenant # options are 'tenant' or 'admin', controls which gateway gitlab is exposed through
 
 # contents of a gitlab license, if available
 license: ""
