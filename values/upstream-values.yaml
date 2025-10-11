@@ -5,75 +5,75 @@ gitlab:
   webservice:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-webservice-ee
-      tag: v18.4.1-fips
+      tag: v18.4.2-fips
     workhorse:
       image: registry.gitlab.com/gitlab-org/build/cng/gitlab-workhorse-ee
       # renovate: datasource=docker depName=registry.gitlab.com/gitlab-org/build/cng/gitlab-workhorse-ee versioning=docker
-      tag: v18.4.1-fips
+      tag: v18.4.2-fips
   sidekiq:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-sidekiq-ee
-      tag: v18.4.1-fips
+      tag: v18.4.2-fips
   migrations:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-toolbox-ee
-      tag: v18.4.1-fips
+      tag: v18.4.2-fips
   gitaly:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/gitaly
-      tag: v18.4.1-fips
+      tag: v18.4.2-fips
     cgroups:
       initContainer:
         image:
           repository: registry.gitlab.com/gitlab-org/build/cng/gitaly-init-cgroups
-          tag: v18.4.1
+          tag: v18.4.2
   gitlab-exporter:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-exporter
-      tag: v18.4.1-fips
+      tag: v18.4.2-fips
   gitlab-pages:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-pages
-      tag: v18.4.1-fips
+      tag: v18.4.2-fips
   gitlab-shell:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-shell
-      tag: v18.4.1-fips
+      tag: v18.4.2-fips
   praefect:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/gitaly
-      tag: v18.4.1-fips
+      tag: v18.4.2-fips
   toolbox:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-toolbox-ee
-      tag: v18.4.1-fips
+      tag: v18.4.2-fips
 
 global:
   certificates:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/certificates
-      tag: v18.4.1-fips
+      tag: v18.4.2-fips
   gitlabBase:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-base
-      tag: v18.4.1-fips
+      tag: v18.4.2-fips
   kubectl:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/kubectl
-      tag: v18.4.1-fips
+      tag: v18.4.2-fips
 
 registry:
   image:
     repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-container-registry
-    tag: v18.4.1-fips
+    tag: v18.4.2-fips
 
 shared-secrets:
   selfsign:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/cfssl-self-sign
-      tag: v18.4.1-fips
+      tag: v18.4.2-fips
 
 upgradeCheck:
   image:
     repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-base
-    tag: v18.4.1-fips
+    tag: v18.4.2-fips
