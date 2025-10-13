@@ -5,75 +5,75 @@ gitlab:
   webservice:
     image:
       repository: quay.io/rfcurated/gitlab/gitlab-webservice-ee
-      tag: 18.4.1-jammy-fips-rfcurated
+      tag: 18.4.2-jammy-fips-rfcurated
     workhorse:
       image: quay.io/rfcurated/gitlab/gitlab-workhorse-ee
       # renovate: datasource=docker depName=quay.io/rfcurated/gitlab/gitlab-workhorse-ee versioning=docker
-      tag: 18.4.1-jammy-fips-rfcurated
+      tag: 18.4.2-jammy-fips-rfcurated
   sidekiq:
     image:
       repository: quay.io/rfcurated/gitlab/gitlab-sidekiq-ee
-      tag: 18.4.1-jammy-fips-rfcurated
+      tag: 18.4.2-jammy-fips-rfcurated
   migrations:
     image:
       repository: quay.io/rfcurated/gitlab/gitlab-toolbox-ee
-      tag: 18.4.1-jammy-fips-rfcurated
+      tag: 18.4.2-jammy-fips-rfcurated
   gitaly:
     image:
       repository: quay.io/rfcurated/gitlab/gitaly
-      tag: 18.4.1-jammy-fips-rfcurated
+      tag: 18.4.2-jammy-fips-rfcurated
     cgroups:
       initContainer:
         image:
           repository: quay.io/rfcurated/gitlab/gitaly-init-cgroups
-          tag: 18.4.1-jammy-fips-rfcurated
+          tag: 18.4.2-jammy-fips-rfcurated
   gitlab-exporter:
     image:
       repository: quay.io/rfcurated/gitlab/gitlab-exporter
-      tag: 18.4.1-jammy-fips-rfcurated
+      tag: 18.4.2-jammy-fips-rfcurated
   gitlab-pages:
     image:
       repository: quay.io/rfcurated/gitlab/gitlab-pages
-      tag: 18.4.1-jammy-fips-rfcurated
+      tag: 18.4.2-jammy-fips-rfcurated
   gitlab-shell:
     image:
       repository: quay.io/rfcurated/gitlab/gitlab-shell
-      tag: 18.4.1-jammy-fips-rfcurated
+      tag: 18.4.2-jammy-fips-rfcurated
   praefect:
     image:
       repository: quay.io/rfcurated/gitlab/gitaly
-      tag: 18.4.1-jammy-fips-rfcurated
+      tag: 18.4.2-jammy-fips-rfcurated
   toolbox:
     image:
       repository: quay.io/rfcurated/gitlab/gitlab-toolbox-ee
-      tag: 18.4.1-jammy-fips-rfcurated
+      tag: 18.4.2-jammy-fips-rfcurated
 
 global:
   certificates:
     image:
       repository: quay.io/rfcurated/gitlab/certificates
-      tag: 18.4.1-jammy-fips-rfcurated
+      tag: 18.4.2-jammy-fips-rfcurated
   gitlabBase:
     image:
       repository: quay.io/rfcurated/gitlab/gitlab-base
-      tag: 18.4.1-jammy-fips-rfcurated
+      tag: 18.4.2-jammy-fips-rfcurated
   kubectl:
     image:
       repository: quay.io/rfcurated/gitlab/kubectl
-      tag: 18.4.1-jammy-fips-rfcurated
+      tag: 18.4.2-jammy-fips-rfcurated
 
 registry:
   image:
     repository: quay.io/rfcurated/gitlab/gitlab-container-registry
-    tag: 18.4.1-jammy-fips-rfcurated
+    tag: 18.4.2-jammy-fips-rfcurated
 
 shared-secrets:
   selfsign:
     image:
       repository: quay.io/rfcurated/gitlab/cfssl-self-sign
-      tag: 18.4.1-jammy-fips-rfcurated
+      tag: 18.4.2-jammy-fips-rfcurated
 
 upgradeCheck:
   image:
     repository: quay.io/rfcurated/gitlab/gitlab-base
-    tag: 18.4.1-jammy-fips-rfcurated
+    tag: 18.4.2-jammy-fips-rfcurated
