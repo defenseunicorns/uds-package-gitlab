@@ -27,7 +27,7 @@ jobs:
         exclude:
           - flavor: registry1
             architecture: arm64
-    uses: defenseunicorns/uds-common/.github/workflows/callable-publish.yaml@f38e2d9595351ba8f9455f201a66eb91ccd039f2 # v1.20.3
+    uses: defenseunicorns/uds-common/.github/workflows/callable-publish.yaml@c12c3d15f2655420ae2be8da400daae0919f6f3d # v1.21.3
     with:
       flavor: ${{ matrix.flavor }}
       runsOn: ${{ matrix.architecture == 'arm64' && 'uds-swf-ubuntu-arm64-4-core' || 'uds-swf-ubuntu-big-boy-8-core' }}
